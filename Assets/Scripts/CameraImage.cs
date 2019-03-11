@@ -14,7 +14,7 @@ public class CameraImage : MonoBehaviour {
         Screen.orientation = ScreenOrientation.LandscapeLeft;
         Screen.sleepTimeout = SleepTimeout.NeverSleep;
         //delay initialize camera
-        webcamTexture = new WebCamTexture(1280,720);
+        webcamTexture = new WebCamTexture(1600,1200);
         image = GetComponent<RawImage>();
         image.texture = webcamTexture;
         

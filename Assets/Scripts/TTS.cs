@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using Random = UnityEngine.Random;
-
+using FantomLib;
 
 public class TTS : MonoBehaviour {
 
@@ -24,6 +24,7 @@ public class TTS : MonoBehaviour {
     // Use this for initialization
     private void Start()
     {
+        
         if (receiveObject == null)
             receiveObject = this.gameObject;
 
