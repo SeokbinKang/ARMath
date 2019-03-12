@@ -11,7 +11,10 @@ EditorBuildSettings:
   - enabled: 0
     path: Assets/SceneBasicv2.unity
     guid: 6a3aedf16f288744da62f4a72146d5fb
-  - enabled: 1
+  - enabled: 0
     path: Assets/SceneBasicv3_TTS.unity
     guid: 054daf9ff5b3ef84bac3585c6e7e2cc0
+  - enabled: 1
+    path: Assets/ARMath_Protop_v1a_allmenus.unity
+    guid: bbc5e1a4da313cf479f4bb7c90b66caf
   m_configObjects: {}
