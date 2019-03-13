@@ -23,11 +23,6 @@ public enum ProblemType
     p2_division
 }
 public class ARMathDef : MonoBehaviour {
-
-
-
-
-
     // Use this for initialization
     void Start () {
 		
@@ -37,6 +32,10 @@ public class ARMathDef : MonoBehaviour {
 	void Update () {
 		
 	}
+}
+public class CVResult
+{
+    public List<CatalogItem> mObjects;
 }
 public class Gem
 {

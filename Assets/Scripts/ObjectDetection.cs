@@ -24,6 +24,7 @@ public class ObjectDetection : MonoBehaviour {
     public TextAsset model;
     public Color objectColor;
     public Texture2D tex;
+    public GameObject ContentRoot;
 
     [Header("Private member")]
     private GUIStyle style = new GUIStyle();
@@ -112,9 +113,9 @@ TensorFlowSharp.Android.NativeBinding.Init();
                              float ymax = boxes[i, j, 2] * Screen.height;
                              float xmax = boxes[i, j, 3] * Screen.width;*/
                             float ymin = boxes[i, j, 0] * Screen.height;
-                            float xmin = boxes[i, j, 1] * Screen.height+280;
+                            float xmin = boxes[i, j, 1] * Screen.height+200;
                             float ymax = boxes[i, j, 2] * Screen.height;
-                            float xmax = boxes[i, j, 3] * Screen.height+280;
+                            float xmax = boxes[i, j, 3] * Screen.height+200;
                             catalogItem.Box = Rect.MinMaxRect(xmin, Screen.height - ymax, xmax, Screen.height - ymin);
                             items.Add(catalogItem);
                             Debug.Log(catalogItem.DisplayName+" "+i+" "+j+" "+num[i]);
@@ -151,6 +152,7 @@ TensorFlowSharp.Android.NativeBinding.Init();
 
 	void OnGUI() {
         try {
+            List<CatalogItem> ret = new List<CatalogItem>();
             foreach (CatalogItem item in items) {
                 GUI.backgroundColor = objectColor;
                 //display score and label
@@ -162,10 +164,20 @@ TensorFlowSharp.Android.NativeBinding.Init();
                     || item.DisplayName.Equals("bottle")
                     || item.DisplayName.Equals("remote"))
                 {
-                    onApple(item.Box, item.DisplayName);
-                    GUI.Label(item.Box, item.DisplayName);
+                    //onApple(item.Box, item.DisplayName);
+                    //GUI.Label(item.Box, item.DisplayName);
+                    ret.Add(item);
                 }
                 }
+            CVResult cv = new CVResult();
+            if (ret.Count > 0) {
+                cv.mObjects = ret;
+                
+            }
+            ContentRoot.GetComponent<ContentRoot>().updateScenedata(cv);
+
+
+
         } catch (InvalidOperationException e) {
             Debug.Log("Collection modified during Execution " + e);
         }
