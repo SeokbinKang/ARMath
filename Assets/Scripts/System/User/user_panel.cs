@@ -11,6 +11,7 @@ public class user_panel : MonoBehaviour {
     public GameObject select;
     public GameObject name_label;
 
+    private float uid;
 	// Use this for initialization
 	void Start () {
 
@@ -48,6 +49,15 @@ public class user_panel : MonoBehaviour {
 
         //udpate stats
         stats.GetComponent<StatControl>().loadStats(u);
+
+        this.uid = u.user_id;
+
+    }
+
+    public void OnSelected()
+    {
+        SystemUser.SetCurrentUser(this.uid);
+        SystemControl.onMainMenuGlobal();
 
     }
 }

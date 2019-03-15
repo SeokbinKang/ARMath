@@ -9,6 +9,7 @@ public class ContentCounting : MonoBehaviour, IContentModule
     public GameObject sub_explorer;
     public GameObject sub_opener;
     public GameObject sub_virtualsolver;
+    public GameObject sub_ceremony;
     public GameObject sub_review;
 
     public string target_object_name = "";
@@ -16,6 +17,7 @@ public class ContentCounting : MonoBehaviour, IContentModule
 
     
     private bool is_idle = true;
+    private bool is_solved = false;
     void Start()
     {
         sub_intro.SetActive(true);
@@ -23,13 +25,19 @@ public class ContentCounting : MonoBehaviour, IContentModule
         sub_opener.SetActive(false);
         sub_virtualsolver.SetActive(false);
         sub_review.SetActive(false);
+        sub_ceremony.SetActive(false);
         is_idle = true;
+        is_solved = false;
     }
 
     // Update is called once per frame
     void Update()
     {
 
+    }
+    void OnEnable()
+    {
+        Reset();
     }
     public void Reset()
     {
@@ -38,11 +46,20 @@ public class ContentCounting : MonoBehaviour, IContentModule
         sub_opener.SetActive(false);
         sub_virtualsolver.SetActive(false);
         sub_review.SetActive(false);
+        sub_ceremony.SetActive(false);
         is_idle = true;
+        is_solved = false;
+    }
+    public void onSolved()
+    {
+        sub_ceremony.SetActive(true);
+        SystemUser.AddGem(ProblemType.p1_counting);
+        is_solved = true;
+        Debug.Log("Solved: " + target_object_name + "  " + found_object_count);
     }
     public void UpdateCVResult(CVResult cv)
     {
-        if (cv.mObjects==null)
+        if (cv.mObjects==null || is_solved)
         {
             sub_explorer.SetActive(false);
             return;
@@ -96,6 +113,7 @@ public class ContentCounting : MonoBehaviour, IContentModule
         }
         else
         {
+            sub_explorer.SetActive(false);
             // active. pass the positions of objects to the counting unit.
             if (sub_virtualsolver.activeSelf)
             {
@@ -105,7 +123,7 @@ public class ContentCounting : MonoBehaviour, IContentModule
                 {
                     if (item.DisplayName == target_object_name) target_objects.Add(item);
                 }
-                Debug.Log("[ARMath] Passing objects list to sub_virtualsolver" + target_objects.Count);
+             //   Debug.Log("[ARMath] Passing objects list to sub_virtualsolver" + target_objects.Count);
                 sub_virtualsolver.GetComponent<CountingVirtual>().updateInteractiveObjects(target_objects);
 
             }

@@ -8,7 +8,7 @@ using FantomLib;
 
 public class TTS : MonoBehaviour {
 
-
+    public static TTS mTTS;
     public GameObject receiveObject;
     public Text displayText;
     public Text statusText;
@@ -24,7 +24,7 @@ public class TTS : MonoBehaviour {
     // Use this for initialization
     private void Start()
     {
-        
+        mTTS = this;
         if (receiveObject == null)
             receiveObject = this.gameObject;
 

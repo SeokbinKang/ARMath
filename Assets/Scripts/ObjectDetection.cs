@@ -118,7 +118,7 @@ TensorFlowSharp.Android.NativeBinding.Init();
                             float xmax = boxes[i, j, 3] * Screen.height+200;
                             catalogItem.Box = Rect.MinMaxRect(xmin, Screen.height - ymax, xmax, Screen.height - ymin);
                             items.Add(catalogItem);
-                            Debug.Log(catalogItem.DisplayName+" "+i+" "+j+" "+num[i]);
+                         //   Debug.Log(catalogItem.DisplayName+" "+i+" "+j+" "+num[i]);
                         }
                     }
                 }
@@ -162,7 +162,7 @@ TensorFlowSharp.Android.NativeBinding.Init();
 
                 if (item.DisplayName.Equals("apple")
                     || item.DisplayName.Equals("bottle")
-                    || item.DisplayName.Equals("remote"))
+                    || item.DisplayName.Equals("cup"))
                 {
                     //onApple(item.Box, item.DisplayName);
                     //GUI.Label(item.Box, item.DisplayName);

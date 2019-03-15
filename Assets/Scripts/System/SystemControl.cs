@@ -22,6 +22,10 @@ public class SystemControl : MonoBehaviour {
         updateSystemObject();
 
     }
+    public static void onMainMenuGlobal()
+    {
+        mSystemControl.onMainMenu();
+    }
     public void onMainMenu()
     {
         current_status = SystemStatus.MainMenu;
@@ -45,11 +49,7 @@ public class SystemControl : MonoBehaviour {
 
     private void updateSystemObject()
     {
-        system_opening.SetActive(false);
-        system_mainmenu.SetActive(false);
-        system_selectionquestion.SetActive(false);
-        system_content.SetActive(false);
-        system_user.SetActive(false);
+       
         if (current_status== SystemStatus.Opening)
         {
             system_opening.SetActive(true);

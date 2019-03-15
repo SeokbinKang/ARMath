@@ -22,7 +22,10 @@ public class ContentRoot : MonoBehaviour {
         if (p == ProblemType.p1_counting) mContentCounting.SetActive(onoff);
 
     }
-
+    public void closeAllContent()
+    {
+        mContentCounting.SetActive(false);
+    }
     public void updateScenedata(CVResult cv)
     {
         //receive the recognition result

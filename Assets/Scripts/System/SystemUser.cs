@@ -4,11 +4,13 @@ using UnityEngine;
 
 public class SystemUser : MonoBehaviour
 {
-
+    public static UserInfo current_user;
     public GameObject user_panels_control;
     public GameObject prefab_user_panel;
 
     private int pPanelWidth = 2200;
+
+    public static List<UserInfo> user_list;
     // Use this for initialization
     void Start()
     {
@@ -21,15 +23,38 @@ public class SystemUser : MonoBehaviour
     {
 
     }
-
+    public static void AddGem(ProblemType p)
+    {
+        Gem g = new Gem();
+        g.problem_type = p;
+        current_user.AddGem(g);
+    }
+    public static void SetCurrentUser(float uid)
+    {
+        foreach (UserInfo u in user_list)
+        {
+            if (uid == u.user_id)
+            {
+                current_user = u;
+                Debug.Log("[ARMath] Set the current user for UID:" + uid);
+                return;
+            }
+        }
+        Debug.Log("[ARMath] Fail to Set the current user for UID:" + uid);
+    }
     private void loadAllUserProfiles()
     {
-        List<UserInfo> test_user = testUserPanel();
+        if(user_list==null) user_list = testUserPanel();
+            else
+        {
+            user_list.Clear();
+            user_list = testUserPanel();
+        }
         int x_leftmost = pPanelWidth / 2 * -1;
-        int n_div = test_user.Count + 1;
+        int n_div = user_list.Count + 1;
         int x_offset = pPanelWidth / n_div;
         int i = 0;
-        foreach (UserInfo t in test_user)
+        foreach (UserInfo t in user_list)
         {
             GameObject newUserPane = Instantiate(prefab_user_panel, Vector3.zero, Quaternion.identity) as GameObject;
             newUserPane.transform.parent = user_panels_control.gameObject.transform;
@@ -52,10 +77,13 @@ public class SystemUser : MonoBehaviour
         UserInfo u3 = new UserInfo();
         UserInfo u4 = new UserInfo();
         u1.user_name = "seokbin";
-        u2.user_name = "abcdefg";
-        u3.user_name = "erteryt";
+        u2.user_name = "leylana";
+        u3.user_name = "virginia";
         u4.user_name = "new user";
-
+        u1.user_id = 343f;
+        u2.user_id = 23232f;
+        u3.user_id = 343454f;
+        u4.user_id = 34f;
         for (int i = 0; i < 9; i++)
         {
             Gem g = new Gem();
@@ -80,6 +108,10 @@ public class SystemUser : MonoBehaviour
         ret.Add(u2);
         ret.Add(u3);
         ret.Add(u4);
+
+      
         return ret;
     }
+
+    
 }

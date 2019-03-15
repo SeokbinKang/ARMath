@@ -12,16 +12,23 @@ public class CountingOpener : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
         //load dialogue text
+        Reset();
+    }
+    void OnEnable()
+    {
+        Reset();
+    }
+    // Update is called once per frame
+    void Update () {
+		
+	}
+    private void Reset()
+    {
         dialogue_text_status.SetActive(false);
         dialogue_text_none.SetActive(false);
         dialogue_text_prompt.SetActive(false);
         loadDialogue();
     }
-	
-	// Update is called once per frame
-	void Update () {
-		
-	}
     public void loadDialogue()
     {
         string dialogue = "Oh!There is a set of OOOs.";
@@ -34,6 +41,7 @@ public class CountingOpener : MonoBehaviour {
         {
             dialogue_text_status.SetActive(true);
             dialogue_text_status.GetComponent<Text>().text = "Oh!I have been looking for " + target_object_name + "s! " + "I see a SET of them";
+            TTS.mTTS.GetComponent<TTS>().StartTextToSpeech(dialogue_text_status.GetComponent<Text>().text);
         }
 
 
@@ -48,6 +56,7 @@ public class CountingOpener : MonoBehaviour {
         //        if (target_n_of_objects > 1) target_n_of_objects = random.Next(2, target_n_of_objects);
         dialogue_text_prompt.SetActive(true);
         dialogue_text_prompt.GetComponent<Text>().text = "Can you get me " + target_n_of_objects.ToString() + " " + target_object_name + "s?";
+        TTS.mTTS.GetComponent<TTS>().StartTextToSpeech(dialogue_text_prompt.GetComponent<Text>().text);
     }
 }
 

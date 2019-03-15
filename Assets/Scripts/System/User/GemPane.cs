@@ -35,7 +35,7 @@ public class GemPane : MonoBehaviour {
         int div_n = length + 1;
         int offset = control_width / div_n;
         offset = 50;
-        Debug.Log("Updating Gems : " + length);
+        
         for(int i = 0; i < length; i++)
         {
             GameObject prefab = GetGemIcon(g_list[i]);
