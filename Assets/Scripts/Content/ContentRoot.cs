@@ -4,10 +4,14 @@ using UnityEngine;
 
 public class ContentRoot : MonoBehaviour {
     public GameObject mContentCounting;
+    public GameObject mContentAddition;
+    public GameObject mContentSubtraction;
+    public GameObject mContentMult;
+    public GameObject mContentDiv;
 
 
-	// Use this for initialization
-	void Start () {
+    // Use this for initialization
+    void Start () {
         mContentCounting.SetActive(false);
 
     }
@@ -36,22 +40,23 @@ public class ContentRoot : MonoBehaviour {
 
     public void enableContentCounting(bool t)
     {
-        mContentCounting.SetActive(t);
+
+        mContentCounting.SetActive(!mContentCounting.activeSelf);
     }
     public void enableContentAddition(bool t)
     {
-        mContentCounting.SetActive(t);
+        mContentAddition.SetActive(!mContentAddition.activeSelf);
     }
     public void enableContentSubtraction(bool t)
     {
-        mContentCounting.SetActive(t);
+        mContentSubtraction.SetActive(!mContentSubtraction.activeSelf);
     }
     public void enableContentMulti(bool t)
     {
-        mContentCounting.SetActive(t);
+        mContentMult.SetActive(!mContentMult.activeSelf);
     }
     public void enableContentDivision(bool t)
     {
-        mContentCounting.SetActive(t);
+        mContentDiv.SetActive(!mContentDiv.activeSelf);
     }
 }

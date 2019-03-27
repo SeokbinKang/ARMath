@@ -57,7 +57,7 @@ public class user_panel : MonoBehaviour {
     public void OnSelected()
     {
         SystemUser.SetCurrentUser(this.uid);
-        SystemControl.onMainMenuGlobal();
+        SystemControl.onContentGlobal();
 
     }
 }

@@ -22,6 +22,12 @@ public enum ProblemType
     p2_multiplication,
     p2_division
 }
+public class SystemParam
+{
+    public static float param_object_lifetime = 3;  //second
+    public static float param_object_rect_overlap_portion = 0.6f;
+
+}
 public class ARMathDef : MonoBehaviour {
     // Use this for initialization
     void Start () {

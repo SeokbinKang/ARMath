@@ -14,6 +14,7 @@ public class SystemUser : MonoBehaviour
     // Use this for initialization
     void Start()
     {
+        current_user = null;
         loadAllUserProfiles();
 
     }

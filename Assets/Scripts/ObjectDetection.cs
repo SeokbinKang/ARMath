@@ -36,8 +36,14 @@ public class ObjectDetection : MonoBehaviour {
     [Header("Thread stuff")]
     Thread _thread;
     byte[] pixels;
+    byte[] pixels_L;
+    byte[] pixels_R;
     Color32 pixel;
+    Color32 pixel_L;
+    Color32 pixel_R;
     Color32[] colorPixels;
+    Color32[] colorPixels_L;
+    Color32[] colorPixels_R;
     TFTensor[] output;
     bool pixelsUpdated = false;
     bool processingImage = true;
@@ -51,6 +57,8 @@ TensorFlowSharp.Android.NativeBinding.Init();
 #endif
 
         pixels = new byte[INPUT_SIZE * INPUT_SIZE * 3];
+        pixels_L = new byte[INPUT_SIZE * INPUT_SIZE * 3];
+        pixels_R = new byte[INPUT_SIZE * INPUT_SIZE * 3];
         _catalog = CatalogUtil.ReadCatalogItems(labelMap.text);
         Debug.Log("Loading graph...");
         graph = new TFGraph();
@@ -72,16 +80,109 @@ TensorFlowSharp.Android.NativeBinding.Init();
         
 
         // Begin our heavy work on a new thread.
-        _thread = new Thread(ThreadedWork);
+        _thread = new Thread(ThreadedWork_twinFrame);
         _thread.Start();
         //do this to avoid warnings
         processingImage = true;
         yield return new WaitForEndOfFrame();
         processingImage = false;
     }
+    void ThreadedWork_twinFrame()
+    {
+        while (true)
+        {
+            if (pixelsUpdated)
+            {
 
+                //left frame
+                TFShape shape = new TFShape(1, INPUT_SIZE, INPUT_SIZE, 3);
+                var tensor = TFTensor.FromBuffer(shape, pixels_L, 0, pixels_L.Length);
+                var runner = session.GetRunner();
+                runner.AddInput(graph["image_tensor"][0], tensor).Fetch(
+                    graph["detection_boxes"][0],
+                    graph["detection_scores"][0],
+                    graph["num_detections"][0],
+                    graph["detection_classes"][0]);
+                output = runner.Run();
 
-    void ThreadedWork() {
+                var boxes = (float[,,])output[0].GetValue(jagged: false);
+                var scores = (float[,])output[1].GetValue(jagged: false);
+                var num = (float[])output[2].GetValue(jagged: false);
+                var classes = (float[,])output[3].GetValue(jagged: false);
+                items.Clear();
+                //loop through all detected objects
+                for (int i = 0; i < num.Length; i++)
+                {
+                    //  for (int j = 0; j < scores.GetLength(i); j++) {
+                    for (int j = 0; j < num[i]; j++)
+                    {
+                        float score = scores[i, j];
+                        if (score > MIN_SCORE)
+                        {
+                            CatalogItem catalogItem = _catalog.FirstOrDefault(item => item.Id == Convert.ToInt32(classes[i, j]));
+                            catalogItem.Score = score;
+                            /* float ymin = boxes[i, j, 0] * Screen.height;
+                             float xmin = boxes[i, j, 1] * Screen.width;
+                             float ymax = boxes[i, j, 2] * Screen.height;
+                             float xmax = boxes[i, j, 3] * Screen.width;*/
+                            float ymin = boxes[i, j, 0] * Screen.height;
+                            float xmin = boxes[i, j, 1] * Screen.height;
+                            float ymax = boxes[i, j, 2] * Screen.height;
+                            float xmax = boxes[i, j, 3] * Screen.height;
+                            catalogItem.Box = Rect.MinMaxRect(xmin, Screen.height - ymax, xmax, Screen.height - ymin);
+                            items.Add(catalogItem);
+                            //   Debug.Log(catalogItem.DisplayName+" "+i+" "+j+" "+num[i]);
+                        }
+                    }
+                }
+
+                //right frame
+                shape = new TFShape(1, INPUT_SIZE, INPUT_SIZE, 3);
+                tensor = TFTensor.FromBuffer(shape, pixels_R, 0, pixels_R.Length);
+                runner = session.GetRunner();
+                runner.AddInput(graph["image_tensor"][0], tensor).Fetch(
+                    graph["detection_boxes"][0],
+                    graph["detection_scores"][0],
+                    graph["num_detections"][0],
+                    graph["detection_classes"][0]);
+                output = runner.Run();
+
+                boxes = (float[,,])output[0].GetValue(jagged: false);
+                scores = (float[,])output[1].GetValue(jagged: false);
+                num = (float[])output[2].GetValue(jagged: false);
+                classes = (float[,])output[3].GetValue(jagged: false);
+                
+                //loop through all detected objects
+                for (int i = 0; i < num.Length; i++)
+                {
+                    //  for (int j = 0; j < scores.GetLength(i); j++) {
+                    for (int j = 0; j < num[i]; j++)
+                    {
+                        float score = scores[i, j];
+                        if (score > MIN_SCORE)
+                        {
+                            CatalogItem catalogItem = _catalog.FirstOrDefault(item => item.Id == Convert.ToInt32(classes[i, j]));
+                            catalogItem.Score = score;
+                            /* float ymin = boxes[i, j, 0] * Screen.height;
+                             float xmin = boxes[i, j, 1] * Screen.width;
+                             float ymax = boxes[i, j, 2] * Screen.height;
+                             float xmax = boxes[i, j, 3] * Screen.width;*/
+                            float ymin = boxes[i, j, 0] * Screen.height;
+                            float xmin = boxes[i, j, 1] * Screen.height+400;
+                            float ymax = boxes[i, j, 2] * Screen.height;
+                            float xmax = boxes[i, j, 3] * Screen.height+400;
+                            catalogItem.Box = Rect.MinMaxRect(xmin, Screen.height - ymax, xmax, Screen.height - ymin);
+                            items.Add(catalogItem);
+                            //   Debug.Log(catalogItem.DisplayName+" "+i+" "+j+" "+num[i]);
+                        }
+                    }
+                }
+                pixelsUpdated = false;
+            }
+        }
+    }
+
+    void ThreadedWork_singleFrame() {
         while (true) {
             if (pixelsUpdated) {
                 TFShape shape = new TFShape(1, INPUT_SIZE, INPUT_SIZE, 3);
@@ -127,6 +228,38 @@ TensorFlowSharp.Android.NativeBinding.Init();
         }
     }
 
+    IEnumerator ProcessImage_twinFrame()
+    {
+        colorPixels_L = cameraImage.ProcessImage_twinFrame(0);
+        colorPixels_R = cameraImage.ProcessImage_twinFrame(1);
+
+        Debug.Log("[ARMath] debug point #1");
+        //update pixels (Cant use Color32[] on non monobehavior thread
+        if (colorPixels_L.Length != colorPixels_R.Length)
+        {
+            Debug.Log("[ARMath] the sizes of twin frames do not match");
+            yield return null;
+        }
+        for (int i = 0; i < colorPixels_L.Length; ++i)
+        {
+            pixel_L = colorPixels_L[i];
+            pixels_L[i * 3 + 0] = (byte)((pixel_L.r - IMAGE_MEAN) / IMAGE_STD);
+            pixels_L[i * 3 + 1] = (byte)((pixel_L.g - IMAGE_MEAN) / IMAGE_STD);
+            pixels_L[i * 3 + 2] = (byte)((pixel_L.b - IMAGE_MEAN) / IMAGE_STD);
+
+            pixel_R = colorPixels_R[i];
+            pixels_R[i * 3 + 0] = (byte)((pixel_R.r - IMAGE_MEAN) / IMAGE_STD);
+            pixels_R[i * 3 + 1] = (byte)((pixel_R.g - IMAGE_MEAN) / IMAGE_STD);
+            pixels_R[i * 3 + 2] = (byte)((pixel_R.b - IMAGE_MEAN) / IMAGE_STD);
+        }
+        Debug.Log("[ARMath] debug point #2");
+
+        //flip bool so other thread will execute
+        pixelsUpdated = true;
+        //Resources.UnloadUnusedAssets();
+        processingImage = false;
+        yield return null;
+    }
     IEnumerator ProcessImage(){
         colorPixels = cameraImage.ProcessImage();
         //update pixels (Cant use Color32[] on non monobehavior thread
@@ -146,7 +279,7 @@ TensorFlowSharp.Android.NativeBinding.Init();
 	private void Update() {
         if (!pixelsUpdated && !processingImage){
             processingImage = true;
-            StartCoroutine(ProcessImage());
+            StartCoroutine(ProcessImage_twinFrame());
         }
 	}
 

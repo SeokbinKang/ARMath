@@ -20,6 +20,19 @@ public class CameraImage : MonoBehaviour {
         
         webcamTexture.Play();
     }
+    public Color32[] ProcessImage_twinFrame(int l_or_r)
+    {
+        //crop
+        TextureTools.RectOptions option = TextureTools.RectOptions.TopLeft;
+        if (l_or_r == 1) option = TextureTools.RectOptions.TopRight;
+        var cropped = TextureTools.CropTexture(webcamTexture, option);
+        //   Debug.Log("Original Image size = " + webcamTexture.width + " " + webcamTexture.height);
+        //   Debug.Log("Cropped  Image size = " + cropped.width + " " + cropped.height);
+        //scale
+        var scaled = TextureTools.scaled(cropped, 224, 224, FilterMode.Bilinear);
+        //run detection
+        return scaled.GetPixels32();
+    }
 
     public Color32[] ProcessImage(){
         //crop

@@ -20,11 +20,15 @@ public class SystemControl : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
         updateSystemObject();
-
+        keyInput();
     }
     public static void onMainMenuGlobal()
     {
         mSystemControl.onMainMenu();
+    }
+    public static void onContentGlobal()
+    {
+        mSystemControl.onContent();
     }
     public void onMainMenu()
     {
@@ -46,7 +50,17 @@ public class SystemControl : MonoBehaviour {
     {
         current_status = SystemStatus.Content;
     }
-
+    private void keyInput()
+    {
+        if (Application.platform == RuntimePlatform.Android)
+        {
+            if (Input.GetKey(KeyCode.Home) || Input.GetKey(KeyCode.Escape) || Input.GetKey(KeyCode.Menu))
+            {
+                onMainMenu();
+                return;
+            }
+        }
+    }
     private void updateSystemObject()
     {
        

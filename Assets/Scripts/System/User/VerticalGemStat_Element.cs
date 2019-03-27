@@ -23,6 +23,7 @@ public class VerticalGemStat_Element : MonoBehaviour {
 
     public void UpdateGem(int sprite_index, int count, ProblemType p_type)
     {
+        Debug.Log("[ARMath] update gem -> " + sprite_index + "  " + count+ "  "+p_type);
         icon.GetComponent<RawImage>().texture = gem_sprites[sprite_index];
         count_label.GetComponent<Text>().text = count.ToString();
         this.problem_type = p_type;
