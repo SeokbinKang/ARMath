@@ -3,14 +3,20 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class CountingVirtual : MonoBehaviour {
+public class CountingTangible : MonoBehaviour {
 
     public GameObject prompt;
+    
     public GameObject prompt_text;
 
+
     public GameObject board;
-    public GameObject board_math_text;
-    public GameObject board_icons;
+   
+
+    public GameObject container;
+
+
+
     public GameObject ContentModuleRoot;
     public GameObject prefab_tap;
     private List<GameObject> tap_list;
@@ -23,9 +29,10 @@ public class CountingVirtual : MonoBehaviour {
     // Use this for initialization
 
     private float nextActionTime = 0.0f;
-    
 
-    void Start () {        
+    
+    void Start()
+    {
         prompt.SetActive(true);
         board.SetActive(false);
         IsCounting = false;
@@ -46,25 +53,39 @@ public class CountingVirtual : MonoBehaviour {
         tap_list = new List<GameObject>();
     }
     // Update is called once per frame
-    void Update () {
+    void Update()
+    {
         if (IsCounting) UpdateBoard();
 
         if (Time.time > nextActionTime)
         {
             nextActionTime = Time.time + SystemParam.system_update_period;
             // execute block of code here
-            UpdateInteractiveObjects();
+          //  UpdateInteractiveObjects();
+            count_object();
+        }
+    }
+    private void count_object()
+    {
+        if (!container || !IsCounting) return;
+        List<SceneObject> objs = container.GetComponent<ObjectContainer>().get_objects_in_rect();
+
+        
+        if (objs.Count> counting_n)
+        {
+            counting_n = objs.Count;
+            OnCount();
         }
     }
     public void OnCount()
-    {        
-        counting_n++;
+    {
+        
         TTS.mTTS.GetComponent<TTS>().StartTextToSpeech(counting_n + "!");
 
         UpdateBoard();
         //sound effect
 
-        if(ContentModuleRoot.GetComponent<ContentCounting>().found_object_count<=counting_n)
+        if (ContentModuleRoot.GetComponent<ContentCounting>().found_object_count <= counting_n)
         {
             OnCompletion();
         }
@@ -80,7 +101,7 @@ public class CountingVirtual : MonoBehaviour {
         prompt.SetActive(true);
         //prompt_text.SetActive(true);
         target_object_name = ContentModuleRoot.GetComponent<ContentCounting>().target_object_name;
-        prompt_text.GetComponent<Text>().text = "Let's collect " + target_object_name+ "s for the minion by TAPPING them on the screen";
+        prompt_text.GetComponent<Text>().text = "Let's give the minion "+ target_object_name + "by moving them to the red tray";
         TTS.mTTS.GetComponent<TTS>().StartTextToSpeech(prompt_text.GetComponent<Text>().text);
         IsCounting = false;
     }
@@ -93,15 +114,15 @@ public class CountingVirtual : MonoBehaviour {
     }
 
     private void UpdateBoard()
-    {        
+    {
         board.GetComponent<board>().setMathText("= " + counting_n.ToString());
         board.GetComponent<board>().setIcon(target_object_name, counting_n);
     }
     private void clearinteractiveobjects()
     {
         for (int k = 0; k < tap_list.Count; k++)
-        {  
-                GameObject.Destroy(tap_list[k]);
+        {
+            GameObject.Destroy(tap_list[k]);
         }
         tap_list.RemoveAll(s => s == null);
     }
@@ -157,12 +178,12 @@ public class CountingVirtual : MonoBehaviour {
 
     public void updateInteractiveObjects(List<CatalogItem> objs)
     {
-        if (prefab_tap == null || !IsCounting ) return;
+        if (prefab_tap == null || !IsCounting) return;
 
         bool[] is_valid;
         if (tap_list.Count > 0)
         {
-            is_valid = new bool[tap_list.Count];            
+            is_valid = new bool[tap_list.Count];
             for (int k = 0; k < tap_list.Count; k++)
             {
                 is_valid[k] = false;
@@ -221,13 +242,13 @@ public class CountingVirtual : MonoBehaviour {
             }
 
         }
-        
+
         for (int k = 0; k < is_valid.Length; k++)
         {
             if (!is_valid[k])
             {
                 GameObject.Destroy(tap_list[k]);
-                tap_list[k] = null;                
+                tap_list[k] = null;
             }
         }
         tap_list.RemoveAll(s => s == null);
@@ -249,7 +270,7 @@ public class CountingVirtual : MonoBehaviour {
 
     private void generateObjectPop(CatalogItem i)
     {
-        
+
         Vector3 targetPos = new Vector3(i.Box.center.x, Screen.height - i.Box.center.y, 0);
 
         UnityEngine.GameObject label = Instantiate(prefab_tap, targetPos, Quaternion.identity) as GameObject;

@@ -2,15 +2,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-interface IContentModule
-{
-    void UpdateCVResult(CVResult cv);
-    void onSolved();
-    void UpdateExplorer();
-}
+public class SystemQuestion : MonoBehaviour {
 
-    public class ContentModule : MonoBehaviour {
-
+    public GameObject content_root;
 	// Use this for initialization
 	void Start () {
 		
@@ -20,4 +14,9 @@ interface IContentModule
 	void Update () {
 		
 	}
+
+    private void OnEnable()
+    {
+        content_root.GetComponent<ContentRoot>().closeAllContent();
+    }
 }

@@ -50,7 +50,8 @@ public class ObjectDetection : MonoBehaviour {
 
     // Use this for initialization
     public GameObject AppCountUI;
-    
+    private float nextActionTime = 0.0f;
+
     IEnumerator Start() {
 #if UNITY_ANDROID && !UNITY_EDITOR
 TensorFlowSharp.Android.NativeBinding.Init();
@@ -167,10 +168,11 @@ TensorFlowSharp.Android.NativeBinding.Init();
                              float xmin = boxes[i, j, 1] * Screen.width;
                              float ymax = boxes[i, j, 2] * Screen.height;
                              float xmax = boxes[i, j, 3] * Screen.width;*/
+                            float x_shift = Screen.width - Screen.height;
                             float ymin = boxes[i, j, 0] * Screen.height;
-                            float xmin = boxes[i, j, 1] * Screen.height+400;
+                            float xmin = boxes[i, j, 1] * Screen.height+ x_shift;
                             float ymax = boxes[i, j, 2] * Screen.height;
-                            float xmax = boxes[i, j, 3] * Screen.height+400;
+                            float xmax = boxes[i, j, 3] * Screen.height+ x_shift;
                             catalogItem.Box = Rect.MinMaxRect(xmin, Screen.height - ymax, xmax, Screen.height - ymin);
                             items.Add(catalogItem);
                             //   Debug.Log(catalogItem.DisplayName+" "+i+" "+j+" "+num[i]);
@@ -233,7 +235,7 @@ TensorFlowSharp.Android.NativeBinding.Init();
         colorPixels_L = cameraImage.ProcessImage_twinFrame(0);
         colorPixels_R = cameraImage.ProcessImage_twinFrame(1);
 
-        Debug.Log("[ARMath] debug point #1");
+        //Debug.Log("[ARMath] debug point #1");
         //update pixels (Cant use Color32[] on non monobehavior thread
         if (colorPixels_L.Length != colorPixels_R.Length)
         {
@@ -252,7 +254,7 @@ TensorFlowSharp.Android.NativeBinding.Init();
             pixels_R[i * 3 + 1] = (byte)((pixel_R.g - IMAGE_MEAN) / IMAGE_STD);
             pixels_R[i * 3 + 2] = (byte)((pixel_R.b - IMAGE_MEAN) / IMAGE_STD);
         }
-        Debug.Log("[ARMath] debug point #2");
+        
 
         //flip bool so other thread will execute
         pixelsUpdated = true;
@@ -285,6 +287,12 @@ TensorFlowSharp.Android.NativeBinding.Init();
 
 	void OnGUI() {
         try {
+            if (Time.time > nextActionTime)
+            {
+                nextActionTime = Time.time + 1.5f;
+                SceneObjectManager.mSOManager.add_new_object(items);
+            }
+            /*
             List<CatalogItem> ret = new List<CatalogItem>();
             foreach (CatalogItem item in items) {
                 GUI.backgroundColor = objectColor;
@@ -308,6 +316,7 @@ TensorFlowSharp.Android.NativeBinding.Init();
                 
             }
             ContentRoot.GetComponent<ContentRoot>().updateScenedata(cv);
+            */
 
 
 
@@ -318,7 +327,7 @@ TensorFlowSharp.Android.NativeBinding.Init();
 
     private void onApple(Rect box,string name)
     {
-        AppCountUI.GetComponent<AppCounting>().objectFound(box, name);
+       // AppCountUI.GetComponent<AppCounting>().objectFound(box, name);
     }
 }
 

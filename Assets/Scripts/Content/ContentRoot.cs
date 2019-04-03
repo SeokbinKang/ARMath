@@ -34,14 +34,15 @@ public class ContentRoot : MonoBehaviour {
     {
         //receive the recognition result
 
-        //pass the recognition result to individual content unit. if it is turned on.
-        if (mContentCounting.activeSelf) mContentCounting.GetComponent<ContentCounting>().UpdateCVResult(cv);
+        //pass the recognition result to individual content unit. if it is turned on. DEPRECATED
+      //  if (mContentCounting.activeSelf) mContentCounting.GetComponent<ContentCounting>().UpdateCVResult(cv);
     }
 
     public void enableContentCounting(bool t)
     {
 
         mContentCounting.SetActive(!mContentCounting.activeSelf);
+
     }
     public void enableContentAddition(bool t)
     {
