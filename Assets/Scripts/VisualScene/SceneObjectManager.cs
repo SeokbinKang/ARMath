@@ -96,6 +96,7 @@ public class SceneObjectManager : MonoBehaviour {
         //find the type of dominant objects
         Dictionary<string, Vector2> center = new Dictionary<string, Vector2>();
         Dictionary<string, int> counter = new Dictionary<string, int>();
+        if (mObjectPool == null) return;
         foreach (SceneObject so in mObjectPool)
         {
             if (counter.ContainsKey(so.catalogInfo.DisplayName))
@@ -119,6 +120,7 @@ public class SceneObjectManager : MonoBehaviour {
                 dominant_object_name = kvp.Key;
             }
         }
+        if (dominant_object_name == "") return;
         Vector2 center_of_objects = center[dominant_object_name] / ((float)counter[dominant_object_name]);
         count = counter[dominant_object_name];
         name = dominant_object_name;

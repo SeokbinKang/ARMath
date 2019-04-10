@@ -29,7 +29,7 @@ public class CameraImage : MonoBehaviour {
         //   Debug.Log("Original Image size = " + webcamTexture.width + " " + webcamTexture.height);
         //   Debug.Log("Cropped  Image size = " + cropped.width + " " + cropped.height);
         //scale
-        var scaled = TextureTools.scaled(cropped, 224, 224, FilterMode.Bilinear);
+        var scaled = TextureTools.scaled(cropped, SystemParam.image_size, SystemParam.image_size, FilterMode.Bilinear);
         //run detection
         return scaled.GetPixels32();
     }
@@ -40,7 +40,7 @@ public class CameraImage : MonoBehaviour {
      //   Debug.Log("Original Image size = " + webcamTexture.width + " " + webcamTexture.height);
      //   Debug.Log("Cropped  Image size = " + cropped.width + " " + cropped.height);
         //scale
-        var scaled = TextureTools.scaled(cropped, 224, 224, FilterMode.Bilinear);
+        var scaled = TextureTools.scaled(cropped, SystemParam.image_size, SystemParam.image_size, FilterMode.Bilinear);
         //run detection
         return scaled.GetPixels32();
     }

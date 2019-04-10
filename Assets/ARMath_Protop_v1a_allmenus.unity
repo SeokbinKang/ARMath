@@ -1269,7 +1269,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &213305471
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4021,7 +4021,7 @@ MonoBehaviour:
   system_selectionquestion: {fileID: 120490758}
   system_content: {fileID: 1208136663}
   system_user: {fileID: 1070695445}
-  content_root: {fileID: 0}
+  content_root: {fileID: 1831382834}
 --- !u!1 &736922920
 GameObject:
   m_ObjectHideFlags: 0
@@ -6999,7 +6999,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cameraImage: {fileID: 681225504}
   labelMap: {fileID: 4900000, guid: 3c4c74b6fb0a84b32903936a5ab7c544, type: 3}
-  model: {fileID: 4900000, guid: 735d39e0ba17e470e8026d72623758a0, type: 3}
+  model: {fileID: 4900000, guid: ce2f31bcdaa909a4e9fb992f8fff01fc, type: 3}
+  model_faster_rcnn_resnet101: {fileID: 4900000, guid: 9c0e10dcaa25fb24e8edca17026e6f4c,
+    type: 3}
+  model_ssdlite_v2_mobilenet: {fileID: 4900000, guid: 1b353f5d8616ff547bbaa5341ad4cbc4,
+    type: 3}
   objectColor: {r: 0.39994782, g: 1, b: 0.909, a: 1}
   tex: {fileID: 2800000, guid: df58f449810c548818d4f841d9b683f9, type: 3}
   ContentRoot: {fileID: 1831382834}
@@ -10076,7 +10080,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1915828282
 Transform:
   m_ObjectHideFlags: 0

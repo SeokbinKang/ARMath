@@ -28,6 +28,8 @@ public class SystemParam
     public static float param_object_rect_overlap_portion = 0.3f;
     public static float system_update_period = 1.0f;  //second
 
+    public static int image_size = 300;
+
 }
 public class ARMathDef : MonoBehaviour {
     // Use this for initialization
