@@ -35,8 +35,18 @@ public class SceneObjectManager : MonoBehaviour {
 
         
     }
+
+    public SceneObject get_object(int id_)
+    {
+        foreach (SceneObject so in mObjectPool)
+        {
+            if (so.id == id_) return so;
+        }
+        return null;
+    }
     public void print_object_logs()
     {
+        
         Debug.Log("[ARMath]" + mObjectPool);
     }
     public void add_new_object(SceneObject o)
@@ -72,6 +82,18 @@ public class SceneObjectManager : MonoBehaviour {
         foreach (SceneObject so in mObjectPool)
         {
             if (so.check_overlap(rect))
+            {
+                ret.Add(so);
+            }
+        }
+        return ret;
+    }
+    public List<SceneObject> get_objects_in_rect(Rect rect, string obj_name)
+    {
+        List<SceneObject> ret = new List<SceneObject>();
+        foreach (SceneObject so in mObjectPool)
+        {
+            if (so.catalogInfo.DisplayName==obj_name && so.check_in_box(rect))
             {
                 ret.Add(so);
             }
@@ -114,12 +136,15 @@ public class SceneObjectManager : MonoBehaviour {
         string dominant_object_name = "";
         foreach (KeyValuePair<string, int> kvp in counter)
         {
+            Debug.Log("[ARMath] object pool: " + kvp.Key + "  ->  " + kvp.Value);
             if (kvp.Value > max_freq)
             {
                 max_freq = kvp.Value;
                 dominant_object_name = kvp.Key;
             }
         }
+        //debug objects
+        
         if (dominant_object_name == "") return;
         Vector2 center_of_objects = center[dominant_object_name] / ((float)counter[dominant_object_name]);
         count = counter[dominant_object_name];
@@ -132,29 +157,81 @@ public class SceneObjectManager : MonoBehaviour {
 
 public class SceneObject
 {
-    
+    public static int global_id_counter=0;
     public CatalogItem catalogInfo;
     public float time_instantiated;
     public float time_expire;
     public int id;
 
-
+    private bool been_interacted;
+    private List<GameObject> attached_feedback_gameobject;
+    
     public SceneObject()
     {
         init();
-        catalogInfo = null;
+        
+    }
+    ~SceneObject()
+    {
+        clear_feedback();
+
     }
     public SceneObject(CatalogItem ci)
     {
+        
+        init();
         catalogInfo = ci;
-        init();        
+        
     }
     public bool check_if_dead()
     {
         if (Time.time > time_expire) return true;
         return false;
     }
-    
+    public bool interact()
+    {
+        if (been_interacted) return false;
+        been_interacted = true;
+        return true;
+    }
+    public bool is_interactive()
+    {
+        return !been_interacted;
+    }
+    public void clear_feedback()
+    {
+        if (attached_feedback_gameobject != null)
+        {
+            foreach (var i in attached_feedback_gameobject)
+                GameObject.Destroy(i);
+            attached_feedback_gameobject.Clear();
+        }
+
+    }
+    public bool is_feedback_attached()
+    {
+        if (attached_feedback_gameobject.Count > 0) return true;
+        return false;
+    }
+    public bool attach_object(GameObject feedback_go)
+    {
+        if(attached_feedback_gameobject==null) attached_feedback_gameobject = new List<GameObject>();
+        if (feedback_go != null) this.attached_feedback_gameobject.Add(feedback_go);        
+        return true;
+    }
+    public int get_number_feedback()
+    {
+        int ret = -1;
+        if (attached_feedback_gameobject != null)
+        {
+            foreach(GameObject o in attached_feedback_gameobject)
+            {
+                number_cartoon n_c = o.GetComponent<number_cartoon>();
+                if (n_c != null) return n_c.num;
+            }
+        }
+            return ret;
+    }
     public void extend_life()
     {
         time_expire = Time.time + SystemParam.param_object_lifetime;
@@ -175,10 +252,32 @@ public class SceneObject
         Debug.Log("[ARMath] box overlap test: object[" + box + "]  region[" + rect + "]  =  "+ret);
         return ret;
     }
+    public bool check_in_box(Rect rect)
+    {
+        bool ret = false;
+        bool my_ret = false;
+        
+        Rect box = this.catalogInfo.Box;
+        box.center = new Vector2(box.center.x, Screen.height - box.center.y);
+        ret = rect.Contains(box.center);
+        Debug.Log("[ARMath] box container test: " + box.center.x + "  " + (rect.x - rect.width / 2) + "  " + (rect.x + rect.width / 2) + "  " + box.center.y + "  " + (rect.y - rect.height / 2) + "  " + (rect.y + rect.height / 2));
+        if (box.center.x >= (rect.x-rect.width/2) && box.center.x <= (rect.x + rect.width / 2) &&
+            box.center.y >= (rect.y - rect.height / 2) && box.center.y <= (rect.y + rect.height / 2))
+        {
+            
+            my_ret = true;
+        }
+        Debug.Log("[ARMath] box container test: object[" + box.center + "]  region[" + rect + "]  =  " + ret +" or "+my_ret);
+        return my_ret;
+    }
     private void init()
     {
         time_instantiated = Time.time;
         time_expire = Time.time + SystemParam.param_object_lifetime;
+        catalogInfo = null;
+        been_interacted = false;
+        attached_feedback_gameobject = new List<GameObject>();
+      
     }
     private float calculate_overlap(SceneObject o2)
     {

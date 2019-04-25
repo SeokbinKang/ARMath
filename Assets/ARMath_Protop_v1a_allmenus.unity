@@ -1513,6 +1513,8 @@ MonoBehaviour:
   prefab_bottle: {fileID: 1225428913208650, guid: c35b862c957f6b745a6d7f8c57d938d1,
     type: 2}
   prefab_cup: {fileID: 1747360782856068, guid: 19bb1d99ca782494ab0678c5261a540e, type: 2}
+  prefab_coin: {fileID: 1683886149972630, guid: cf1a3c63f33ef6541b095624175269fb,
+    type: 2}
 --- !u!114 &258479560
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1892,6 +1894,7 @@ RectTransform:
   m_LocalScale: {x: 0, y: 0, z: 0}
   m_Children:
   - {fileID: 681225503}
+  - {fileID: 629238479}
   - {fileID: 1831382835}
   - {fileID: 345241726}
   - {fileID: 724385818}
@@ -1935,7 +1938,7 @@ RectTransform:
   - {fileID: 2101141944}
   - {fileID: 1315016680}
   m_Father: {fileID: 340549107}
-  m_RootOrder: 2
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -3060,6 +3063,53 @@ CanvasRenderer:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 625697660}
   m_CullTransparentMesh: 0
+--- !u!1 &629238478
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 629238479}
+  - component: {fileID: 629238480}
+  m_Layer: 5
+  m_Name: FeedbackRoot
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &629238479
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 629238478}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 340549107}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 2048, y: 1536}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &629238480
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 629238478}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 67cebc39922e920409f861ec4ad887e9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  prefabe_number_cartoon_digit: {fileID: 1299168232359742, guid: c441ac991752417419376554616e80e2,
+    type: 2}
 --- !u!1 &635683148
 GameObject:
   m_ObjectHideFlags: 0
@@ -4002,7 +4052,7 @@ Transform:
   - {fileID: 1208136664}
   - {fileID: 139476343}
   m_Father: {fileID: 340549107}
-  m_RootOrder: 3
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &724385819
 MonoBehaviour:
@@ -4071,6 +4121,8 @@ MonoBehaviour:
   prefab_bottle: {fileID: 1225428913208650, guid: c35b862c957f6b745a6d7f8c57d938d1,
     type: 2}
   prefab_cup: {fileID: 1747360782856068, guid: 19bb1d99ca782494ab0678c5261a540e, type: 2}
+  prefab_coin: {fileID: 1683886149972630, guid: cf1a3c63f33ef6541b095624175269fb,
+    type: 2}
 --- !u!114 &736922923
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4219,7 +4271,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &802573908
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6998,8 +7050,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   cameraImage: {fileID: 681225504}
-  labelMap: {fileID: 4900000, guid: 3c4c74b6fb0a84b32903936a5ab7c544, type: 3}
-  model: {fileID: 4900000, guid: ce2f31bcdaa909a4e9fb992f8fff01fc, type: 3}
+  labelMap: {fileID: 4900000, guid: 8bf78320f013b7b4086e7215da1bd5df, type: 3}
+  model: {fileID: 4900000, guid: ce373f487e8a6a24a8961022a65d675c, type: 3}
   model_faster_rcnn_resnet101: {fileID: 4900000, guid: 9c0e10dcaa25fb24e8edca17026e6f4c,
     type: 3}
   model_ssdlite_v2_mobilenet: {fileID: 4900000, guid: 1b353f5d8616ff547bbaa5341ad4cbc4,
@@ -7035,6 +7087,11 @@ MonoBehaviour:
   interactable_objects:
   - bottle
   - apple
+  - chocolate_blue
+  - chocolate_purple
+  - chocolate_yellow
+  - chocolate_green
+  - coin_quarter
 --- !u!1 &1398324630
 GameObject:
   m_ObjectHideFlags: 0
@@ -7305,6 +7362,8 @@ MonoBehaviour:
   prefab_bottle: {fileID: 1225428913208650, guid: c35b862c957f6b745a6d7f8c57d938d1,
     type: 2}
   prefab_cup: {fileID: 1747360782856068, guid: 19bb1d99ca782494ab0678c5261a540e, type: 2}
+  prefab_coin: {fileID: 1683886149972630, guid: cf1a3c63f33ef6541b095624175269fb,
+    type: 2}
 --- !u!114 &1425477946
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8930,6 +8989,8 @@ MonoBehaviour:
   prefab_bottle: {fileID: 1225428913208650, guid: c35b862c957f6b745a6d7f8c57d938d1,
     type: 2}
   prefab_cup: {fileID: 1747360782856068, guid: 19bb1d99ca782494ab0678c5261a540e, type: 2}
+  prefab_coin: {fileID: 1683886149972630, guid: cf1a3c63f33ef6541b095624175269fb,
+    type: 2}
 --- !u!1 &1747075503
 GameObject:
   m_ObjectHideFlags: 0
@@ -9762,7 +9823,7 @@ Transform:
   m_Children:
   - {fileID: 1915828282}
   m_Father: {fileID: 340549107}
-  m_RootOrder: 1
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1831382836
 MonoBehaviour:
@@ -10570,6 +10631,8 @@ MonoBehaviour:
   prefab_bottle: {fileID: 1225428913208650, guid: c35b862c957f6b745a6d7f8c57d938d1,
     type: 2}
   prefab_cup: {fileID: 1747360782856068, guid: 19bb1d99ca782494ab0678c5261a540e, type: 2}
+  prefab_coin: {fileID: 1683886149972630, guid: cf1a3c63f33ef6541b095624175269fb,
+    type: 2}
 --- !u!114 &2076377571
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -10887,6 +10950,8 @@ MonoBehaviour:
   prefab_bottle: {fileID: 1225428913208650, guid: c35b862c957f6b745a6d7f8c57d938d1,
     type: 2}
   prefab_cup: {fileID: 1747360782856068, guid: 19bb1d99ca782494ab0678c5261a540e, type: 2}
+  prefab_coin: {fileID: 1683886149972630, guid: cf1a3c63f33ef6541b095624175269fb,
+    type: 2}
 --- !u!114 &2127504446
 MonoBehaviour:
   m_ObjectHideFlags: 0

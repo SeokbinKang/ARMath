@@ -68,9 +68,34 @@ public class CountingTangible : MonoBehaviour {
     private void count_object()
     {
         if (!container || !IsCounting) return;
-        List<SceneObject> objs = container.GetComponent<ObjectContainer>().get_objects_in_rect();
+        List<SceneObject> objs = container.GetComponent<ObjectContainer>().get_objects_in_rect(target_object_name);
+        bool[] number_label = new bool[objs.Count];
+        for(int i=0;i<number_label.Length;i++)
+        {
+            int number_label_value = objs[i].get_number_feedback();
+            if(number_label_value > 0)
+            {
+                number_label[number_label_value - 1] = true;
+            }
+        }
+        for(int i = 0; i < number_label.Length; i++)
+        {
+            if (!number_label[i])
+            {
+                foreach(SceneObject so in objs)
+                {
+                    if (so.get_number_feedback() <= 0)
+                    {
+                        Vector3 targetPos = new Vector3(so.catalogInfo.Box.center.x, Screen.height - so.catalogInfo.Box.center.y, 0);
+                        GameObject label = FeedbackGenerator.mThis.create_number_feedback(targetPos, i+1);
+                        so.attach_object(label);
+                        break;
+                    }
+                }
+            }
+        }
+            
 
-        
         if (objs.Count> counting_n)
         {
             counting_n = objs.Count;
@@ -126,160 +151,9 @@ public class CountingTangible : MonoBehaviour {
         }
         tap_list.RemoveAll(s => s == null);
     }
-    private void UpdateInteractiveObjects()
-    {
-        if (prefab_tap == null || !IsCounting) return;
-
-        bool[] is_valid;
-        if (tap_list.Count > 0)
-        {
-            is_valid = new bool[tap_list.Count];
-            for (int k = 0; k < tap_list.Count; k++)
-            {
-                is_valid[k] = false;
-            }
-        }
-        else is_valid = null;
-
-        List<SceneObject> scene_objects = SceneObjectManager.mSOManager.get_objects_by_name(target_object_name);
-
-        foreach (SceneObject i in scene_objects)
-        {
-            bool duplicate = false;
-            for (int k = 0; k < tap_list.Count; k++)
-            {
-                Vector3 targetPos = new Vector3(i.catalogInfo.Box.center.x, Screen.height - i.catalogInfo.Box.center.y, 0);
-                Vector3 dist = tap_list[k].GetComponent<RectTransform>().position - targetPos;
-                if (dist.magnitude < 150)
-                {
-                    duplicate = true;
-                    is_valid[k] = true;
-                }
-
-            }
-            if (!duplicate)
-            {
-                generateObjectPop(i);
-            }
-
-        }
-
-        for (int k = 0; k < is_valid.Length; k++)
-        {
-            if (!is_valid[k])
-            {
-                GameObject.Destroy(tap_list[k]);
-                tap_list[k] = null;
-            }
-        }
-        tap_list.RemoveAll(s => s == null);
-    }
+    
 
 
-    public void updateInteractiveObjects(List<CatalogItem> objs)
-    {
-        if (prefab_tap == null || !IsCounting) return;
-
-        bool[] is_valid;
-        if (tap_list.Count > 0)
-        {
-            is_valid = new bool[tap_list.Count];
-            for (int k = 0; k < tap_list.Count; k++)
-            {
-                is_valid[k] = false;
-            }
-        }
-        else is_valid = null;
-
-        foreach (CatalogItem i in objs)
-        {
-            bool duplicate = false;
-            for (int k = 0; k < tap_list.Count; k++)
-            {
-                Vector3 targetPos = new Vector3(i.Box.center.x, Screen.height - i.Box.center.y, 0);
-                Vector3 dist = tap_list[k].GetComponent<RectTransform>().position - targetPos;
-                if (dist.magnitude < 150)
-                {
-                    duplicate = true;
-                    is_valid[k] = true;
-                }
-
-            }
-            if (!duplicate)
-            {
-                generateObjectPop(i);
-            }
-
-        }
-
-        for (int k = 0; k < is_valid.Length; k++)
-        {
-            if (!is_valid[k])
-            {
-                GameObject.Destroy(tap_list[k]);
-                tap_list[k] = null;
-            }
-        }
-        tap_list.RemoveAll(s => s == null);
-
-        foreach (CatalogItem i in objs)
-        {
-            bool duplicate = false;
-            for (int k = 0; k < tap_list.Count; k++)
-            {
-                Vector3 targetPos = new Vector3(i.Box.center.x, Screen.height - i.Box.center.y, 0);
-                Vector3 dist = tap_list[k].GetComponent<RectTransform>().position - targetPos;
-                if (dist.magnitude < 150)
-                {
-                    duplicate = true;
-                    is_valid[k] = true;
-                }
-
-            }
-            if (!duplicate)
-            {
-                generateObjectPop(i);
-            }
-
-        }
-
-        for (int k = 0; k < is_valid.Length; k++)
-        {
-            if (!is_valid[k])
-            {
-                GameObject.Destroy(tap_list[k]);
-                tap_list[k] = null;
-            }
-        }
-        tap_list.RemoveAll(s => s == null);
-    }
-    private void generateObjectPop(SceneObject i)
-    {
-
-        Vector3 targetPos = new Vector3(i.catalogInfo.Box.center.x, Screen.height - i.catalogInfo.Box.center.y, 0);
-
-        UnityEngine.GameObject label = Instantiate(prefab_tap, targetPos, Quaternion.identity) as GameObject;
-        Debug.Log("[ARMath] Generating tap Obejcts" + targetPos);
-        RectTransform r = label.GetComponent<RectTransform>();
-        r.position = targetPos;
-        label.GetComponent<RectTransform>().position = r.position;
-        label.transform.SetParent(this.gameObject.transform);
-        label.GetComponent<Button>().onClick.AddListener(() => { this.OnCount(); });
-        tap_list.Add(label);
-    }
-
-    private void generateObjectPop(CatalogItem i)
-    {
-
-        Vector3 targetPos = new Vector3(i.Box.center.x, Screen.height - i.Box.center.y, 0);
-
-        UnityEngine.GameObject label = Instantiate(prefab_tap, targetPos, Quaternion.identity) as GameObject;
-        Debug.Log("[ARMath] Generating tap Obejcts" + targetPos);
-        RectTransform r = label.GetComponent<RectTransform>();
-        r.position = targetPos;
-        label.GetComponent<RectTransform>().position = r.position;
-        label.transform.SetParent(this.gameObject.transform);
-        label.GetComponent<Button>().onClick.AddListener(() => { this.OnCount(); });
-        tap_list.Add(label);
-    }
+   
+    
 }

@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 public class ObjectDetection : MonoBehaviour {
 
     [Header("Constants")]
-    private const float MIN_SCORE = 0f;
+    private const float MIN_SCORE = 0.25f;
     /*private const int INPUT_SIZE = 224;
     private const int INPUT_WIDTH = 224;
     private const int INPUT_HEIGHT = 224;*/
@@ -83,101 +83,7 @@ TensorFlowSharp.Android.NativeBinding.Init();
         yield return new WaitForEndOfFrame();
         processingImage = false;
     }
-    void ThreadedWork_twinFrame_faster_rcnn()
-    {
-        while (true)
-        {
-            if (pixelsUpdated)
-            {
-
-                //left frame
-                TFShape shape = new TFShape(1, INPUT_SIZE, INPUT_SIZE, 3);
-                var tensor = TFTensor.FromBuffer(shape, pixels_L, 0, pixels_L.Length);
-                var runner = session.GetRunner();
-                runner.AddInput(graph["image_tensor"][0], tensor).Fetch(
-                    graph["detection_boxes"][0],
-                    graph["detection_scores"][0],
-                    graph["num_detections"][0],
-                    graph["detection_classes"][0]);
-                output = runner.Run();
-
-                var boxes = (float[,,])output[0].GetValue(jagged: false);
-                var scores = (float[,])output[1].GetValue(jagged: false);
-                var num = (float[])output[2].GetValue(jagged: false);
-                var classes = (float[,])output[3].GetValue(jagged: false);
-                items.Clear();
-                //loop through all detected objects
-                for (int i = 0; i < num.Length; i++)
-                {
-                    //  for (int j = 0; j < scores.GetLength(i); j++) {
-                    for (int j = 0; j < num[i]; j++)
-                    {
-                        float score = scores[i, j];
-                        if (score > MIN_SCORE)
-                        {
-                            CatalogItem catalogItem = _catalog.FirstOrDefault(item => item.Id == Convert.ToInt32(classes[i, j]));
-                            catalogItem.Score = score;
-                            /* float ymin = boxes[i, j, 0] * Screen.height;
-                             float xmin = boxes[i, j, 1] * Screen.width;
-                             float ymax = boxes[i, j, 2] * Screen.height;
-                             float xmax = boxes[i, j, 3] * Screen.width;*/
-                            float ymin = boxes[i, j, 0] * Screen.height;
-                            float xmin = boxes[i, j, 1] * Screen.height;
-                            float ymax = boxes[i, j, 2] * Screen.height;
-                            float xmax = boxes[i, j, 3] * Screen.height;
-                            catalogItem.Box = Rect.MinMaxRect(xmin, Screen.height - ymax, xmax, Screen.height - ymin);
-                            items.Add(catalogItem);
-                            Debug.Log(catalogItem.DisplayName+" "+i+" "+j+" "+num[i]+" "+score);
-                        }
-                    }
-                }
-
-                //right frame
-                shape = new TFShape(1, INPUT_SIZE, INPUT_SIZE, 3);
-                tensor = TFTensor.FromBuffer(shape, pixels_R, 0, pixels_R.Length);
-                runner = session.GetRunner();
-                runner.AddInput(graph["image_tensor"][0], tensor).Fetch(
-                    graph["detection_boxes"][0],
-                    graph["detection_scores"][0],
-                    graph["num_detections"][0],
-                    graph["detection_classes"][0]);
-                output = runner.Run();
-
-                boxes = (float[,,])output[0].GetValue(jagged: false);
-                scores = (float[,])output[1].GetValue(jagged: false);
-                num = (float[])output[2].GetValue(jagged: false);
-                classes = (float[,])output[3].GetValue(jagged: false);
-
-                //loop through all detected objects
-                for (int i = 0; i < num.Length; i++)
-                {
-                    //  for (int j = 0; j < scores.GetLength(i); j++) {
-                    for (int j = 0; j < num[i]; j++)
-                    {
-                        float score = scores[i, j];
-                        if (score > MIN_SCORE)
-                        {
-                            CatalogItem catalogItem = _catalog.FirstOrDefault(item => item.Id == Convert.ToInt32(classes[i, j]));
-                            catalogItem.Score = score;
-                            /* float ymin = boxes[i, j, 0] * Screen.height;
-                             float xmin = boxes[i, j, 1] * Screen.width;
-                             float ymax = boxes[i, j, 2] * Screen.height;
-                             float xmax = boxes[i, j, 3] * Screen.width;*/
-                            float x_shift = Screen.width - Screen.height;
-                            float ymin = boxes[i, j, 0] * Screen.height;
-                            float xmin = boxes[i, j, 1] * Screen.height + x_shift;
-                            float ymax = boxes[i, j, 2] * Screen.height;
-                            float xmax = boxes[i, j, 3] * Screen.height + x_shift;
-                            catalogItem.Box = Rect.MinMaxRect(xmin, Screen.height - ymax, xmax, Screen.height - ymin);
-                            items.Add(catalogItem);
-                            Debug.Log(catalogItem.DisplayName+" "+i+" "+j+" "+num[i] + " " + score);
-                        }
-                    }
-                }
-                pixelsUpdated = false;
-            }
-        }
-    }
+    
     void ThreadedWork_twinFrame()
     {
         while (true)
@@ -202,10 +108,10 @@ TensorFlowSharp.Android.NativeBinding.Init();
                 var classes = (float[,])output[3].GetValue(jagged: false);
                 items.Clear();
                 //loop through all detected objects
-                Debug.Log("[ARMath] "+Time.time+"object detected #:" + num.Length);
+              //  Debug.Log("[ARMath] "+Time.time+" object detected #:" + num.Length);
                 for (int i = 0; i < num.Length; i++)
                 {
-                    Debug.Log("[ARMath] num of object class:" + num[i]);
+                //    Debug.Log("[ARMath] num of a type of objects:" + num[i]);
                     //  for (int j = 0; j < scores.GetLength(i); j++) {
                     for (int j = 0; j < num[i]; j++)
                     {
@@ -224,7 +130,7 @@ TensorFlowSharp.Android.NativeBinding.Init();
                             float xmax = boxes[i, j, 3] * Screen.height;
                             catalogItem.Box = Rect.MinMaxRect(xmin, Screen.height - ymax, xmax, Screen.height - ymin);
                             items.Add(catalogItem);
-                            //   Debug.Log(catalogItem.DisplayName+" "+i+" "+j+" "+num[i]);
+                          //  Debug.Log(catalogItem.DisplayName+" "+i+" "+j+" "+num[i]);
                         }
                     }
                 }
@@ -244,11 +150,11 @@ TensorFlowSharp.Android.NativeBinding.Init();
                 scores = (float[,])output[1].GetValue(jagged: false);
                 num = (float[])output[2].GetValue(jagged: false);
                 classes = (float[,])output[3].GetValue(jagged: false);
-                Debug.Log("[ARMath] object detected #:" + num.Length);
+              //  Debug.Log("[ARMath] object detected #:" + num.Length);
                 //loop through all detected objects
                 for (int i = 0; i < num.Length; i++)
                 {
-                    Debug.Log("[ARMath] num of object class:" + num[i]);
+               //     Debug.Log("[ARMath] num of object class:" + num[i]);
                     //  for (int j = 0; j < scores.GetLength(i); j++) {
                     for (int j = 0; j < num[i]; j++)
                     {
@@ -268,7 +174,7 @@ TensorFlowSharp.Android.NativeBinding.Init();
                             float xmax = boxes[i, j, 3] * Screen.height+ x_shift;
                             catalogItem.Box = Rect.MinMaxRect(xmin, Screen.height - ymax, xmax, Screen.height - ymin);
                             items.Add(catalogItem);
-                            Debug.Log(catalogItem.DisplayName+" "+i+" "+j+" "+num[i]);
+                         //   Debug.Log(catalogItem.DisplayName+" "+i+" "+j+" "+num[i]);
                         }
                     }
                 }

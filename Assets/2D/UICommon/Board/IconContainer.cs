@@ -8,6 +8,7 @@ public class IconContainer : MonoBehaviour {
 
     public GameObject prefab_bottle;
     public GameObject prefab_cup;
+    public GameObject prefab_coin;
     private GridLayoutGroup grid;
 
     private int item_per_row = 10;
@@ -32,6 +33,8 @@ public class IconContainer : MonoBehaviour {
         //Debug.Log("[ARMath] Setting IconContainer:" + obj_name + "    " + cnt);
         if (obj_name == "bottle") icon_obj = prefab_bottle;
         else if (obj_name == "cup") icon_obj = prefab_cup;
+        else if (obj_name.Contains("coin")) icon_obj = prefab_coin;
+        else icon_obj = prefab_bottle;
         if (icon_obj == null) return;
         grid = this.GetComponent<GridLayoutGroup>();
         icon_row_size.x = icon_obj.GetComponent<RawImage>().texture.width;

@@ -40,7 +40,7 @@ public class CountingOpener : MonoBehaviour {
         else
         {
             dialogue_text_status.SetActive(true);
-            dialogue_text_status.GetComponent<Text>().text = "Oh!I have been looking for " + target_object_name + "s! " + "I see a SET of them";
+            dialogue_text_status.GetComponent<Text>().text = "Oh!I have been looking for " + target_object_name + "s! " + "There is a SET of them";
             TTS.mTTS.GetComponent<TTS>().StartTextToSpeech(dialogue_text_status.GetComponent<Text>().text);
         }
 

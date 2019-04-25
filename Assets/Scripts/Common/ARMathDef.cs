@@ -24,8 +24,8 @@ public enum ProblemType
 }
 public class SystemParam
 {
-    public static float param_object_lifetime = 1;  //second
-    public static float param_object_rect_overlap_portion = 0.3f;
+    public static float param_object_lifetime = 4;  //second
+    public static float param_object_rect_overlap_portion = 0.2f;
     public static float system_update_period = 1.0f;  //second
 
     public static int image_size = 300;
