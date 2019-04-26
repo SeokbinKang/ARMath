@@ -2,33 +2,35 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ContentCounting : MonoBehaviour, IContentModule
+public class ContentAddition : MonoBehaviour, IContentModule
 {
-    // Use this for initialization
+
     public GameObject sub_intro;
     public GameObject sub_explorer;
     public GameObject sub_opener;
-    public GameObject sub_virtualsolver;
-    
+    public GameObject sub_solver;
+
     public GameObject sub_ceremony;
     public GameObject sub_review;
 
     public string target_object_name = "";
     public int found_object_count = 0;
 
-    
+    public int init_object_count = 0;
+    public int goal_object_count = 0;
+    public int current_object_count = 0;
     private bool is_idle = true;
     private bool is_solved = false;
 
     private float nextActionTime = 0.0f;
-    
+
     void Start()
     {
         sub_intro.SetActive(true);
         sub_explorer.SetActive(false);
         sub_opener.SetActive(false);
-        sub_virtualsolver.SetActive(false);
-        
+        sub_solver.SetActive(false);
+
         sub_review.SetActive(false);
         sub_ceremony.SetActive(false);
         is_idle = true;
@@ -54,30 +56,32 @@ public class ContentCounting : MonoBehaviour, IContentModule
         sub_intro.SetActive(true);
         sub_explorer.SetActive(false);
         sub_opener.SetActive(false);
-        sub_virtualsolver.SetActive(false);
-        
+        sub_solver.SetActive(false);
+
         sub_review.SetActive(false);
         sub_ceremony.SetActive(false);
         is_idle = true;
         is_solved = false;
-
-        TTS.mTTS.GetComponent<TTS>().StartTextToSpeech("Help a minion solve counting problems and collect red gems!");
+        init_object_count = 0;
+        goal_object_count = 0;
+        current_object_count = 0;
+        TTS.mTTS.GetComponent<TTS>().StartTextToSpeech("Help a minion solve addition problems and collect green gems!");
     }
     public void onSolved()
     {
         //sub_virtualsolver.SetActive(false);
         sub_ceremony.SetActive(true);
         EffectControl.ballon_ceremony();
-        SystemUser.AddGem(ProblemType.p1_counting);
+        SystemUser.AddGem(ProblemType.p2_addition);
         is_solved = true;
         Debug.Log("Solved: " + target_object_name + "  " + found_object_count);
     }
     public void UpdateExplorer()
     {
         System.Random random = new System.Random();
-       
+
         string dominant_object_name = "";
-        Vector2 center_of_objects = new Vector2(0,0);
+        Vector2 center_of_objects = new Vector2(0, 0);
         int object_count = 0;
         SceneObjectManager.mSOManager.get_dominant_object(ref dominant_object_name, ref center_of_objects, ref object_count);
         if (is_solved)
@@ -94,15 +98,22 @@ public class ContentCounting : MonoBehaviour, IContentModule
                 return;
             }
             target_object_name = dominant_object_name;
-            int randomNumber = random.Next(1, object_count);
-            if(object_count>0) randomNumber = random.Next(1, 9);
-            found_object_count = randomNumber;
+            found_object_count = object_count;
+            init_object_count = object_count;
+            goal_object_count = init_object_count + random.Next(2, 6); ;
+            bool interaction_touch_enalbed = SystemControl.mSystemControl.get_system_setup_interaction_touch();
+            if(interaction_touch_enalbed)
+            {
+                List<SceneObject> objs = SceneObjectManager.mSOManager.get_objects_on_the_left(target_object_name);
+                goal_object_count = objs.Count + random.Next(2, 6); ;
+            }
             //pops up explorer
             sub_explorer.SetActive(true);
             RectTransform r = sub_explorer.GetComponent<RectTransform>();
             r.position = new Vector3(center_of_objects.x, Screen.height - center_of_objects.y, 0);
-          
-        } else
+
+        }
+        else
         {
             sub_explorer.SetActive(false);
 
@@ -110,13 +121,13 @@ public class ContentCounting : MonoBehaviour, IContentModule
     }
     public void UpdateCVResult(CVResult cv)
     {
-      
-        
+
+
 
 
     }
-    public void SetIdel(bool t)
+    public void SetIdle(bool t)
     {
-        is_idle = false;
+        is_idle = t;
     }
 }

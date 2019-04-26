@@ -48,6 +48,7 @@ public class VerticalGemStat : MonoBehaviour {
                     GameObject newstat = Instantiate(prefab_grid_element, Vector3.zero, Quaternion.identity) as GameObject;
                     newstat.transform.parent = this.gameObject.transform;
                     newstat.GetComponent<RectTransform>().localScale = Vector3.one;
+                    newstat.GetComponent<RectTransform>().localPosition = new Vector3(0, 0, 0);
                     newstat.GetComponent<VerticalGemStat_Element>().UpdateGem((int)t, u.gem_collection[t].Count,t);
                 } else
                 {

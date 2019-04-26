@@ -8,6 +8,7 @@ public class StatusChecker : MonoBehaviour {
 
     public GameObject promptUser;
     public GameObject promptQuestion;
+    public GameObject contentRoot;
     public GameObject[] ContentModules;
     private float nextActionTime = 0.0f;
     public float period = 3.0f;
@@ -48,15 +49,8 @@ public class StatusChecker : MonoBehaviour {
             return;
         }
 
-        foreach(GameObject t in ContentModules)
-        {
-            if(t!=null && t.activeSelf)
-            {
-                question_selected = true;
-                break;
-            }
-        }
-        if (!question_selected) promptQuestion.SetActive(true);
+        if(contentRoot.GetComponent<ContentRoot>().number_active_content()<=0)
+            promptQuestion.SetActive(true);
     }
     
 

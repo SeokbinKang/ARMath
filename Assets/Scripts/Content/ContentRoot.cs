@@ -60,4 +60,30 @@ public class ContentRoot : MonoBehaviour {
     {
         mContentDiv.SetActive(!mContentDiv.activeSelf);
     }
+
+    public int number_active_content()
+    {
+        int ret = 0;
+        if(mContentCounting!=null)
+        {
+            if (mContentCounting.activeSelf) ret++;
+        }
+        if (mContentAddition != null)
+        {
+            if (mContentAddition.activeSelf) ret++;
+        }
+        if (mContentSubtraction != null)
+        {
+            if (mContentSubtraction.activeSelf) ret++;
+        }
+        if (mContentMult != null)
+        {
+            if (mContentMult.activeSelf) ret++;
+        }
+        if (mContentDiv != null)
+        {
+            if (mContentDiv.activeSelf) ret++;
+        }
+        return ret;
+    }
 }

@@ -19,13 +19,13 @@ public enum ProblemType
     p1_counting,
     p2_addition,
     p2_subtraction,
-    p2_multiplication,
-    p2_division
+    p3_multiplication,
+    p3_division
 }
 public class SystemParam
 {
     public static float param_object_lifetime = 4;  //second
-    public static float param_object_rect_overlap_portion = 0.2f;
+    public static float param_object_rect_overlap_portion = 0.1f;
     public static float system_update_period = 1.0f;  //second
 
     public static int image_size = 300;

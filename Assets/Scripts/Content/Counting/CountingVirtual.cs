@@ -72,7 +72,7 @@ public class CountingVirtual : MonoBehaviour {
         else return;
         counting_n++;
         Vector3 targetPos = new Vector3(so.catalogInfo.Box.center.x, Screen.height - so.catalogInfo.Box.center.y, 0);
-        GameObject label = FeedbackGenerator.mThis.create_number_feedback(targetPos, counting_n);
+        GameObject label = FeedbackGenerator.mThis.create_number_feedback(targetPos, counting_n,true);
         so.attach_object(label);
         //Debug.Log("[ARMath] label " + targetPos + "  -->  " + label.GetComponent<RectTransform>().position+"  or  "+ label.GetComponent<RectTransform>().localPosition+" s  "+ label.GetComponent<RectTransform>().localScale);
         TTS.mTTS.GetComponent<TTS>().StartTextToSpeech(counting_n + "!");

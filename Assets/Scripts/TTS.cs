@@ -30,6 +30,7 @@ public class TTS : MonoBehaviour {
 
 #if UNITY_EDITOR
         Debug.Log("InitSpeechRecognizer");
+        
 #elif UNITY_ANDROID
         AndroidPlugin.InitTextToSpeech(receiveObject.name, "OnStatus"); //Check the initialize status
 #endif

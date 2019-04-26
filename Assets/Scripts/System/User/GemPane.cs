@@ -46,8 +46,10 @@ public class GemPane : MonoBehaviour {
             newGemIcon.GetComponent<RectTransform>().localScale = new Vector3(0.3f, 0.3f, 1);
             anchor_pos.x = x_leftborder + offset * i ;
             anchor_pos.y = 10;
-            newGemIcon.GetComponent<RectTransform>().anchoredPosition = anchor_pos;
             
+            newGemIcon.GetComponent<RectTransform>().anchoredPosition = anchor_pos;
+            newGemIcon.GetComponent<RectTransform>().localPosition = new Vector3(anchor_pos.x, anchor_pos.y, 0);
+
         }
 
     }

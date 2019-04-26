@@ -87,7 +87,7 @@ public class CountingTangible : MonoBehaviour {
                     if (so.get_number_feedback() <= 0)
                     {
                         Vector3 targetPos = new Vector3(so.catalogInfo.Box.center.x, Screen.height - so.catalogInfo.Box.center.y, 0);
-                        GameObject label = FeedbackGenerator.mThis.create_number_feedback(targetPos, i+1);
+                        GameObject label = FeedbackGenerator.mThis.create_number_feedback(targetPos, i+1,true);
                         so.attach_object(label);
                         break;
                     }

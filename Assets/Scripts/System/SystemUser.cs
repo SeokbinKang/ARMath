@@ -63,8 +63,9 @@ public class SystemUser : MonoBehaviour
             Vector2 anchor_pos = newUserPane.GetComponent<RectTransform>().anchoredPosition;
             anchor_pos.x = x_leftmost + x_offset * (i + 1);
             anchor_pos.y = 0;
+            
             newUserPane.GetComponent<RectTransform>().anchoredPosition = anchor_pos;
-
+            newUserPane.GetComponent<RectTransform>().localPosition = new Vector3(anchor_pos.x, anchor_pos.y, 0);
             newUserPane.GetComponent<user_panel>().LoadUser(t);
             i++;
         }
