@@ -36,6 +36,7 @@ public class ObjectDetection : MonoBehaviour {
     private TFSession session;
     private IEnumerable<CatalogItem> _catalog;
     private List<CatalogItem> items = new List<CatalogItem>();
+    private float x_stretch = 1;
 
     [Header("Thread stuff")]
     Thread _thread;
@@ -73,7 +74,11 @@ TensorFlowSharp.Android.NativeBinding.Init();
         Debug.Log("Graph Loaded!!!");
 
         //set style of labels and boxes
-   
+        if (Screen.currentResolution.width == 2560 && Screen.currentResolution.height == 1600)
+        { // for screen 16:10 while the camera stream is 16:9
+            x_stretch = 0.9f;
+        }
+        else x_stretch = 1;
 
         // Begin our heavy work on a new thread.
         _thread = new Thread(ThreadedWork_twinFrame);
@@ -120,14 +125,11 @@ TensorFlowSharp.Android.NativeBinding.Init();
                         {
                             CatalogItem catalogItem = _catalog.FirstOrDefault(item => item.Id == Convert.ToInt32(classes[i, j]));
                             catalogItem.Score = score;
-                            /* float ymin = boxes[i, j, 0] * Screen.height;
-                             float xmin = boxes[i, j, 1] * Screen.width;
-                             float ymax = boxes[i, j, 2] * Screen.height;
-                             float xmax = boxes[i, j, 3] * Screen.width;*/
+                      
                             float ymin = boxes[i, j, 0] * Screen.height;
-                            float xmin = boxes[i, j, 1] * Screen.height;
+                            float xmin = boxes[i, j, 1] * ((float) Screen.height) * x_stretch ;
                             float ymax = boxes[i, j, 2] * Screen.height;
-                            float xmax = boxes[i, j, 3] * Screen.height;
+                            float xmax = boxes[i, j, 3] * ((float) Screen.height) * x_stretch;
                             catalogItem.Box = Rect.MinMaxRect(xmin, Screen.height - ymax, xmax, Screen.height - ymin);
                             items.Add(catalogItem);
                           //  Debug.Log(catalogItem.DisplayName+" "+i+" "+j+" "+num[i]);
@@ -163,15 +165,13 @@ TensorFlowSharp.Android.NativeBinding.Init();
                         {
                             CatalogItem catalogItem = _catalog.FirstOrDefault(item => item.Id == Convert.ToInt32(classes[i, j]));
                             catalogItem.Score = score;
-                            /* float ymin = boxes[i, j, 0] * Screen.height;
-                             float xmin = boxes[i, j, 1] * Screen.width;
-                             float ymax = boxes[i, j, 2] * Screen.height;
-                             float xmax = boxes[i, j, 3] * Screen.width;*/
-                            float x_shift = Screen.width - Screen.height;
+                         
+                            float x_shift = Screen.width - ((float) Screen.height)*x_stretch;
+
                             float ymin = boxes[i, j, 0] * Screen.height;
-                            float xmin = boxes[i, j, 1] * Screen.height+ x_shift;
+                            float xmin = boxes[i, j, 1] * (float)Screen.height * x_stretch + x_shift;
                             float ymax = boxes[i, j, 2] * Screen.height;
-                            float xmax = boxes[i, j, 3] * Screen.height+ x_shift;
+                            float xmax = boxes[i, j, 3] * (float) Screen.height * x_stretch + x_shift;
                             catalogItem.Box = Rect.MinMaxRect(xmin, Screen.height - ymax, xmax, Screen.height - ymin);
                             items.Add(catalogItem);
                          //   Debug.Log(catalogItem.DisplayName+" "+i+" "+j+" "+num[i]);
@@ -210,10 +210,7 @@ TensorFlowSharp.Android.NativeBinding.Init();
                         if (score > MIN_SCORE) {
                             CatalogItem catalogItem = _catalog.FirstOrDefault(item => item.Id == Convert.ToInt32(classes[i, j]));
                             catalogItem.Score = score;
-                            /* float ymin = boxes[i, j, 0] * Screen.height;
-                             float xmin = boxes[i, j, 1] * Screen.width;
-                             float ymax = boxes[i, j, 2] * Screen.height;
-                             float xmax = boxes[i, j, 3] * Screen.width;*/
+                     
                             float ymin = boxes[i, j, 0] * Screen.height;
                             float xmin = boxes[i, j, 1] * Screen.height+200;
                             float ymax = boxes[i, j, 2] * Screen.height;
@@ -231,24 +228,30 @@ TensorFlowSharp.Android.NativeBinding.Init();
 
     IEnumerator ProcessImage_twinFrame()
     {
-        colorPixels_L = cameraImage.ProcessImage_twinFrame(0);
-        colorPixels_R = cameraImage.ProcessImage_twinFrame(1);
+        
+        Texture2D texture2d_l = cameraImage.ProcessImage_twinFrame_texture2d(0);
+        Texture2D texture2d_r = cameraImage.ProcessImage_twinFrame_texture2d(1);
+        Color32[] colorPixels_LL = texture2d_l.GetPixels32();
+        Color32[] colorPixels_RR = texture2d_r.GetPixels32();
 
+        // colorPixels_L = cameraImage.ProcessImage_twinFrame(0);
+        // colorPixels_R = cameraImage.ProcessImage_twinFrame(1);
+       // scaled.GetPixels32();
         //Debug.Log("[ARMath] debug point #1");
         //update pixels (Cant use Color32[] on non monobehavior thread
-        if (colorPixels_L.Length != colorPixels_R.Length)
+        if (colorPixels_LL.Length != colorPixels_RR.Length)
         {
             Debug.Log("[ARMath] the sizes of twin frames do not match");
             yield return null;
         }
-        for (int i = 0; i < colorPixels_L.Length; ++i)
+        for (int i = 0; i < colorPixels_LL.Length; ++i)
         {
-            pixel_L = colorPixels_L[i];
+            pixel_L = colorPixels_LL[i];
             pixels_L[i * 3 + 0] = (byte)((pixel_L.r - IMAGE_MEAN) / IMAGE_STD);
             pixels_L[i * 3 + 1] = (byte)((pixel_L.g - IMAGE_MEAN) / IMAGE_STD);
             pixels_L[i * 3 + 2] = (byte)((pixel_L.b - IMAGE_MEAN) / IMAGE_STD);
 
-            pixel_R = colorPixels_R[i];
+            pixel_R = colorPixels_RR[i];
             pixels_R[i * 3 + 0] = (byte)((pixel_R.r - IMAGE_MEAN) / IMAGE_STD);
             pixels_R[i * 3 + 1] = (byte)((pixel_R.g - IMAGE_MEAN) / IMAGE_STD);
             pixels_R[i * 3 + 2] = (byte)((pixel_R.b - IMAGE_MEAN) / IMAGE_STD);
@@ -259,6 +262,10 @@ TensorFlowSharp.Android.NativeBinding.Init();
         pixelsUpdated = true;
         //Resources.UnloadUnusedAssets();
         processingImage = false;
+        colorPixels_LL = null;
+        colorPixels_RR = null;
+        UnityEngine.Object.Destroy(texture2d_l);
+        UnityEngine.Object.Destroy(texture2d_r);
         yield return null;
     }
     IEnumerator ProcessImage(){

@@ -93,7 +93,7 @@ public class AdditionTangible : MonoBehaviour
                     if (so.get_number_feedback() <= 0)
                     {
                         Vector3 targetPos = new Vector3(so.catalogInfo.Box.center.x, Screen.height - so.catalogInfo.Box.center.y, 0);
-                        GameObject label = FeedbackGenerator.mThis.create_number_feedback(targetPos, i + 1,false);
+                        GameObject label = FeedbackGenerator.mThis.create_number_feedback(targetPos, i + 1,true);
                         so.attach_object(label);
                         break;
                     }
@@ -110,7 +110,7 @@ public class AdditionTangible : MonoBehaviour
                     if (so.get_number_feedback() <= 0)
                     {
                         Vector3 targetPos = new Vector3(so.catalogInfo.Box.center.x, Screen.height - so.catalogInfo.Box.center.y, 0);
-                        GameObject label = FeedbackGenerator.mThis.create_number_feedback(targetPos, i, false);
+                        GameObject label = FeedbackGenerator.mThis.create_number_feedback(targetPos, i, true);
                         so.attach_object(label);
                         Debug.Log("[ARMath] generating O sticker");
                         label = FeedbackGenerator.mThis.create_sticker_ox(targetPos, true, true);
@@ -154,7 +154,9 @@ public class AdditionTangible : MonoBehaviour
     public void OnCount()
     {
 
-        TTS.mTTS.GetComponent<TTS>().StartTextToSpeech(ContentModuleRoot.GetComponent<ContentAddition>().current_object_count + "!");
+        int added = ContentModuleRoot.GetComponent<ContentAddition>().current_object_count - ContentModuleRoot.GetComponent<ContentAddition>().init_object_count;
+        if (added > 0) TTS.mTTS.GetComponent<TTS>().StartTextToSpeech(added + " " + target_object_name + "s added!");
+        else TTS.mTTS.GetComponent<TTS>().StartTextToSpeech("please add more " + target_object_name + "s!");
 
         UpdateBoard();
         //sound effect

@@ -3,8 +3,9 @@ using UnityEngine;
 
 	public class TextureTools
     {
-		// Based on https://gist.github.com/natsupy/e129936543f9b4663a37ea0762172b3b
-		public enum Options
+    private static RenderTexture rtt = null;
+    // Based on https://gist.github.com/natsupy/e129936543f9b4663a37ea0762172b3b
+    public enum Options
 		{
 			Crop = 0,
 			Resize = 1
@@ -183,14 +184,35 @@ using UnityEngine;
             return result;                 
 		}
 
-		/// <summary>
-		/// Scales the texture data of the given texture.
-		/// </summary>
-		/// <param name="tex">Texure to scale</param>
-		/// <param name="width">New width</param>
-		/// <param name="height">New height</param>
-		/// <param name="mode">Filtering mode</param>
-		public static void scale(Texture2D tex, int width, int height, FilterMode mode = FilterMode.Trilinear)
+    /// <summary>
+    ///     Returns a scaled copy of given texture.
+    /// </summary>
+    /// <param name="tex">Source texure to scale</param>
+    /// <param name="width">Destination texture width</param>
+    /// <param name="height">Destination texture height</param>
+    /// <param name="mode">Filtering mode</param>
+    public static Texture2D scaled(Texture2D src, Texture2D dest, int width, int height, FilterMode mode = FilterMode.Trilinear)
+    {
+        Rect texR = new Rect(0, 0, width, height);
+        _gpu_scale(src, width, height, mode);
+        //Get rendered data back to a new texture
+        if (dest == null || dest.width != width || dest.height != height)
+        {
+            dest = new Texture2D(width, height, TextureFormat.ARGB32, true);
+        }
+        dest.Resize(width, height);
+        dest.ReadPixels(texR, 0, 0, true);
+        return dest;
+    }
+
+    /// <summary>
+    /// Scales the texture data of the given texture.
+    /// </summary>
+    /// <param name="tex">Texure to scale</param>
+    /// <param name="width">New width</param>
+    /// <param name="height">New height</param>
+    /// <param name="mode">Filtering mode</param>
+    public static void scale(Texture2D tex, int width, int height, FilterMode mode = FilterMode.Trilinear)
 		{
 			Rect texR = new Rect(0,0,width,height);
 			_gpu_scale(tex,width,height,mode);
@@ -209,8 +231,12 @@ using UnityEngine;
 			src.Apply(true);       
 
 			//Using RTT for best quality and performance. Thanks, Unity 5
-			RenderTexture rtt = new RenderTexture(width, height, 32);
-
+			// RenderTexture rtt = new RenderTexture(width, height, 32);
+            if (rtt==null || rtt.width!=width || rtt.height!=height)
+            {//memory leak fix.
+                if(rtt!=null) GameObject.Destroy(rtt);
+                rtt = new RenderTexture(width, height, 32);
+            }
 			//Set the RTT in order to render to it
 			Graphics.SetRenderTarget(rtt);
 
@@ -220,6 +246,8 @@ using UnityEngine;
 			//Then clear & draw the texture to fill the entire RTT.
 			GL.Clear(true,true,new Color(0,0,0,0));
 			Graphics.DrawTexture(new Rect(0,0,1,1),src);
+            
+            
 		}
 
 

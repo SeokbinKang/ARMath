@@ -44,7 +44,7 @@ public class InputNumber : MonoBehaviour {
 
             feedback_yes.GetComponent<Animator>().SetTrigger("fadein");
             //enable gem button
-            button_obj.GetComponent<RawImage>().texture = this.button_after;
+            if (button_obj.GetComponent<RawImage>()) button_obj.GetComponent<RawImage>().texture = this.button_after;
 
             return;
         }
@@ -52,7 +52,7 @@ public class InputNumber : MonoBehaviour {
         {
             //show X
             feedback_no.GetComponent<Animator>().SetTrigger("fadein");
-            button_obj.GetComponent<RawImage>().texture = this.button_before;
+            if (button_obj.GetComponent<RawImage>())  button_obj.GetComponent<RawImage>().texture = this.button_before;
             return;
         }
     }

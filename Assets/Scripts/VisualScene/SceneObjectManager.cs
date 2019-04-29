@@ -21,7 +21,18 @@ public class SceneObjectManager : MonoBehaviour {
 	void Update () {
 		
 	}
-  
+
+    public void Reset()
+    {
+        clear_attached_feedback();
+    }
+    private void clear_attached_feedback()
+    {
+        foreach (SceneObject so in mObjectPool)
+        {
+            so.clear_feedback();
+        }
+    }
     public void add_new_object(List<CatalogItem> catalog_items)
     {
         foreach(CatalogItem i in catalog_items)
@@ -185,7 +196,11 @@ public class SceneObject
     }
     public bool check_if_dead()
     {
-        if (Time.time > time_expire) return true;
+        if (Time.time > time_expire)
+        {
+            clear_feedback();
+            return true;
+        }
         return false;
     }
     public bool interact()
@@ -203,7 +218,10 @@ public class SceneObject
         if (attached_feedback_gameobject != null)
         {
             foreach (var i in attached_feedback_gameobject)
+            {
+                
                 GameObject.Destroy(i);
+            }
             attached_feedback_gameobject.Clear();
         }
 

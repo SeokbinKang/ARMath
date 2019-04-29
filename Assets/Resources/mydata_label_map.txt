@@ -20,5 +20,5 @@ item {
 
 item {
     id: 5
-    name: 'coin_quarter'
+    name: 'coin'
 }

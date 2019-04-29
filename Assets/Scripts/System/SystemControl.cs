@@ -49,6 +49,7 @@ public class SystemControl : MonoBehaviour {
     public void onContent()
     {
         current_status = SystemStatus.Content;
+        SceneObjectManager.mSOManager.Reset();
     }
     private void keyInput()
     {
