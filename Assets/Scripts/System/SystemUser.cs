@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class SystemUser : MonoBehaviour
 {
-    public static UserInfo current_user;
+    public static UserInfo current_user=null;
     public GameObject user_panels_control;
     public GameObject prefab_user_panel;
 
@@ -14,7 +14,7 @@ public class SystemUser : MonoBehaviour
     // Use this for initialization
     void Start()
     {
-        current_user = null;
+        
         loadAllUserProfiles();
 
     }
@@ -78,14 +78,21 @@ public class SystemUser : MonoBehaviour
         UserInfo u2 = new UserInfo();
         UserInfo u3 = new UserInfo();
         UserInfo u4 = new UserInfo();
-        u1.user_name = "seokbin";
-        u2.user_name = "leylana";
-        u3.user_name = "virginia";
-        u4.user_name = "new user";
+        u1.user_name = "group1";
+        u2.user_name = "group2";
+        u3.user_name = "group3";
+        u4.user_name = "group4";
         u1.user_id = 343f;
         u2.user_id = 23232f;
         u3.user_id = 343454f;
         u4.user_id = 34f;
+        Gem g = new Gem();
+        g.problem_type = ProblemType.p1_counting;
+        u1.AddGem(g);
+        u2.AddGem(g);
+        u3.AddGem(g);
+        u4.AddGem(g);
+        /*
         for (int i = 0; i < 9; i++)
         {
             Gem g = new Gem();
@@ -103,7 +110,7 @@ public class SystemUser : MonoBehaviour
             Gem g = new Gem();
             g.problem_type = (ProblemType)(i % 4);
             u2.AddGem(g);
-        }
+        }*/
 
         List<UserInfo> ret = new List<UserInfo>();
         ret.Add(u1);

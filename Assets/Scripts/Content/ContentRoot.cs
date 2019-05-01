@@ -13,6 +13,10 @@ public class ContentRoot : MonoBehaviour {
     // Use this for initialization
     void Start () {
         mContentCounting.SetActive(false);
+        mContentAddition.SetActive(false);
+        mContentSubtraction.SetActive(false);
+        mContentMult.SetActive(false);
+        mContentDiv.SetActive(false);
 
     }
 	
@@ -40,13 +44,23 @@ public class ContentRoot : MonoBehaviour {
 
     public void enableContentCounting(bool t)
     {
-
-        mContentCounting.SetActive(!mContentCounting.activeSelf);
-
+        //mContentCounting.SetActive(!mContentCounting.activeSelf);
+        mContentCounting.SetActive(t);
+        if (t)
+        {
+            mContentAddition.SetActive(false);
+            mContentCounting.GetComponent<ContentCounting>().Reset();
+        }
     }
     public void enableContentAddition(bool t)
     {
-        mContentAddition.SetActive(!mContentAddition.activeSelf);
+        //mContentAddition.SetActive(!mContentAddition.activeSelf);
+        mContentAddition.SetActive(t);
+        if (t)
+        {
+            mContentCounting.SetActive(false);
+            mContentAddition.GetComponent<ContentAddition>().Reset();
+        }
     }
     public void enableContentSubtraction(bool t)
     {

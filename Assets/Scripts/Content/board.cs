@@ -11,10 +11,10 @@ public class board : MonoBehaviour {
     private bool icon_enable;
 	// Use this for initialization
 	void Start () {
-        if (IconContainer!=null) IconContainer.SetActive(true);
+       /* if (IconContainer!=null) IconContainer.SetActive(true);
         if (math_text != null) math_text.SetActive(true);
         num_enable = true;
-        icon_enable = false;
+        icon_enable = false;*/
       //  setMathText("");
 
     }
@@ -29,7 +29,7 @@ public class board : MonoBehaviour {
     }
     private void OnEnable()
     {
-        Reset();
+     //   Reset();
     }
     private void Reset()
     {
@@ -42,6 +42,30 @@ public class board : MonoBehaviour {
         setIcon(obj_name, count);
         num_enable = true;
         icon_enable = false;
+
+    }
+    public void enable_number_only(string text)
+    {
+        setMathText(text);        
+        num_enable = true;
+        icon_enable = false;
+
+    }
+    public void enable_visual_only(string obj_name, int count)
+    {
+
+        num_enable = false;
+        icon_enable = true;
+        setIcon(obj_name, count);
+        setMathText(count.ToString());
+
+    }
+    public void enable_both(string obj_name, int count, string text)
+    {
+        setMathText(text);
+        setIcon(obj_name, count);
+        num_enable = true;
+        icon_enable = true;
 
     }
     public void toggleView()

@@ -26,15 +26,6 @@ public class ContentAddition : MonoBehaviour, IContentModule
 
     void Start()
     {
-        sub_intro.SetActive(true);
-        sub_explorer.SetActive(false);
-        sub_opener.SetActive(false);
-        sub_solver.SetActive(false);
-
-        sub_review.SetActive(false);
-        sub_ceremony.SetActive(false);
-        is_idle = true;
-        is_solved = false;
     }
 
     // Update is called once per frame
@@ -57,7 +48,6 @@ public class ContentAddition : MonoBehaviour, IContentModule
         sub_explorer.SetActive(false);
         sub_opener.SetActive(false);
         sub_solver.SetActive(false);
-
         sub_review.SetActive(false);
         sub_ceremony.SetActive(false);
         is_idle = true;
@@ -65,14 +55,15 @@ public class ContentAddition : MonoBehaviour, IContentModule
         init_object_count = 0;
         goal_object_count = 0;
         current_object_count = 0;
-        TTS.mTTS.GetComponent<TTS>().StartTextToSpeech("Help a minion solve addition problems and collect green gems!");
+        SceneObjectManager.mSOManager.Reset();
+        TTS.mTTS.GetComponent<TTS>().StartTextToSpeech("Help the minion solve addition problems and collect green gems!");
     }
     public void onSolved()
     {
         sub_solver.SetActive(false);
         sub_ceremony.SetActive(true);
         EffectControl.ballon_ceremony();
-        SystemUser.AddGem(ProblemType.p2_addition);
+        EffectControl.gem_ceremony(ProblemType.p2_addition);
         is_solved = true;
         Debug.Log("Solved: " + target_object_name + "  " + found_object_count);
     }

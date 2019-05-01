@@ -4,8 +4,12 @@ using UnityEngine;
 using UnityEngine.UI;
 
 public class CountingReview : MonoBehaviour {
-    public GameObject[] quizzes;
+   // public GameObject[] quizzes;
     public GameObject ContentModuleRoot;
+    public GameObject prompt;
+    public GameObject icons;
+
+    public GameObject answer;
     // Use this for initialization
     void Start () {
         //updateQuizzes();
@@ -23,6 +27,26 @@ public class CountingReview : MonoBehaviour {
     {
         
     }
+    public void updateQuiz()
+    {
+        string target_object_name = ContentModuleRoot.GetComponent<ContentCounting>().target_object_name;
+        int target_object_count = ContentModuleRoot.GetComponent<ContentCounting>().found_object_count;
+
+        System.Random random = new System.Random();
+        int randomNumber = random.Next(3, 15);
+     
+        prompt.GetComponent<Text>().text = "Here are some "+ target_object_name+"s I found. Can you count them and write the number in the white box?";
+
+        
+        icons.GetComponent<board>().enable_visual_only(target_object_name, randomNumber);
+        answer.GetComponent<InputNumber>().setAnswer(randomNumber);
+        answer.GetComponent<InputNumber>().setProblemType(ProblemType.p1_counting);
+
+        //Debug.Log("[ARMath] quize[2]'s text:" + quizzes[2].GetComponent<board>().math_text.GetComponent<Text>().text);
+        //Debug.Log(quizzes[2].GetComponent<board>().math_text);
+        TTS.mTTS.GetComponent<TTS>().StartTextToSpeech("Let's solve quizzes for bunus. "+prompt.GetComponent<Text>().text);
+    }
+    /*
     public void updateQuizzes()
     {
         string target_object_name = ContentModuleRoot.GetComponent<ContentCounting>().target_object_name;
@@ -51,6 +75,6 @@ public class CountingReview : MonoBehaviour {
         go.GetComponent<board>().setAnswer(value);
         go.GetComponent<board>().setProblemType(ProblemType.p1_counting);
 
-    }
+    }*/
 
 }

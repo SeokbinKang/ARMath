@@ -46,11 +46,15 @@ public class StatusChecker : MonoBehaviour {
         if(SystemUser.current_user==null)
         {
             promptUser.SetActive(true);
+            TTS.mTTS.GetComponent<TTS>().StartTextToSpeech("Please tell me who you are");
             return;
         }
 
-        if(contentRoot.GetComponent<ContentRoot>().number_active_content()<=0)
+        if (contentRoot.GetComponent<ContentRoot>().number_active_content() <= 0)
+        {
             promptQuestion.SetActive(true);
+            TTS.mTTS.GetComponent<TTS>().StartTextToSpeech("Please select missions for the treasure hunt");
+        }
     }
     
 

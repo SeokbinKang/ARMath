@@ -32,6 +32,8 @@ public class InputNumber : MonoBehaviour {
         this.GetComponent<InputField>().text = "";
         button_obj.GetComponent<RawImage>().texture = this.button_before;
         input_text.GetComponent<Text>().text = "";
+        
+        
     }
 
     public void showresult()
@@ -45,7 +47,7 @@ public class InputNumber : MonoBehaviour {
             feedback_yes.GetComponent<Animator>().SetTrigger("fadein");
             //enable gem button
             if (button_obj.GetComponent<RawImage>()) button_obj.GetComponent<RawImage>().texture = this.button_after;
-
+            EffectControl.gem_ceremony(this.problem_type);
             return;
         }
         else
@@ -73,7 +75,7 @@ public class InputNumber : MonoBehaviour {
         if (user_answer == answer)
         {
             TTS.mTTS.GetComponent<TTS>().StartTextToSpeech("good job!");
-            SystemUser.AddGem(this.problem_type);
+            EffectControl.gem_ceremony(this.problem_type);
             return true;
         }
         TTS.mTTS.GetComponent<TTS>().StartTextToSpeech("let's try it again");

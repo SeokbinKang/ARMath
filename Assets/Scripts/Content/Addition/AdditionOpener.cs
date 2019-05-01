@@ -48,7 +48,7 @@ public class AdditionOpener : MonoBehaviour
         else
         {
             dialogue_text_status.SetActive(true);
-            dialogue_text_status.GetComponent<Text>().text = "Oh! I need to collect " + goal_n + " " + target_object_name + "s!";
+            dialogue_text_status.GetComponent<Text>().text = "Oh! I've found "+ init_n + " " + target_object_name + "s!" ;
             TTS.mTTS.GetComponent<TTS>().StartTextToSpeech(dialogue_text_status.GetComponent<Text>().text);
         }
 
@@ -68,7 +68,7 @@ public class AdditionOpener : MonoBehaviour
         int goal_n = ContentModuleRoot.GetComponent<ContentAddition>().goal_object_count;
         //        if (target_n_of_objects > 1) target_n_of_objects = random.Next(2, target_n_of_objects);
         dialogue_text_prompt.SetActive(true);
-        dialogue_text_prompt.GetComponent<Text>().text = "I've got only " + init_n + " " + target_object_name + "s. Can you bring me more?";
+        dialogue_text_prompt.GetComponent<Text>().text = "If I find "+(goal_n-init_n)+" more "+ target_object_name + "s, how many "+target_object_name + "s will I have in total?";
         TTS.mTTS.GetComponent<TTS>().StartTextToSpeech(dialogue_text_prompt.GetComponent<Text>().text);
     }
 }

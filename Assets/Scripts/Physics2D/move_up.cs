@@ -13,7 +13,7 @@ public class move_up : MonoBehaviour {
     void Update() {
         Rigidbody2D rb2D = this.GetComponent<Rigidbody2D>();
         
-        Debug.Log(rb2D.velocity);
+     //   Debug.Log(rb2D.velocity);
     }
     private void OnEnable()
     {

@@ -12,12 +12,8 @@ public class AdditionTangible : MonoBehaviour
 
 
     public GameObject board;
-
-
-    public GameObject container;
-
-
-
+    public GameObject problemboard;
+    public GameObject problemboard_text;
     public GameObject ContentModuleRoot;
     
     private List<GameObject> tap_list;
@@ -34,11 +30,7 @@ public class AdditionTangible : MonoBehaviour
 
     void Start()
     {
-        prompt.SetActive(true);
-        board.SetActive(false);
-        IsAdding = false;
-        total_n = 0;
-        tap_list = new List<GameObject>();
+      
     }
     void OnEnable()
     {
@@ -49,6 +41,7 @@ public class AdditionTangible : MonoBehaviour
     {
         prompt.SetActive(true);
         board.SetActive(false);
+        problemboard.SetActive(false);
         IsAdding = false;
         total_n = 0;
         tap_list = new List<GameObject>();
@@ -68,7 +61,7 @@ public class AdditionTangible : MonoBehaviour
     }
     private void count_object()
     {
-        if (!container || !IsAdding) return;
+        if ( !IsAdding) return;
         int init_n = ContentModuleRoot.GetComponent<ContentAddition>().init_object_count;
         int goal_n = ContentModuleRoot.GetComponent<ContentAddition>().goal_object_count;
         int cur_n = ContentModuleRoot.GetComponent<ContentAddition>().current_object_count;
@@ -177,7 +170,7 @@ public class AdditionTangible : MonoBehaviour
         prompt.SetActive(true);
         //prompt_text.SetActive(true);
         target_object_name = ContentModuleRoot.GetComponent<ContentAddition>().target_object_name;
-        prompt_text.GetComponent<Text>().text = "Let's give the minion more " + target_object_name + "s by adding them on the table";
+        prompt_text.GetComponent<Text>().text = "Let's give the minion more " + target_object_name + "s by placing them on the table";
         TTS.mTTS.GetComponent<TTS>().StartTextToSpeech(prompt_text.GetComponent<Text>().text);
         IsAdding = false;
     }
@@ -186,6 +179,7 @@ public class AdditionTangible : MonoBehaviour
         total_n = 0;
         IsAdding = true;
         board.SetActive(true);
+        problemboard.SetActive(true);
         UpdateBoard();
     }
 
@@ -194,10 +188,11 @@ public class AdditionTangible : MonoBehaviour
         int init_n = ContentModuleRoot.GetComponent<ContentAddition>().init_object_count;
         int goal_n = ContentModuleRoot.GetComponent<ContentAddition>().goal_object_count;
         int cur_n = ContentModuleRoot.GetComponent<ContentAddition>().current_object_count;
+        string target_object_name = ContentModuleRoot.GetComponent<ContentAddition>().target_object_name;
         string sign = " + ";
         if (cur_n - init_n < 0) sign = " - ";
-            board.GetComponent<board>().setMathText(init_n + sign + System.Math.Abs(cur_n-init_n) + " = " + cur_n);
-        
+        board.GetComponent<board>().enable_number_only(init_n + sign + System.Math.Abs(cur_n-init_n) + " = " + cur_n);
+        problemboard_text.GetComponent<Text>().text = "If add "+(goal_n-init_n)+ " "+ target_object_name+"s to "+ init_n + " "+ target_object_name + "s, \nhow many are there in total?";
     }
     private void clearinteractiveobjects()
     {

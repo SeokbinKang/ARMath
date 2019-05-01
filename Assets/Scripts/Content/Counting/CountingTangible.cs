@@ -140,8 +140,9 @@ public class CountingTangible : MonoBehaviour {
 
     private void UpdateBoard()
     {
-        board.GetComponent<board>().setMathText("= " + counting_n.ToString());
-        board.GetComponent<board>().setIcon(target_object_name, counting_n);
+        board.GetComponent<board>().enable_both(target_object_name, counting_n, "= " + counting_n.ToString());
+        //board.GetComponent<board>().setMathText("= " + counting_n.ToString());
+        //board.GetComponent<board>().setIcon(target_object_name, counting_n);
     }
     private void clearinteractiveobjects()
     {

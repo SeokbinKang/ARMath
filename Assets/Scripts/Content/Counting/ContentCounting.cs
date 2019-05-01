@@ -54,21 +54,20 @@ public class ContentCounting : MonoBehaviour, IContentModule
         sub_intro.SetActive(true);
         sub_explorer.SetActive(false);
         sub_opener.SetActive(false);
-        sub_virtualsolver.SetActive(false);
-        
+        sub_virtualsolver.SetActive(false);        
         sub_review.SetActive(false);
         sub_ceremony.SetActive(false);
         is_idle = true;
         is_solved = false;
-
-        TTS.mTTS.GetComponent<TTS>().StartTextToSpeech("Help a minion solve counting problems and collect red gems!");
+        SceneObjectManager.mSOManager.Reset();
+        TTS.mTTS.GetComponent<TTS>().StartTextToSpeech("Help the minion solve counting problems and collect red gems!");
     }
     public void onSolved()
     {
         //sub_virtualsolver.SetActive(false);
         sub_ceremony.SetActive(true);
         EffectControl.ballon_ceremony();
-        SystemUser.AddGem(ProblemType.p1_counting);
+        EffectControl.gem_ceremony(ProblemType.p1_counting);
         is_solved = true;
         Debug.Log("Solved: " + target_object_name + "  " + found_object_count);
     }
@@ -80,7 +79,7 @@ public class ContentCounting : MonoBehaviour, IContentModule
         Vector2 center_of_objects = new Vector2(0,0);
         int object_count = 0;
         SceneObjectManager.mSOManager.get_dominant_object(ref dominant_object_name, ref center_of_objects, ref object_count);
-        if (is_solved)
+        if (is_solved || sub_intro.activeSelf)
         {
             sub_explorer.SetActive(false);
             return;
@@ -94,8 +93,8 @@ public class ContentCounting : MonoBehaviour, IContentModule
                 return;
             }
             target_object_name = dominant_object_name;
-            int randomNumber = random.Next(1, object_count);
-            if(object_count>0) randomNumber = random.Next(1, 9);
+            int randomNumber = random.Next(object_count/2, object_count);
+            if (randomNumber < 1) randomNumber = 1;
             found_object_count = randomNumber;
             //pops up explorer
             sub_explorer.SetActive(true);

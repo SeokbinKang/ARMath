@@ -5,7 +5,7 @@ using UnityEngine;
 public class SystemSetup : MonoBehaviour {
 
 
-    public GameObject button_interaction_touch;
+    
     public GameObject button_interaction_object;
 
 
@@ -21,7 +21,7 @@ public class SystemSetup : MonoBehaviour {
 
     public bool setting_interaction_touch()
     {
-        return button_interaction_touch.GetComponent<toggle_button>().value_;
+        return !button_interaction_object.GetComponent<toggle_button>().value_;
 
     }
     public bool setting_interaction_object()

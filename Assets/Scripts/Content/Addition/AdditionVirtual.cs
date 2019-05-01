@@ -15,8 +15,9 @@ public class AdditionVirtual : MonoBehaviour
 
 
     public GameObject container;
-
-
+    public GameObject root_movables;
+    public GameObject problemboard;
+    public GameObject problemboard_text;
 
     public GameObject ContentModuleRoot;
 
@@ -25,7 +26,7 @@ public class AdditionVirtual : MonoBehaviour
     private List<GameObject> tap_list;
 
 
-    public bool IsAdding;
+    public bool UserInteracting;
 
     private int total_n;
     private string target_object_name;
@@ -36,11 +37,7 @@ public class AdditionVirtual : MonoBehaviour
 
     void Start()
     {
-        prompt.SetActive(true);
-        board.SetActive(false);
-        IsAdding = false;
-        total_n = 0;
-        tap_list = new List<GameObject>();
+       
     }
     void OnEnable()
     {
@@ -51,14 +48,19 @@ public class AdditionVirtual : MonoBehaviour
     {
         prompt.SetActive(true);
         board.SetActive(false);
-        IsAdding = false;
+        container.SetActive(false);
+        root_movables.SetActive(false);
+        problemboard.SetActive(false);
+        UserInteracting = false;
         total_n = 0;
         tap_list = new List<GameObject>();
+       // arrange_movable_objects();
+
     }
     // Update is called once per frame
     void Update()
     {
-        if (IsAdding) UpdateBoard();
+        if (UserInteracting) UpdateBoard();
 
         if (Time.time > nextActionTime)
         {
@@ -68,9 +70,20 @@ public class AdditionVirtual : MonoBehaviour
             count_object();
         }
     }
+    private void arrange_movable_objects()
+    {
+        System.Random random = new System.Random(); 
+        foreach (GameObject o in movable_objects)
+        {
+            Vector3 targetPos = new Vector3(Screen.width / 2 + random.Next(1, Screen.width * 9 / 20), random.Next(50, Screen.height - 50), 0);
+            RectTransform r = o.GetComponent<RectTransform>();
+            r.position = targetPos;
+            
+        }
+    }
     private void count_object()
     {
-        if (!container || !IsAdding) return;
+        if (!container || !UserInteracting) return;
         int init_n = 0; // ContentModuleRoot.GetComponent<ContentAddition>().init_object_count;
         int virtual_n = 0;        
         int cur_n =0;
@@ -140,7 +153,7 @@ public class AdditionVirtual : MonoBehaviour
     }
     private void OnCompletion()
     {
-        IsAdding = false;
+        UserInteracting = false;
         clearinteractiveobjects();
         ContentModuleRoot.GetComponent<ContentAddition>().onSolved();
     }
@@ -151,14 +164,18 @@ public class AdditionVirtual : MonoBehaviour
         target_object_name = ContentModuleRoot.GetComponent<ContentAddition>().target_object_name;
         prompt_text.GetComponent<Text>().text = "Let's give the minion more " + target_object_name + "s by dragging them on the screen";
         TTS.mTTS.GetComponent<TTS>().StartTextToSpeech(prompt_text.GetComponent<Text>().text);
-        IsAdding = false;
+        UserInteracting = false;
     }
     public void StartOperation()
     {
         total_n = 0;
-        IsAdding = true;
+        UserInteracting = true;
         board.SetActive(true);
-        UpdateBoard();
+        UpdateBoard();        
+        container.SetActive(true);
+        root_movables.SetActive(true);
+        problemboard.SetActive(true);
+        arrange_movable_objects();
     }
 
     private void UpdateBoard()
@@ -169,7 +186,8 @@ public class AdditionVirtual : MonoBehaviour
 
         string sign = " + ";
         if (cur_n - init_n < 0) sign = " - ";
-        board.GetComponent<board>().setMathText(init_n + sign + System.Math.Abs(cur_n - init_n) + " = " + cur_n);
+        board.GetComponent<board>().enable_number_only(init_n + sign + System.Math.Abs(cur_n - init_n) + " = " + cur_n);
+        problemboard_text.GetComponent<Text>().text = "If add " + (goal_n - init_n) + " " + target_object_name + "s to " + init_n + " " + target_object_name + "s, \nhow many are there in total?";
 
     }
     private void clearinteractiveobjects()

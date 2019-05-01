@@ -21,10 +21,20 @@ public class SceneObjectManager : MonoBehaviour {
 	void Update () {
 		
 	}
-
+    
     public void Reset()
     {
-        clear_attached_feedback();
+        //clear_attached_feedback();
+        clear_scene_objects();
+    }
+    private void clear_scene_objects()
+    {
+        foreach (SceneObject so in mObjectPool)
+        {
+            so.clear_feedback();
+        }
+        mObjectPool.Clear();
+
     }
     private void clear_attached_feedback()
     {

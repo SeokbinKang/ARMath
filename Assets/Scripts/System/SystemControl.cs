@@ -50,6 +50,7 @@ public class SystemControl : MonoBehaviour {
     {
         current_status = SystemStatus.Content;
         SceneObjectManager.mSOManager.Reset();
+        
     }
     private void keyInput()
     {
