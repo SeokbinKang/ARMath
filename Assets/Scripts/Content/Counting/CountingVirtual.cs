@@ -14,7 +14,8 @@ public class CountingVirtual : MonoBehaviour {
     public GameObject ContentModuleRoot;
     public GameObject prefab_tap;
     private List<GameObject> tap_list;
-
+    public GameObject problemboard;
+    public GameObject problemboard_text;
 
     public bool IsCounting;
 
@@ -44,6 +45,7 @@ public class CountingVirtual : MonoBehaviour {
         IsCounting = false;
         counting_n = 0;
         tap_list = new List<GameObject>();
+        problemboard.SetActive(false);
     }
     // Update is called once per frame
     void Update () {
@@ -107,13 +109,16 @@ public class CountingVirtual : MonoBehaviour {
         IsCounting = true;
         board.SetActive(true);
         UpdateBoard();
+        problemboard.SetActive(true);
     }
 
     private void UpdateBoard()
     {
+        int goal_n = ContentModuleRoot.GetComponent<ContentCounting>().found_object_count;
         board.GetComponent<board>().enable_both(target_object_name, counting_n, "= " + counting_n.ToString());
         /*board.GetComponent<board>().setMathText("= " + counting_n.ToString());
         board.GetComponent<board>().setIcon(target_object_name, counting_n);*/
+        problemboard_text.GetComponent<Text>().text = "Can you get me " + goal_n + " " + target_object_name + "s ?";
     }
     private void clearinteractiveobjects()
     {

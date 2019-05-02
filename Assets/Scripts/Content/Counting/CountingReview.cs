@@ -44,7 +44,7 @@ public class CountingReview : MonoBehaviour {
 
         //Debug.Log("[ARMath] quize[2]'s text:" + quizzes[2].GetComponent<board>().math_text.GetComponent<Text>().text);
         //Debug.Log(quizzes[2].GetComponent<board>().math_text);
-        TTS.mTTS.GetComponent<TTS>().StartTextToSpeech("Let's solve quizzes for bunus. "+prompt.GetComponent<Text>().text);
+        TTS.mTTS.GetComponent<TTS>().StartTextToSpeech("Let's solve quizzes for bonus. "+prompt.GetComponent<Text>().text);
     }
     /*
     public void updateQuizzes()

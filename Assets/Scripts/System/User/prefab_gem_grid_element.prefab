@@ -21,7 +21,7 @@ GameObject:
   - component: {fileID: 224238845692698272}
   - component: {fileID: 222998540301768002}
   - component: {fileID: 114063254567401302}
-  m_Layer: 5
+  m_Layer: 0
   m_Name: count
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -38,7 +38,7 @@ GameObject:
   - component: {fileID: 224069420869814184}
   - component: {fileID: 222974053871815418}
   - component: {fileID: 114121419944984304}
-  m_Layer: 5
+  m_Layer: 0
   m_Name: gem1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -55,7 +55,7 @@ GameObject:
   - component: {fileID: 224217265109339986}
   - component: {fileID: 114887129101733188}
   - component: {fileID: 114533705626807542}
-  m_Layer: 5
+  m_Layer: 0
   m_Name: prefab_gem_grid_element
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -94,7 +94,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 0
+  m_Text: 11
 --- !u!114 &114121419944984304
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -188,7 +188,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -18.86, y: 0}
+  m_AnchoredPosition: {x: -29.75, y: 0}
   m_SizeDelta: {x: 168, y: 190}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!224 &224217265109339986
@@ -226,6 +226,6 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 38.14, y: 0}
-  m_SizeDelta: {x: 40, y: 80}
+  m_AnchoredPosition: {x: 44.9, y: 0}
+  m_SizeDelta: {x: 53.5, y: 80}
   m_Pivot: {x: 0.5, y: 0.5}

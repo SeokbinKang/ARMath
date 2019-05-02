@@ -13,10 +13,12 @@ public class ContentAddition : MonoBehaviour, IContentModule
     public GameObject sub_ceremony;
     public GameObject sub_review;
 
+    public GameObject virtual_container;
     public string target_object_name = "";
     public int found_object_count = 0;
 
     public int init_object_count = 0;
+    public int add_object_count = 0;
     public int goal_object_count = 0;
     public int current_object_count = 0;
     private bool is_idle = true;
@@ -65,7 +67,7 @@ public class ContentAddition : MonoBehaviour, IContentModule
         EffectControl.ballon_ceremony();
         EffectControl.gem_ceremony(ProblemType.p2_addition);
         is_solved = true;
-        Debug.Log("Solved: " + target_object_name + "  " + found_object_count);
+      
     }
     public void UpdateExplorer()
     {
@@ -94,7 +96,8 @@ public class ContentAddition : MonoBehaviour, IContentModule
             bool interaction_touch_enalbed = SystemControl.mSystemControl.get_system_setup_interaction_touch();
             if(interaction_touch_enalbed)
             {
-                List<SceneObject> objs = SceneObjectManager.mSOManager.get_objects_on_the_left(target_object_name);
+               // List<SceneObject> objs = SceneObjectManager.mSOManager.get_objects_on_the_left(target_object_name);
+                List<SceneObject> objs = virtual_container.GetComponent<ObjectContainer>().get_objects_in_rect(target_object_name);
                 init_object_count = objs.Count;
                 goal_object_count = objs.Count + random.Next(2, 6);                
                 

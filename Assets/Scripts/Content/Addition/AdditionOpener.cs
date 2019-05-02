@@ -66,9 +66,10 @@ public class AdditionOpener : MonoBehaviour
         string target_object_name = ContentModuleRoot.GetComponent<ContentAddition>().target_object_name;
         int init_n = ContentModuleRoot.GetComponent<ContentAddition>().init_object_count;
         int goal_n = ContentModuleRoot.GetComponent<ContentAddition>().goal_object_count;
+        ContentModuleRoot.GetComponent<ContentAddition>().add_object_count = goal_n - init_n;
         //        if (target_n_of_objects > 1) target_n_of_objects = random.Next(2, target_n_of_objects);
         dialogue_text_prompt.SetActive(true);
-        dialogue_text_prompt.GetComponent<Text>().text = "If I find "+(goal_n-init_n)+" more "+ target_object_name + "s, how many "+target_object_name + "s will I have in total?";
+        dialogue_text_prompt.GetComponent<Text>().text = "If we add "+(goal_n-init_n)+" more "+ target_object_name + "s, how many "+target_object_name + "s will I have in total?";
         TTS.mTTS.GetComponent<TTS>().StartTextToSpeech(dialogue_text_prompt.GetComponent<Text>().text);
     }
 }

@@ -49,8 +49,7 @@ public class CountingOpener : MonoBehaviour {
     }
     public void showprompt()
     {
-        System.Random random = new System.Random();
-        int randomNumber = random.Next(0, 100);
+   
         string target_object_name = ContentModuleRoot.GetComponent<ContentCounting>().target_object_name;
         int target_n_of_objects = ContentModuleRoot.GetComponent<ContentCounting>().found_object_count;
         //        if (target_n_of_objects > 1) target_n_of_objects = random.Next(2, target_n_of_objects);

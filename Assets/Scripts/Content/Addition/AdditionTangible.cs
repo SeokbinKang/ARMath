@@ -105,7 +105,7 @@ public class AdditionTangible : MonoBehaviour
                         Vector3 targetPos = new Vector3(so.catalogInfo.Box.center.x, Screen.height - so.catalogInfo.Box.center.y, 0);
                         GameObject label = FeedbackGenerator.mThis.create_number_feedback(targetPos, i, true);
                         so.attach_object(label);
-                        Debug.Log("[ARMath] generating O sticker");
+                        //Debug.Log("[ARMath] generating O sticker");
                         label = FeedbackGenerator.mThis.create_sticker_ox(targetPos, true, true);
                         so.attach_object(label);
 
@@ -126,7 +126,7 @@ public class AdditionTangible : MonoBehaviour
                         Vector3 targetPos = new Vector3(so.catalogInfo.Box.center.x, Screen.height - so.catalogInfo.Box.center.y, 0);
                         GameObject label = FeedbackGenerator.mThis.create_number_feedback(targetPos, i, false);
                         so.attach_object(label);
-                        Debug.Log("[ARMath] generating X sticker");
+                        
                         label = FeedbackGenerator.mThis.create_sticker_ox(targetPos, false, true);
                         so.attach_object(label);
                         break;
@@ -146,17 +146,19 @@ public class AdditionTangible : MonoBehaviour
     }
     public void OnCount()
     {
-
-        int added = ContentModuleRoot.GetComponent<ContentAddition>().current_object_count - ContentModuleRoot.GetComponent<ContentAddition>().init_object_count;
+        int init_n = ContentModuleRoot.GetComponent<ContentAddition>().init_object_count;
+        int added = ContentModuleRoot.GetComponent<ContentAddition>().current_object_count - init_n;
         if (added > 0) TTS.mTTS.GetComponent<TTS>().StartTextToSpeech(added + " " + target_object_name + "s added!");
         else TTS.mTTS.GetComponent<TTS>().StartTextToSpeech("please add more " + target_object_name + "s!");
 
         UpdateBoard();
         //sound effect
 
-        if (ContentModuleRoot.GetComponent<ContentAddition>().goal_object_count <= ContentModuleRoot.GetComponent<ContentAddition>().current_object_count)
+        if (ContentModuleRoot.GetComponent<ContentAddition>().goal_object_count == ContentModuleRoot.GetComponent<ContentAddition>().current_object_count)
         {
+            TTS.mTTS.GetComponent<TTS>().StartTextToSpeech("Nice Job! The answer is " + ContentModuleRoot.GetComponent<ContentAddition>().goal_object_count + "!");
             OnCompletion();
+
         }
     }
     private void OnCompletion()
@@ -170,7 +172,7 @@ public class AdditionTangible : MonoBehaviour
         prompt.SetActive(true);
         //prompt_text.SetActive(true);
         target_object_name = ContentModuleRoot.GetComponent<ContentAddition>().target_object_name;
-        prompt_text.GetComponent<Text>().text = "Let's give the minion more " + target_object_name + "s by placing them on the table";
+        prompt_text.GetComponent<Text>().text = "Let's add more " + target_object_name + "s by placing them on the table";
         TTS.mTTS.GetComponent<TTS>().StartTextToSpeech(prompt_text.GetComponent<Text>().text);
         IsAdding = false;
     }
@@ -187,12 +189,13 @@ public class AdditionTangible : MonoBehaviour
     {
         int init_n = ContentModuleRoot.GetComponent<ContentAddition>().init_object_count;
         int goal_n = ContentModuleRoot.GetComponent<ContentAddition>().goal_object_count;
+        int add_n = ContentModuleRoot.GetComponent<ContentAddition>().add_object_count;
         int cur_n = ContentModuleRoot.GetComponent<ContentAddition>().current_object_count;
         string target_object_name = ContentModuleRoot.GetComponent<ContentAddition>().target_object_name;
         string sign = " + ";
         if (cur_n - init_n < 0) sign = " - ";
         board.GetComponent<board>().enable_number_only(init_n + sign + System.Math.Abs(cur_n-init_n) + " = " + cur_n);
-        problemboard_text.GetComponent<Text>().text = "If add "+(goal_n-init_n)+ " "+ target_object_name+"s to "+ init_n + " "+ target_object_name + "s, \nhow many are there in total?";
+        problemboard_text.GetComponent<Text>().text = "If we add "+ add_n + " "+ target_object_name+"s to "+ init_n + " "+ target_object_name + "s, \nhow many are there in total?";
     }
     private void clearinteractiveobjects()
     {

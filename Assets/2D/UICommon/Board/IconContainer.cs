@@ -6,9 +6,7 @@ using UnityEngine.UI;
 public class IconContainer : MonoBehaviour {
 
 
-    public GameObject prefab_bottle;
-    public GameObject prefab_cup;
-    public GameObject prefab_coin;
+
     private GridLayoutGroup grid;
 
     private int item_per_row = 10;
@@ -31,10 +29,10 @@ public class IconContainer : MonoBehaviour {
         int cols_in_grid;
         //retrieving icon 
         //Debug.Log("[ARMath] Setting IconContainer:" + obj_name + "    " + cnt);
-        if (obj_name == "bottle") icon_obj = prefab_bottle;
-        else if (obj_name == "cup") icon_obj = prefab_cup;
-        else if (obj_name.Contains("coin")) icon_obj = prefab_coin;
-        else icon_obj = prefab_bottle;
+        if (obj_name.Contains("coin")) obj_name = "coin";
+        icon_obj = AssetManager.get_icon(obj_name);
+        
+        
         if (icon_obj == null) return;
         grid = this.GetComponent<GridLayoutGroup>();
         icon_row_size.x = icon_obj.GetComponent<RawImage>().texture.width;

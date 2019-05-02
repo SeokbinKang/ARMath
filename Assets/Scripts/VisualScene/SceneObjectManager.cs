@@ -157,7 +157,7 @@ public class SceneObjectManager : MonoBehaviour {
         string dominant_object_name = "";
         foreach (KeyValuePair<string, int> kvp in counter)
         {
-            Debug.Log("[ARMath] object pool: " + kvp.Key + "  ->  " + kvp.Value);
+           // Debug.Log("[ARMath] object pool: " + kvp.Key + "  ->  " + kvp.Value);
             if (kvp.Value > max_freq)
             {
                 max_freq = kvp.Value;
@@ -286,6 +286,12 @@ public class SceneObject
         Rect box = this.catalogInfo.Box;
         box.center = new Vector2(box.center.x, Screen.height - box.center.y);
         if (box.center.x < Screen.width / 2) ret = true;
+        
+        //if (box.center.x < 750 + 419 && box.center.x > 750 - 419 && box.center.y < 830 + 407 && box.center.y > 830 - 407)
+        //{
+        //    Debug.Log("[ARMath] pre-addtion in box: " + box.center);
+        //    ret = true;
+        //}
         return ret;
     }
     public bool check_in_box(Rect rect)
@@ -303,7 +309,7 @@ public class SceneObject
             
             my_ret = true;
         }
-        Debug.Log("[ARMath] box container test: object[" + box.center + "]  region[" + rect + "]  =  " + ret +" or "+my_ret);
+    //    Debug.Log("[ARMath] box container test: object[" + box.center + "]  region[" + rect + "]  =  " + ret +" or "+my_ret);
         return my_ret;
     }
     private void init()

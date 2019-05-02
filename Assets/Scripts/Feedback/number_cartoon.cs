@@ -37,8 +37,9 @@ public class number_cartoon : MonoBehaviour {
         int k = i;
         num = i;
 
-        if (k >= 10) k = 9;
+        
         if (k < 0) k = 0;
+        k = k % 10;
         Reset();
         Vector3 targetPos = new Vector3(0, 0, 0);
         UnityEngine.GameObject label = Instantiate(number_objects[k], targetPos, Quaternion.identity) as GameObject;
@@ -48,6 +49,19 @@ public class number_cartoon : MonoBehaviour {
         r.position = targetPos;
         label.GetComponent<RectTransform>().localPosition = r.position;
         label.GetComponent<RectTransform>().localScale = r.localScale;
+
+        int second_digit = i / 10;
+        if (second_digit > 0 && second_digit<=9)
+        {
+            targetPos.x -= 70;
+            label = Instantiate(number_objects[second_digit], targetPos, Quaternion.identity) as GameObject;
+            label.transform.SetParent(this.gameObject.transform);
+            r = label.GetComponent<RectTransform>();
+            r.localScale = new Vector3(0.2f, 0.2f, 0.2f);
+            r.position = targetPos;
+            label.GetComponent<RectTransform>().localPosition = r.position;
+            label.GetComponent<RectTransform>().localScale = r.localScale;
+        }
         
 
     }

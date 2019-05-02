@@ -14,7 +14,8 @@ public class CountingTangible : MonoBehaviour {
    
 
     public GameObject container;
-
+    public GameObject problemboard;
+    public GameObject problemboard_text;
 
 
     public GameObject ContentModuleRoot;
@@ -51,6 +52,8 @@ public class CountingTangible : MonoBehaviour {
         IsCounting = false;
         counting_n = 0;
         tap_list = new List<GameObject>();
+        problemboard.SetActive(false);
+        container.SetActive(false);
     }
     // Update is called once per frame
     void Update()
@@ -75,7 +78,14 @@ public class CountingTangible : MonoBehaviour {
             int number_label_value = objs[i].get_number_feedback();
             if(number_label_value > 0)
             {
-                number_label[number_label_value - 1] = true;
+                if (number_label_value > objs.Count)
+                {
+                    objs[i].clear_feedback();
+                }
+                else
+                {
+                    number_label[number_label_value - 1] = true;
+                }
             }
         }
         for(int i = 0; i < number_label.Length; i++)
@@ -96,8 +106,9 @@ public class CountingTangible : MonoBehaviour {
         }
             
 
-        if (objs.Count> counting_n)
+        if (objs.Count!= counting_n)
         {
+            
             counting_n = objs.Count;
             OnCount();
         }
@@ -110,7 +121,7 @@ public class CountingTangible : MonoBehaviour {
         UpdateBoard();
         //sound effect
 
-        if (ContentModuleRoot.GetComponent<ContentCounting>().found_object_count <= counting_n)
+        if (ContentModuleRoot.GetComponent<ContentCounting>().found_object_count == counting_n)
         {
             OnCompletion();
         }
@@ -136,13 +147,17 @@ public class CountingTangible : MonoBehaviour {
         IsCounting = true;
         board.SetActive(true);
         UpdateBoard();
+        problemboard.SetActive(true);
+        container.SetActive(true);
     }
 
     private void UpdateBoard()
     {
+        int goal_n = ContentModuleRoot.GetComponent<ContentCounting>().found_object_count;
         board.GetComponent<board>().enable_both(target_object_name, counting_n, "= " + counting_n.ToString());
         //board.GetComponent<board>().setMathText("= " + counting_n.ToString());
         //board.GetComponent<board>().setIcon(target_object_name, counting_n);
+        problemboard_text.GetComponent<Text>().text = "Can you get me "+goal_n+" "+ target_object_name+"s ?";
     }
     private void clearinteractiveobjects()
     {

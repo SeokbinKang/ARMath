@@ -4,7 +4,8 @@ using UnityEngine;
 
 public class SystemContent : MonoBehaviour {
     public GameObject contentRoot;
-	// Use this for initialization
+    // Use this for initialization
+    public GameObject bg_music;
 	void Start () {
 		
 	}
@@ -13,9 +14,14 @@ public class SystemContent : MonoBehaviour {
 	void Update () {
 		
 	}
+    void OnEnable()
+    {
+        bg_music.GetComponent<AudioSource>().volume = 0.2f;
+    }
     void OnDisable()
     {
         contentRoot.GetComponent<ContentRoot>().closeAllContent();
+        bg_music.GetComponent<AudioSource>().volume = 1f;
 
     }
 }

@@ -93,8 +93,8 @@ public class ContentCounting : MonoBehaviour, IContentModule
                 return;
             }
             target_object_name = dominant_object_name;
-            int randomNumber = random.Next(object_count/2, object_count);
-            if (randomNumber < 1) randomNumber = 1;
+            int randomNumber = random.Next(object_count-3, object_count);
+            if (randomNumber < 1) randomNumber = object_count;
             found_object_count = randomNumber;
             //pops up explorer
             sub_explorer.SetActive(true);
