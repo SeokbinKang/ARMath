@@ -1,4 +1,4 @@
-[](ScreenShots/demo_addition1.png)
+![demo](ScreenShots/demo_addition1.png)
 
 # ARMath
 
