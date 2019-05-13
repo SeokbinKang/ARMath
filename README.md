@@ -1,4 +1,4 @@
-***INSERT GRAPHIC HERE (include hyperlink in image)***
+[](ScreenShots/demo_addition1.png)
 
 # ARMath
 
