@@ -25,7 +25,7 @@
 - Use the latest .scene file for build
 
 ## Author
-- [Seokbin Kang](https://unity3d.com/learn/tutorials/topics/mobile-touch/building-your-unity-game-android-device-testing)
+- [Seokbin Kang](http://www.livehighkang.com)
 
 ## License
 - [![License](http://img.shields.io/:license-mit-blue.svg?style=flat-square)](http://badges.mit-license.org)
