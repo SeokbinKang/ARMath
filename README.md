@@ -4,8 +4,11 @@
 
 > An Android mobile app that recognizes the surrounding environment, generates mathematics problems, and supports interative problem solving via physical and touchscreen interaction.
 
-**This project is under development 
-- build status
+## Status
+- This project is under development 
+
+
+
 - issues (waffle.io maybe)
 - devDependencies
 - npm package
