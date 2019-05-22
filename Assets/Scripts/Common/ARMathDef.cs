@@ -73,3 +73,21 @@ public class UserInfo
 
     }
 }
+
+public class ARMathUtils
+{
+    public static GameObject create_2DPrefab(GameObject prefab, GameObject parent)
+    {
+        Vector3 targetPos = new Vector3(0, 0, 0);
+        UnityEngine.GameObject label = GameObject.Instantiate(prefab, targetPos, Quaternion.identity) as GameObject;
+        label.transform.SetParent(parent.gameObject.transform);
+        RectTransform r = label.GetComponent<RectTransform>();
+        r.localScale = new Vector3(1f, 1f, 1f);
+        r.position = targetPos;
+        label.GetComponent<RectTransform>().localPosition = r.position;
+        label.GetComponent<RectTransform>().localScale = r.localScale;
+
+        return label;
+
+    }
+}
