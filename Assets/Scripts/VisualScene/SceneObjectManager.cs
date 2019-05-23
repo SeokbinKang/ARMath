@@ -122,6 +122,19 @@ public class SceneObjectManager : MonoBehaviour {
         }
         return ret;
     }
+    public List<SceneObject> get_objects_by_name(List<string> name_list)
+    {
+        List<SceneObject> ret = new List<SceneObject>();
+        foreach (SceneObject so in mObjectPool)
+        {
+
+            if (name_list.FindIndex(so.catalogInfo.DisplayName.Equals)>=0)
+            {
+                ret.Add(so);
+            }
+        }
+        return ret;
+    }
     public List<SceneObject> get_objects_on_the_left(string name)
     {
         List<SceneObject> ret = new List<SceneObject>();

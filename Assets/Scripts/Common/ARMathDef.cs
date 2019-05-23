@@ -18,9 +18,17 @@ public enum ProblemType
 {
     p1_counting,
     p2_addition,
-    p2_subtraction,
+    p4_geometry,
     p3_multiplication,
-    p3_division
+    p3_division,
+    
+}
+public enum GeometryShapes
+{
+    Rectangle,
+    Circle,
+    Triangle,
+    Trapezoid
 }
 public class SystemParam
 {

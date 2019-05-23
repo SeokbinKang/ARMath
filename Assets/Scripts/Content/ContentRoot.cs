@@ -8,40 +8,39 @@ public class ContentRoot : MonoBehaviour {
     public GameObject mContentSubtraction;
     public GameObject mContentMult;
     public GameObject mContentDiv;
+    public GameObject mGeometry;
 
 
     // Use this for initialization
     void Start () {
-        mContentCounting.SetActive(false);
-        mContentAddition.SetActive(false);
-        mContentSubtraction.SetActive(false);
-        mContentMult.SetActive(false);
-        mContentDiv.SetActive(false);
+        closeAllContent();
+
 
     }
-	
-	// Update is called once per frame
-	void Update () {
+
+    // Update is called once per frame
+    void Update () {
 		
 	}
     
     public void updateContentUse(ProblemType p, bool onoff)
     {
         if (p == ProblemType.p1_counting) mContentCounting.SetActive(onoff);
+        if (p == ProblemType.p2_addition) mContentAddition.SetActive(onoff);
+        if (p == ProblemType.p4_geometry) mGeometry.SetActive(onoff);
 
     }
     public void closeAllContent()
     {
+        
         mContentCounting.SetActive(false);
+        mContentAddition.SetActive(false);
+        mContentSubtraction.SetActive(false);
+        mContentMult.SetActive(false);
+        mContentDiv.SetActive(false);
+        mGeometry.SetActive(false);
     }
-    public void updateScenedata(CVResult cv)
-    {
-        //receive the recognition result
-
-        //pass the recognition result to individual content unit. if it is turned on. DEPRECATED
-      //  if (mContentCounting.activeSelf) mContentCounting.GetComponent<ContentCounting>().UpdateCVResult(cv);
-    }
-
+    
     public void enableContentCounting(bool t)
     {
         //mContentCounting.SetActive(!mContentCounting.activeSelf);
@@ -49,6 +48,7 @@ public class ContentRoot : MonoBehaviour {
         if (t)
         {
             mContentAddition.SetActive(false);
+            mGeometry.SetActive(false);
             mContentCounting.GetComponent<ContentCounting>().Reset();
         }
     }
@@ -59,6 +59,7 @@ public class ContentRoot : MonoBehaviour {
         if (t)
         {
             mContentCounting.SetActive(false);
+            mGeometry.SetActive(false);
             mContentAddition.GetComponent<ContentAddition>().Reset();
         }
     }
@@ -73,6 +74,17 @@ public class ContentRoot : MonoBehaviour {
     public void enableContentDivision(bool t)
     {
         mContentDiv.SetActive(!mContentDiv.activeSelf);
+    }
+    public void enableContentGeometry(bool t)
+    {
+        //mContentAddition.SetActive(!mContentAddition.activeSelf);
+        mGeometry.SetActive(t);
+        if (t)
+        {
+            mContentAddition.SetActive(false);
+            mContentCounting.SetActive(false);
+            mGeometry.GetComponent<ContentGeometry>().Reset();
+        }
     }
 
     public int number_active_content()
@@ -97,6 +109,10 @@ public class ContentRoot : MonoBehaviour {
         if (mContentDiv != null)
         {
             if (mContentDiv.activeSelf) ret++;
+        }
+        if (mGeometry != null)
+        {
+            if (mGeometry.activeSelf) ret++;
         }
         return ret;
     }
