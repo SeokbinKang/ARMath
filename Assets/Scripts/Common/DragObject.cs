@@ -20,7 +20,7 @@ public class DragObject : MonoBehaviour, IDragHandler
     {
         if (eventData.dragging)
         {
-            print("Dragging");
+         
         };
         Vector2 mouse_pos = eventData.position;
         this.GetComponent<RectTransform>().position = new Vector3(mouse_pos.x, mouse_pos.y, 0);        

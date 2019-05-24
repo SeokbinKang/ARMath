@@ -23,11 +23,12 @@ public class ContentSolver : MonoBehaviour {
 
     public void init_solver()
     {
-        bool interaction_touch_enalbed = SystemControl.mSystemControl.get_system_setup_interaction_touch();
-        bool interaction_object_enabled = SystemControl.mSystemControl.get_system_setup_interaction_object();
+        /*bool interaction_touch_enalbed = SystemControl.mSystemControl.get_system_setup_interaction_touch();
+        bool interaction_object_enabled = SystemControl.mSystemControl.get_system_setup_interaction_object();*/
+        bool interaction_touch_enalbed = false;
+        bool interaction_object_enabled = true;
 
-
-        if(interaction_touch_enalbed)
+        if (interaction_touch_enalbed)
         { //turn on either of two solvers.
             solver_virtual.SetActive(true);
             solver_tangible.SetActive(false);
@@ -37,7 +38,7 @@ public class ContentSolver : MonoBehaviour {
             solver_tangible.SetActive(true);
         } else
         {
-            solver_virtual.SetActive(false);
+            solver_virtual.SetActive(true);
             solver_tangible.SetActive(false);
         }
     }

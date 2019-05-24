@@ -7,7 +7,9 @@ public class ContentGeometry : MonoBehaviour {
 
     public GameObject sub_intro;
     public GameObject sub_explorer;
+
     public GameObject sub_opener;
+    public GameObject sub_helper;
     public GameObject sub_solver;
 
     public GameObject sub_ceremony;
@@ -15,7 +17,10 @@ public class ContentGeometry : MonoBehaviour {
 
     
     public string target_object_name = "";
-    public GeometryShapes target_object_shape ;
+    public GeometryShapes target_object_shape= GeometryShapes.Rectangle;
+    public Rect target_object_rect;
+    public Rect final_object_shape_rect;
+   
 
 
 
@@ -50,6 +55,7 @@ public class ContentGeometry : MonoBehaviour {
         sub_solver.SetActive(false);
         sub_review.SetActive(false);
         sub_ceremony.SetActive(false);
+        sub_helper.SetActive(false);
         is_idle = true;
         is_solved = false;    
         SceneObjectManager.mSOManager.Reset();
@@ -89,6 +95,7 @@ public class ContentGeometry : MonoBehaviour {
             }
             target_object_name = geometry_objects[0].catalogInfo.DisplayName;
             center_of_objects= geometry_objects[0].catalogInfo.Box.center;
+            target_object_rect = geometry_objects[0].catalogInfo.Box;
             target_object_shape = GeometryShapes.Rectangle;
             Debug.Log("[ARMath] geometry object target : " + target_object_name);
             bool interaction_touch_enalbed = SystemControl.mSystemControl.get_system_setup_interaction_touch();
@@ -115,13 +122,7 @@ public class ContentGeometry : MonoBehaviour {
 
         }
     }
-    public void UpdateCVResult(CVResult cv)
-    {
-
-
-
-
-    }
+  
     public void SetIdle(bool t)
     {
         is_idle = t;

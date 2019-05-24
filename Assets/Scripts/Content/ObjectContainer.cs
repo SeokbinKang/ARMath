@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class ObjectContainer : MonoBehaviour {
 
-
+    
     public GameObject region_rectangle;
 	// Use this for initialization
 	void Start () {

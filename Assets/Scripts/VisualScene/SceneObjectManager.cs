@@ -127,7 +127,7 @@ public class SceneObjectManager : MonoBehaviour {
         List<SceneObject> ret = new List<SceneObject>();
         foreach (SceneObject so in mObjectPool)
         {
-
+            //Debug.Log("[ARMath] found objects = " + so.catalogInfo.DisplayName);
             if (name_list.FindIndex(so.catalogInfo.DisplayName.Equals)>=0)
             {
                 ret.Add(so);

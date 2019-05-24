@@ -5,7 +5,7 @@ using UnityEngine.UI;
 public class GeometryOpener : MonoBehaviour {
 
     public GameObject dialogue_text_status;
-    public GameObject dialogue_text_none;
+
     public GameObject dialogue_text_prompt;
     public GameObject ContentModuleRoot;
     // Use this for initialization
@@ -26,7 +26,7 @@ public class GeometryOpener : MonoBehaviour {
     private void Reset()
     {
         dialogue_text_status.SetActive(false);
-        dialogue_text_none.SetActive(false);
+
         dialogue_text_prompt.SetActive(false);
         loadDialogue();
     }
@@ -38,7 +38,8 @@ public class GeometryOpener : MonoBehaviour {
 
 
         //  Debug.Log("[ARMATH] : " + ContentModuleRoot.GetComponent<ContentCounting>().target_object_name + " \t " + ContentModuleRoot.GetComponent<ContentCounting>().found_object_count);
-        if (target_object_name == "") dialogue_text_none.SetActive(true);
+        if (target_object_name == "") {
+        }
         else
         {
             dialogue_text_status.SetActive(true);
@@ -56,7 +57,7 @@ public class GeometryOpener : MonoBehaviour {
 
         string target_object_name = ContentModuleRoot.GetComponent<ContentGeometry>().target_object_name;
         dialogue_text_prompt.SetActive(true);
-        dialogue_text_prompt.GetComponent<Text>().text = "Can you help me find sides and vertices in the "+ target_object_name+" shape?";
+        dialogue_text_prompt.GetComponent<Text>().text = "Can you help me identify the "+ target_object_name+" shape?";
         TTS.mTTS.GetComponent<TTS>().StartTextToSpeech(dialogue_text_prompt.GetComponent<Text>().text);
     }
 }

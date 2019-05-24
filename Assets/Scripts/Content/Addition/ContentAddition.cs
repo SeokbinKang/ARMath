@@ -8,6 +8,7 @@ public class ContentAddition : MonoBehaviour, IContentModule
     public GameObject sub_intro;
     public GameObject sub_explorer;
     public GameObject sub_opener;
+    public GameObject sub_helper;
     public GameObject sub_solver;
 
     public GameObject sub_ceremony;

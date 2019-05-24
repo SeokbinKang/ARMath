@@ -30,6 +30,13 @@ public enum GeometryShapes
     Triangle,
     Trapezoid
 }
+public enum GeometryPrimitives
+{
+    vertex,
+    side_horizontal,
+    side_vertical,
+    angle
+}
 public class SystemParam
 {
     public static float param_object_lifetime = 3.2f;  //second
@@ -37,6 +44,8 @@ public class SystemParam
     public static float system_update_period = 0.5f;  //second
 
     public static int image_size = 300;
+
+    public static float vertext_proximity = 80;
 
 }
 public class ARMathDef : MonoBehaviour {
@@ -97,5 +106,13 @@ public class ARMathUtils
 
         return label;
 
+    }
+
+    public static void move2dobject(GameObject go, Vector2 global_position)
+    {
+        Vector3 targetPos = new Vector3(global_position.x, Screen.height - global_position.y, 0);                
+        RectTransform r = go.GetComponent<RectTransform>();
+        r.position = targetPos;        
+        //label.GetComponent<RectTransform>().localScale = new Vector3(1f, 1f, 1f);        
     }
 }

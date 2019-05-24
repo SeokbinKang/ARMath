@@ -33,12 +33,12 @@ public class ContentRoot : MonoBehaviour {
     public void closeAllContent()
     {
         
-        mContentCounting.SetActive(false);
-        mContentAddition.SetActive(false);
-        mContentSubtraction.SetActive(false);
-        mContentMult.SetActive(false);
-        mContentDiv.SetActive(false);
-        mGeometry.SetActive(false);
+        if(mContentCounting) mContentCounting.SetActive(false);
+        if (mContentAddition) mContentAddition.SetActive(false);
+        if (mContentSubtraction) mContentSubtraction.SetActive(false);
+        if (mContentMult) mContentMult.SetActive(false);
+        if (mContentDiv) mContentDiv.SetActive(false);
+        if (mGeometry) mGeometry.SetActive(false);
     }
     
     public void enableContentCounting(bool t)
