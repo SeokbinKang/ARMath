@@ -57,7 +57,7 @@ public class GeometryVirtual_Rect : MonoBehaviour {
     private void Reset()
     {
         prompt.SetActive(true);
-        board.SetActive(false);
+        
         container.SetActive(false);
         geoprimitives.SetActive(false);
         problemboard.SetActive(false);
@@ -84,16 +84,16 @@ public class GeometryVirtual_Rect : MonoBehaviour {
     private void processStep()
     {
         string target_object_name = ContentModuleRoot.GetComponent<ContentGeometry>().target_object_name;
-        Debug.Log("[ARMath] Solver step: "+mStep);
+        
         if (mStep == 0)
         {
             prompt.SetActive(true);
-            board.SetActive(false);
+            
             container.SetActive(false);
             geoprimitives.SetActive(false);
             problemboard.SetActive(false);
-            if(prompt_text.GetComponent<Text>().text!= "Let's find vertics, sides, and angles in the " + target_object_name + " by dragging the icons"){
-                prompt_text.GetComponent<Text>().text = "Let's find vertics, sides, and angles in the " + target_object_name + " by dragging the icons";
+            if(prompt_text.GetComponent<Text>().text!= "Let's find vertics, sides, and angles in the " + target_object_name ){
+                prompt_text.GetComponent<Text>().text = "Let's find vertics, sides, and angles in the " + target_object_name ;
                 TTS.mTTS.GetComponent<TTS>().StartTextToSpeech(prompt_text.GetComponent<Text>().text);
             }
             
@@ -102,21 +102,17 @@ public class GeometryVirtual_Rect : MonoBehaviour {
         if (mStep == 2)
         {
             prompt.SetActive(false);
-
-            board.SetActive(false);
-            board.GetComponent<board>().setMathText("Vertices:4 \nSides: ?\n Angles: ?");
-
-            
             container.SetActive(true);
 
 
-            geoprimitives.SetActive(true);
+            //geoprimitives.SetActive(true);
+            container.GetComponent<GeometryVisContainer>().Solve_Properties(GeometryPrimitives.vertex);
 
-    
+
             problemboard.SetActive(true);
-            if (problemboard_text.GetComponent<Text>().text != "Where are the vertices in the " + target_object_name + " rectangle?")
+            if (problemboard_text.GetComponent<Text>().text != "Can you select the vertices in the " + target_object_name + " rectangle?")
             {
-                problemboard_text.GetComponent<Text>().text = "Where are the vertices in the " + target_object_name + " rectangle?";
+                problemboard_text.GetComponent<Text>().text = "Can you select the vertices in the " + target_object_name + " rectangle?";
                 TTS.mTTS.GetComponent<TTS>().StartTextToSpeech(problemboard_text.GetComponent<Text>().text);
             }
 
@@ -128,23 +124,22 @@ public class GeometryVirtual_Rect : MonoBehaviour {
         {
             prompt.SetActive(false);
 
-            board.SetActive(false);
-            board.GetComponent<board>().setMathText("Vertices:4 \nSides: 2\n Angles: ?");
+            
 
 
             container.SetActive(true);
 
 
-            geoprimitives.SetActive(true);
-
+            //geoprimitives.SetActive(true);
+            container.GetComponent<GeometryVisContainer>().Solve_Properties(GeometryPrimitives.side_horizontal);
 
             problemboard.SetActive(true);
 
-            if (problemboard_text.GetComponent<Text>().text != "What do the sides of " + target_object_name + " rectangle look like?")
+            if (problemboard_text.GetComponent<Text>().text != "Can you select two PARALLEL sides in the " + target_object_name + " rectangle?")
             {
-                problemboard_text.GetComponent<Text>().text = "What do the sides of " + target_object_name + " rectangle look like?";
+                problemboard_text.GetComponent<Text>().text = "Can you select two PARALLEL sides in the " + target_object_name + " rectangle?";
                 TTS.mTTS.GetComponent<TTS>().StartTextToSpeech(problemboard_text.GetComponent<Text>().text);
-                geoprimitives.GetComponent<GridPrimitives>().Reset(GeometryPrimitives.side_horizontal);
+        
 
             }
             
@@ -169,7 +164,7 @@ public class GeometryVirtual_Rect : MonoBehaviour {
             {
                 problemboard_text.GetComponent<Text>().text = "What do the sides of " + target_object_name + " rectangle look like? ";
                 TTS.mTTS.GetComponent<TTS>().StartTextToSpeech(problemboard_text.GetComponent<Text>().text);
-                geoprimitives.GetComponent<GridPrimitives>().Reset(GeometryPrimitives.side_vertical);
+             
 
             }
 
@@ -179,10 +174,6 @@ public class GeometryVirtual_Rect : MonoBehaviour {
         {
             prompt.SetActive(false);
 
-            board.SetActive(false);
-            board.GetComponent<board>().setMathText("Vertices:4 \nSides: 4\n Angles: ?");
-
-
             container.SetActive(true);
 
 
@@ -190,7 +181,7 @@ public class GeometryVirtual_Rect : MonoBehaviour {
 
 
             problemboard.SetActive(true);
-
+            container.GetComponent<GeometryVisContainer>().Solve_Properties(GeometryPrimitives.angle);
             if (problemboard_text.GetComponent<Text>().text != "What are the angles of the corners in " + target_object_name + "?")
             {
                 problemboard_text.GetComponent<Text>().text = "What are the angles of the corners in " + target_object_name + "?";
@@ -199,32 +190,7 @@ public class GeometryVirtual_Rect : MonoBehaviour {
 
             }
 
-        }
-        if (mStep == 8)
-        {
-            prompt.SetActive(false);
-
-            board.SetActive(true);
-            board.GetComponent<board>().setMathText("Vertices:4 \nSides: 4\n Angles: 90 ");
-
-
-            container.SetActive(true);
-
-
-            geoprimitives.SetActive(true);
-
-
-            problemboard.SetActive(true);
-
-            if (problemboard_text.GetComponent<Text>().text != "What are the angles of the corners in " + target_object_name + "?")
-            {
-                problemboard_text.GetComponent<Text>().text = "What are the angles of the corners in " + target_object_name + "?";
-                TTS.mTTS.GetComponent<TTS>().StartTextToSpeech(problemboard_text.GetComponent<Text>().text);
-                geoprimitives.GetComponent<GridPrimitives>().Reset(GeometryPrimitives.angle);
-
-            }
-
-        }
+        }       
 
         if (mStep == 10)
         {
@@ -250,7 +216,7 @@ public class GeometryVirtual_Rect : MonoBehaviour {
         if (added > 0) TTS.mTTS.GetComponent<TTS>().StartTextToSpeech(added + " " + target_object_name + "s added!");
         else TTS.mTTS.GetComponent<TTS>().StartTextToSpeech("please add more " + target_object_name + "s!");
 
-        UpdateBoard();
+
         //sound effect
         //Debug.Log("[ARMath] result " + ContentModuleRoot.GetComponent<ContentAddition>().goal_object_count + "  =? " + ContentModuleRoot.GetComponent<ContentAddition>().current_object_count);
         if (added == ContentModuleRoot.GetComponent<ContentAddition>().add_object_count)
@@ -270,25 +236,13 @@ public class GeometryVirtual_Rect : MonoBehaviour {
     {
         total_n = 0;
         UserInteracting = true;
-        board.SetActive(true);
-        UpdateBoard();
+        
+        
         container.SetActive(true);
         geoprimitives.SetActive(true);
         problemboard.SetActive(true);
         arrange_movable_objects();
     }
 
-    private void UpdateBoard()
-    {
-        int init_n = ContentModuleRoot.GetComponent<ContentAddition>().init_object_count;
-        int goal_n = ContentModuleRoot.GetComponent<ContentAddition>().goal_object_count;
-        int cur_n = ContentModuleRoot.GetComponent<ContentAddition>().current_object_count;
-        int add_n = ContentModuleRoot.GetComponent<ContentAddition>().add_object_count;
-        string sign = " + ";
-        if (cur_n - init_n < 0) sign = " - ";
-        board.GetComponent<board>().enable_number_only(init_n + sign + System.Math.Abs(cur_n - init_n) + " = " + cur_n);
-        problemboard_text.GetComponent<Text>().text = "If we add " + add_n + " " + target_object_name + "s to " + init_n + " " + target_object_name + "s, \nhow many are there in total?";
-
-    }
    
 }

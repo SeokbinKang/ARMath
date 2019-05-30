@@ -47,8 +47,8 @@ public class ShapeHelper : MonoBehaviour {
         if (bbox != null)
         { //global position
             Debug.Log("[ARMath] Rectangle object box: " + bbox);
-            ARMathUtils.move2dobject(LT_proxy, new Vector2(bbox.xMin, bbox.yMin));
-            ARMathUtils.move2dobject(RB_proxy, new Vector2(bbox.xMax, bbox.yMax));
+            ARMathUtils.move2D_imageCoordinate(LT_proxy, new Vector2(bbox.xMin, bbox.yMin));
+            ARMathUtils.move2D_imageCoordinate(RB_proxy, new Vector2(bbox.xMax, bbox.yMax));
             
         }
 

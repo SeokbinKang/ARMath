@@ -8,7 +8,8 @@ public class ContentGeometry : MonoBehaviour {
     public GameObject sub_intro;
     public GameObject sub_explorer;
 
-    public GameObject sub_opener;
+    
+    public GameObject sub_builder;
     public GameObject sub_helper;
     public GameObject sub_solver;
 
@@ -40,7 +41,7 @@ public class ContentGeometry : MonoBehaviour {
         {
             nextActionTime = Time.time + SystemParam.system_update_period;
             // execute block of code here
-            UpdateExplorer();
+            s1_UpdateExplorer();
         }
     }
     void OnEnable()
@@ -49,13 +50,15 @@ public class ContentGeometry : MonoBehaviour {
     }
     public void Reset()
     {
+        Drawing2D.Reset();
         sub_intro.SetActive(true);
         sub_explorer.SetActive(false);
-        sub_opener.SetActive(false);
+
         sub_solver.SetActive(false);
         sub_review.SetActive(false);
         sub_ceremony.SetActive(false);
         sub_helper.SetActive(false);
+        sub_builder.SetActive(false);
         is_idle = true;
         is_solved = false;    
         SceneObjectManager.mSOManager.Reset();
@@ -70,7 +73,7 @@ public class ContentGeometry : MonoBehaviour {
         is_solved = true;
 
     }
-    public void UpdateExplorer()
+    public void s1_UpdateExplorer()
     {
         System.Random random = new System.Random();
 
@@ -121,6 +124,34 @@ public class ContentGeometry : MonoBehaviour {
             sub_explorer.SetActive(false);
 
         }
+    }
+    public void s2_OnExplorer()
+    {
+        SetIdle(false);
+        Dialogs.add_dialog(new DialogItem(DialogueType.left_bottom_plain,
+                "Oh! I've found an object that looks like a " + ARMathUtils.shape_name(target_object_shape),
+                true,
+                null,
+                ""
+                ));
+        Dialogs.add_dialog(new DialogItem(DialogueType.left_bottom_plain,
+                "Can you help me find the "+ ARMathUtils.shape_name(target_object_shape) +"?",
+                true,
+                new CallbackFunction(s3_findtheshape),
+                ARMathUtils.shape_name(target_object_shape)
+                ));
+
+
+    }
+    public void s3_findtheshape(string param)
+    {
+        sub_builder.SetActive(true);
+        sub_builder.GetComponent<ShapeBuilder>().shape = target_object_shape;
+    }
+    public void s4_startsolver()
+    {
+        sub_builder.SetActive(false);
+        sub_solver.SetActive(true);
     }
   
     public void SetIdle(bool t)

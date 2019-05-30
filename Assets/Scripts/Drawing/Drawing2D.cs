@@ -5,8 +5,12 @@ using UnityEngine;
 public class Drawing2D : MonoBehaviour {
     public static Drawing2D mThis;
     public GameObject pre_quadliteral;
+    public GameObject brush_circle;
+    public Color brush_color;
 
     private Dictionary<string, List<GameObject>> mDrawingObjects;
+
+    
 	// Use this for initialization
 	void Start () {
         mThis = this;
@@ -35,6 +39,44 @@ public class Drawing2D : MonoBehaviour {
 		
 	}
 
+    //
+    public static void Reset()
+    {
+        if (mThis.mDrawingObjects == null) return;
+        foreach(var t in mThis.mDrawingObjects.Keys)
+        {
+            destroy_polygons(t);
+        }
+    }
+    public static void Correct_Rectangle(string name,List<Vector2> new_pos)
+    {
+        if (!mThis.mDrawingObjects.ContainsKey(name))
+        {
+            return;
+        }
+        for (int i = 0; i < mThis.mDrawingObjects[name].Count; i++)
+        {
+            if(i<new_pos.Count)
+                ARMathUtils.move2D_ScreenCoordinate(mThis.mDrawingObjects[name][i], new_pos[i]);
+        }
+            
+
+
+    }
+    public static GameObject draw_pen(string name, Vector2 pos)
+    {
+        if (!mThis.mDrawingObjects.ContainsKey(name))
+        {
+            mThis.mDrawingObjects[name] = new List<GameObject>();
+            
+
+        }
+        UnityEngine.GameObject label = ARMathUtils.create_2DPrefab(mThis.brush_circle, mThis.gameObject,pos);
+        
+        mThis.mDrawingObjects[name].Add(label);
+
+        return label;
+    }
     public static GameObject create_2DRect(string name, Vector2[] mCorners, Color c)
     {
         if(mCorners.Length<4 || mThis.pre_quadliteral==null)
@@ -56,7 +98,7 @@ public class Drawing2D : MonoBehaviour {
     }
     public static void destroy_polygons(string name)
     {
-        if (mThis.mDrawingObjects[name] == null) return;
+        if (mThis.mDrawingObjects.ContainsKey(name) == false) return;
         foreach(GameObject go in mThis.mDrawingObjects[name])
         {
             Destroy(go);

@@ -16,15 +16,19 @@ public class GeometryVisRect : MonoBehaviour {
     public GameObject[] angles;
     public bool[] onAngles;
     // Use this for initialization
+    public GeometryPrimitives interactive_primitive;
+
+    public List<int> selected_index;
     void Start () {
 		
 	}
 	
 	// Update is called once per frame
 	void Update () {
-        check_vertices();
-        check_sides();
-        check_angles();
+        if(interactive_primitive == GeometryPrimitives.vertex)
+            check_vertices2();
+        if (interactive_primitive == GeometryPrimitives.side_horizontal || interactive_primitive == GeometryPrimitives.side_vertical) check_sides2();
+        if (interactive_primitive == GeometryPrimitives.angle) check_angles();
         update_visual();
 	}
 
@@ -46,6 +50,9 @@ public class GeometryVisRect : MonoBehaviour {
         {
             onAngles[i] = false;
         }
+        interactive_primitive = GeometryPrimitives.none;
+        if (selected_index != null) selected_index.Clear();
+        else selected_index = new List<int>();
     }
     private void update_visual()
     {
@@ -62,6 +69,115 @@ public class GeometryVisRect : MonoBehaviour {
             angles[i].SetActive(onAngles[i]);
         }
     }
+
+
+    private void feedback_bad(Vector2 pos)
+    {
+
+    }
+    private void feedback_good(Vector2 pos)
+    {
+
+    }
+
+
+    private void check_vertices2()
+    {
+        //test touch point
+        if (Input.touchCount > 0)
+        {
+            Touch touch = Input.GetTouch(0);
+            bool all_found = true;
+            // Move the cube if the screen has the finger moving.
+            if (touch.phase == TouchPhase.Began)
+            {
+                Vector2 user_pos = touch.position;
+                bool incorrect = true;
+                for (int i = 0; i < onVertex.Length; i++)
+                {
+                    if (onVertex[i]) continue;
+                    all_found = false;
+                    Vector2 real_pos = vertices[i].GetComponent<RectTransform>().position;
+                    Vector2 diff = user_pos - real_pos;
+                    if (diff.magnitude <= SystemParam.vertext_proximity)
+                    {
+                        onVertex[i] = true;
+                        FeedbackGenerator.create_sticker_ox_dispose(user_pos, true);
+                        incorrect = false;
+                        break;
+                        //FEEDBACK
+                    }
+                }
+                if(incorrect) FeedbackGenerator.create_sticker_ox_dispose(user_pos, false);
+
+
+            }
+        }
+        bool iscomplete = true;
+        foreach (bool b in onVertex)
+        {
+            if (!b) iscomplete = false;
+        }
+        if (iscomplete && solver.GetComponent<GeometryVirtual_Rect>().mStep < 4) solver.GetComponent<GeometryVirtual_Rect>().nextStep(4);
+    }
+    private void check_sides2()
+    {
+        //test touch point
+        if (Input.touchCount > 0)
+        {
+            Touch touch = Input.GetTouch(0);
+            bool all_found = true;
+            // Move the cube if the screen has the finger moving.
+            if (touch.phase == TouchPhase.Began)
+            {
+                Vector2 user_pos = touch.position;
+                for (int i = 0; i < onSides.Length; i++)
+                {
+                    if (onSides[i]) continue;
+                    RectTransform rt = sides[i].GetComponent<RectTransform>();
+                    float width = rt.rect.width;
+                    float height = rt.rect.height;
+                    if (width < 50) width = 100;
+                    if (height < 50) height = 100;
+
+                    Debug.Log("[ARMath] "+i+" box : " + rt.position + " w: " + width + " h: " + height + "     touch:" + user_pos);
+                    if (user_pos.x >= rt.position.x - width/2 && user_pos.x <=rt.position.x+width/2 && user_pos.y >= rt.position.y - height/2 && user_pos.y<=rt.position.y+height/2)
+                    {
+                        onSides[i] = true;
+                        selected_index.Add(i);
+                        break;
+                        
+                        //FEEDBACK
+                    }
+                }
+                if(selected_index.Count==2)
+                {
+                    if(selected_index[0]%2 != selected_index[1] % 2)
+                    {
+                        feedback_bad(user_pos);
+                        onSides[selected_index[1]] = false;
+                        selected_index.RemoveAt(1);
+                        FeedbackGenerator.create_sticker_ox_dispose(user_pos, false);
+
+                    } else
+                    {
+                        FeedbackGenerator.create_sticker_ox_dispose(user_pos, true);
+                        feedback_good(user_pos);
+                        selected_index.Clear();
+                    }
+                }
+
+
+            }
+        }
+        bool iscomplete = true;
+        foreach (bool b in onSides)
+        {
+            if (!b) iscomplete = false;
+        }
+        if (iscomplete && solver.GetComponent<GeometryVirtual_Rect>().mStep < 8) solver.GetComponent<GeometryVirtual_Rect>().nextStep(8);
+    }
+
 
     private void check_vertices()
     {
