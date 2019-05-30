@@ -22,7 +22,10 @@ public class ContentRoot : MonoBehaviour {
     void Update () {
 		
 	}
-    
+    private void OnEnable()
+    {
+        closeAllContent();
+    }
     public void updateContentUse(ProblemType p, bool onoff)
     {
         if (p == ProblemType.p1_counting) mContentCounting.SetActive(onoff);

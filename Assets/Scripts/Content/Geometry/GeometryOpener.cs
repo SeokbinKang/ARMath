@@ -34,7 +34,7 @@ public class GeometryOpener : MonoBehaviour {
     {
 
         string target_object_name = ContentModuleRoot.GetComponent<ContentGeometry>().target_object_name;
-
+        string target_object_shape = ARMathUtils.shape_name(ContentModuleRoot.GetComponent<ContentGeometry>().target_object_shape);
 
 
         //  Debug.Log("[ARMATH] : " + ContentModuleRoot.GetComponent<ContentCounting>().target_object_name + " \t " + ContentModuleRoot.GetComponent<ContentCounting>().found_object_count);
@@ -42,9 +42,17 @@ public class GeometryOpener : MonoBehaviour {
         }
         else
         {
+            Dialogs.add_dialog(new DialogItem(DialogueType.left_bottom_plain,
+                "Oh! I've found an object that looks like a " + target_object_shape,
+                true,
+                null,
+                ""
+                ));
+            /* DEPRECATED
             dialogue_text_status.SetActive(true);
-            dialogue_text_status.GetComponent<Text>().text = "Oh! I've found a " + target_object_name + " there!";
+            dialogue_text_status.GetComponent<Text>().text = "Oh! I've found an object that looks like a "+target_object_shape;
             TTS.mTTS.GetComponent<TTS>().StartTextToSpeech(dialogue_text_status.GetComponent<Text>().text);
+            */
         }
 
 

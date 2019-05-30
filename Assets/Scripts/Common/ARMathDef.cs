@@ -35,7 +35,14 @@ public enum GeometryPrimitives
     vertex,
     side_horizontal,
     side_vertical,
-    angle
+    angle,
+    none
+}
+
+public enum DialogueType
+{
+    left_bottom_plain,
+    Center
 }
 public class SystemParam
 {
@@ -93,6 +100,19 @@ public class UserInfo
 
 public class ARMathUtils
 {
+    public static GameObject create_2DPrefab(GameObject prefab, GameObject parent, Vector2 screen_pos)
+    {
+        Vector3 targetPos = screen_pos;
+        UnityEngine.GameObject label = GameObject.Instantiate(prefab, targetPos, Quaternion.identity) as GameObject;
+        label.transform.SetParent(parent.gameObject.transform);
+        RectTransform r = label.GetComponent<RectTransform>();
+        r.localScale = new Vector3(1f, 1f, 1f);
+        r.position = targetPos;
+        label.GetComponent<RectTransform>().position = r.position;
+        label.GetComponent<RectTransform>().localScale = r.localScale;
+        return label;
+    }
+
     public static GameObject create_2DPrefab(GameObject prefab, GameObject parent)
     {
         Vector3 targetPos = new Vector3(0, 0, 0);
@@ -108,11 +128,29 @@ public class ARMathUtils
 
     }
 
-    public static void move2dobject(GameObject go, Vector2 global_position)
+    public static void move2D_ScreenCoordinate(GameObject go, Vector2 screen_position)
+    {
+        
+        RectTransform r = go.GetComponent<RectTransform>();
+        r.position = screen_position;
+        
+    }
+    public static void move2D_imageCoordinate(GameObject go, Vector2 global_position)
     {
         Vector3 targetPos = new Vector3(global_position.x, Screen.height - global_position.y, 0);                
         RectTransform r = go.GetComponent<RectTransform>();
         r.position = targetPos;        
         //label.GetComponent<RectTransform>().localScale = new Vector3(1f, 1f, 1f);        
     }
+
+    public static string shape_name(GeometryShapes shape)
+    {
+        if (shape == GeometryShapes.Circle) return "circle";
+        if (shape == GeometryShapes.Rectangle) return "rectangle";
+        if (shape == GeometryShapes.Triangle) return "triangle";
+        return "unknown shape";
+
+    }
 }
+
+public delegate void CallbackFunction(string param);

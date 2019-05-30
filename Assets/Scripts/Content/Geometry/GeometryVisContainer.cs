@@ -33,7 +33,7 @@ public class GeometryVisContainer : MonoBehaviour {
             VisRectangle.GetComponent<RectTransform>().position = new Vector3(target_box.center.x,target_box.center.y,0);
             VisRectangle.GetComponent<RectTransform>().sizeDelta = target_box.size;
 
-            Debug.Log("[ARMath] target box real: " + VisRectangle.GetComponent<RectTransform>().position + "  center: " + VisRectangle.GetComponent<RectTransform>().sizeDelta);
+            Debug.Log("[ARMath] target box real: " + VisRectangle.GetComponent<RectTransform>().position + "  size: " + VisRectangle.GetComponent<RectTransform>().sizeDelta);
 
         } else if (contentroot.GetComponent<ContentGeometry>().target_object_shape == GeometryShapes.Triangle)
         {
@@ -48,5 +48,13 @@ public class GeometryVisContainer : MonoBehaviour {
 
         }
 
+    }
+
+    public void Solve_Properties(GeometryPrimitives prim)
+    {
+        if (contentroot.GetComponent<ContentGeometry>().target_object_shape == GeometryShapes.Rectangle)
+        {
+            VisRectangle.GetComponent<GeometryVisRect>().interactive_primitive = prim;
+        }
     }
 }

@@ -6,12 +6,18 @@ public class FeedbackGenerator : MonoBehaviour {
 
     public static FeedbackGenerator mThis;
 
+    
     public GameObject prefabe_number_cartoon_digit;
     public GameObject prefab_stricker_o;
     public GameObject prefab_stricker_x;
+
+    private List<GameObject> temporary_feedback;
+    private float last_temporary_feedback_time;
     // Use this for initialization
     void Start () {
         mThis = this;
+        temporary_feedback = new List<GameObject>();
+        last_temporary_feedback_time = Time.time;
         // create_number_feedback(new Vector2(0, 500), 0,true);
         // create_number_feedback(new Vector2(200,500),1, true);
         // create_number_feedback(new Vector2(400, 200), 2, true);
@@ -30,8 +36,22 @@ public class FeedbackGenerator : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		
+		if(Time.time - last_temporary_feedback_time > 10)
+        {
+            foreach(GameObject o in temporary_feedback)
+            {
+                Object.Destroy(o);                    
+            }
+            temporary_feedback.Clear();
+        }
 	}
+    public static void create_sticker_ox_dispose(Vector3 position, bool ox){
+        position.y += 30;
+        GameObject o = mThis.create_sticker_ox(position, ox, true);
+        mThis.temporary_feedback.Add(o);
+        mThis.last_temporary_feedback_time = Time.time;
+
+    }
     public GameObject create_sticker_ox(Vector3 position, bool ox, bool active_)
     {
         Vector3 targetPos = position;
