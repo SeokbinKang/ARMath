@@ -34,6 +34,7 @@ public class Dialogs : MonoBehaviour {
         //load the new foremost dialog
         load_first_dialog();
     }
+    
     private void load_first_dialog()
     {
         if (mDialogueItems == null || mDialogueItems.Count == 0)
@@ -59,6 +60,11 @@ public class Dialogs : MonoBehaviour {
         }
         
 
+    }
+    public static void Reset()
+    {
+        this_.element_leftbottom.SetActive(false);
+        this_.mDialogueItems.Clear();
     }
     public static void add_dialog(DialogItem t)
     {

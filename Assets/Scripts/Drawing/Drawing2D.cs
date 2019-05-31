@@ -42,7 +42,7 @@ public class Drawing2D : MonoBehaviour {
     //
     public static void Reset()
     {
-        if (mThis.mDrawingObjects == null) return;
+        if (mThis==null || mThis.mDrawingObjects == null) return;
         foreach(var t in mThis.mDrawingObjects.Keys)
         {
             destroy_polygons(t);
@@ -85,14 +85,19 @@ public class Drawing2D : MonoBehaviour {
             return null;
         }
         Vector3 targetPos = new Vector3(0, 0, 0);
-        UnityEngine.GameObject label = ARMathUtils.create_2DPrefab(mThis.pre_quadliteral, mThis.gameObject);
+        UnityEngine.GameObject label;
+        if (mThis.mDrawingObjects.ContainsKey(name)) label = mThis.mDrawingObjects[name][0];
+        else label= ARMathUtils.create_2DPrefab(mThis.pre_quadliteral, mThis.gameObject);
         PrimQuadLiteral ql = label.GetComponent<PrimQuadLiteral>();
         if (ql == null) return null;
         ql.setVertices(mCorners);
         ql.setColor(c);
-        List<GameObject> l = new List<GameObject>();
-        l.Add(label);
-        mThis.mDrawingObjects[name] = l;
+        if (!mThis.mDrawingObjects.ContainsKey(name))
+        {
+            List<GameObject> l = new List<GameObject>();
+            l.Add(label);
+            mThis.mDrawingObjects[name] = l;
+        }
 
         return null;
     }

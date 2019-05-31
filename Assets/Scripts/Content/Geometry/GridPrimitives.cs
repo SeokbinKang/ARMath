@@ -134,6 +134,7 @@ public class GridPrimitives : MonoBehaviour {
                     v3.y = init_y;
                     init_y += offset_y;
                     rt.localPosition = v3;
+                    v.GetComponent<DragObject>().AlwaysShowChildren(); //set the visibility of children true.
                 }
             }
             else

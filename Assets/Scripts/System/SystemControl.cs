@@ -14,6 +14,7 @@ public class SystemControl : MonoBehaviour {
     // Use this for initialization
     void Start () {
         current_status = SystemStatus.Opening;
+        //current_status = SystemStatus.Setup;
         mSystemControl = this;
     }
 	
@@ -32,7 +33,7 @@ public class SystemControl : MonoBehaviour {
     }
     public void onMainMenu()
     {
-        current_status = SystemStatus.MainMenu;
+        current_status = SystemStatus.Setup;
     }
     public void onOpening()
     {
@@ -82,7 +83,7 @@ public class SystemControl : MonoBehaviour {
             system_content.SetActive(false);
             system_user.SetActive(false);
             content_root.GetComponent<ContentRoot>().closeAllContent();
-        } else if (current_status == SystemStatus.MainMenu)
+        } else if (current_status == SystemStatus.Setup)
         {
             system_setup.SetActive(true);
             system_opening.SetActive(false);            

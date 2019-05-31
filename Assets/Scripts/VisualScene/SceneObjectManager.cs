@@ -53,8 +53,6 @@ public class SceneObjectManager : MonoBehaviour {
                 add_new_object(new_object);
             }
         }
-
-        
     }
 
     public SceneObject get_object(int id_)
@@ -97,7 +95,13 @@ public class SceneObjectManager : MonoBehaviour {
         
       //  Debug.Log("[ARMath] # of objects " + mObjectPool.Count + " is new overlapped ? "+is_exist+"   deleted:"+(n_after-n_before));
     }
- 
+    public List<SceneObject> get_a_cluster_objects()
+    {
+        List<SceneObject> ret = SceneAnalysis.GetCluster(mObjectPool);
+        
+        return ret;
+    }
+
     public List<SceneObject> get_objects_in_rect(Rect rect, string obj_name)
     {
         List<SceneObject> ret = new List<SceneObject>();

@@ -110,9 +110,9 @@ public class GeometryVirtual_Rect : MonoBehaviour {
 
 
             problemboard.SetActive(true);
-            if (problemboard_text.GetComponent<Text>().text != "Can you select the vertices in the " + target_object_name + " rectangle?")
+            if (problemboard_text.GetComponent<Text>().text != "Where are vertices in the " + target_object_name + " rectangle? (tap)")
             {
-                problemboard_text.GetComponent<Text>().text = "Can you select the vertices in the " + target_object_name + " rectangle?";
+                problemboard_text.GetComponent<Text>().text = "Where are vertices in the " + target_object_name + " rectangle? (tap)";
                 TTS.mTTS.GetComponent<TTS>().StartTextToSpeech(problemboard_text.GetComponent<Text>().text);
             }
 
@@ -135,9 +135,9 @@ public class GeometryVirtual_Rect : MonoBehaviour {
 
             problemboard.SetActive(true);
 
-            if (problemboard_text.GetComponent<Text>().text != "Can you select two PARALLEL sides in the " + target_object_name + " rectangle?")
+            if (problemboard_text.GetComponent<Text>().text != "Where are two sides tha are parallen in the " + target_object_name + " rectangle? (tap)")
             {
-                problemboard_text.GetComponent<Text>().text = "Can you select two PARALLEL sides in the " + target_object_name + " rectangle?";
+                problemboard_text.GetComponent<Text>().text = "Where are two sides tha are parallen in the " + target_object_name + " rectangle? (tap)";
                 TTS.mTTS.GetComponent<TTS>().StartTextToSpeech(problemboard_text.GetComponent<Text>().text);
         
 

@@ -135,7 +135,7 @@ public class ContentGeometry : MonoBehaviour {
                 ""
                 ));
         Dialogs.add_dialog(new DialogItem(DialogueType.left_bottom_plain,
-                "Can you help me find the "+ ARMathUtils.shape_name(target_object_shape) +"?",
+                "Can you help me find the "+ ARMathUtils.shape_name(target_object_shape) +"? You can draw it on the screen",
                 true,
                 new CallbackFunction(s3_findtheshape),
                 ARMathUtils.shape_name(target_object_shape)
