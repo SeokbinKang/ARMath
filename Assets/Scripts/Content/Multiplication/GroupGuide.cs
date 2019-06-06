@@ -5,8 +5,11 @@ using UnityEngine.UI;
 
 public class GroupGuide : MonoBehaviour {
     public GameObject pre_cell;
+    public GameObject pre_bag;
     public Texture incomplete_box;
     public Texture complete_box;
+    public float max_height;
+    public float max_width;
 
     private List<GameObject> cells;
     
@@ -35,6 +38,10 @@ public class GroupGuide : MonoBehaviour {
         }
 
     }
+    public void Setup()
+    {
+        
+    }
     public void Setup(int cell_count)
     {
         if (cell_count <= 0) return;
@@ -45,7 +52,22 @@ public class GroupGuide : MonoBehaviour {
         {
             GameObject cell = ARMathUtils.create_2DPrefab(pre_cell, this.gameObject);
             cells.Add(cell);
+            cell.GetComponent<RawImage>().texture = incomplete_box;
+            float aspect_ratio = ((float)incomplete_box.width) / ((float)incomplete_box.height);
+            float w, h;
+            if(aspect_ratio<=1)
+            {
+                h = this.max_height;
+                w = h * aspect_ratio;
+                
+            } else
+            {
+                w = this.max_width;                
+                h = w/aspect_ratio;
+            }
+            this.GetComponent<GridLayoutGroup>().cellSize = new Vector2(w, h);
         }
+        
     }
     /// <summary>
     /// 

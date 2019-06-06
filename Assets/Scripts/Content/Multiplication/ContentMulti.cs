@@ -22,7 +22,7 @@ public class ContentMulti : MonoBehaviour {
     private bool is_idle = true;
     private bool is_solved = false;
 
-    private float nextActionTime = 0.0f;
+    private float nextActionTime = 0.5f;
     
     void Start()
     {
