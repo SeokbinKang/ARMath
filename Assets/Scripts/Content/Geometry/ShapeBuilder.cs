@@ -9,6 +9,7 @@ public class ShapeBuilder : MonoBehaviour {
     public GeometryShapes shape;
     public string cur_drawing_name;
 
+    public GameObject virtual_solver;
 
     private int drawing_id = 0;
     private List<Vector2> drawing_points;
@@ -68,14 +69,48 @@ public class ShapeBuilder : MonoBehaviour {
             if (touch.phase == TouchPhase.Ended)
             {
                 //finalize the shape
-                bool res = false;
-                res=EvaluteShape(cur_drawing_name);
-                cur_drawing_name = "";
-                if(res) contentRoot.GetComponent<ContentGeometry>().s4_startsolver();
+                if (this.shape == GeometryShapes.Rectangle)
+                {
+                    bool res = false;
+                    res = EvaluteShape(cur_drawing_name);
+                    cur_drawing_name = "";
+                    if (res)
+                    {
+                        Dialogs.add_dialog(new DialogItem(DialogueType.left_bottom_plain,
+                          "Nice job! Can you tell me more about the rectangle?",
+                           true,
+                          new CallbackFunction(start_geometry_solver),
+                          ""
+                          ));
+
+                    }
+                }
+                if(this.shape == GeometryShapes.CustomGroup)
+                {
+                    Vector2 c=Vector2.zero;
+                    if (drawing_points.Count < 4)
+                    {
+                        Drawing2D.destroy_polygons(cur_drawing_name);
+
+                    }
+                    else
+                    {
+                        foreach (Vector2 p in drawing_points)
+                        {
+                            c += p;
+                        }
+                        c /= (float)drawing_points.Count;
+                        virtual_solver.GetComponent<DivVirtual>().onNewGroup(c);
+                    }
+                }
             }
 
            
         }
+    }
+    public void start_geometry_solver(string t)
+    {
+        contentRoot.GetComponent<ContentGeometry>().s4_startsolver();
     }
     private void feedback_badShape()
     {

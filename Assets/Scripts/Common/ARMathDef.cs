@@ -28,6 +28,7 @@ public enum GeometryShapes
     Rectangle,
     Circle,
     Triangle,
+    CustomGroup,
     Trapezoid
 }
 public enum GeometryPrimitives
@@ -53,6 +54,7 @@ public class SystemParam
     public static int image_size = 300;
 
     public static float vertext_proximity = 80;
+    public static float vertex_overlap_distance = 10;
 
     public static float cluster_neighboring_distance = 400;
     public static float cluster_min_count = 2;

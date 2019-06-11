@@ -27,11 +27,16 @@ public class EffectControl : MonoBehaviour {
     private void Reset()
     {
         balloon.SetActive(false);
+
     }
     public static void ballon_ceremony()
     {
         mThis.Reset();
         mThis.balloon.SetActive(true);
+        foreach(move_up mv in mThis.balloon.GetComponentsInChildren<move_up>())
+        {
+            mv.initialize_pos();
+        }
         
     }
     public static void gem_ceremony(ProblemType p)

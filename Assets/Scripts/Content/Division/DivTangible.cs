@@ -67,9 +67,9 @@ public class DivTangible : MonoBehaviour {
     private void OnCompletion()
     {
         UserInteracting = false;
-        string obj_name = ContentModuleRoot.GetComponent<ContentMulti>().target_object_name;
+        string obj_name = ContentModuleRoot.GetComponent<ContentDiv>().target_object_name;
         Dialogs.add_dialog(new DialogItem(DialogueType.left_bottom_plain,
-               "How many " + obj_name + "s are there? [TODO:input UI]",
+               "Good job! How many " + obj_name + "s are there in each bag? [TODO:input UI]",
               true,
               new CallbackFunction(OnCompletion2),
               "none"
@@ -81,7 +81,7 @@ public class DivTangible : MonoBehaviour {
     private void OnCompletion2(string p)
     {
 
-        ContentModuleRoot.GetComponent<ContentMulti>().onSolved();
+        ContentModuleRoot.GetComponent<ContentDiv>().onSolved();
     }
     public void loadPrompt()
     {
@@ -91,6 +91,7 @@ public class DivTangible : MonoBehaviour {
 
         groups.SetActive(true);
         groups.GetComponent<GroupGuide>().Setup(divisor);
+        Debug.Log("[ARMath] -----------------------");
         Dialogs.add_dialog(new DialogItem(DialogueType.left_bottom_plain,
               "I want you to put the same number of "+obj_name+"s in each bag. How many "+obj_name+"s go in each bag?",
               true,
@@ -98,7 +99,7 @@ public class DivTangible : MonoBehaviour {
               ""
               ));
         Dialogs.add_dialog(new DialogItem(DialogueType.left_bottom_plain,
-               "Let's move " + obj_name + "s to the bags, and count the number of " + obj_name + "s in each bag.",
+               "Let's move " + obj_name + "s to the bags",
                true,
                new CallbackFunction(StartOperation),
                "none"

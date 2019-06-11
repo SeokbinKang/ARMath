@@ -106,16 +106,36 @@ public class ContentDiv : MonoBehaviour {
             if (interaction_touch_enalbed)
             {
                 //TBD
-                dividend = object_num+16;
-                divisor = Random.Range(2, object_num / 2);
-                quotient = divisor / divisor;
+                dividend = object_num;
+                List<int> divisor_list = new List<int>();
+                for (int i = 2; i <= object_num / 2; i++)
+                {
+                    if (object_num % i == 0) divisor_list.Add(i);
+                }
+                if (divisor_list.Count == 0)
+                {
+                    sub_explorer.SetActive(false);
+                    return;
+                }
+                divisor = divisor_list[(int)Random.Range(0, divisor_list.Count - 1)];
+                quotient = dividend / divisor;
 
             }
             else
             {
                 dividend = object_num;
-                divisor = Random.Range(2, object_num / 2);
-                quotient = divisor / divisor;
+                List<int> divisor_list = new List<int>();
+                for(int i = 2; i <= object_num / 2; i++)
+                {
+                    if (object_num % i == 0) divisor_list.Add(i);
+                }
+                if (divisor_list.Count == 0)
+                {
+                    sub_explorer.SetActive(false);
+                    return;
+                }
+                divisor = divisor_list[(int) Random.Range(0, divisor_list.Count)];
+                quotient = dividend / divisor;
             }
             //pops up explorer
             sub_explorer.SetActive(true);
@@ -134,7 +154,7 @@ public class ContentDiv : MonoBehaviour {
         SetIdle(false);
         
         Dialogs.add_dialog(new DialogItem(DialogueType.left_bottom_plain,
-                "Oh! There are a set of " + target_object_name + "s. Can you help me distribute themdistribute them?",
+                "Oh! There are " + dividend+" "+target_object_name + "s. Can you help me distribute them?",
                  true,
                 new CallbackFunction(s4_startsolver),
                 ""

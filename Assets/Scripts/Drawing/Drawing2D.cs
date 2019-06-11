@@ -6,6 +6,7 @@ public class Drawing2D : MonoBehaviour {
     public static Drawing2D mThis;
     public GameObject pre_quadliteral;
     public GameObject brush_circle;
+    public GameObject pre_pointerline;
     public Color brush_color;
 
     private Dictionary<string, List<GameObject>> mDrawingObjects;
@@ -30,7 +31,7 @@ public class Drawing2D : MonoBehaviour {
         t.a = 0.7f;
         draw_mask_outrect("sdfsdf", new Vector2(-400, 300), new Vector2(500, -200), t);
         */
-        
+        //draw_pointerline("line1", new Vector2(100, 100), new Vector2(500, 500));
 
     }
 	
@@ -62,6 +63,20 @@ public class Drawing2D : MonoBehaviour {
             
 
 
+    }
+    public static GameObject draw_pointerline(string name, Vector2 src_global, Vector2 dst_global)
+    {
+        if (!mThis.mDrawingObjects.ContainsKey(name))
+        {
+            mThis.mDrawingObjects[name] = new List<GameObject>();
+        } else
+        {
+            mThis.mDrawingObjects[name][0].GetComponent<PrimPointerline>().Setup(src_global, dst_global);
+        }
+        UnityEngine.GameObject label = ARMathUtils.create_2DPrefab(mThis.pre_pointerline, mThis.gameObject,Vector2.zero);
+        label.GetComponent<PrimPointerline>().Setup(src_global, dst_global);
+        mThis.mDrawingObjects[name].Add(label);
+        return label;
     }
     public static GameObject draw_pen(string name, Vector2 pos)
     {
