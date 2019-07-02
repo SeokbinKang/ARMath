@@ -6,6 +6,6 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/ARMath_v1g_geometry_interaction.unity
-    guid: 501a9e44511d4654a97fb9125111f666
+    path: Assets/ARMath_v2_revamp.unity
+    guid: a78b36843ffba21479dedca7877b44e1
   m_configObjects: {}

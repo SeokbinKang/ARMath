@@ -9,7 +9,7 @@ public class IconContainer : MonoBehaviour {
 
     private GridLayoutGroup grid;
 
-    private int item_per_row = 10;
+    private int item_per_row = 5;
 	// Use this for initialization
 	void Start () {
         grid = this.GetComponent<GridLayoutGroup>();

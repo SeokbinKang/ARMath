@@ -6,6 +6,7 @@ public class Dialogs : MonoBehaviour {
 
     public static Dialogs this_;
     public GameObject element_leftbottom;
+    public GameObject prompt_rightbot;
 
 
     private List<DialogItem> mDialogueItems;
@@ -14,7 +15,8 @@ public class Dialogs : MonoBehaviour {
     // Use this for initialization
     void Start () {
         mDialogueItems = new List<DialogItem>();
-        element_leftbottom.SetActive(false);        
+        element_leftbottom.SetActive(false);
+        prompt_rightbot.SetActive(true);
         this_ = this;
 
     }
@@ -34,6 +36,12 @@ public class Dialogs : MonoBehaviour {
         //load the new foremost dialog
         load_first_dialog();
     }
+    public static void Prompt_RightBot(string str)
+    {
+        this_.prompt_rightbot.GetComponent<DialogPrompt>().setText(str,true);
+        
+    }
+    
     private void load_first_dialog()
     {
         if (mDialogueItems == null || mDialogueItems.Count == 0)
@@ -59,6 +67,11 @@ public class Dialogs : MonoBehaviour {
         }
         
 
+    }
+    public static void Reset()
+    {
+        this_.element_leftbottom.SetActive(false);
+        this_.mDialogueItems.Clear();
     }
     public static void add_dialog(DialogItem t)
     {

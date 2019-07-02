@@ -7,7 +7,7 @@ public enum SystemStatus
 
     Opening,
     // The flag for Spoiler is 0010.
-    MainMenu,
+    Setup,
     // The flag for FogLights is 0100.
     UserAccount,
     // The flag for TintedWindows is 1000.
@@ -28,6 +28,7 @@ public enum GeometryShapes
     Rectangle,
     Circle,
     Triangle,
+    CustomGroup,
     Trapezoid
 }
 public enum GeometryPrimitives
@@ -53,6 +54,14 @@ public class SystemParam
     public static int image_size = 300;
 
     public static float vertext_proximity = 80;
+    public static float vertex_overlap_distance = 10;
+
+    public static float cluster_neighboring_distance = 400;
+    public static float cluster_min_count = 2;
+
+    public static float timeout_for_interaction_prompt = 5;
+
+
 
 }
 public class ARMathDef : MonoBehaviour {
@@ -100,6 +109,7 @@ public class UserInfo
 
 public class ARMathUtils
 {
+    
     public static GameObject create_2DPrefab(GameObject prefab, GameObject parent, Vector2 screen_pos)
     {
         Vector3 targetPos = screen_pos;
@@ -121,19 +131,45 @@ public class ARMathUtils
         RectTransform r = label.GetComponent<RectTransform>();
         r.localScale = new Vector3(1f, 1f, 1f);
         r.position = targetPos;
+        
         label.GetComponent<RectTransform>().localPosition = r.position;
         label.GetComponent<RectTransform>().localScale = r.localScale;
 
         return label;
 
     }
+    public static void SetRecttrasnform(GameObject o, Rect r)
+    {
+        if (o == null) return;
+        RectTransform rt = o.GetComponent<RectTransform>();
+        if (rt == null) return;
+        //assuming r is global position
+        rt.position = r.center;
+        rt.sizeDelta = r.size;
 
+        Debug.Log("[ARMath] rect " + r + " -> object.recttransform.localpos " + rt.localPosition);
+
+    }
+    public static void SetRecttrasnform(GameObject o, Rect r, float scale)
+    {
+        if (o == null) return;
+        RectTransform rt = o.GetComponent<RectTransform>();
+        if (rt == null) return;
+        //assuming r is global position
+        rt.position = r.center;
+        rt.sizeDelta = r.size*scale;
+
+        Debug.Log("[ARMath] rect " + r + " -> object.recttransform.localpos " + rt.localPosition);
+
+    }
     public static void move2D_ScreenCoordinate(GameObject go, Vector2 screen_position)
     {
         
         RectTransform r = go.GetComponent<RectTransform>();
         r.position = screen_position;
-        
+        go.GetComponent<RectTransform>().position = r.position;
+
+
     }
     public static void move2D_imageCoordinate(GameObject go, Vector2 global_position)
     {

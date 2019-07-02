@@ -5,6 +5,8 @@ using UnityEngine;
 public class move_up : MonoBehaviour {
 
     // Use this for initialization
+    private bool init = false;
+    Vector3 init_pos;
     void Start() {
         
     }
@@ -15,9 +17,23 @@ public class move_up : MonoBehaviour {
         
      //   Debug.Log(rb2D.velocity);
     }
+    public void initialize_pos()
+    {
+        if (!init)
+        {
+            init = true;
+            init_pos = this.GetComponent<RectTransform>().position;
+        }
+        else
+        {
+            this.GetComponent<RectTransform>().position = init_pos;
+        }
+    }
     private void OnEnable()
     {
+        initialize_pos();
         move_upup();
+
     }
     private void move_upup()
     {

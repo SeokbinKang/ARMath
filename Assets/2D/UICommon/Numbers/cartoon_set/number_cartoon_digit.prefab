@@ -50,6 +50,18 @@ MonoBehaviour:
   - {fileID: 1483137610066580, guid: 9a04f91c53468c0439a3d61056a72c98, type: 2}
   - {fileID: 1767330613002660, guid: b900724eaafb9824889b90a910fc2877, type: 2}
   - {fileID: 1039044154029006, guid: a7037710545b7f04ab860c80526f638b, type: 2}
+  number_objects2:
+  - {fileID: 1798860586287222, guid: 23accfa3eac97b34b8f2b88455fd113f, type: 2}
+  - {fileID: 1663669985103836, guid: 3caed2b6628e06a4193cc0a89f309d06, type: 2}
+  - {fileID: 1061009281618434, guid: ec10d2497b6efc04fbe790af92ca3151, type: 2}
+  - {fileID: 1214251612741970, guid: d45cf30f3c1dc2c429377819f2ff4666, type: 2}
+  - {fileID: 1915683875375582, guid: e9ab8fbb92b715348b066d42b56bee5b, type: 2}
+  - {fileID: 1073129505103518, guid: c91627c9343df2542b3931c99fafa09a, type: 2}
+  - {fileID: 1684583880723756, guid: ef58809e64c6a1045b5234c52424b9ff, type: 2}
+  - {fileID: 1476059620924974, guid: 086c2cf33514a7048a68f8c516d93a92, type: 2}
+  - {fileID: 1058684985332628, guid: 23624b732b1dace42bad3d3594944cf9, type: 2}
+  - {fileID: 1718646645169816, guid: 205cf82071b1c1243b6be7addc8f4691, type: 2}
+  num: 0
 --- !u!222 &222254614267421256
 CanvasRenderer:
   m_ObjectHideFlags: 1

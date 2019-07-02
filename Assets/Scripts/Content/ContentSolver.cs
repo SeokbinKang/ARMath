@@ -23,10 +23,9 @@ public class ContentSolver : MonoBehaviour {
 
     public void init_solver()
     {
-        /*bool interaction_touch_enalbed = SystemControl.mSystemControl.get_system_setup_interaction_touch();
-        bool interaction_object_enabled = SystemControl.mSystemControl.get_system_setup_interaction_object();*/
-        bool interaction_touch_enalbed = false;
-        bool interaction_object_enabled = true;
+        bool interaction_touch_enalbed = SystemControl.mSystemControl.get_system_setup_interaction_touch();
+        bool interaction_object_enabled = SystemControl.mSystemControl.get_system_setup_interaction_object();
+       
 
         if (interaction_touch_enalbed)
         { //turn on either of two solvers.
