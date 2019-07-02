@@ -64,11 +64,11 @@ public class MultTangible : MonoBehaviour {
         
         string obj_name = ContentModuleRoot.GetComponent<ContentMulti>().target_object_name;
         int num_per_cell = ContentModuleRoot.GetComponent<ContentMulti>().target_base_num;
-        int num_celss = ContentModuleRoot.GetComponent<ContentMulti>().target_mult_num;
+        int num_cells = ContentModuleRoot.GetComponent<ContentMulti>().target_mult_num;
 
-        int full_cells = groups.GetComponent<GroupGuide>().CheckCells(num_per_cell,obj_name);
+        int full_cells = groups.GetComponent<GroupGuide>().CheckCellsProgressive(num_per_cell,obj_name);
 
-        if (full_cells == num_celss) OnCompletion();
+        if (full_cells == num_cells) OnCompletion();
         
     }
     
@@ -131,7 +131,7 @@ public class MultTangible : MonoBehaviour {
         int num_celss = ContentModuleRoot.GetComponent<ContentMulti>().target_mult_num;
         
         //if (board.activeSelf != false) board.GetComponent<board>().enable_number_only(init_n + sign + System.Math.Abs(cur_n - init_n) + " = " + cur_n);
-        problemboard_text.GetComponent<Text>().text = num_per_cell+"("+obj_name+"s) X "+num_celss+" (minions) = ?";
+        problemboard_text.GetComponent<Text>().text = num_per_cell+"("+obj_name+"s) X "+num_celss+" (friends) = ?";
 
     }
 }

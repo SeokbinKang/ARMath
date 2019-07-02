@@ -10,6 +10,7 @@ public class FeedbackGenerator : MonoBehaviour {
     public GameObject prefabe_number_cartoon_digit;
     public GameObject prefab_stricker_o;
     public GameObject prefab_stricker_x;
+    public GameObject prefab_check;
 
     private List<GameObject> temporary_feedback;
     private float last_temporary_feedback_time;
@@ -66,6 +67,22 @@ public class FeedbackGenerator : MonoBehaviour {
 
 
         label.SetActive(active_);
+        return label;
+    }
+
+    public GameObject create_check_feedback(Vector3 position, int value, bool active_)
+    {
+        Vector3 targetPos = position;
+        UnityEngine.GameObject label = Instantiate(prefab_check, targetPos, Quaternion.identity) as GameObject;
+        RectTransform r = label.GetComponent<RectTransform>();
+        r.position = targetPos;
+        // label.GetComponent<RectTransform>().position = r.position;
+        label.GetComponent<RectTransform>().localScale = new Vector3(1f, 1f, 1f);
+        label.transform.SetParent(this.gameObject.transform);
+        //label.GetComponent<number_cartoon>().set_number(value);
+
+        label.SetActive(active_);
+
         return label;
     }
     public GameObject create_number_feedback(Vector3 position, int value, bool active_)

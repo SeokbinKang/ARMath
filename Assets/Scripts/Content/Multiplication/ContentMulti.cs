@@ -139,7 +139,7 @@ public class ContentMulti : MonoBehaviour {
     public void s2_OnExplorer()
     {
         SetIdle(false);
-        target_mult_num = (int)Random.Range(2, 6);
+        target_mult_num = (int)Random.Range(2, 4);
         Dialogs.add_dialog(new DialogItem(DialogueType.left_bottom_plain,
                 "Oh!My friend minions are coming over to collect "+ target_object_name +"s. Can you help us?",
                  true,

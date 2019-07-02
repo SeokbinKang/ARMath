@@ -59,6 +59,8 @@ public class SystemParam
     public static float cluster_neighboring_distance = 400;
     public static float cluster_min_count = 2;
 
+    public static float timeout_for_interaction_prompt = 5;
+
 
 
 }
@@ -148,12 +150,26 @@ public class ARMathUtils
         Debug.Log("[ARMath] rect " + r + " -> object.recttransform.localpos " + rt.localPosition);
 
     }
+    public static void SetRecttrasnform(GameObject o, Rect r, float scale)
+    {
+        if (o == null) return;
+        RectTransform rt = o.GetComponent<RectTransform>();
+        if (rt == null) return;
+        //assuming r is global position
+        rt.position = r.center;
+        rt.sizeDelta = r.size*scale;
+
+        Debug.Log("[ARMath] rect " + r + " -> object.recttransform.localpos " + rt.localPosition);
+
+    }
     public static void move2D_ScreenCoordinate(GameObject go, Vector2 screen_position)
     {
         
         RectTransform r = go.GetComponent<RectTransform>();
         r.position = screen_position;
-        
+        go.GetComponent<RectTransform>().position = r.position;
+
+
     }
     public static void move2D_imageCoordinate(GameObject go, Vector2 global_position)
     {

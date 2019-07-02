@@ -9,6 +9,7 @@ public class DragObject : MonoBehaviour, IDragHandler, IDropHandler
 
     private bool dragging=true;
     private bool hide_children_onDragging = true;
+    public GameObject base_graphic;
 	// Use this for initialization
 	void Start () {
 		
@@ -53,17 +54,24 @@ public class DragObject : MonoBehaviour, IDragHandler, IDropHandler
         Debug.Log("[ARMath] dragging status " + dragging + "   "+child_n);
         if(dragging)
         {
-            if (this.transform.GetChild(0).gameObject.activeSelf) {
-                for(int i = 0; i < child_n; i++)
+            int i = 0;
+            if (base_graphic != null) i = 1;
+            if (this.transform.GetChild(i).gameObject.activeSelf) {
+                
+                for(; i < child_n; i++)
                 {
+                    
                     this.transform.GetChild(i).gameObject.SetActive(false);
                 }
             }            
         } else
         {
-            if (!this.transform.GetChild(0).gameObject.activeSelf)
+            int i = 0;
+            if (base_graphic != null) i = 1;
+            if (!this.transform.GetChild(i).gameObject.activeSelf)
             {
-                for (int i = 0; i < child_n; i++)
+               
+                for (; i < child_n; i++)
                 {
                     this.transform.GetChild(i).gameObject.SetActive(true);
                 }

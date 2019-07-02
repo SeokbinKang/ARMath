@@ -8,6 +8,8 @@ public class EffectControl : MonoBehaviour {
 
     public GameObject balloon;
     public GameObject gem;
+
+    public GameObject move_left;
 	// Use this for initialization
 	void Start () {
         mThis = this;
@@ -27,6 +29,9 @@ public class EffectControl : MonoBehaviour {
     private void Reset()
     {
         balloon.SetActive(false);
+        move_left.SetActive(false);
+
+
 
     }
     public static void ballon_ceremony()
@@ -52,5 +57,16 @@ public class EffectControl : MonoBehaviour {
             gem.SetActive(false);
             // Avoid any reload.
         }
+        if (move_left.GetComponent<Animator>().GetCurrentAnimatorStateInfo(0).IsName("finish"))
+        {
+            move_left.SetActive(false);
+            // Avoid any reload.
+        }
+    }
+    public static void prompt_move_left(Vector3 pos)
+    {
+        mThis.move_left.SetActive(true);
+        ARMathUtils.move2D_ScreenCoordinate(mThis.move_left, pos);
+        
     }
 }

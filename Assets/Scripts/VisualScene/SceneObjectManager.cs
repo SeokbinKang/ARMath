@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using System;
 using System.Linq;
 
@@ -110,6 +111,21 @@ public class SceneObjectManager : MonoBehaviour {
             if (so.catalogInfo.DisplayName==obj_name && so.check_in_box(rect))
             {
                 ret.Add(so);
+            }
+        }
+        return ret;
+    }
+    public List<SceneObject> get_objects_in_rect(Rect rect, string obj_name, ref List<SceneObject> out_of_rect)
+    {
+        List<SceneObject> ret = new List<SceneObject>();
+        foreach (SceneObject so in mObjectPool)
+        {
+            if (so.catalogInfo.DisplayName == obj_name && so.check_in_box(rect))
+            {
+                ret.Add(so);
+            } else if(so.catalogInfo.DisplayName == obj_name)
+            {
+                if (out_of_rect != null) out_of_rect.Add(so);
             }
         }
         return ret;
@@ -264,6 +280,18 @@ public class SceneObject
         if (feedback_go != null) this.attached_feedback_gameobject.Add(feedback_go);        
         return true;
     }
+    public GameObject attached_button_visibility(float alpha)
+    {
+        foreach (GameObject o in attached_feedback_gameobject)
+        {
+            if (o.GetComponent<Button>() == null || o.GetComponent<Image>() == null) continue;
+            Color c = o.GetComponent<Image>().color;
+            c.a = alpha;
+            o.GetComponent<Image>().color = c;
+            return o;
+        }
+        return null;
+    }
     public int get_number_feedback()
     {
         int ret = -1;
@@ -275,7 +303,16 @@ public class SceneObject
                 if (n_c != null) return n_c.num;
             }
         }
-            return ret;
+        return ret;
+    }
+    public int get_all_feedback_count()
+    {
+        int ret = -1;
+        if (attached_feedback_gameobject != null)
+        {
+            return attached_feedback_gameobject.Count;
+        }
+        return 0;
     }
     public void extend_life()
     {

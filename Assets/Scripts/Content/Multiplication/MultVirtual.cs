@@ -10,7 +10,7 @@ public class MultVirtual : MonoBehaviour {
     public GameObject board;
 
 
-    public GameObject groups;
+
 
     public GameObject problemboard;
     public GameObject problemboard_text;
@@ -24,7 +24,7 @@ public class MultVirtual : MonoBehaviour {
     private float nextActionTime = 0.0f;
 
     private List<GameObject> bag_movable;
-    
+    private float bag_scale = 1.3f;
 
     void Start()
     {
@@ -68,7 +68,7 @@ public class MultVirtual : MonoBehaviour {
         bool complete = true;
         foreach(GameObject bag in bag_movable)
         {
-            if (bag.transform.childCount == 0 || !bag.transform.GetChild(0).gameObject.activeSelf)
+            if (bag.transform.childCount == 1 || !bag.transform.GetChild(1).gameObject.activeSelf)
             {
                 complete = false;
                 break;
@@ -79,7 +79,7 @@ public class MultVirtual : MonoBehaviour {
         if (complete)
         {
             Dialogs.add_dialog(new DialogItem(DialogueType.left_bottom_plain,
-                "How many " + obj_name + "s are there? [TODO:input UI]",
+                "Now let's count how many " + obj_name + "s are there in total.",
                true,
                new CallbackFunction(OnCompletion),
                "none"
@@ -106,7 +106,7 @@ public class MultVirtual : MonoBehaviour {
         
        
         Dialogs.add_dialog(new DialogItem(DialogueType.left_bottom_plain,
-              "There are " + num_per_cell + " " + obj_name + "s in a bag. " + "If we have "+num_cells+" identical bags, how many " + obj_name + "s are there in total?",
+              "There are " + num_per_cell + " " + obj_name + "s in a red bag. " + "If we have "+num_cells+" identical bags, how many " + obj_name + "s are there in total?",
               true,
               null,
               ""

@@ -13,7 +13,7 @@ public class CountingVirtual : MonoBehaviour {
     public GameObject board_icons;
     public GameObject ContentModuleRoot;
     public GameObject prefab_tap;
-    private List<GameObject> tap_list;
+    
     public GameObject problemboard;
     public GameObject problemboard_text;
 
@@ -24,14 +24,16 @@ public class CountingVirtual : MonoBehaviour {
     // Use this for initialization
 
     private float nextActionTime = 0.0f;
-    
 
+    private GameObject active_interaction_prompt;
+    
+    private TimerCallback interaction_prompt;
     void Start () {        
         prompt.SetActive(true);
         board.SetActive(false);
         IsCounting = false;
         counting_n = 0;
-        tap_list = new List<GameObject>();
+        
     }
     void OnEnable()
     {
@@ -44,8 +46,9 @@ public class CountingVirtual : MonoBehaviour {
         board.SetActive(false);
         IsCounting = false;
         counting_n = 0;
-        tap_list = new List<GameObject>();
+        
         problemboard.SetActive(false);
+        active_interaction_prompt = null;
     }
     // Update is called once per frame
     void Update () {
@@ -56,10 +59,12 @@ public class CountingVirtual : MonoBehaviour {
             nextActionTime = Time.time + SystemParam.system_update_period;
             // execute block of code here
             UpdateInteractiveObjects();
+            interaction_prompt.tick();
         }
     }
     public void OnCount(int object_id)
     {
+        
         SceneObject so = SceneObjectManager.mSOManager.get_object(object_id);
         if (so != null)
         {
@@ -70,11 +75,12 @@ public class CountingVirtual : MonoBehaviour {
                 
             }
             else return;
-        }
-        else return;
+        } else return;
+        interaction_prompt.checkin();
         counting_n++;
         Vector3 targetPos = new Vector3(so.catalogInfo.Box.center.x, Screen.height - so.catalogInfo.Box.center.y, 0);
-        GameObject label = FeedbackGenerator.mThis.create_number_feedback(targetPos, counting_n,true);
+        //GameObject label = FeedbackGenerator.mThis.create_number_feedback(targetPos, counting_n,true);
+        GameObject label = FeedbackGenerator.mThis.create_check_feedback(targetPos, counting_n, true);
         so.attach_object(label);
         //Debug.Log("[ARMath] label " + targetPos + "  -->  " + label.GetComponent<RectTransform>().position+"  or  "+ label.GetComponent<RectTransform>().localPosition+" s  "+ label.GetComponent<RectTransform>().localScale);
         TTS.mTTS.GetComponent<TTS>().StartTextToSpeech(counting_n + "!");
@@ -110,6 +116,8 @@ public class CountingVirtual : MonoBehaviour {
         board.SetActive(true);
         UpdateBoard();
         problemboard.SetActive(true);
+        interaction_prompt = new TimerCallback(Interaction_Prompt, SystemParam.timeout_for_interaction_prompt);
+        active_interaction_prompt = null;
     }
 
     private void UpdateBoard()
@@ -122,11 +130,32 @@ public class CountingVirtual : MonoBehaviour {
     }
     private void clearinteractiveobjects()
     {
-        for (int k = 0; k < tap_list.Count; k++)
-        {  
-                GameObject.Destroy(tap_list[k]);
+        interaction_prompt = null;
+       
+    }
+    public void Interaction_Prompt()
+    {
+        if(active_interaction_prompt!=null)
+        {
+            Color c = active_interaction_prompt.GetComponent<Image>().color;
+            c.a = 0;
+            active_interaction_prompt.GetComponent<Image>().color = c;
+            active_interaction_prompt = null;
         }
-        tap_list.RemoveAll(s => s == null);
+        List<SceneObject> scene_objects = SceneObjectManager.mSOManager.get_objects_by_name(target_object_name);
+        foreach (SceneObject i in scene_objects)
+        {
+            if (i.is_interactive() && i.is_feedback_attached())
+            {
+                active_interaction_prompt = i.attached_button_visibility(1f);
+                if (active_interaction_prompt != null)
+                {
+                    return;
+                }
+
+            }
+        }
+
     }
     private void UpdateInteractiveObjects()
     {
@@ -135,7 +164,7 @@ public class CountingVirtual : MonoBehaviour {
 
         List<SceneObject> scene_objects = SceneObjectManager.mSOManager.get_objects_by_name(target_object_name);
 
-        bool interaction_indicator_exists = false;
+   
         SceneObject target = null;
         foreach (SceneObject i in scene_objects)
         {
@@ -145,120 +174,27 @@ public class CountingVirtual : MonoBehaviour {
 
             }           
         }
-        
 
+      
     }
     private void generateObjectPop(SceneObject i)
     {
         
-        
-        
-        
-        
         Vector3 targetPos = new Vector3(i.catalogInfo.Box.center.x, Screen.height - i.catalogInfo.Box.center.y, 0);
         UnityEngine.GameObject label = Instantiate(prefab_tap, targetPos, Quaternion.identity) as GameObject;
-        
+        //TODO increase the object size
         if (label == null) return;
         int scene_object_id = i.id;
         RectTransform r = label.GetComponent<RectTransform>();
         r.position = targetPos;
         label.GetComponent<RectTransform>().position = r.position;
         label.transform.SetParent(this.gameObject.transform);
+        Color c = label.GetComponent<Image>().color;
+        c.a = 0;
+        label.GetComponent<Image>().color = c;
         label.GetComponent<Button>().onClick.AddListener(() => { this.OnCount(scene_object_id); });
         i.attach_object(label);
     }
     /******* DEPRECATED *******/
-    public void updateInteractiveObjects(List<CatalogItem> objs)
-    {
-        if (prefab_tap == null || !IsCounting ) return;
-
-        bool[] is_valid;
-        if (tap_list.Count > 0)
-        {
-            is_valid = new bool[tap_list.Count];            
-            for (int k = 0; k < tap_list.Count; k++)
-            {
-                is_valid[k] = false;
-            }
-        }
-        else is_valid = null;
-
-        foreach (CatalogItem i in objs)
-        {
-            bool duplicate = false;
-            for (int k = 0; k < tap_list.Count; k++)
-            {
-                Vector3 targetPos = new Vector3(i.Box.center.x, Screen.height - i.Box.center.y, 0);
-                Vector3 dist = tap_list[k].GetComponent<RectTransform>().position - targetPos;
-                if (dist.magnitude < 150)
-                {
-                    duplicate = true;
-                    is_valid[k] = true;
-                }
-
-            }
-            if (!duplicate)
-            {
-                generateObjectPop(i);
-            }
-
-        }
-
-        for (int k = 0; k < is_valid.Length; k++)
-        {
-            if (!is_valid[k])
-            {
-                GameObject.Destroy(tap_list[k]);
-                tap_list[k] = null;
-            }
-        }
-        tap_list.RemoveAll(s => s == null);
-
-        foreach (CatalogItem i in objs)
-        {
-            bool duplicate = false;
-            for (int k = 0; k < tap_list.Count; k++)
-            {
-                Vector3 targetPos = new Vector3(i.Box.center.x, Screen.height - i.Box.center.y, 0);
-                Vector3 dist = tap_list[k].GetComponent<RectTransform>().position - targetPos;
-                if (dist.magnitude < 150)
-                {
-                    duplicate = true;
-                    is_valid[k] = true;
-                }
-
-            }
-            if (!duplicate)
-            {
-                generateObjectPop(i);
-            }
-
-        }
-        
-        for (int k = 0; k < is_valid.Length; k++)
-        {
-            if (!is_valid[k])
-            {
-                GameObject.Destroy(tap_list[k]);
-                tap_list[k] = null;                
-            }
-        }
-        tap_list.RemoveAll(s => s == null);
-    }
     
-
-    /******* DEPRECATED *******/
-    private void generateObjectPop(CatalogItem i)
-    {          
-        Vector3 targetPos = new Vector3(i.Box.center.x, Screen.height - i.Box.center.y, 0);
-
-        UnityEngine.GameObject label = Instantiate(prefab_tap, targetPos, Quaternion.identity) as GameObject;
-        Debug.Log("[ARMath] Generating tap Obejcts" + targetPos);
-        RectTransform r = label.GetComponent<RectTransform>();
-        r.position = targetPos;
-        label.GetComponent<RectTransform>().position = r.position;
-        label.transform.SetParent(this.gameObject.transform);
-        label.GetComponent<Button>().onClick.AddListener(() => { this.OnCount(0); });
-        tap_list.Add(label);
-    }
 }

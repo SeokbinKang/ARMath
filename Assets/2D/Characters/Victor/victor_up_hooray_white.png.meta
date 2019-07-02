@@ -1,0 +1,2284 @@
+fileFormatVersion: 2
+guid: 05ef740bd2cb3a449a1a7daeacf67f6b
+TextureImporter:
+  fileIDToRecycleName:
+    21300000: victor_up_hooray_white_0
+    21300002: victor_up_hooray_white_1
+    21300004: victor_up_hooray_white_2
+    21300006: victor_up_hooray_white_3
+    21300008: victor_up_hooray_white_4
+    21300010: victor_up_hooray_white_5
+    21300012: victor_up_hooray_white_6
+    21300014: victor_up_hooray_white_7
+    21300016: victor_up_hooray_white_8
+    21300018: victor_up_hooray_white_9
+    21300020: victor_up_hooray_white_10
+    21300022: victor_up_hooray_white_11
+    21300024: victor_up_hooray_white_12
+    21300026: victor_up_hooray_white_13
+    21300028: victor_up_hooray_white_14
+    21300030: victor_up_hooray_white_15
+    21300032: victor_up_hooray_white_16
+    21300034: victor_up_hooray_white_17
+    21300036: victor_up_hooray_white_18
+    21300038: victor_up_hooray_white_19
+    21300040: victor_up_hooray_white_20
+    21300042: victor_up_hooray_white_21
+    21300044: victor_up_hooray_white_22
+    21300046: victor_up_hooray_white_23
+    21300048: victor_up_hooray_white_24
+    21300050: victor_up_hooray_white_25
+    21300052: victor_up_hooray_white_26
+    21300054: victor_up_hooray_white_27
+    21300056: victor_up_hooray_white_28
+    21300058: victor_up_hooray_white_29
+    21300060: victor_up_hooray_white_30
+    21300062: victor_up_hooray_white_31
+    21300064: victor_up_hooray_white_32
+    21300066: victor_up_hooray_white_33
+    21300068: victor_up_hooray_white_34
+    21300070: victor_up_hooray_white_35
+    21300072: victor_up_hooray_white_36
+    21300074: victor_up_hooray_white_37
+    21300076: victor_up_hooray_white_38
+    21300078: victor_up_hooray_white_39
+    21300080: victor_up_hooray_white_40
+    21300082: victor_up_hooray_white_41
+    21300084: victor_up_hooray_white_42
+    21300086: victor_up_hooray_white_43
+    21300088: victor_up_hooray_white_44
+    21300090: victor_up_hooray_white_45
+    21300092: victor_up_hooray_white_46
+    21300094: victor_up_hooray_white_47
+    21300096: victor_up_hooray_white_48
+    21300098: victor_up_hooray_white_49
+    21300100: victor_up_hooray_white_50
+    21300102: victor_up_hooray_white_51
+    21300104: victor_up_hooray_white_52
+    21300106: victor_up_hooray_white_53
+    21300108: victor_up_hooray_white_54
+    21300110: victor_up_hooray_white_55
+    21300112: victor_up_hooray_white_56
+    21300114: victor_up_hooray_white_57
+    21300116: victor_up_hooray_white_58
+    21300118: victor_up_hooray_white_59
+    21300120: victor_up_hooray_white_60
+    21300122: victor_up_hooray_white_61
+    21300124: victor_up_hooray_white_62
+    21300126: victor_up_hooray_white_63
+    21300128: victor_up_hooray_white_64
+    21300130: victor_up_hooray_white_65
+    21300132: victor_up_hooray_white_66
+    21300134: victor_up_hooray_white_67
+    21300136: victor_up_hooray_white_68
+    21300138: victor_up_hooray_white_69
+    21300140: victor_up_hooray_white_70
+    21300142: victor_up_hooray_white_71
+    21300144: victor_up_hooray_white_72
+    21300146: victor_up_hooray_white_73
+    21300148: victor_up_hooray_white_74
+    21300150: victor_up_hooray_white_75
+    21300152: victor_up_hooray_white_76
+    21300154: victor_up_hooray_white_77
+    21300156: victor_up_hooray_white_78
+    21300158: victor_up_hooray_white_79
+    21300160: victor_up_hooray_white_80
+    21300162: victor_up_hooray_white_81
+    21300164: victor_up_hooray_white_82
+    21300166: victor_up_hooray_white_83
+    21300168: victor_up_hooray_white_84
+    21300170: victor_up_hooray_white_85
+    21300172: victor_up_hooray_white_86
+    21300174: victor_up_hooray_white_87
+    21300176: victor_up_hooray_white_88
+    21300178: victor_up_hooray_white_89
+    21300180: victor_up_hooray_white_90
+    21300182: victor_up_hooray_white_91
+    21300184: victor_up_hooray_white_92
+    21300186: victor_up_hooray_white_93
+    21300188: victor_up_hooray_white_94
+    21300190: victor_up_hooray_white_95
+    21300192: victor_up_hooray_white_96
+    21300194: victor_up_hooray_white_97
+    21300196: victor_up_hooray_white_98
+    21300198: victor_up_hooray_white_99
+    21300200: victor_up_hooray_white_100
+    21300202: victor_up_hooray_white_101
+    21300204: victor_up_hooray_white_102
+  externalObjects: {}
+  serializedVersion: 7
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: -1
+    aniso: -1
+    mipBias: -100
+    wrapU: 1
+    wrapV: 1
+    wrapW: -1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  platformSettings:
+  - serializedVersion: 2
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 4096
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+  - serializedVersion: 2
+    buildTarget: Standalone
+    maxTextureSize: 4096
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+  - serializedVersion: 2
+    buildTarget: iPhone
+    maxTextureSize: 4096
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+  - serializedVersion: 2
+    buildTarget: Android
+    maxTextureSize: 4096
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: victor_up_hooray_white_0
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 6204
+        width: 600
+        height: 564
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3f996938d9b51c344911cced7b0d1a73
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: victor_up_hooray_white_1
+      rect:
+        serializedVersion: 2
+        x: 600
+        y: 6204
+        width: 600
+        height: 564
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3f7f4b14f8684c54586adcac92c28874
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: victor_up_hooray_white_2
+      rect:
+        serializedVersion: 2
+        x: 1200
+        y: 6204
+        width: 600
+        height: 564
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 58820a1160dfb22458407c88bb8eb94d
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: victor_up_hooray_white_3
+      rect:
+        serializedVersion: 2
+        x: 1800
+        y: 6204
+        width: 600
+        height: 564
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 86a80f3ef06dae34eae468aa80bae0f2
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: victor_up_hooray_white_4
+      rect:
+        serializedVersion: 2
+        x: 2400
+        y: 6204
+        width: 600
+        height: 564
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4a8c579d12c977349bfbb9f2b15d7356
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: victor_up_hooray_white_5
+      rect:
+        serializedVersion: 2
+        x: 3000
+        y: 6204
+        width: 600
+        height: 564
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c5d84123b2d426e4ea6a3f467199451c
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: victor_up_hooray_white_6
+      rect:
+        serializedVersion: 2
+        x: 3600
+        y: 6204
+        width: 600
+        height: 564
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 54c095ec6ea5e1d4eaf0e87d56a9b530
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: victor_up_hooray_white_7
+      rect:
+        serializedVersion: 2
+        x: 4200
+        y: 6204
+        width: 600
+        height: 564
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9e9a458a5c656dc44a6dbbc24a304828
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: victor_up_hooray_white_8
+      rect:
+        serializedVersion: 2
+        x: 4800
+        y: 6204
+        width: 600
+        height: 564
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: bd1e7dfbeb41ac5438a6a78e51ab886c
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: victor_up_hooray_white_9
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 5640
+        width: 600
+        height: 564
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6329366330f13354e94428ce18c11090
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: victor_up_hooray_white_10
+      rect:
+        serializedVersion: 2
+        x: 600
+        y: 5640
+        width: 600
+        height: 564
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5decbd62c314bfe4c9eccfe598bf4154
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: victor_up_hooray_white_11
+      rect:
+        serializedVersion: 2
+        x: 1200
+        y: 5640
+        width: 600
+        height: 564
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 64bd688f7073ccc45aafc3c1b5198045
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: victor_up_hooray_white_12
+      rect:
+        serializedVersion: 2
+        x: 1800
+        y: 5640
+        width: 600
+        height: 564
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1349b6d72147bfa46aa3089e40c7b496
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: victor_up_hooray_white_13
+      rect:
+        serializedVersion: 2
+        x: 2400
+        y: 5640
+        width: 600
+        height: 564
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d10661f7af3a9af41b5bea10416ad4d8
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: victor_up_hooray_white_14
+      rect:
+        serializedVersion: 2
+        x: 3000
+        y: 5640
+        width: 600
+        height: 564
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c9a447cc5e99ce946a8972a2299c207d
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: victor_up_hooray_white_15
+      rect:
+        serializedVersion: 2
+        x: 3600
+        y: 5640
+        width: 600
+        height: 564
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2c4040b7af08af24c9723b744a1ccc22
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: victor_up_hooray_white_16
+      rect:
+        serializedVersion: 2
+        x: 4200
+        y: 5640
+        width: 600
+        height: 564
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5bb7fa425b3632b418da0111964475f5
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: victor_up_hooray_white_17
+      rect:
+        serializedVersion: 2
+        x: 4800
+        y: 5640
+        width: 600
+        height: 564
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: bdda67c94825259409c4b06fe3ccaa2a
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: victor_up_hooray_white_18
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 5076
+        width: 600
+        height: 564
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 418485d56603c694487ecf93fb9d08bb
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: victor_up_hooray_white_19
+      rect:
+        serializedVersion: 2
+        x: 600
+        y: 5076
+        width: 600
+        height: 564
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a70c777b25f125148bf613d390b2bc3a
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: victor_up_hooray_white_20
+      rect:
+        serializedVersion: 2
+        x: 1200
+        y: 5076
+        width: 600
+        height: 564
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7984c32e1784a7749b5c8870f71ec6e2
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: victor_up_hooray_white_21
+      rect:
+        serializedVersion: 2
+        x: 1800
+        y: 5076
+        width: 600
+        height: 564
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ab02c589104628045a073bd400159134
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: victor_up_hooray_white_22
+      rect:
+        serializedVersion: 2
+        x: 2400
+        y: 5076
+        width: 600
+        height: 564
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9e66aff51b7d1c04cbffa0b03f5fa002
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: victor_up_hooray_white_23
+      rect:
+        serializedVersion: 2
+        x: 3000
+        y: 5076
+        width: 600
+        height: 564
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3b6b0deee5cd37d4e87565d78e28de63
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: victor_up_hooray_white_24
+      rect:
+        serializedVersion: 2
+        x: 3600
+        y: 5076
+        width: 600
+        height: 564
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a349a16b3642d8549878f9c545600cb9
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: victor_up_hooray_white_25
+      rect:
+        serializedVersion: 2
+        x: 4200
+        y: 5076
+        width: 600
+        height: 564
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0c84aacbb2d05d94e8d8c011e3d4b9e6
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: victor_up_hooray_white_26
+      rect:
+        serializedVersion: 2
+        x: 4800
+        y: 5076
+        width: 600
+        height: 564
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e94e9f29241861647a238e237dd4fcb5
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: victor_up_hooray_white_27
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 4512
+        width: 600
+        height: 564
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7eff974302463c7408134cdc9f069d6c
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: victor_up_hooray_white_28
+      rect:
+        serializedVersion: 2
+        x: 600
+        y: 4512
+        width: 600
+        height: 564
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3b7f632c09f146a488bcacf8b6f6b7aa
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: victor_up_hooray_white_29
+      rect:
+        serializedVersion: 2
+        x: 1200
+        y: 4512
+        width: 600
+        height: 564
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a99972d013ffe244dafec3921ceee7d0
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: victor_up_hooray_white_30
+      rect:
+        serializedVersion: 2
+        x: 1800
+        y: 4512
+        width: 600
+        height: 564
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 151e54477786230469e3014a40129e2b
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: victor_up_hooray_white_31
+      rect:
+        serializedVersion: 2
+        x: 2400
+        y: 4512
+        width: 600
+        height: 564
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 89ec0e17ffed9d34a916fc2d37d4b0f0
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: victor_up_hooray_white_32
+      rect:
+        serializedVersion: 2
+        x: 3000
+        y: 4512
+        width: 600
+        height: 564
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8ccbff16c18a3504aa081dc0f52385ea
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: victor_up_hooray_white_33
+      rect:
+        serializedVersion: 2
+        x: 3600
+        y: 4512
+        width: 600
+        height: 564
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 18a4f63f4d7ef9341b331f8205d24b91
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: victor_up_hooray_white_34
+      rect:
+        serializedVersion: 2
+        x: 4200
+        y: 4512
+        width: 600
+        height: 564
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ac7f60f8c35249744b91a34ad6e25307
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: victor_up_hooray_white_35
+      rect:
+        serializedVersion: 2
+        x: 4800
+        y: 4512
+        width: 600
+        height: 564
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: dd6ac373cfedb884893880abd1391f04
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: victor_up_hooray_white_36
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 3948
+        width: 600
+        height: 564
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5c708d8a54e9d3c48ac6cf0ef64b60eb
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: victor_up_hooray_white_37
+      rect:
+        serializedVersion: 2
+        x: 600
+        y: 3948
+        width: 600
+        height: 564
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: fac7ad7e0d2fb4845b8ee289fd784f1c
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: victor_up_hooray_white_38
+      rect:
+        serializedVersion: 2
+        x: 1200
+        y: 3948
+        width: 600
+        height: 564
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a7f571eb9f61ade4db285b06ab148fc1
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: victor_up_hooray_white_39
+      rect:
+        serializedVersion: 2
+        x: 1800
+        y: 3948
+        width: 600
+        height: 564
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c8f33df4e4d16f646971cd176da5ce30
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: victor_up_hooray_white_40
+      rect:
+        serializedVersion: 2
+        x: 2400
+        y: 3948
+        width: 600
+        height: 564
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c529cd319c0ddbc4c87929a4029d9e66
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: victor_up_hooray_white_41
+      rect:
+        serializedVersion: 2
+        x: 3000
+        y: 3948
+        width: 600
+        height: 564
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3a638a4d72cba9d48bf4ae2c07af4551
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: victor_up_hooray_white_42
+      rect:
+        serializedVersion: 2
+        x: 3600
+        y: 3948
+        width: 600
+        height: 564
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 91dff7b8e290bbd41a8c9dfbd7e6b6b4
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: victor_up_hooray_white_43
+      rect:
+        serializedVersion: 2
+        x: 4200
+        y: 3948
+        width: 600
+        height: 564
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: df6a11f4ec6a1b84b8dcd8e5298c83c0
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: victor_up_hooray_white_44
+      rect:
+        serializedVersion: 2
+        x: 4800
+        y: 3948
+        width: 600
+        height: 564
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 51ae7539a7a231347b1aa1c6d78fae36
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: victor_up_hooray_white_45
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 3384
+        width: 600
+        height: 564
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: bfe434c3b0c84c84289765d2ec3eea08
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: victor_up_hooray_white_46
+      rect:
+        serializedVersion: 2
+        x: 600
+        y: 3384
+        width: 600
+        height: 564
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2a23d5b8de8888d4bb969147beebc525
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: victor_up_hooray_white_47
+      rect:
+        serializedVersion: 2
+        x: 1200
+        y: 3384
+        width: 600
+        height: 564
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c00a3ac430c3e35479a7e87ab7fb401b
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: victor_up_hooray_white_48
+      rect:
+        serializedVersion: 2
+        x: 1800
+        y: 3384
+        width: 600
+        height: 564
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9b3c30a0b56e45e43bc709173253108a
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: victor_up_hooray_white_49
+      rect:
+        serializedVersion: 2
+        x: 2400
+        y: 3384
+        width: 600
+        height: 564
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8446ef5a65a2e9f409a46f75c8f3bc84
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: victor_up_hooray_white_50
+      rect:
+        serializedVersion: 2
+        x: 3000
+        y: 3384
+        width: 600
+        height: 564
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5fbd7e175a7fd0f40acc46af2a133ae5
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: victor_up_hooray_white_51
+      rect:
+        serializedVersion: 2
+        x: 3600
+        y: 3384
+        width: 600
+        height: 564
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 90c716cd57eff8947a81bc3871b98080
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: victor_up_hooray_white_52
+      rect:
+        serializedVersion: 2
+        x: 4200
+        y: 3384
+        width: 600
+        height: 564
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3de9666661146634abbfdb704238b660
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: victor_up_hooray_white_53
+      rect:
+        serializedVersion: 2
+        x: 4800
+        y: 3384
+        width: 600
+        height: 564
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ef15ffb2cf6f8214e8d74549be2eec98
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: victor_up_hooray_white_54
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 2820
+        width: 600
+        height: 564
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 846e741b7b4e5ca4ca49bc41bc97f946
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: victor_up_hooray_white_55
+      rect:
+        serializedVersion: 2
+        x: 600
+        y: 2820
+        width: 600
+        height: 564
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 276ea5f5a2163c0469fab056a58894f1
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: victor_up_hooray_white_56
+      rect:
+        serializedVersion: 2
+        x: 1200
+        y: 2820
+        width: 600
+        height: 564
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: bb27ef0eec66b6c4d902f90a574854ad
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: victor_up_hooray_white_57
+      rect:
+        serializedVersion: 2
+        x: 1800
+        y: 2820
+        width: 600
+        height: 564
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 32c48e6666c040d4683b61f1cff770a9
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: victor_up_hooray_white_58
+      rect:
+        serializedVersion: 2
+        x: 2400
+        y: 2820
+        width: 600
+        height: 564
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: dcd281068390a724e8029e6c7f729f40
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: victor_up_hooray_white_59
+      rect:
+        serializedVersion: 2
+        x: 3000
+        y: 2820
+        width: 600
+        height: 564
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8df79c6cc96b598498f0435fbc9c2f1f
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: victor_up_hooray_white_60
+      rect:
+        serializedVersion: 2
+        x: 3600
+        y: 2820
+        width: 600
+        height: 564
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4f2148fdfeb30264aa6f00e1fbd52867
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: victor_up_hooray_white_61
+      rect:
+        serializedVersion: 2
+        x: 4200
+        y: 2820
+        width: 600
+        height: 564
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9ad5498c41cb48b468e328dbb65951da
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: victor_up_hooray_white_62
+      rect:
+        serializedVersion: 2
+        x: 4800
+        y: 2820
+        width: 600
+        height: 564
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 96c8bd8cce8a0794fb34d9220f3393bd
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: victor_up_hooray_white_63
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 2256
+        width: 600
+        height: 564
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2992242883243b047b9e18ab1dd5d2cc
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: victor_up_hooray_white_64
+      rect:
+        serializedVersion: 2
+        x: 600
+        y: 2256
+        width: 600
+        height: 564
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c1aad2553bc4dbc43b88ef631dfcc53d
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: victor_up_hooray_white_65
+      rect:
+        serializedVersion: 2
+        x: 1200
+        y: 2256
+        width: 600
+        height: 564
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0b6afe4bbc0c853409458d0bb3905729
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: victor_up_hooray_white_66
+      rect:
+        serializedVersion: 2
+        x: 1800
+        y: 2256
+        width: 600
+        height: 564
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 044def27df3eb05408e29aba5904943f
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: victor_up_hooray_white_67
+      rect:
+        serializedVersion: 2
+        x: 2400
+        y: 2256
+        width: 600
+        height: 564
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ba2e710fd4b31ee48a9fb5e94186fe24
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: victor_up_hooray_white_68
+      rect:
+        serializedVersion: 2
+        x: 3000
+        y: 2256
+        width: 600
+        height: 564
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 070b4c9b02e86fc418d6c823dff7329a
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: victor_up_hooray_white_69
+      rect:
+        serializedVersion: 2
+        x: 3600
+        y: 2256
+        width: 600
+        height: 564
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 03f5184997fb475469ba38a963e8d82c
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: victor_up_hooray_white_70
+      rect:
+        serializedVersion: 2
+        x: 4200
+        y: 2256
+        width: 600
+        height: 564
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 905d52fdb9138e8468fc9a27e0ac4ad4
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: victor_up_hooray_white_71
+      rect:
+        serializedVersion: 2
+        x: 4800
+        y: 2256
+        width: 600
+        height: 564
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2d16582bd6a35ac46a6eb464bac1c33f
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: victor_up_hooray_white_72
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 1692
+        width: 600
+        height: 564
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 75bc301a3c9f7ec44b056711b8cc7a84
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: victor_up_hooray_white_73
+      rect:
+        serializedVersion: 2
+        x: 600
+        y: 1692
+        width: 600
+        height: 564
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2453ace729a5e7e448a322270924d095
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: victor_up_hooray_white_74
+      rect:
+        serializedVersion: 2
+        x: 1200
+        y: 1692
+        width: 600
+        height: 564
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d9f78a91692c4ca4398d82e669036323
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: victor_up_hooray_white_75
+      rect:
+        serializedVersion: 2
+        x: 1800
+        y: 1692
+        width: 600
+        height: 564
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: dc8e138ea3feb4543ba27209766743f6
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: victor_up_hooray_white_76
+      rect:
+        serializedVersion: 2
+        x: 2400
+        y: 1692
+        width: 600
+        height: 564
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d2c3fd25a30a5e749b8347c8825d1fd0
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: victor_up_hooray_white_77
+      rect:
+        serializedVersion: 2
+        x: 3000
+        y: 1692
+        width: 600
+        height: 564
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 90e3e0cafd0489f4e944c0b385afe24a
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: victor_up_hooray_white_78
+      rect:
+        serializedVersion: 2
+        x: 3600
+        y: 1692
+        width: 600
+        height: 564
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9758bd27e2ee1be4c86738773ff81fb0
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: victor_up_hooray_white_79
+      rect:
+        serializedVersion: 2
+        x: 4200
+        y: 1692
+        width: 600
+        height: 564
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4436869066450834b9b1d8dd63377287
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: victor_up_hooray_white_80
+      rect:
+        serializedVersion: 2
+        x: 4800
+        y: 1692
+        width: 600
+        height: 564
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 05397457216368740937280a6b9f7b38
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: victor_up_hooray_white_81
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 1128
+        width: 600
+        height: 564
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 500dff729b9cc444d8c589ce83b3e43c
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: victor_up_hooray_white_82
+      rect:
+        serializedVersion: 2
+        x: 600
+        y: 1128
+        width: 600
+        height: 564
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2bdfba1f6017e264fb34aca8f06b4244
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: victor_up_hooray_white_83
+      rect:
+        serializedVersion: 2
+        x: 1200
+        y: 1128
+        width: 600
+        height: 564
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7adc8124241968f4e934d599324a8884
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: victor_up_hooray_white_84
+      rect:
+        serializedVersion: 2
+        x: 1800
+        y: 1128
+        width: 600
+        height: 564
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 023f667aad854204cba802aa263d76a4
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: victor_up_hooray_white_85
+      rect:
+        serializedVersion: 2
+        x: 2400
+        y: 1128
+        width: 600
+        height: 564
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 79969f10dcac78943b0a6acfb6017ae9
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: victor_up_hooray_white_86
+      rect:
+        serializedVersion: 2
+        x: 3000
+        y: 1128
+        width: 600
+        height: 564
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5914bac8c162ca04599e994f9d4b6ed8
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: victor_up_hooray_white_87
+      rect:
+        serializedVersion: 2
+        x: 3600
+        y: 1128
+        width: 600
+        height: 564
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 31b634e5ddc1af349a00f6eade372479
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: victor_up_hooray_white_88
+      rect:
+        serializedVersion: 2
+        x: 4200
+        y: 1128
+        width: 600
+        height: 564
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ec0e2418e52cf9a4db3ae6c5b9a6188a
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: victor_up_hooray_white_89
+      rect:
+        serializedVersion: 2
+        x: 4800
+        y: 1128
+        width: 600
+        height: 564
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: bd731bc2e01866145b9d2f9d964444b6
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: victor_up_hooray_white_90
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 564
+        width: 600
+        height: 564
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: cf2e7286a96659e42bb7320bc56dbfb5
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: victor_up_hooray_white_91
+      rect:
+        serializedVersion: 2
+        x: 600
+        y: 564
+        width: 600
+        height: 564
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 610bf1d96a7f64b45884101a017f2c7a
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: victor_up_hooray_white_92
+      rect:
+        serializedVersion: 2
+        x: 1200
+        y: 564
+        width: 600
+        height: 564
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0b2062adfe3181d4dbbd678378535565
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: victor_up_hooray_white_93
+      rect:
+        serializedVersion: 2
+        x: 1800
+        y: 564
+        width: 600
+        height: 564
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: be5ff7835e1999649a8fd1a526d44d47
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: victor_up_hooray_white_94
+      rect:
+        serializedVersion: 2
+        x: 2400
+        y: 564
+        width: 600
+        height: 564
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7a293c9f598f27c419b3d0d07a76e604
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: victor_up_hooray_white_95
+      rect:
+        serializedVersion: 2
+        x: 3000
+        y: 564
+        width: 600
+        height: 564
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0fe9a45532424d747a68f1c29492ffeb
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: victor_up_hooray_white_96
+      rect:
+        serializedVersion: 2
+        x: 3600
+        y: 564
+        width: 600
+        height: 564
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a186ebe630d2c41469e78b26e02c6294
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: victor_up_hooray_white_97
+      rect:
+        serializedVersion: 2
+        x: 4200
+        y: 564
+        width: 600
+        height: 564
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 64d3734791df2db44adb26f63cd11fa4
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: victor_up_hooray_white_98
+      rect:
+        serializedVersion: 2
+        x: 4800
+        y: 564
+        width: 600
+        height: 564
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 43f7a9679fe3e2540806e7e1288aa0d5
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: victor_up_hooray_white_99
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 0
+        width: 600
+        height: 564
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0ed5288a72f12384fb9cf8d0a702344b
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: victor_up_hooray_white_100
+      rect:
+        serializedVersion: 2
+        x: 600
+        y: 0
+        width: 600
+        height: 564
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5bd223a9787f6c245b0770288074aea7
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: victor_up_hooray_white_101
+      rect:
+        serializedVersion: 2
+        x: 1200
+        y: 0
+        width: 600
+        height: 564
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a82f3f8d8e5ded842999bf3347f3cf82
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: victor_up_hooray_white_102
+      rect:
+        serializedVersion: 2
+        x: 1800
+        y: 0
+        width: 600
+        height: 564
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: db79e0842780e614ebfe3c2b101ccecb
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    physicsShape: []
+    bones: []
+    spriteID: e28ceabcaa636b047bda504c0f62c1f9
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+  spritePackingTag: 
+  pSDRemoveMatte: 0
+  pSDShowRemoveMatteOption: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
