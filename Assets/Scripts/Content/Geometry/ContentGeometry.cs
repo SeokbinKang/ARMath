@@ -81,39 +81,47 @@ public class ContentGeometry : MonoBehaviour {
         Vector2 center_of_objects = new Vector2(0, 0);
         int object_count = 0;
 
-        if (is_solved || sub_intro.activeSelf)
+        if (is_solved || sub_intro.activeSelf || !is_idle)
         {
             sub_explorer.SetActive(false);
             return;
         }
+
+
         List<string> target_rectangle_objects = new List<string>(this.rectangle_objects);
         List<SceneObject> geometry_objects;
         geometry_objects = SceneObjectManager.mSOManager.get_objects_by_name(target_rectangle_objects);
-        if (is_idle)
+        if (geometry_objects.Count == 0)
         {
-            if (geometry_objects.Count==0)
-            {
-                sub_explorer.SetActive(false);
-                return;
-            }
+            sub_explorer.SetActive(false);
+            return;
+        }
+        if (is_idle)
+        {           
             target_object_name = geometry_objects[0].catalogInfo.DisplayName;
             center_of_objects= geometry_objects[0].catalogInfo.Box.center;
             target_object_rect = geometry_objects[0].catalogInfo.Box;
             target_object_shape = GeometryShapes.Rectangle;
-            Debug.Log("[ARMath] geometry object target : " + target_object_name);
+            //Debug.Log("[ARMath] geometry object target : " + target_object_name);
             bool interaction_touch_enalbed = SystemControl.mSystemControl.get_system_setup_interaction_touch();
             if (interaction_touch_enalbed)
-            {
-                
-                
-                
-
+            {                
             }
             else
-            {
-                
+            {                
             }
             //pops up explorer
+            if(sub_explorer.activeSelf==false)
+            {
+                //show prompt for the first explorer
+                Dialogs.add_dialog(new DialogItem(DialogueType.left_bottom_plain,
+                "Oh! There is something look like a " + ARMathUtils.shape_name(target_object_shape)+". Can you tap it on the screen?",
+                true,
+                null,
+                "",
+                10
+                ));
+            }
             sub_explorer.SetActive(true);
             RectTransform r = sub_explorer.GetComponent<RectTransform>();
             r.position = new Vector3(center_of_objects.x, Screen.height - center_of_objects.y, 0);
@@ -129,13 +137,14 @@ public class ContentGeometry : MonoBehaviour {
     {
         SetIdle(false);
         Dialogs.add_dialog(new DialogItem(DialogueType.left_bottom_plain,
-                "Oh! I've found an object that looks like a " + ARMathUtils.shape_name(target_object_shape),
+                "Oh! That "+ target_object_name+" looks like a " + ARMathUtils.shape_name(target_object_shape),
                 true,
                 null,
-                ""
+                "",
+                4
                 ));
         Dialogs.add_dialog(new DialogItem(DialogueType.left_bottom_plain,
-                "Can you help me find the "+ ARMathUtils.shape_name(target_object_shape) +"? You can draw it on the screen",
+                "Let's draw the "+ ARMathUtils.shape_name(target_object_shape) +" on the screen. ",
                 true,
                 new CallbackFunction(s3_findtheshape),
                 ARMathUtils.shape_name(target_object_shape)

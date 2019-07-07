@@ -7,31 +7,55 @@ public class Dialogs : MonoBehaviour {
     public static Dialogs this_;
     public GameObject element_leftbottom;
     public GameObject prompt_rightbot;
+    public GameObject element_popright;
+    public GameObject element_topboard;
 
 
     private List<DialogItem> mDialogueItems;
     private DialogItem cur_dialog;
+    private float nextActionTime = 1.0f;
 
     // Use this for initialization
     void Start () {
         mDialogueItems = new List<DialogItem>();
         element_leftbottom.SetActive(false);
-        prompt_rightbot.SetActive(true);
+
+        element_popright.SetActive(false);
+        prompt_rightbot.SetActive(false);
+        element_topboard.SetActive(false);
         this_ = this;
 
     }
-	
-	// Update is called once per frame
-	void Update () {
-		
-	}
+
+    // Update is called once per frame
+    void Update()
+    {
+        if (Time.time > nextActionTime)
+        {
+            nextActionTime = Time.time + SystemParam.system_update_period;
+            checkTimeoutDialog();
+
+        }
+    }
+    private void checkTimeoutDialog()
+    {
+        if (mDialogueItems.Count > 0)
+        {
+            if (mDialogueItems[0].isTimeout())
+            {
+                OnNext();
+            }
+        }
+    }
     public void OnNext()
     {
         //remove the foremost dialog
         if (mDialogueItems.Count > 0)
         {
+           
             mDialogueItems[0].invoke_callback();
             mDialogueItems.RemoveAt(0);
+
         }
         //load the new foremost dialog
         load_first_dialog();
@@ -47,30 +71,44 @@ public class Dialogs : MonoBehaviour {
         if (mDialogueItems == null || mDialogueItems.Count == 0)
         {
             element_leftbottom.SetActive(false);
+            element_popright.SetActive(false);
+
             //set all elements inactive
             return;
         }
         DialogItem cur = mDialogueItems[0];
 
-        if(cur.type== DialogueType.left_bottom_plain)
+        if (cur.type == DialogueType.left_bottom_plain)
         {
             element_leftbottom.SetActive(true);
+            cur.StartTimeout();
             //set all the other elements inactive
             element_leftbottom.GetComponent<DialogElement>().setText(cur.msg);
-            if(cur.tts_enable)
+            if (cur.tts_enable)
             {
                 TTS.mTTS.GetComponent<TTS>().StartTextToSpeech(cur.msg);
             }
-        } else
-        {
-            // NOT IMPLEMENTED
         }
-        
+        else if (cur.type == DialogueType.right_pop)
+        {
+            element_popright.SetActive(true);
+            cur.StartTimeout();
+            //set all the other elements inactive
+            element_popright.GetComponent<DialogElement>().setText(cur.msg);
+            if (cur.tts_enable)
+            {
+                TTS.mTTS.GetComponent<TTS>().StartTextToSpeech(cur.msg);
+            }
+        }    
+
+
 
     }
     public static void Reset()
     {
         this_.element_leftbottom.SetActive(false);
+        this_.element_popright.SetActive(false);
+        this_.element_topboard.SetActive(false);
         this_.mDialogueItems.Clear();
     }
     public static void add_dialog(DialogItem t)
@@ -80,7 +118,11 @@ public class Dialogs : MonoBehaviour {
         this_.mDialogueItems.Add(t);
         if (need_update) this_.load_first_dialog();
     }
-
+    public static void set_topboard(bool enabled, string txt)
+    {
+        this_.element_topboard.SetActive(enabled);
+        this_.element_topboard.GetComponent<DialogElement>().setText(txt);
+    }
 
 }
 
@@ -94,7 +136,8 @@ public class DialogItem
     public string callback_msg;
     public bool tts_enable;
     CallbackFunction mCallback; //called when terminating the dialog.
-
+    private float start_time;
+    private float time_out;
     public DialogItem(DialogueType t, string m, bool tts_,CallbackFunction func, string cb_msg)
     {
         type = t;
@@ -102,9 +145,28 @@ public class DialogItem
         mCallback = func;
         callback_msg = cb_msg;
         tts_enable = tts_;
-
+        time_out = SystemParam.timeout_for_prompt_disappear;
+        this.start_time = Time.time;
     }
-
+    public DialogItem(DialogueType t, string m, bool tts_, CallbackFunction func, string cb_msg, float timeout)
+    {
+        type = t;
+        msg = m;
+        mCallback = func;
+        callback_msg = cb_msg;
+        tts_enable = tts_;
+        this.start_time = Time.time;
+        this.time_out = timeout;
+    }
+    public void StartTimeout()
+    {
+        this.start_time = Time.time;
+    }
+    public bool isTimeout()
+    {
+        if (Time.time > start_time + time_out) return true;
+        else return false;
+    }
     public void invoke_callback()
     {
         if(mCallback!=null) mCallback(callback_msg);

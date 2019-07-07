@@ -65,7 +65,7 @@ public class GridPrimitives : MonoBehaviour {
         }
         if (prim_side_horizontal != null)
         {
-            if (shown_prim_type == GeometryPrimitives.side_horizontal)
+            if (shown_prim_type == GeometryPrimitives.side_short)
             {
                 foreach (var v in prim_side_horizontal)
                 {
@@ -87,7 +87,7 @@ public class GridPrimitives : MonoBehaviour {
         }
         if (prim_side_vertical != null)
         {
-            if (shown_prim_type == GeometryPrimitives.side_vertical)
+            if (shown_prim_type == GeometryPrimitives.side_long)
             {
                 foreach (var v in prim_side_vertical)
                 {
@@ -147,8 +147,8 @@ public class GridPrimitives : MonoBehaviour {
     public GameObject[] GetAllPrimitives(GeometryPrimitives type)
     {
         if (type == GeometryPrimitives.vertex) return prim_vertex;
-        if (type == GeometryPrimitives.side_horizontal) return prim_side_horizontal;
-        if (type == GeometryPrimitives.side_vertical) return prim_side_vertical;
+        if (type == GeometryPrimitives.side_short) return prim_side_horizontal;
+        if (type == GeometryPrimitives.side_long) return prim_side_vertical;
         if (type == GeometryPrimitives.angle)
         {
             

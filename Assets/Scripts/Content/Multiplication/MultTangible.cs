@@ -66,7 +66,7 @@ public class MultTangible : MonoBehaviour {
         int num_per_cell = ContentModuleRoot.GetComponent<ContentMulti>().target_base_num;
         int num_cells = ContentModuleRoot.GetComponent<ContentMulti>().target_mult_num;
 
-        int full_cells = groups.GetComponent<GroupGuide>().CheckCellsProgressive(num_per_cell,obj_name);
+        int full_cells = groups.GetComponent<GroupGuide>().CheckCellsProgressive(num_per_cell,obj_name,ProblemType.p3_multiplication);
 
         if (full_cells == num_cells) OnCompletion();
         
@@ -75,9 +75,11 @@ public class MultTangible : MonoBehaviour {
     private void OnCompletion()
     {
         UserInteracting = false;
+        int num_per_cell = ContentModuleRoot.GetComponent<ContentMulti>().target_base_num;
+        int num_cells = ContentModuleRoot.GetComponent<ContentMulti>().target_mult_num;
         string obj_name = ContentModuleRoot.GetComponent<ContentMulti>().target_object_name;
         Dialogs.add_dialog(new DialogItem(DialogueType.left_bottom_plain,
-               "How many " + obj_name + "s are there? [TODO:input UI]",
+               "Nice job! Each of "+ num_cells+" friends got "+ num_per_cell+" "+obj_name + "s. How many "+obj_name + "s did you give them in total?",
               true,
               new CallbackFunction(OnCompletion2),
               "none"
@@ -97,16 +99,15 @@ public class MultTangible : MonoBehaviour {
         int num_per_cell = ContentModuleRoot.GetComponent<ContentMulti>().target_base_num;
         int num_cells = ContentModuleRoot.GetComponent<ContentMulti>().target_mult_num;
 
-        groups.SetActive(true);
-        groups.GetComponent<GroupGuide>().Setup(num_cells);
+        
         Dialogs.add_dialog(new DialogItem(DialogueType.left_bottom_plain,
-              "I have " + num_cells + " friends and each should collect " + num_per_cell + " " + obj_name + "s. " + "How many " + obj_name + "s do we need in total?",
+              "I have " + num_cells + " friends coming over and I want give " + num_per_cell + " " + obj_name + "s to each friend. Can you help?",
               true,
               null,
               ""
               ));
         Dialogs.add_dialog(new DialogItem(DialogueType.left_bottom_plain,
-               "Let's move "+num_per_cell+" "+obj_name+"s to each minion, and count how many "+obj_name+"s are there.",
+               "Let's give each friend "+obj_name+"s by moving them on the table.",
                true,
                new CallbackFunction(StartOperation),
                "none"
@@ -115,12 +116,13 @@ public class MultTangible : MonoBehaviour {
     }
     public void StartOperation(string p)
     {
-        UserInteracting = true;
-        
-        UpdateBoard();
-          
+        int num_cells = ContentModuleRoot.GetComponent<ContentMulti>().target_mult_num;
+        UserInteracting = true;        
+        UpdateBoard();          
         problemboard.SetActive(true);
         board.SetActive(false);
+        groups.SetActive(true);
+        groups.GetComponent<GroupGuide>().Setup(num_cells);
 
     }
 

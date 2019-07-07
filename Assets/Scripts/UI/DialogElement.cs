@@ -8,6 +8,7 @@ public class DialogElement : MonoBehaviour {
     public GameObject DialogRoot;
     public GameObject mText;
     public GameObject mBG;
+    public bool preserveFontsize;
 	// Use this for initialization
 	void Start () {
 		
@@ -27,7 +28,13 @@ public class DialogElement : MonoBehaviour {
 
     public void setText(string msg)
     {
+        
         mText.GetComponent<Text>().text = msg;
+        if (!preserveFontsize)
+        {
+            if (msg.Length > 95) mText.GetComponent<Text>().fontSize = 90;
+            else mText.GetComponent<Text>().fontSize = 110;
+        }
     }
 
     public void onClick()

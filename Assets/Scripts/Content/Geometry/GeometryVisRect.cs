@@ -27,7 +27,8 @@ public class GeometryVisRect : MonoBehaviour {
 	void Update () {
         if(interactive_primitive == GeometryPrimitives.vertex)
             check_vertices2();
-        if (interactive_primitive == GeometryPrimitives.side_horizontal || interactive_primitive == GeometryPrimitives.side_vertical) check_sides2();
+        if (interactive_primitive == GeometryPrimitives.side_short ) check_sides2(true);
+        if (interactive_primitive == GeometryPrimitives.side_long) check_sides2(false);
         if (interactive_primitive == GeometryPrimitives.angle) check_angles();
         update_visual();
 	}
@@ -71,14 +72,6 @@ public class GeometryVisRect : MonoBehaviour {
     }
 
 
-    private void feedback_bad(Vector2 pos)
-    {
-
-    }
-    private void feedback_good(Vector2 pos)
-    {
-
-    }
 
 
     private void check_vertices2()
@@ -120,21 +113,53 @@ public class GeometryVisRect : MonoBehaviour {
         }
         if (iscomplete && solver.GetComponent<GeometryVirtual_Rect>().mStep < 4) solver.GetComponent<GeometryVirtual_Rect>().nextStep(4);
     }
-    private void check_sides2()
+    private int[] target_sides(bool short_sides)
+    {
+        int[] ret = new int[2];
+        RectTransform rt = this.GetComponent<RectTransform>();
+        if(rt.sizeDelta.x>rt.sizeDelta.y)
+        {
+            //short;
+            if (short_sides)
+            {
+                ret[0] = 1;
+                ret[1] = 3;
+            } else
+            {
+                ret[0] = 0;
+                ret[1] = 2;
+            }
+            
+        } else
+        {
+            if (short_sides)
+            {
+                ret[0] = 0;
+                ret[1] = 2;
+            }
+            else
+            {
+                ret[0] = 1;
+                ret[1] = 3;
+            }
+        }
+        return ret;
+    }
+    private void check_sides2(bool short_sides)
     {
         //test touch point
         if (Input.touchCount > 0)
         {
-            Touch touch = Input.GetTouch(0);
-            bool all_found = true;
+            Touch touch = Input.GetTouch(0);            
             // Move the cube if the screen has the finger moving.
             if (touch.phase == TouchPhase.Began)
             {
                 Vector2 user_pos = touch.position;
-                for (int i = 0; i < onSides.Length; i++)
+                int[] side_index = target_sides(short_sides);
+                for (int i = 0; i < side_index.Length; i++)
                 {
-                    if (onSides[i]) continue;
-                    RectTransform rt = sides[i].GetComponent<RectTransform>();
+                    if (onSides[side_index[i]]) continue;
+                    RectTransform rt = sides[side_index[i]].GetComponent<RectTransform>();
                     float width = rt.rect.width;
                     float height = rt.rect.height;
                     if (width < 50) width = 100;
@@ -143,13 +168,17 @@ public class GeometryVisRect : MonoBehaviour {
                     Debug.Log("[ARMath] "+i+" box : " + rt.position + " w: " + width + " h: " + height + "     touch:" + user_pos);
                     if (user_pos.x >= rt.position.x - width/2 && user_pos.x <=rt.position.x+width/2 && user_pos.y >= rt.position.y - height/2 && user_pos.y<=rt.position.y+height/2)
                     {
-                        onSides[i] = true;
-                        selected_index.Add(i);
+                        onSides[side_index[i]] = true;
+                        selected_index.Add(side_index[i]);
+                        FeedbackGenerator.create_sticker_ox_dispose(user_pos, true);
                         break;
                         
                         //FEEDBACK
                     }
                 }
+                FeedbackGenerator.create_sticker_ox_dispose(user_pos, false);
+
+                /*
                 if(selected_index.Count==2)
                 {
                     if(selected_index[0]%2 != selected_index[1] % 2)
@@ -165,17 +194,37 @@ public class GeometryVisRect : MonoBehaviour {
                         feedback_good(user_pos);
                         selected_index.Clear();
                     }
-                }
+                }*/
 
 
             }
         }
         bool iscomplete = true;
-        foreach (bool b in onSides)
+        if (!short_sides)
         {
-            if (!b) iscomplete = false;
+            foreach (bool b in onSides)
+            {
+                if (!b) iscomplete = false;
+            }
+            if (iscomplete && solver.GetComponent<GeometryVirtual_Rect>().mStep < 8)
+            {
+                solver.GetComponent<GeometryVirtual_Rect>().nextStep(8);
+                return;
+            }
+        } else
+        {
+            int c = 0;
+            foreach (bool b in onSides)
+            {
+                if (b) c++;
+            }
+            if (c==2 && solver.GetComponent<GeometryVirtual_Rect>().mStep < 5)
+            {
+                solver.GetComponent<GeometryVirtual_Rect>().nextStep(5);
+                return;
+            }
         }
-        if (iscomplete && solver.GetComponent<GeometryVirtual_Rect>().mStep < 8) solver.GetComponent<GeometryVirtual_Rect>().nextStep(8);
+
     }
 
 
@@ -210,7 +259,7 @@ public class GeometryVisRect : MonoBehaviour {
 
     private void check_sides()
     {
-        GameObject[] interactive_objects = primitives.GetComponent<GridPrimitives>().GetAllPrimitives(GeometryPrimitives.side_horizontal);
+        GameObject[] interactive_objects = primitives.GetComponent<GridPrimitives>().GetAllPrimitives(GeometryPrimitives.side_short);
         foreach (GameObject go in interactive_objects)
         {
             Debug.Log("[ARMath]name: " + go.name);
@@ -244,7 +293,7 @@ public class GeometryVisRect : MonoBehaviour {
             }
         }
         if(onSides[0] && onSides[2] && solver.GetComponent<GeometryVirtual_Rect>().mStep<6 ) solver.GetComponent<GeometryVirtual_Rect>().nextStep(6);
-        interactive_objects = primitives.GetComponent<GridPrimitives>().GetAllPrimitives(GeometryPrimitives.side_vertical);
+        interactive_objects = primitives.GetComponent<GridPrimitives>().GetAllPrimitives(GeometryPrimitives.side_long);
         foreach (GameObject go in interactive_objects)
         {
             if (go.activeSelf == false || !go.name.Contains("correct")) continue;

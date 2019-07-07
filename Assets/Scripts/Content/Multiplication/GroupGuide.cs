@@ -106,7 +106,7 @@ public class GroupGuide : MonoBehaviour {
 
         return res;
     }
-    public int CheckCellsProgressive(int num_per_cell, string obj_name)
+    public int CheckCellsProgressive(int num_per_cell, string obj_name, ProblemType type)
     {
         int res = 0;
         if (progress_active_cell_idx >= cells.Count) return cells.Count;
@@ -115,8 +115,9 @@ public class GroupGuide : MonoBehaviour {
             List<SceneObject> objs_in_cell = cell.GetComponent<ObjectContainer>().get_objects_in_rect(obj_name);
             if (objs_in_cell != null && objs_in_cell.Count >= num_per_cell)
             {
-                
-                UpdateCell(cell, true, num_per_cell);
+                string msg = "";
+               
+                UpdateCell(cell, true, msg);
                 progress_active_cell_idx++;
                 if (progress_active_cell_idx < cells.Count) enableCell(progress_active_cell_idx);
                 
@@ -124,10 +125,15 @@ public class GroupGuide : MonoBehaviour {
             }
             else
             {
+                string msg = "";
                 int k;
+                if (type == ProblemType.p3_multiplication)
+                {
+                    msg = "Give me \n" + num_per_cell + " " + obj_name + "s";
+                }
                 if (objs_in_cell == null) k = 0;
                 else k = objs_in_cell.Count;
-                UpdateCell(cell, false, k);
+                UpdateCell(cell, false, msg);
             }
 
         }
@@ -167,6 +173,24 @@ public class GroupGuide : MonoBehaviour {
             cell.GetComponent<RawImage>().texture = incomplete_box;
         }
         cell.GetComponentInChildren<Text>().text = num.ToString();
+
+
+    }
+    private void UpdateCell(GameObject cell, bool complete, string msg)
+    {
+        cell.GetComponentInChildren<Text>().text = msg;
+        if (complete)
+        {
+            cell.GetComponent<RawImage>().texture = complete_box;
+            //diable dialogue
+            cell.GetComponent<cell_speech>().finish();            
+            //show thumb up
+        }
+        else
+        {
+            cell.GetComponent<RawImage>().texture = incomplete_box;
+
+        }    
 
 
     }

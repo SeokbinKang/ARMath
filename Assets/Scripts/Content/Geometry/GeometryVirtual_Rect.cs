@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -6,9 +7,7 @@ using UnityEngine.UI;
 public class GeometryVirtual_Rect : MonoBehaviour {
 
 
-    public GameObject prompt;
-
-    public GameObject prompt_text;
+   
 
 
     public GameObject board;
@@ -16,8 +15,7 @@ public class GeometryVirtual_Rect : MonoBehaviour {
 
     public GameObject container;
     public GameObject geoprimitives;
-    public GameObject problemboard;
-    public GameObject problemboard_text;
+
 
     public GameObject ContentModuleRoot;
 
@@ -56,11 +54,11 @@ public class GeometryVirtual_Rect : MonoBehaviour {
     }
     private void Reset()
     {
-        prompt.SetActive(true);
+        
         
         container.SetActive(false);
         geoprimitives.SetActive(false);
-        problemboard.SetActive(false);
+        
         UserInteracting = false;
         total_n = 0;
       
@@ -81,72 +79,91 @@ public class GeometryVirtual_Rect : MonoBehaviour {
     {
         mStep = step;
     }
+    public void OnNextStep(string step)
+    {
+        mStep = Convert.ToInt32(step);
+    }
     private void processStep()
     {
         string target_object_name = ContentModuleRoot.GetComponent<ContentGeometry>().target_object_name;
-        
+        string target_shape_name = ARMathUtils.shape_name(ContentModuleRoot.GetComponent<ContentGeometry>().target_object_shape);
         if (mStep == 0)
-        {
-            prompt.SetActive(true);
+        {  //DEPRECATED
+                
+            
             
             container.SetActive(false);
             geoprimitives.SetActive(false);
-            problemboard.SetActive(false);
+           
+            /*
+
             if(prompt_text.GetComponent<Text>().text!= "Let's find vertics, sides, and angles in the " + target_object_name ){
                 prompt_text.GetComponent<Text>().text = "Let's find vertics, sides, and angles in the " + target_object_name ;
                 TTS.mTTS.GetComponent<TTS>().StartTextToSpeech(prompt_text.GetComponent<Text>().text);
-            }
+            }*/
             
             return;
         }
         if (mStep == 2)
         {
-            prompt.SetActive(false);
+            
             container.SetActive(true);
 
 
             //geoprimitives.SetActive(true);
             container.GetComponent<GeometryVisContainer>().Solve_Properties(GeometryPrimitives.vertex);
 
-
-            problemboard.SetActive(true);
-            if (problemboard_text.GetComponent<Text>().text != "Can you point vertices in the " + target_object_name + " rectangle? You can tap it on the screen.")
-            {
-                problemboard_text.GetComponent<Text>().text = "Can you point vertices in the " + target_object_name + " rectangle? You can tap it on the screen.";
-                TTS.mTTS.GetComponent<TTS>().StartTextToSpeech(problemboard_text.GetComponent<Text>().text);
-            }
-
             
+          
+            Dialogs.add_dialog(new DialogItem(DialogueType.left_bottom_plain,
+                "Let's count how many vertices the "+ target_shape_name + " have. You can tap them on the screen.",
+                true,
+                new CallbackFunction(ShowProblem),
+                "How many vertices are there in a rectangle?",
+                5
+                ));
 
         }
 
         if(mStep == 4)
         {
-            prompt.SetActive(false);
-
-            
-
-
             container.SetActive(true);
 
 
             //geoprimitives.SetActive(true);
-            container.GetComponent<GeometryVisContainer>().Solve_Properties(GeometryPrimitives.side_horizontal);
+            container.GetComponent<GeometryVisContainer>().Solve_Properties(GeometryPrimitives.side_short);
 
-            problemboard.SetActive(true);
 
-            if (problemboard_text.GetComponent<Text>().text != "Let's find parallel sides in the " + target_object_name + " rectangle. You can tap a pair of sides on the screen. ")
-            {
-                problemboard_text.GetComponent<Text>().text = "Let's find parallel sides in the " + target_object_name + " rectangle. You can tap a pair of sides on the screen. ";
-                TTS.mTTS.GetComponent<TTS>().StartTextToSpeech(problemboard_text.GetComponent<Text>().text);
-        
-
-            }
-            
+            Dialogs.add_dialog(new DialogItem(DialogueType.left_bottom_plain,
+                "Let's find a pair of short sides in the "+ target_shape_name+". You can tap them on the screen",
+                true,
+                new CallbackFunction(ShowProblem),
+                "Where are two short sides in a "+target_shape_name+"?",
+                5
+                ));
         }
+        if (mStep == 5)
+        {
+            container.SetActive(true);
+
+
+            //geoprimitives.SetActive(true);
+            container.GetComponent<GeometryVisContainer>().Solve_Properties(GeometryPrimitives.side_long);
+
+
+            Dialogs.add_dialog(new DialogItem(DialogueType.left_bottom_plain,
+                "Let's find a pair of long sides in the " + target_shape_name + ". You can tap them on the screen",
+                true,
+                new CallbackFunction(ShowProblem),
+                "Where are two long sides in a " + target_shape_name + "?",
+                5
+                ));
+        }
+
+        /*
         if (mStep == 6)
         {
-            prompt.SetActive(false);
+          
 
             board.SetActive(false);
             board.GetComponent<board>().setMathText("Vertices:4 \nSides: 4\n Angles: ?");
@@ -158,7 +175,7 @@ public class GeometryVirtual_Rect : MonoBehaviour {
             geoprimitives.SetActive(true);
 
 
-            problemboard.SetActive(true);
+            
 
             if (problemboard_text.GetComponent<Text>().text != "What do the sides of " + target_object_name + " rectangle look like? ")
             {
@@ -168,11 +185,11 @@ public class GeometryVirtual_Rect : MonoBehaviour {
 
             }
 
-        }
+        }*/
 
         if (mStep == 8)
         {
-            prompt.SetActive(false);
+          
 
             container.SetActive(true);
 
@@ -180,6 +197,16 @@ public class GeometryVirtual_Rect : MonoBehaviour {
             geoprimitives.SetActive(true);
 
 
+            Dialogs.add_dialog(new DialogItem(DialogueType.left_bottom_plain,
+                "Let's measure the angles using a protractor and find their names.",
+                true,
+                new CallbackFunction(ShowProblem),
+                "What are the names for the angles in the " + target_shape_name + "?",
+                5
+                ));
+            geoprimitives.GetComponent<GridPrimitives>().Reset(GeometryPrimitives.angle);
+
+            /*
             problemboard.SetActive(true);
             container.GetComponent<GeometryVisContainer>().Solve_Properties(GeometryPrimitives.angle);
             if (problemboard_text.GetComponent<Text>().text != "What are the angles of the corners in " + target_object_name + "?")
@@ -187,15 +214,19 @@ public class GeometryVirtual_Rect : MonoBehaviour {
                 problemboard_text.GetComponent<Text>().text = "What are the angles of the corners in " + target_object_name + "?";
                 TTS.mTTS.GetComponent<TTS>().StartTextToSpeech(problemboard_text.GetComponent<Text>().text);
                 geoprimitives.GetComponent<GridPrimitives>().Reset(GeometryPrimitives.angle);
+               
+            } */
 
-            }
-
-        }       
+        }
 
         if (mStep == 10)
         {
             OnCompletion();
         }
+    }
+    public void ShowProblem(string txt)
+    {
+        Dialogs.set_topboard(true, txt);
     }
     private void arrange_movable_objects()
     {
@@ -240,7 +271,7 @@ public class GeometryVirtual_Rect : MonoBehaviour {
         
         container.SetActive(true);
         geoprimitives.SetActive(true);
-        problemboard.SetActive(true);
+        
         arrange_movable_objects();
     }
 

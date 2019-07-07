@@ -76,11 +76,12 @@ public class ShapeBuilder : MonoBehaviour {
                     cur_drawing_name = "";
                     if (res)
                     {
-                        Dialogs.add_dialog(new DialogItem(DialogueType.left_bottom_plain,
-                          "Nice job! Can you tell me more about the rectangle?",
+                        Dialogs.add_dialog(new DialogItem(DialogueType.right_pop,
+                          "Nice job!",
                            true,
                           new CallbackFunction(start_geometry_solver),
-                          ""
+                          "",
+                          3f
                           ));
 
                     }

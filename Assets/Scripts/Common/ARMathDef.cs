@@ -34,8 +34,8 @@ public enum GeometryShapes
 public enum GeometryPrimitives
 {
     vertex,
-    side_horizontal,
-    side_vertical,
+    side_short,
+    side_long,
     angle,
     none
 }
@@ -43,6 +43,7 @@ public enum GeometryPrimitives
 public enum DialogueType
 {
     left_bottom_plain,
+    right_pop,
     Center
 }
 public class SystemParam
@@ -60,6 +61,7 @@ public class SystemParam
     public static float cluster_min_count = 2;
 
     public static float timeout_for_interaction_prompt = 5;
+    public static float timeout_for_prompt_disappear = 8;
 
 
 
