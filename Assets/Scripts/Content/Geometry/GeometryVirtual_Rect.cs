@@ -53,18 +53,13 @@ public class GeometryVirtual_Rect : MonoBehaviour {
      
     }
     private void Reset()
-    {
-        
+    {       
         
         container.SetActive(false);
-        geoprimitives.SetActive(false);
-        
+        geoprimitives.SetActive(false);        
         UserInteracting = false;
-        total_n = 0;
-      
         // arrange_movable_objects();
-
-        mStep = 0;
+        mStep = 2;
 
     }
     // Update is called once per frame
@@ -112,8 +107,6 @@ public class GeometryVirtual_Rect : MonoBehaviour {
 
             //geoprimitives.SetActive(true);
             container.GetComponent<GeometryVisContainer>().Solve_Properties(GeometryPrimitives.vertex);
-
-            
           
             Dialogs.add_dialog(new DialogItem(DialogueType.left_bottom_plain,
                 "Let's count how many vertices the "+ target_shape_name + " have. You can tap them on the screen.",
@@ -121,7 +114,9 @@ public class GeometryVirtual_Rect : MonoBehaviour {
                 new CallbackFunction(ShowProblem),
                 "How many vertices are there in a rectangle?",
                 5
-                ));
+                ),
+                3);
+            mStep = 3;
 
         }
 
@@ -140,9 +135,11 @@ public class GeometryVirtual_Rect : MonoBehaviour {
                 new CallbackFunction(ShowProblem),
                 "Where are two short sides in a "+target_shape_name+"?",
                 5
-                ));
+                ),
+                3);
+            mStep = 5;
         }
-        if (mStep == 5)
+        if (mStep == 6)
         {
             container.SetActive(true);
 
@@ -157,7 +154,9 @@ public class GeometryVirtual_Rect : MonoBehaviour {
                 new CallbackFunction(ShowProblem),
                 "Where are two long sides in a " + target_shape_name + "?",
                 5
-                ));
+                ),
+                3);
+            mStep = 7;
         }
 
         /*
@@ -192,9 +191,9 @@ public class GeometryVirtual_Rect : MonoBehaviour {
           
 
             container.SetActive(true);
+            container.GetComponent<GeometryVisContainer>().Solve_Properties(GeometryPrimitives.angle);
 
-
-            geoprimitives.SetActive(true);
+            
 
 
             Dialogs.add_dialog(new DialogItem(DialogueType.left_bottom_plain,
@@ -203,9 +202,10 @@ public class GeometryVirtual_Rect : MonoBehaviour {
                 new CallbackFunction(ShowProblem),
                 "What are the names for the angles in the " + target_shape_name + "?",
                 5
-                ));
-            geoprimitives.GetComponent<GridPrimitives>().Reset(GeometryPrimitives.angle);
-
+                ),3
+                );
+            //geoprimitives.GetComponent<GridPrimitives>().Reset(GeometryPrimitives.angle);
+            //geoprimitives.SetActive(true);
             /*
             problemboard.SetActive(true);
             container.GetComponent<GeometryVisContainer>().Solve_Properties(GeometryPrimitives.angle);
@@ -216,12 +216,21 @@ public class GeometryVirtual_Rect : MonoBehaviour {
                 geoprimitives.GetComponent<GridPrimitives>().Reset(GeometryPrimitives.angle);
                
             } */
+            mStep = 9;
 
         }
 
         if (mStep == 10)
         {
-            OnCompletion();
+            Dialogs.add_dialog(new DialogItem(DialogueType.right_pop,
+                         "Nice job!",
+                          true,
+                         new CallbackFunction(OnCompletion),
+                         "",
+                         3f
+                         ));
+            //OnCompletion();
+            mStep = 11;
         }
     }
     public void ShowProblem(string txt)
@@ -240,23 +249,8 @@ public class GeometryVirtual_Rect : MonoBehaviour {
        
     }
     
-    public void OnCount()
-    {
-        int init_n = ContentModuleRoot.GetComponent<ContentAddition>().init_object_count;
-        int added = ContentModuleRoot.GetComponent<ContentAddition>().current_object_count - init_n;
-        if (added > 0) TTS.mTTS.GetComponent<TTS>().StartTextToSpeech(added + " " + target_object_name + "s added!");
-        else TTS.mTTS.GetComponent<TTS>().StartTextToSpeech("please add more " + target_object_name + "s!");
-
-
-        //sound effect
-        //Debug.Log("[ARMath] result " + ContentModuleRoot.GetComponent<ContentAddition>().goal_object_count + "  =? " + ContentModuleRoot.GetComponent<ContentAddition>().current_object_count);
-        if (added == ContentModuleRoot.GetComponent<ContentAddition>().add_object_count)
-        {
-            OnCompletion();
-            TTS.mTTS.GetComponent<TTS>().StartTextToSpeech("Nice Job! The answer is " + (init_n + added) + "!");
-        }
-    }
-    private void OnCompletion()
+  
+    private void OnCompletion(string t)
     {
         UserInteracting = false;
         
@@ -265,7 +259,7 @@ public class GeometryVirtual_Rect : MonoBehaviour {
   
     public void StartOperation()
     {
-        total_n = 0;
+        
         UserInteracting = true;
         
         

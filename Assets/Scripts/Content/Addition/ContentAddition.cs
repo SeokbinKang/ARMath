@@ -59,16 +59,30 @@ public class ContentAddition : MonoBehaviour, IContentModule
         goal_object_count = 0;
         current_object_count = 0;
         SceneObjectManager.mSOManager.Reset();
-        TTS.mTTS.GetComponent<TTS>().StartTextToSpeech("Help the minion solve addition problems and collect green gems!");
+//        TTS.mTTS.GetComponent<TTS>().StartTextToSpeech("Help the minion solve addition problems and collect green gems!");
     }
     public void onSolved()
     {
         sub_solver.SetActive(false);
-        sub_ceremony.SetActive(true);
+        //sub_ceremony.SetActive(true);
+        
+        /*Dialogs.add_dialog(new DialogItem(DialogueType.right_pop,
+                        "Nice job!",
+                         true,
+                        new CallbackFunction(ceremony),
+                        "",
+                        3f
+                        ),3);*/
+        //TTS.mTTS.GetComponent<TTS>().StartTextToSpeech("Nice Job! The answer is " + ContentModuleRoot.GetComponent<ContentAddition>().goal_object_count + "!");
+        ceremony("");
+         is_solved = true;
+      
+    }
+    public void ceremony(string o)
+    {
+        TTS.mTTS.GetComponent<TTS>().StartTextToSpeech("I've got a gift for you!");
         EffectControl.ballon_ceremony();
         EffectControl.gem_ceremony(ProblemType.p2_addition);
-        is_solved = true;
-      
     }
     public void UpdateExplorer()
     {
@@ -100,12 +114,14 @@ public class ContentAddition : MonoBehaviour, IContentModule
                // List<SceneObject> objs = SceneObjectManager.mSOManager.get_objects_on_the_left(target_object_name);
                 List<SceneObject> objs = virtual_container.GetComponent<ObjectContainer>().get_objects_in_rect(target_object_name);
                 init_object_count = objs.Count;
-                goal_object_count = objs.Count + random.Next(2, 6);                
+                goal_object_count = objs.Count + random.Next(2, 6);
+                add_object_count = goal_object_count - init_object_count;
                 
             } else
             {
                 init_object_count = object_count;
-                goal_object_count = init_object_count + random.Next(2, 6); ;
+                goal_object_count = init_object_count + random.Next(2, 6);
+                add_object_count = goal_object_count - init_object_count;
             }
             //pops up explorer
             sub_explorer.SetActive(true);
@@ -118,6 +134,34 @@ public class ContentAddition : MonoBehaviour, IContentModule
             sub_explorer.SetActive(false);
 
         }
+    }
+    public void OnOpener()
+    {
+        Debug.Log("clieck");
+        SetIdle(false);
+
+        Dialogs.add_dialog(new DialogItem(DialogueType.left_bottom_plain,
+            "I've found "+ init_object_count + " " + target_object_name + "s. But, I need " + add_object_count + " more  " + target_object_name + "s to buy an icecream!",
+            true,
+            null,
+            "",
+            7), 0
+            );
+        Dialogs.add_dialog(new DialogItem(DialogueType.left_bottom_plain,
+            "Then, how may coins do we need in total to buy an icecream?",
+            true,
+            new CallbackFunction(initSolver),
+            "",
+            4
+            ), 0
+            );
+        
+
+
+    }
+    public void initSolver(string t)
+    {
+        sub_solver.SetActive(true);
     }
     public void UpdateCVResult(CVResult cv)
     {

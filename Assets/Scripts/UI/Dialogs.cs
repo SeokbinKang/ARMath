@@ -6,22 +6,25 @@ public class Dialogs : MonoBehaviour {
 
     public static Dialogs this_;
     public GameObject element_leftbottom;
-    public GameObject prompt_rightbot;
+    
     public GameObject element_popright;
     public GameObject element_topboard;
+    public GameObject element_review;
 
 
     private List<DialogItem> mDialogueItems;
     private DialogItem cur_dialog;
     private float nextActionTime = 1.0f;
+    private float nextUpdateTime = 0;
 
+    
     // Use this for initialization
     void Start () {
         mDialogueItems = new List<DialogItem>();
         element_leftbottom.SetActive(false);
 
         element_popright.SetActive(false);
-        prompt_rightbot.SetActive(false);
+        element_review.SetActive(false);
         element_topboard.SetActive(false);
         this_ = this;
 
@@ -60,11 +63,7 @@ public class Dialogs : MonoBehaviour {
         //load the new foremost dialog
         load_first_dialog();
     }
-    public static void Prompt_RightBot(string str)
-    {
-        this_.prompt_rightbot.GetComponent<DialogPrompt>().setText(str,true);
-        
-    }
+   
     
     private void load_first_dialog()
     {
@@ -80,13 +79,20 @@ public class Dialogs : MonoBehaviour {
 
         if (cur.type == DialogueType.left_bottom_plain)
         {
-            element_leftbottom.SetActive(true);
-            cur.StartTimeout();
-            //set all the other elements inactive
             element_leftbottom.GetComponent<DialogElement>().setText(cur.msg);
+            element_leftbottom.GetComponent<DialogElement>().setTTS(cur.tts_enable);
+            cur.StartTimeout();
+            if(element_leftbottom.activeSelf) TTS.mTTS.GetComponent<TTS>().StartTextToSpeech(cur.msg);
+            element_leftbottom.SetActive(true);
+            
+            //set all the other elements inactive            
             if (cur.tts_enable)
             {
-                TTS.mTTS.GetComponent<TTS>().StartTextToSpeech(cur.msg);
+                //TTS.mTTS.GetComponent<TTS>().StartTextToSpeech(cur.msg);
+                //TTS is done in the text label automatically. ALWAYS
+            } else
+            {
+                
             }
         }
         else if (cur.type == DialogueType.right_pop)
@@ -99,7 +105,13 @@ public class Dialogs : MonoBehaviour {
             {
                 TTS.mTTS.GetComponent<TTS>().StartTextToSpeech(cur.msg);
             }
-        }    
+        }
+        else if (cur.type == DialogueType.Dummy)
+        {            
+            cur.StartTimeout();
+            //set all the other elements inactive           
+         
+        }
 
 
 
@@ -110,6 +122,15 @@ public class Dialogs : MonoBehaviour {
         this_.element_popright.SetActive(false);
         this_.element_topboard.SetActive(false);
         this_.mDialogueItems.Clear();
+        
+    }
+    public static void review(string problem, int[] answers, int answer_index, CallbackFunction cb)
+    {
+        Debug.Log("[ARMath] start review...");
+        this_.element_review.GetComponent<review1>().generate_problem(problem, answers, answer_index,cb);
+        this_.element_review.SetActive(true);
+       // this_.element_topboard.SetActive(false);
+
     }
     public static void add_dialog(DialogItem t)
     {
@@ -117,6 +138,18 @@ public class Dialogs : MonoBehaviour {
         if (this_.mDialogueItems.Count == 0) need_update = true;
         this_.mDialogueItems.Add(t);
         if (need_update) this_.load_first_dialog();
+    }
+    public static void add_dialog(DialogItem t, float delay)
+    {
+        Dialogs.add_dialog(new DialogItem(DialogueType.Dummy,
+               "",
+               true,
+               null,
+               "",
+               delay
+               ));
+
+        add_dialog(t);
     }
     public static void set_topboard(bool enabled, string txt)
     {

@@ -73,6 +73,35 @@ public class GeometryVisRect : MonoBehaviour {
 
 
 
+    private void check_angles()
+    {
+        bool iscomplete = true;
+        List<int> disabled_index = new List<int>();
+        //check if there is enabled but incomplete angle, then return
+        Debug.Log("[ARMath] checking angles " + onAngles);
+        for (int i = 0; i < onAngles.Length; i++)
+        {
+            if (onAngles[i] && !angles[i].GetComponent<AngleTool>().isFinished())
+            {
+                Debug.Log("[ARMath] working on angle " + i);
+                return;
+            }
+            if (!onAngles[i]) disabled_index.Add(i);
+        }
+        if (disabled_index.Count == 0)
+        {
+
+            if (iscomplete && solver.GetComponent<GeometryVirtual_Rect>().mStep < 10) solver.GetComponent<GeometryVirtual_Rect>().nextStep(10);
+        }
+        System.Random rnd = new System.Random();
+        int r = rnd.Next(disabled_index.Count);
+        if (disabled_index.Count == 1) r = 0;
+        onAngles[disabled_index[r]] = true;
+        //check if there is disable angle, then enable it and return
+
+
+        //check if all the angles are complete, then FINALE
+    }
 
     private void check_vertices2()
     {
@@ -171,7 +200,8 @@ public class GeometryVisRect : MonoBehaviour {
                         onSides[side_index[i]] = true;
                         selected_index.Add(side_index[i]);
                         FeedbackGenerator.create_sticker_ox_dispose(user_pos, true);
-                        break;
+                        return;
+                        
                         
                         //FEEDBACK
                     }
@@ -218,15 +248,29 @@ public class GeometryVisRect : MonoBehaviour {
             {
                 if (b) c++;
             }
-            if (c==2 && solver.GetComponent<GeometryVirtual_Rect>().mStep < 5)
+            if (c==2 && solver.GetComponent<GeometryVirtual_Rect>().mStep < 6)
             {
-                solver.GetComponent<GeometryVirtual_Rect>().nextStep(5);
+                solver.GetComponent<GeometryVirtual_Rect>().nextStep(6);
                 return;
             }
         }
 
     }
-
+    public void set_primitives(GeometryPrimitives t)
+    {
+        this.interactive_primitive = t;
+        if(t== GeometryPrimitives.angle)
+        {
+            for (int i = 0; i < onVertex.Length; i++)
+            {
+                onVertex[i] = false;
+            }
+            for (int i = 0; i < onSides.Length; i++)
+            {
+                onSides[i] = false;
+            }
+        }
+    }
 
     private void check_vertices()
     {
@@ -328,7 +372,7 @@ public class GeometryVisRect : MonoBehaviour {
         if (onSides[1] && onSides[3] && solver.GetComponent<GeometryVirtual_Rect>().mStep<8) solver.GetComponent<GeometryVirtual_Rect>().nextStep(8);
     }
 
-    private void check_angles()
+    private void check_angles_old()
     {
         GameObject[] interactive_objects = primitives.GetComponent<GridPrimitives>().GetAllPrimitives(GeometryPrimitives.angle);
         bool iscomplete = true;

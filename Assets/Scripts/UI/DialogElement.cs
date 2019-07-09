@@ -36,7 +36,10 @@ public class DialogElement : MonoBehaviour {
             else mText.GetComponent<Text>().fontSize = 110;
         }
     }
-
+    public void setTTS(bool t)
+    {
+        mText.GetComponent<DelayedImage>().TTS_text = t;
+    }
     public void onClick()
     {
         DialogRoot.GetComponent<Dialogs>().OnNext();

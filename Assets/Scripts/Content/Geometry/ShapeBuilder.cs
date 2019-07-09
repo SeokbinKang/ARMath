@@ -13,7 +13,7 @@ public class ShapeBuilder : MonoBehaviour {
 
     private int drawing_id = 0;
     private List<Vector2> drawing_points;
-
+    private bool finished;
 
     // Use this for initialization
     void Start() {
@@ -25,7 +25,10 @@ public class ShapeBuilder : MonoBehaviour {
         handle_touch();
 
     }
-    
+    private void OnEnable()
+    {
+        finished = false;
+    }
     private void handle_touch()
     {
         /*
@@ -44,7 +47,7 @@ public class ShapeBuilder : MonoBehaviour {
             cur_drawing_name = "";
         }
         return;*/
-        if (Input.touchCount > 0 )
+        if (Input.touchCount > 0 && !finished)
         {
             Touch touch = Input.GetTouch(0);
 
@@ -85,6 +88,7 @@ public class ShapeBuilder : MonoBehaviour {
                           ));
 
                     }
+                    finished = true;
                 }
                 if(this.shape == GeometryShapes.CustomGroup)
                 {

@@ -2,18 +2,25 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using System;
 
 public class Protractor : MonoBehaviour {
 
+    public float time_to_wait = 3;
     public float angle;
     public float rot_factor;
     public bool xyflip;
     public GameObject needle;
     public GameObject call_out;
+    public GameObject rect_wait;
+    public angle_name target_angle;
     public Color text_incorrect;
     public Color text_correct;
     private float margin = 10;
     private float demo_time = 0;
+    private bool answer_found;
+    private bool tested = false;
+
 
     // Use this for initialization
     void Start () {
@@ -23,49 +30,40 @@ public class Protractor : MonoBehaviour {
     // Update is called once per frame
     void Update()
     {
-        handle_touch();
+        
         if (Time.time - demo_time < 3f) demo();
+        else
+        {
+            if (!answer_found)
+            {
+                handle_touch();
+                angle_check();
+            }
+        }
     }
     private void OnEnable()
     {
         //randome move the needle...
         demo_time = Time.time;
-        angle = Random.Range(-179.5f, -0.5f);
+        angle = UnityEngine.Random.Range(-179.5f, -0.5f);
         call_out.SetActive(false);
-
+        rect_wait.SetActive(false);
+        answer_found = false;
+    }
+    public bool IsFinished()
+    {
+        return answer_found;
     }
     private void demo()
     {
-        angle = angle + ((Time.time - demo_time) - 1.5f) * Random.Range(0.6f, 0.3f);
+        angle = angle + ((Time.time - demo_time) - 1.5f) * UnityEngine.Random.Range(0.6f, 0.3f);
         if (angle > 0) angle -= 360;
         if (angle < -180) angle = -180;
         else if (angle > 0) angle = 0;
         Quaternion q = Quaternion.Euler(0, 0, angle);
         needle.GetComponent<RectTransform>().localRotation = q;
     }
-    private void call_angle()
-    {
-        //call the name of the angle
-        if(Mathf.Abs(angle)<85)
-        {
-            call_out.GetComponent<Text>().text = "\"acute\" angle";
-            call_out.GetComponent<Text>().color = text_incorrect;
-            
-            
-        } else if (Mathf.Abs(angle) > 95)
-        {
-            call_out.GetComponent<Text>().text = "\"obtuse\" angle";
-            call_out.GetComponent<Text>().color = text_incorrect;
-            
-
-        } else
-        {
-            call_out.GetComponent<Text>().text = "\"right\" angle";
-            call_out.GetComponent<Text>().color = text_correct;
-            
-        }
-        call_out.SetActive(true);
-    }
+    
     private float get_angle(Vector2 pos)
     {
         Vector2 basepoint = needle.GetComponent<RectTransform>().position;
@@ -80,6 +78,60 @@ public class Protractor : MonoBehaviour {
         }
 
         return angle_+rot_factor;
+    }
+    private void angle_check()
+    {
+        if (!rect_wait.activeSelf) return;
+        bool rect_wait_finished = rect_wait.GetComponent<Animator>().GetCurrentAnimatorStateInfo(0).IsName("finish");
+        if (rect_wait_finished && !call_out.activeSelf)
+        {
+            if (Mathf.Abs(angle) < 85)
+            {
+                call_out.GetComponent<Text>().text = "\"acute\" angle";
+                call_out.GetComponent<Text>().color = text_incorrect;
+                TTS.mTTS.GetComponent<TTS>().StartTextToSpeech("This is an acute angle.");
+
+
+            }
+            else if (Mathf.Abs(angle) > 95)
+            {
+                call_out.GetComponent<Text>().text = "\"obtuse\" angle";
+                call_out.GetComponent<Text>().color = text_incorrect;
+                TTS.mTTS.GetComponent<TTS>().StartTextToSpeech("This is an obtuse angle.");
+
+            }
+            else
+            {
+                call_out.GetComponent<Text>().text = "\"right\" angle";
+                call_out.GetComponent<Text>().color = text_correct;
+                TTS.mTTS.GetComponent<TTS>().StartTextToSpeech("This is a right angle!");
+
+            }
+
+            call_out.SetActive(true);
+            tested = false;
+            Quaternion q = Quaternion.Euler(0, 0, 0);
+            call_out.GetComponent<RectTransform>().rotation = q;
+
+        } else if (rect_wait_finished && call_out.activeSelf && !tested)
+        {
+            if (call_out.GetComponent<Animator>().GetCurrentAnimatorStateInfo(0).IsName("finish"))
+            {
+                string correct_answer = Enum.GetName(typeof(angle_name),(int)target_angle);
+                Debug.Log("[ARMath] correct_answer: " + correct_answer);    
+                if(call_out.GetComponent<Text>().text.Contains(correct_answer))
+                {
+                    TTS.mTTS.GetComponent<TTS>().StartTextToSpeech("Nice job");
+                    answer_found = true;
+                    //finished
+                } else
+                {
+                    TTS.mTTS.GetComponent<TTS>().StartTextToSpeech("Let's try again");
+                    //do nothing
+                }
+                tested = true;
+            }
+        }
     }
     private void handle_touch()
     {
@@ -99,8 +151,8 @@ public class Protractor : MonoBehaviour {
              get_angle(pos);
             Quaternion q = Quaternion.Euler(0, 0, angle);
             needle.GetComponent<RectTransform>().localRotation = q;
-            call_angle();
-           
+            rect_wait.SetActive(true);
+
         }
         if (Input.touchCount > 0)
         {
@@ -108,11 +160,12 @@ public class Protractor : MonoBehaviour {
            
             // Move the cube if the screen has the finger moving.
             if (touch.phase == TouchPhase.Began || touch.phase == TouchPhase.Moved)
-            {            
-            
+            {
+                rect_wait.SetActive(false);
+                call_out.SetActive(false);
                 Vector2 pos = touch.position;
 
-
+                    
                 // Position the cube.
                 //Debug.Log("[ARMath] drawing at " + pos);
 
@@ -125,7 +178,8 @@ public class Protractor : MonoBehaviour {
             }
             if (touch.phase == TouchPhase.Ended)
             {
-                call_angle();
+                rect_wait.SetActive(true);
+                
            
                 
             }

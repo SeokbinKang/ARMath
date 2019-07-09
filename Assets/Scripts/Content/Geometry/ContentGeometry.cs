@@ -62,7 +62,7 @@ public class ContentGeometry : MonoBehaviour {
         is_idle = true;
         is_solved = false;    
         SceneObjectManager.mSOManager.Reset();
-        TTS.mTTS.GetComponent<TTS>().StartTextToSpeech("Help the minion solve geometry problems and collect blue gems!");
+        //TTS.mTTS.GetComponent<TTS>().StartTextToSpeech("Help the minion solve geometry problems and collect blue gems!");
     }
     public void onSolved()
     {

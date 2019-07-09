@@ -44,7 +44,14 @@ public enum DialogueType
 {
     left_bottom_plain,
     right_pop,
-    Center
+    Center,
+    Dummy
+}
+public enum angle_name
+{
+    acute,
+    right,
+    obtuse
 }
 public class SystemParam
 {
@@ -66,6 +73,8 @@ public class SystemParam
 
 
 }
+
+
 public class ARMathDef : MonoBehaviour {
     // Use this for initialization
     void Start () {

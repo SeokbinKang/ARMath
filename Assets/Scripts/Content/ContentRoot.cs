@@ -31,6 +31,7 @@ public class ContentRoot : MonoBehaviour {
         SceneObjectManager.mSOManager.Reset();
         Drawing2D.Reset();
         Dialogs.Reset();
+        SystemContent.EnableLeftUserUI(false);
     }
     public void updateContentUse(ProblemType p, bool onoff)
     {
@@ -56,6 +57,7 @@ public class ContentRoot : MonoBehaviour {
     {
         //mContentCounting.SetActive(!mContentCounting.activeSelf);
         mContentCounting.SetActive(t);
+        SystemContent.EnableLeftUserUI(false);
         if (t)
         {
             mContentAddition.SetActive(false);
@@ -70,6 +72,7 @@ public class ContentRoot : MonoBehaviour {
     {
         //mContentAddition.SetActive(!mContentAddition.activeSelf);
         mContentAddition.SetActive(t);
+       
         if (t)
         {
             mContentCounting.SetActive(false);
@@ -88,6 +91,7 @@ public class ContentRoot : MonoBehaviour {
     public void enableContentMulti(bool t)
     {
         mContentMult.SetActive(t);
+        
 
         if (t)
         {
@@ -104,6 +108,7 @@ public class ContentRoot : MonoBehaviour {
     public void enableContentDivision(bool t)
     {
         mContentDiv.SetActive(t);
+     
 
         if (t)
         {
@@ -121,6 +126,7 @@ public class ContentRoot : MonoBehaviour {
     {
         //mContentAddition.SetActive(!mContentAddition.activeSelf);
         mGeometry.SetActive(t);
+     
         if (t)
         {
             mContentMult.SetActive(false);

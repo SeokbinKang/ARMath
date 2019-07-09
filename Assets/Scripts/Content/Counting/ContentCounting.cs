@@ -13,7 +13,7 @@ public class ContentCounting : MonoBehaviour, IContentModule
     public GameObject sub_ceremony;
     public GameObject sub_review;
 
-    public GameObject UI_user;
+    
 
     public string target_object_name = "";
     public int found_object_count = 0;
@@ -72,7 +72,7 @@ public class ContentCounting : MonoBehaviour, IContentModule
     public void onSolved()
     {
         //sub_virtualsolver.SetActive(false);
-        UI_user.SetActive(true);
+        
         sub_ceremony.SetActive(true);
         EffectControl.ballon_ceremony();
         EffectControl.gem_ceremony(ProblemType.p1_counting);
@@ -83,7 +83,7 @@ public class ContentCounting : MonoBehaviour, IContentModule
     public void UpdateExplorer()
     {
         System.Random random = new System.Random();
-        UI_user.SetActive(false);
+        
         string dominant_object_name = "";
         Vector2 center_of_objects = new Vector2(0,0);
         int object_count = 0;

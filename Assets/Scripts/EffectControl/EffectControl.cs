@@ -47,8 +47,10 @@ public class EffectControl : MonoBehaviour {
     public static void gem_ceremony(ProblemType p)
     {
         if (mThis.gem.activeSelf) return;
+        SystemContent.EnableLeftUserUI(true);
         mThis.gem.SetActive(true);
         mThis.gem.GetComponent<effect_gem>().load_gem(p);
+        
     }
     private void check_n_disable()
     {
