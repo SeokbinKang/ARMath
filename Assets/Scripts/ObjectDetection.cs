@@ -24,8 +24,7 @@ public class ObjectDetection : MonoBehaviour {
     public CameraImage cameraImage;
     public TextAsset labelMap;
     public TextAsset model;
-    public TextAsset model_faster_rcnn_resnet101;
-    public TextAsset model_ssdlite_v2_mobilenet;
+
     public Color objectColor;
     public Texture2D tex;
     public GameObject ContentRoot;
@@ -132,7 +131,7 @@ TensorFlowSharp.Android.NativeBinding.Init();
                             float xmax = boxes[i, j, 3] * ((float) Screen.height) * x_stretch;
                             catalogItem.Box = Rect.MinMaxRect(xmin, Screen.height - ymax, xmax, Screen.height - ymin);
                             items.Add(catalogItem);
-                          //  Debug.Log(catalogItem.DisplayName+" "+i+" "+j+" "+num[i]);
+                           Debug.Log(catalogItem.DisplayName+" "+i+" "+j+" "+num[i]);
                         }
                     }
                 }
@@ -174,7 +173,7 @@ TensorFlowSharp.Android.NativeBinding.Init();
                             float xmax = boxes[i, j, 3] * (float) Screen.height * x_stretch + x_shift;
                             catalogItem.Box = Rect.MinMaxRect(xmin, Screen.height - ymax, xmax, Screen.height - ymin);
                             items.Add(catalogItem);
-                         //   Debug.Log(catalogItem.DisplayName+" "+i+" "+j+" "+num[i]);
+                         Debug.Log(catalogItem.DisplayName+" "+i+" "+j+" "+num[i]);
                         }
                     }
                 }

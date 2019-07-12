@@ -5,6 +5,7 @@ using UnityEngine.UI;
 
 public class CameraImage : MonoBehaviour {
 
+    static CameraImage mThis;
     WebCamTexture webcamTexture;
     RawImage image;
     public GameObject canvas;
@@ -41,10 +42,17 @@ public class CameraImage : MonoBehaviour {
         //    if(!sr) sr.material.mainTexture = webcamTexture;
         //}
         webcamTexture.Play();
-  
+
+        mThis = this;
+
+
 
     }
-  
+    public static void pause_image()
+    {
+        Debug.Log("[ARMath] CAM Paused");
+        mThis.webcamTexture.Pause();
+    }
 
     public Texture2D ProcessImage_twinFrame_texture2d(int l_or_r)
     {

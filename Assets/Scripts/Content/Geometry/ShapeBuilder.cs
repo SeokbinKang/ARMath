@@ -86,9 +86,12 @@ public class ShapeBuilder : MonoBehaviour {
                           "",
                           3f
                           ));
+                        finished = true;
+                    } else
+                    {
 
                     }
-                    finished = true;
+                    
                 }
                 if(this.shape == GeometryShapes.CustomGroup)
                 {

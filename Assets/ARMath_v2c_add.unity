@@ -4490,7 +4490,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &213305471
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7185,7 +7185,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &367845074
 RectTransform:
   m_ObjectHideFlags: 0
@@ -15332,7 +15332,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &802573908
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -15868,12 +15868,12 @@ Prefab:
     - target: {fileID: 224251163287327060, guid: f34d2129a41dae94684e35b98683e64c,
         type: 2}
       propertyPath: m_RootOrder
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 224887855405501002, guid: f34d2129a41dae94684e35b98683e64c,
         type: 2}
       propertyPath: m_RootOrder
-      value: 3
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 224677137620880202, guid: f34d2129a41dae94684e35b98683e64c,
         type: 2}
@@ -25864,8 +25864,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   cameraImage: {fileID: 681225504}
-  labelMap: {fileID: 4900000, guid: 8bf78320f013b7b4086e7215da1bd5df, type: 3}
-  model: {fileID: 4900000, guid: e391553aa85876d469aa25f7fa0f8174, type: 3}
+  labelMap: {fileID: 4900000, guid: 21a70a7bde291b54b8501d495d722292, type: 3}
+  model: {fileID: 4900000, guid: 1e99f78896ba86349a8f7d3e7e357bf5, type: 3}
   model_faster_rcnn_resnet101: {fileID: 4900000, guid: 9c0e10dcaa25fb24e8edca17026e6f4c,
     type: 3}
   model_ssdlite_v2_mobilenet: {fileID: 4900000, guid: 1b353f5d8616ff547bbaa5341ad4cbc4,
@@ -25908,6 +25908,8 @@ MonoBehaviour:
   - coin
   - monitor
   - poster
+  - painting
+  - easel pad
 --- !u!1001 &1387731452
 Prefab:
   m_ObjectHideFlags: 0
@@ -28148,7 +28150,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1436876425
 RectTransform:
   m_ObjectHideFlags: 0
@@ -30144,7 +30146,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1565799768
 RectTransform:
   m_ObjectHideFlags: 0
@@ -36530,6 +36532,16 @@ Prefab:
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 224677137620880202, guid: f34d2129a41dae94684e35b98683e64c,
+        type: 2}
+      propertyPath: m_RootOrder
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 224887855405501002, guid: f34d2129a41dae94684e35b98683e64c,
+        type: 2}
+      propertyPath: m_RootOrder
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f34d2129a41dae94684e35b98683e64c, type: 2}
   m_IsPrefabAsset: 0
@@ -38743,7 +38755,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &1915828282
 Transform:
   m_ObjectHideFlags: 0
@@ -40441,7 +40453,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1982084661
 Transform:
   m_ObjectHideFlags: 0
@@ -42732,6 +42744,7 @@ MonoBehaviour:
   rectangle_objects:
   - monitor
   - poster
+  - painting
 --- !u!1 &2115588386
 GameObject:
   m_ObjectHideFlags: 0

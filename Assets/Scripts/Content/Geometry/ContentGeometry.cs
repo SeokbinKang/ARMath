@@ -136,6 +136,7 @@ public class ContentGeometry : MonoBehaviour {
     public void s2_OnExplorer()
     {
         SetIdle(false);
+        CameraImage.pause_image();
         Dialogs.add_dialog(new DialogItem(DialogueType.left_bottom_plain,
                 "Oh! That "+ target_object_name+" looks like a " + ARMathUtils.shape_name(target_object_shape),
                 true,
