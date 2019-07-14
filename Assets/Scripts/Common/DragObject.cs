@@ -38,8 +38,6 @@ public class DragObject : MonoBehaviour, IDragHandler, IDropHandler
         alpha_on_move = alpha_moving;
         alpha_on_drop = alpha_drop;
         change_alpha(alpha_on_init);
-
-
     }
     private void change_alpha(float alpha)
     {
@@ -73,6 +71,7 @@ public class DragObject : MonoBehaviour, IDragHandler, IDropHandler
         dragging = true;
         change_alpha(alpha_on_move);
 
+     //   Debug.Log("[ARMath] on drag");
 
     }
     public void OnDrop(PointerEventData data)
@@ -82,6 +81,8 @@ public class DragObject : MonoBehaviour, IDragHandler, IDropHandler
             dragging = false;
         }
         change_alpha(alpha_on_drop);
+
+        this.GetComponent<AudioSource>().Play();
     }
     public void setchildrenvisibility()
     {

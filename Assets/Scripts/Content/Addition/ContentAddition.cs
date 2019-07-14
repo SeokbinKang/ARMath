@@ -7,12 +7,12 @@ public class ContentAddition : MonoBehaviour, IContentModule
 
     public GameObject sub_intro;
     public GameObject sub_explorer;
-    public GameObject sub_opener;
-    public GameObject sub_helper;
+    public GameObject sub_truck;
+    
     public GameObject sub_solver;
 
     public GameObject sub_ceremony;
-    public GameObject sub_review;
+    
 
     public GameObject virtual_container;
     public string target_object_name = "";
@@ -49,9 +49,9 @@ public class ContentAddition : MonoBehaviour, IContentModule
     {
         sub_intro.SetActive(true);
         sub_explorer.SetActive(false);
-        sub_opener.SetActive(false);
+        sub_truck.SetActive(false);
         sub_solver.SetActive(false);
-        sub_review.SetActive(false);
+        
         sub_ceremony.SetActive(false);
         is_idle = true;
         is_solved = false;
@@ -92,7 +92,7 @@ public class ContentAddition : MonoBehaviour, IContentModule
         Vector2 center_of_objects = new Vector2(0, 0);
         int object_count = 0;
         
-        if (is_solved || sub_intro.activeSelf)
+        if (is_solved || sub_intro.activeSelf )
         {
             sub_explorer.SetActive(false);
             return;
@@ -100,11 +100,21 @@ public class ContentAddition : MonoBehaviour, IContentModule
         SceneObjectManager.mSOManager.get_dominant_object(ref dominant_object_name, ref center_of_objects, ref object_count);
         if (is_idle)
         {
-            if (dominant_object_name == "")
+            if (dominant_object_name == "" || !dominant_object_name.Contains("coin"))
             {
                 sub_explorer.SetActive(false);
                 return;
             }
+            if (!sub_truck.activeSelf)
+            {
+                sub_truck.SetActive(true);
+                return;
+            }
+            if (!sub_truck.GetComponent<Animator>().GetCurrentAnimatorStateInfo(0).IsName("finish"))
+            {
+                return;
+            }
+            
             target_object_name = dominant_object_name;
             found_object_count = object_count;
            
@@ -127,6 +137,7 @@ public class ContentAddition : MonoBehaviour, IContentModule
             sub_explorer.SetActive(true);
             RectTransform r = sub_explorer.GetComponent<RectTransform>();
             r.position = new Vector3(center_of_objects.x, Screen.height - center_of_objects.y, 0);
+            
 
         }
         else
@@ -139,29 +150,56 @@ public class ContentAddition : MonoBehaviour, IContentModule
     {
         Debug.Log("clieck");
         SetIdle(false);
+        List<SceneObject> init_objs = SceneObjectManager.mSOManager.get_objects_by_name(target_object_name);
+        float target_delay = 3f;
+        foreach(SceneObject so in init_objs)
+        {
+            Vector3 targetPos = new Vector3(so.catalogInfo.Box.center.x, Screen.height - so.catalogInfo.Box.center.y, 0);
+            FeedbackGenerator.create_target(targetPos, target_delay, 6,0);
+            target_delay += 0.4f;
+        }
+       
+        Dialogs.add_dialog(new DialogItem(DialogueType.left_bottom_plain,
+            "There are "+ init_object_count + " " + target_object_name + "s, but it's not enough to buy an ice cream.",
+            true,
+            new CallbackFunction(callback_shownumber1),
+            init_object_count.ToString(),
+            4), 0
+            );
 
         Dialogs.add_dialog(new DialogItem(DialogueType.left_bottom_plain,
-            "I've found "+ init_object_count + " " + target_object_name + "s. But, I need " + add_object_count + " more  " + target_object_name + "s to buy an icecream!",
-            true,
-            null,
-            "",
-            7), 0
-            );
+           "Can you get me " + add_object_count + " more  " + target_object_name + "s?",
+           true,
+           new CallbackFunction(callback_shownumber2),
+           "+ " + add_object_count,
+           5), 0
+           );
+        /*
         Dialogs.add_dialog(new DialogItem(DialogueType.left_bottom_plain,
             "Then, how may coins do we need in total to buy an icecream?",
             true,
             new CallbackFunction(initSolver),
-            "",
+            "= ?",
             4
             ), 0
-            );
-        
-
+            );*/
+    }
+    public void callback_shownumber1(string t)
+    {
+        Dialogs.set_topboard_animated(true, 0, t);
 
     }
+    public void callback_shownumber2(string t)
+    {
+        
+        Dialogs.set_topboard_animated(true, 1, t);
+        sub_solver.SetActive(true);
+    }
+   
     public void initSolver(string t)
     {
         sub_solver.SetActive(true);
+        Dialogs.set_topboard_animated(true, 2, t);
     }
     public void UpdateCVResult(CVResult cv)
     {

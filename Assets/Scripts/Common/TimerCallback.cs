@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public delegate void VoidCallback();
+public delegate void VoidCallback(string param);
 
 public class TimerCallback {
 
@@ -10,16 +10,23 @@ public class TimerCallback {
     // Use this for initialization
     float last_check;
     float time_out;
+    string param;
     //execute the callback when there is no check for a timeout
-    public TimerCallback(VoidCallback c, float timeout)
+    public TimerCallback(VoidCallback c, string param_,float timeout)
     {
         last_check = Time.time;
         cb = c;
         time_out = timeout;
+        param = param_;
     }
-    public void tick()
+    public bool tick()
     {
-        if (Time.time > last_check + time_out) cb();
+        if (Time.time > last_check + time_out)
+        {
+            cb(param);
+            return true;
+        }
+        return false;
     }
     public void checkin()
     {

@@ -6,7 +6,7 @@ public class ContentSolver : MonoBehaviour {
 
     public GameObject solver_virtual;
     public GameObject solver_tangible;
-   
+    public GameObject review;
     // Use this for initialization
     void Start () {
 		
@@ -21,7 +21,10 @@ public class ContentSolver : MonoBehaviour {
     {
         init_solver();
     }
-
+    public void start_review()
+    {
+        review.SetActive(true);
+    }
     public void init_solver()
     {
         bool interaction_touch_enalbed = SystemControl.mSystemControl.get_system_setup_interaction_touch();

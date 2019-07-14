@@ -19,6 +19,7 @@ public class AdditionVirtual : MonoBehaviour
     public GameObject[] movable_objects;
     public GameObject item_mask;
     public GameObject wallet;
+    public GameObject[] piggybank;
     private List<GameObject> tap_list;
 
 
@@ -33,7 +34,7 @@ public class AdditionVirtual : MonoBehaviour
 
     void Start()
     {
-       
+        
     }
     void OnEnable()
     {
@@ -43,8 +44,6 @@ public class AdditionVirtual : MonoBehaviour
     }
     private void Reset()
     {
-        
-        
         container.SetActive(false);
         root_movables.SetActive(false);        
         UserInteracting = false;
@@ -52,6 +51,33 @@ public class AdditionVirtual : MonoBehaviour
         tap_list = new List<GameObject>();        
        // arrange_movable_objects();
 
+    }
+    private void setup_coins()
+    {
+        if (root_movables.transform.childCount < 1) return;
+        movable_objects = new GameObject[root_movables.transform.childCount];
+        target_object_name = ContentModuleRoot.GetComponent<ContentAddition>().target_object_name;
+        GameObject icon_obj = AssetManager.get_icon(target_object_name);
+        System.Random random = new System.Random();
+        float w = icon_obj.GetComponent<RawImage>().texture.width;
+        float h = icon_obj.GetComponent<RawImage>().texture.height;
+        h = 150 * h / w;
+        w = 150;
+        for (int i=0;i< root_movables.transform.childCount; i++)
+        {
+            
+            movable_objects[i] = root_movables.transform.GetChild(i).gameObject;
+            movable_objects[i].GetComponent<RawImage>().texture = icon_obj.GetComponent<RawImage>().texture;            
+            
+            RectTransform r = movable_objects[i].GetComponent<RectTransform>();            
+            r.sizeDelta = new Vector2(w, h);
+            r.Rotate(0, 0, random.Next(0, 360));
+            movable_objects[i].GetComponent<DragObject>().SetAlphaAdjustment(true, 0.6f, 0.85f, 1);
+            movable_objects[i].GetComponent<RectTransform>().localPosition = new Vector3(0, 0, 0);
+            movable_objects[i].GetComponent<RectTransform>().localScale = new Vector3(1, 1, 1);
+            movable_objects[i].SetActive(true);
+        }
+        
     }
     // Update is called once per frame
     void Update()
@@ -99,8 +125,9 @@ public class AdditionVirtual : MonoBehaviour
         int goal_n = ContentModuleRoot.GetComponent<ContentAddition>().goal_object_count;
         bool[] number_label = new bool[init_n];
         //init_n = objs.Count;
-        for (int i = 0; i < number_label.Length; i++)
+        for (int i = 0; i < number_label.Length && i<objs.Count; i++)
         {  //TODO: detach higher number label
+            
             int number_label_value = objs[i].get_number_feedback();
             if (number_label_value > 0 && number_label_value <= number_label.Length)
             {
@@ -138,7 +165,7 @@ public class AdditionVirtual : MonoBehaviour
 
         cur_n = virtual_n + init_n;
         //ContentModuleRoot.GetComponent<ContentAddition>().init_object_count = init_n;
-
+        //Debug.Log("[ARMath] additio virtual : " + init_n + "  +  " + virtual_n + "  =  ? :  " + movable_objects.Length);
         if (ContentModuleRoot.GetComponent<ContentAddition>().current_object_count != cur_n)
         {
             item_mask.GetComponent<vertical_mask>().set_visible_percent(((float)cur_n / (float)goal_n));
@@ -186,6 +213,7 @@ public class AdditionVirtual : MonoBehaviour
         }
         virtual_n = 0;
         //check virtual objects in the bag
+        
         foreach(GameObject o in movable_objects)
         {
             bool contained = container.GetComponent<ObjectContainer>().in_container(o);
@@ -204,6 +232,16 @@ public class AdditionVirtual : MonoBehaviour
             OnCount();
         }
     }
+    public List<GameObject> get_movables_in_container()
+    {
+        List<GameObject> ret = new List<GameObject>();
+        foreach (GameObject o in movable_objects)
+        {
+            bool contained = container.GetComponent<ObjectContainer>().in_container(o);
+            if (contained) ret.Add(o);
+        }
+        return ret;
+    }
     public void OnCount()
     {
         int init_n = ContentModuleRoot.GetComponent<ContentAddition>().init_object_count;
@@ -218,27 +256,21 @@ public class AdditionVirtual : MonoBehaviour
         if (added == ContentModuleRoot.GetComponent<ContentAddition>().add_object_count)
         {
             UserInteracting = false;
-            int[] ans = new int[4];
-            ans[0] = goal_n - 2;
-            ans[1] = goal_n;
-            ans[2] = goal_n+2;
-            ans[3] = goal_n+5;
-            Dialogs.review(
-                "I've got a question. How many coins do we need for an icecream in total?",
-                ans,
-                1,
-                new CallbackFunction(OnCompletion)
-                );
-            
-            
+
+            //diable interactive obejcts
+            foreach(var o in piggybank)
+            {
+                o.SetActive(false);
+            }
+            foreach (GameObject o in movable_objects)
+            {
+                bool contained = container.GetComponent<ObjectContainer>().in_container(o);
+                if (!contained) o.SetActive(false);
+            }
+            this.transform.parent.GetComponent<ContentSolver>().start_review();
         }
     }
-    public void OnCompletion(string t)
-    {
-        Dialogs.set_topboard(false, "");
-        clearinteractiveobjects();
-        ContentModuleRoot.GetComponent<ContentAddition>().onSolved();
-    }
+   
     public void loadPrompt()
     {
 
@@ -248,11 +280,9 @@ public class AdditionVirtual : MonoBehaviour
         int goal_n = ContentModuleRoot.GetComponent<ContentAddition>().goal_object_count;
         int cur_n = ContentModuleRoot.GetComponent<ContentAddition>().current_object_count;
         int add_n = goal_n - init_n;
-
-
-        Debug.Log("[ARMath] this is for virtual addition.");
+       
         Dialogs.add_dialog(new DialogItem(DialogueType.left_bottom_plain,
-            "Let's add " + add_n + " more " + target_object_name + "s by taking them out of the wallet",
+            "You can get coins out of the piggy bank by moving them on the screen.",
             true,
             new CallbackFunction(StartOperation),
             "",
@@ -267,9 +297,10 @@ public class AdditionVirtual : MonoBehaviour
         UserInteracting = true;
         
         UpdateBoard();        
-        container.SetActive(true);
-        root_movables.SetActive(true);        
-        arrange_movable_objects();
+        container.SetActive(true);        
+        root_movables.SetActive(true);
+        setup_coins();
+        //arrange_movable_objects();
     }
 
     private void UpdateBoard()

@@ -141,9 +141,9 @@ public class CountingTangible : MonoBehaviour
         UpdateBoard();
         problemboard.SetActive(true);
         container.SetActive(true);
-        interaction_prompt = new TimerCallback(Interaction_Prompt, SystemParam.timeout_for_interaction_prompt + 3);
+        interaction_prompt = new TimerCallback(Interaction_Prompt, "",SystemParam.timeout_for_interaction_prompt + 3);
     }
-    public void Interaction_Prompt()
+    public void Interaction_Prompt(string param)
     {
         //Dialogs.Prompt_RightBot("Move " + target_object_name + "s to the table");      
         if (object2interact != null) show_interaction_prompt(object2interact);

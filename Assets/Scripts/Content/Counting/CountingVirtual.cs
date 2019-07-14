@@ -116,7 +116,7 @@ public class CountingVirtual : MonoBehaviour {
         board.SetActive(true);
         UpdateBoard();
         problemboard.SetActive(true);
-        interaction_prompt = new TimerCallback(Interaction_Prompt, SystemParam.timeout_for_interaction_prompt);
+        interaction_prompt = new TimerCallback(Interaction_Prompt, "",SystemParam.timeout_for_interaction_prompt);
         active_interaction_prompt = null;
     }
 
@@ -133,7 +133,7 @@ public class CountingVirtual : MonoBehaviour {
         interaction_prompt = null;
        
     }
-    public void Interaction_Prompt()
+    public void Interaction_Prompt(string param)
     {
         if(active_interaction_prompt!=null)
         {

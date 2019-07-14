@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class FeedbackGenerator : MonoBehaviour {
 
@@ -11,7 +12,10 @@ public class FeedbackGenerator : MonoBehaviour {
     public GameObject prefab_stricker_o;
     public GameObject prefab_stricker_x;
     public GameObject prefab_check;
+    public GameObject prefab_target;
 
+    public Color[] color_terms;
+    private List<GameObject_timer> timer_feedback;
     private List<GameObject> temporary_feedback;
     private float last_temporary_feedback_time;
     // Use this for initialization
@@ -19,6 +23,7 @@ public class FeedbackGenerator : MonoBehaviour {
         mThis = this;
         temporary_feedback = new List<GameObject>();
         last_temporary_feedback_time = Time.time;
+        timer_feedback = new List<GameObject_timer>();
         // create_number_feedback(new Vector2(0, 500), 0,true);
         // create_number_feedback(new Vector2(200,500),1, true);
         // create_number_feedback(new Vector2(400, 200), 2, true);
@@ -45,7 +50,42 @@ public class FeedbackGenerator : MonoBehaviour {
             }
             temporary_feedback.Clear();
         }
+        int i = 0;
+        for(i = 0; i < timer_feedback.Count; i++)
+        {
+            if (timer_feedback[i].check_timer())
+            {
+                timer_feedback.RemoveAt(i);
+            }
+        }
 	}
+    public static void create_target(Vector3 pos, float start_delay, float lifetime)
+    {
+        Vector3 targetPos = pos;
+        
+        UnityEngine.GameObject label = Instantiate(mThis.prefab_target, targetPos, Quaternion.identity) as GameObject;
+        RectTransform r = label.GetComponent<RectTransform>();
+        r.position = targetPos;        
+        label.transform.SetParent(mThis.gameObject.transform);
+        label.GetComponent<RectTransform>().localScale = new Vector3(1f, 1f, 1f);
+        label.SetActive(false);
+        mThis.timer_feedback.Add(new GameObject_timer(label,start_delay,lifetime));        
+        
+    }
+    public static void create_target(Vector3 pos, float start_delay, float lifetime, int color_index)
+    {
+        Vector3 targetPos = pos;
+
+        UnityEngine.GameObject label = Instantiate(mThis.prefab_target, targetPos, Quaternion.identity) as GameObject;
+        RectTransform r = label.GetComponent<RectTransform>();
+        r.position = targetPos;
+        label.transform.SetParent(mThis.gameObject.transform);
+        label.GetComponent<RectTransform>().localScale = new Vector3(1f, 1f, 1f);
+        label.GetComponent<Image>().color = mThis.color_terms[color_index];
+        label.SetActive(false);
+        mThis.timer_feedback.Add(new GameObject_timer(label, start_delay, lifetime));
+
+    }
     public static void create_sticker_ox_dispose(Vector3 position, bool ox){
         position.y += 30;
         GameObject o = mThis.create_sticker_ox(position, ox, true);
@@ -100,6 +140,40 @@ public class FeedbackGenerator : MonoBehaviour {
         
         return label;
     }
+
+
+}
+
+public class GameObject_timer{
+    private float enable_delay;
+    private float lifetime;
+    private GameObject go;
+    private float start_time;
+    public GameObject_timer(GameObject go_,float start_delay, float delete_timer)
+    {
+        go = go_;
+        lifetime = delete_timer;
+        enable_delay = start_delay;
+        start_time = Time.time;
+    }
+
+    //return: if need to destory
+    public bool check_timer()
+    {
+        if (go == null) return true;
+        if(!go.activeSelf)
+        {
+            if (Time.time > start_time + enable_delay) go.SetActive(true);
+            return false;
+        }
+        if (Time.time > start_time + enable_delay + lifetime)
+        {
+            GameObject.Destroy(go);
+            return true;
+        }
+        return false;
+    }
+
 
 
 }

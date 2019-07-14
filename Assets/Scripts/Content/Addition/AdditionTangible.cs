@@ -16,7 +16,7 @@ public class AdditionTangible : MonoBehaviour
     private List<GameObject> tap_list;
 
 
-    public bool IsAdding;
+    public bool UserInteracting;
 
     private int total_n;
     private string target_object_name;
@@ -38,14 +38,14 @@ public class AdditionTangible : MonoBehaviour
     {
         
         board.SetActive(false);        
-        IsAdding = false;
+        UserInteracting = false;
         total_n = 0;
         tap_list = new List<GameObject>();
     }
     // Update is called once per frame
     void Update()
     {
-        if (IsAdding) UpdateBoard();
+        if (UserInteracting) UpdateBoard();
 
         if (Time.time > nextActionTime)
         {
@@ -57,7 +57,7 @@ public class AdditionTangible : MonoBehaviour
     }
     private void count_object()
     {
-        if ( !IsAdding) return;
+        if ( !UserInteracting) return;
         int init_n = ContentModuleRoot.GetComponent<ContentAddition>().init_object_count;
         int goal_n = ContentModuleRoot.GetComponent<ContentAddition>().goal_object_count;
         int cur_n = ContentModuleRoot.GetComponent<ContentAddition>().current_object_count;
@@ -155,19 +155,9 @@ public class AdditionTangible : MonoBehaviour
 
         if (ContentModuleRoot.GetComponent<ContentAddition>().goal_object_count == ContentModuleRoot.GetComponent<ContentAddition>().current_object_count)
         {
-            IsAdding = false;
+            UserInteracting = false;
 
-            int[] ans = new int[4];
-            ans[0] = goal_n - 2;
-            ans[1] = goal_n;
-            ans[2] = goal_n + 2;
-            ans[3] = goal_n + 5;
-            Dialogs.review(
-                "I've got a question. How many coins do we need for an icecream in total?",
-                ans,
-                1,
-                new CallbackFunction(OnCompletion)
-                );
+            this.transform.parent.GetComponent<ContentSolver>().start_review();
 
         }
     }
@@ -186,7 +176,7 @@ public class AdditionTangible : MonoBehaviour
         int goal_n = ContentModuleRoot.GetComponent<ContentAddition>().goal_object_count;
         int cur_n = ContentModuleRoot.GetComponent<ContentAddition>().current_object_count;
         int add_n = goal_n - init_n;
-        IsAdding = false;
+        UserInteracting = false;
         Dialogs.add_dialog(new DialogItem(DialogueType.left_bottom_plain,
             "Let's add "+ add_n+" more " + target_object_name + "s by placing them on the table",
             true,
@@ -200,7 +190,7 @@ public class AdditionTangible : MonoBehaviour
     public void StartOperation(string o)
     {
         total_n = 0;
-        IsAdding = true;
+        UserInteracting = true;
         board.SetActive(false);
         //problemboard.SetActive(true);
         UpdateBoard();

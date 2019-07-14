@@ -9,6 +9,7 @@ public class Dialogs : MonoBehaviour {
     
     public GameObject element_popright;
     public GameObject element_topboard;
+    public GameObject element_topboard_animated;
     public GameObject element_review;
 
 
@@ -22,7 +23,7 @@ public class Dialogs : MonoBehaviour {
     void Start () {
         mDialogueItems = new List<DialogItem>();
         element_leftbottom.SetActive(false);
-
+        element_topboard_animated.SetActive(false);
         element_popright.SetActive(false);
         element_review.SetActive(false);
         element_topboard.SetActive(false);
@@ -121,6 +122,7 @@ public class Dialogs : MonoBehaviour {
         this_.element_leftbottom.SetActive(false);
         this_.element_popright.SetActive(false);
         this_.element_topboard.SetActive(false);
+        this_.element_topboard_animated.SetActive(false);
         this_.mDialogueItems.Clear();
         
     }
@@ -155,6 +157,19 @@ public class Dialogs : MonoBehaviour {
     {
         this_.element_topboard.SetActive(enabled);
         this_.element_topboard.GetComponent<DialogElement>().setText(txt);
+    }
+
+    public static void set_topboard_animated(bool enabled, int idx,string txt)
+    {
+        this_.element_topboard_animated.SetActive(enabled);
+
+        this_.element_topboard_animated.GetComponent<DialogProblemAnimated>().set_term(idx, txt);
+    }
+    public static void set_topboard_highlight(bool enabled, int idx, float delay)
+    {
+        this_.element_topboard_animated.SetActive(enabled);
+
+        this_.element_topboard_animated.GetComponent<DialogProblemAnimated>().highlight_term(idx,delay);
     }
 
 }

@@ -131,7 +131,7 @@ TensorFlowSharp.Android.NativeBinding.Init();
                             float xmax = boxes[i, j, 3] * ((float) Screen.height) * x_stretch;
                             catalogItem.Box = Rect.MinMaxRect(xmin, Screen.height - ymax, xmax, Screen.height - ymin);
                             items.Add(catalogItem);
-                           Debug.Log(catalogItem.DisplayName+" "+i+" "+j+" "+num[i]);
+                       //    Debug.Log(catalogItem.DisplayName+" "+i+" "+j+" "+num[i]);
                         }
                     }
                 }
@@ -173,7 +173,7 @@ TensorFlowSharp.Android.NativeBinding.Init();
                             float xmax = boxes[i, j, 3] * (float) Screen.height * x_stretch + x_shift;
                             catalogItem.Box = Rect.MinMaxRect(xmin, Screen.height - ymax, xmax, Screen.height - ymin);
                             items.Add(catalogItem);
-                         Debug.Log(catalogItem.DisplayName+" "+i+" "+j+" "+num[i]);
+                      //   Debug.Log(catalogItem.DisplayName+" "+i+" "+j+" "+num[i]);
                         }
                     }
                 }

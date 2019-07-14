@@ -8,7 +8,9 @@ public class DelayedImage : MonoBehaviour {
     public float delay;
     public bool TTS_text;
     private float time_after_enable;
-    
+
+    private CallbackFunction callback;
+    private string callback_param;
 	// Use this for initialization
 	void Start () {
 		
@@ -29,15 +31,23 @@ public class DelayedImage : MonoBehaviour {
             if (label != null)
             {
                 label.enabled = true;
-
                 if (TTS_text) TTS.mTTS.GetComponent<TTS>().StartTextToSpeech(label.text.Replace("\n", ""));
             }
             time_after_enable = float.MaxValue;
+            if (callback != null)
+            {
+                callback(callback_param);
+                callback = null;
+            }
 
         }
 		
 	}
-
+    public void setCallback(CallbackFunction c,string p)
+    {
+        callback = c;
+        callback_param = p;
+    }
     private void OnEnable()
     {
         RawImage ri = this.GetComponent<RawImage>();
