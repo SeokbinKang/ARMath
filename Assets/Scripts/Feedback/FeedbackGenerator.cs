@@ -15,6 +15,7 @@ public class FeedbackGenerator : MonoBehaviour {
     public GameObject prefab_target;
 
     public Color[] color_terms;
+    public GameObject[] sounds;
     private List<GameObject_timer> timer_feedback;
     private List<GameObject> temporary_feedback;
     private float last_temporary_feedback_time;
@@ -84,6 +85,15 @@ public class FeedbackGenerator : MonoBehaviour {
         label.GetComponent<Image>().color = mThis.color_terms[color_index];
         label.SetActive(false);
         mThis.timer_feedback.Add(new GameObject_timer(label, start_delay, lifetime));
+
+    }
+    public static void create_target(Vector3 pos, float start_delay, float lifetime, int color_index, int sound_index)
+    {
+        if(sound_index>=0 && sound_index < mThis.sounds.Length)
+        {
+            mThis.sounds[sound_index].GetComponent<AudioSource>().Play();
+        }
+        create_target( pos,  start_delay,  lifetime,  color_index);
 
     }
     public static void create_sticker_ox_dispose(Vector3 position, bool ox){

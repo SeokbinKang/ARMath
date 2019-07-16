@@ -8,7 +8,7 @@ public class DragObject : MonoBehaviour, IDragHandler, IDropHandler
 {
 
 
-    private bool dragging=true;
+    private bool dragging=false;
     private bool hide_children_onDragging = true;
 
     public bool adjust_alpha;
@@ -17,6 +17,10 @@ public class DragObject : MonoBehaviour, IDragHandler, IDropHandler
     public float alpha_on_init;
 
     public GameObject base_graphic;
+
+    public bool fixed_size_onmove;
+    public Vector2 fixed_size;
+
 	// Use this for initialization
 	void Start () {
         adjust_alpha = false;
@@ -70,7 +74,10 @@ public class DragObject : MonoBehaviour, IDragHandler, IDropHandler
         this.GetComponent<RectTransform>().position = new Vector3(mouse_pos.x, mouse_pos.y, 0);
         dragging = true;
         change_alpha(alpha_on_move);
-
+        if(fixed_size_onmove)
+        {
+            this.GetComponent<RectTransform>().sizeDelta = this.fixed_size;
+        }
      //   Debug.Log("[ARMath] on drag");
 
     }
@@ -78,7 +85,7 @@ public class DragObject : MonoBehaviour, IDragHandler, IDropHandler
     {
         if (data.pointerDrag != null)
         {
-            dragging = false;
+            dragging = true;
         }
         change_alpha(alpha_on_drop);
 
@@ -86,24 +93,24 @@ public class DragObject : MonoBehaviour, IDragHandler, IDropHandler
     }
     public void setchildrenvisibility()
     {
+        int i = 0;
+        if (base_graphic != null) i = 1;
         int child_n = this.transform.childCount;
-        if (child_n == 0) return;
-        Debug.Log("[ARMath] dragging status " + dragging + "   "+child_n);
-        if(dragging)
+        if (child_n <= i) return;
+        //Debug.Log("[ARMath] dragging status " + dragging + "   "+child_n);
+        if(!dragging)
         {
-            int i = 0;
-            if (base_graphic != null) i = 1;
+          
             if (this.transform.GetChild(i).gameObject.activeSelf) {
                 
                 for(; i < child_n; i++)
                 {
-                    
                     this.transform.GetChild(i).gameObject.SetActive(false);
                 }
             }            
         } else
         {
-            int i = 0;
+            
             if (base_graphic != null) i = 1;
             if (!this.transform.GetChild(i).gameObject.activeSelf)
             {

@@ -9,6 +9,7 @@ public class DialogProblemAnimated : MonoBehaviour
     public GameObject term1_num;
     public GameObject term2_num;
     public GameObject term3_equal;
+    public GameObject term4_center;
     List<TimerCallback> cbs;
 
 
@@ -57,6 +58,12 @@ public class DialogProblemAnimated : MonoBehaviour
             term3_equal.SetActive(true);
             return;
         }
+        if (idx == 3)
+        {
+            term4_center.GetComponentInChildren<Text>().text = txt;
+            term4_center.SetActive(true);
+            return;
+        }
 
     }
     public void highlight_term(int idx)
@@ -67,6 +74,8 @@ public class DialogProblemAnimated : MonoBehaviour
             term2_num.GetComponentInChildren<Animator>().SetTrigger("highlight");
         else if (idx == 2)
             term3_equal.GetComponentInChildren<Animator>().SetTrigger("highlight");
+        else if (idx == 3)
+            term4_center.GetComponentInChildren<Animator>().SetTrigger("highlight");
     }
     public void highlight_term(string idx)
     {
@@ -77,6 +86,8 @@ public class DialogProblemAnimated : MonoBehaviour
             term2_num.GetComponentInChildren<Animator>().SetTrigger("highlight");
         else if (idx == "2")
             term3_equal.GetComponentInChildren<Animator>().SetTrigger("highlight");
+        else if (idx == "3")
+            term4_center.GetComponentInChildren<Animator>().SetTrigger("highlight");
     }
     public void highlight_term(int idx, float delay)
     {

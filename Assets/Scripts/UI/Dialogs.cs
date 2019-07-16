@@ -155,21 +155,24 @@ public class Dialogs : MonoBehaviour {
     }
     public static void set_topboard(bool enabled, string txt)
     {
-        this_.element_topboard.SetActive(enabled);
         this_.element_topboard.GetComponent<DialogElement>().setText(txt);
+        this_.element_topboard.SetActive(enabled);
+        
     }
 
     public static void set_topboard_animated(bool enabled, int idx,string txt)
     {
+        this_.element_topboard_animated.GetComponent<DialogProblemAnimated>().set_term(idx, txt);
         this_.element_topboard_animated.SetActive(enabled);
 
-        this_.element_topboard_animated.GetComponent<DialogProblemAnimated>().set_term(idx, txt);
+        
     }
     public static void set_topboard_highlight(bool enabled, int idx, float delay)
     {
+        this_.element_topboard_animated.GetComponent<DialogProblemAnimated>().highlight_term(idx, delay);
         this_.element_topboard_animated.SetActive(enabled);
 
-        this_.element_topboard_animated.GetComponent<DialogProblemAnimated>().highlight_term(idx,delay);
+        
     }
 
 }

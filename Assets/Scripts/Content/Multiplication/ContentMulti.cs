@@ -5,12 +5,15 @@ using UnityEngine;
 public class ContentMulti : MonoBehaviour {
 
     public GameObject sub_intro;
-    public GameObject sub_explorer;        
+    public GameObject sub_intro2;
+    public GameObject sub_trees;
+    public GameObject sub_explorer;
+    
     public GameObject sub_solver;    
     public GameObject sub_review;
 
 
-    public string target_object_name = "";    
+    public string target_object_name;    
     public Rect target_object_cluster;
     public int target_base_num;
     public int target_mult_num;
@@ -46,13 +49,15 @@ public class ContentMulti : MonoBehaviour {
     {
         
         if(sub_intro) sub_intro.SetActive(true);
-        if(sub_explorer) sub_explorer.SetActive(false);
+        if (sub_intro2) sub_intro2.SetActive(false);
+        if (sub_trees) sub_trees.SetActive(false);
+        if (sub_explorer) sub_explorer.SetActive(false);
         if(sub_solver) sub_solver.SetActive(false);
         if(sub_review) sub_review.SetActive(false);        
         is_idle = true;
         is_solved = false;
         target_base_num = 0;
-        target_object_name = "";
+        
         target_object_cluster = new Rect();
         
         TTS.mTTS.GetComponent<TTS>().StartTextToSpeech("Help the minion solve multiplication problems and collect purple gems!");
@@ -66,6 +71,14 @@ public class ContentMulti : MonoBehaviour {
         is_solved = true;
 
     }
+    public void s0_onIntro()
+    {
+        target_mult_num = (int)Random.Range(2, 4);
+        sub_intro2.SetActive(true);
+        sub_trees.GetComponent<GroupTree>().Setup(target_mult_num,0);
+        sub_trees.SetActive(true);
+        
+    }
     public void s1_UpdateExplorer()
     {
         System.Random random = new System.Random();
@@ -74,14 +87,14 @@ public class ContentMulti : MonoBehaviour {
         Vector2 center_of_objects = new Vector2(0, 0);
         int object_count = 0;
 
-        if (is_solved || sub_intro.activeSelf)
+        if (is_solved || sub_intro.activeSelf || sub_intro2.activeSelf)
         {
             sub_explorer.SetActive(false);
             return;
         }
         
         List<SceneObject> objects_cluster;
-        objects_cluster = SceneObjectManager.mSOManager.get_a_cluster_objects();
+        objects_cluster = SceneObjectManager.mSOManager.get_a_cluster_objects(target_object_name);
         if (is_idle)
         {
             if (objects_cluster == null || objects_cluster.Count == 0)
@@ -89,45 +102,37 @@ public class ContentMulti : MonoBehaviour {
                 sub_explorer.SetActive(false);
                 return;
             }
-            target_object_name = objects_cluster[0].catalogInfo.DisplayName;
+            //target_object_name = objects_cluster[0].catalogInfo.DisplayName;
             target_base_num = objects_cluster.Count;
             Rect cluster_box = SceneAnalysis.get_bounding_box(objects_cluster);
             center_of_objects = cluster_box.center;
-            target_object_cluster = cluster_box;
-            
+            target_object_cluster = cluster_box;            
            
-            bool interaction_touch_enalbed = SystemControl.mSystemControl.get_system_setup_interaction_touch();
-            if (interaction_touch_enalbed)
-            {
-
-
-
-
-            }
-            else
-            {
-
-            }
             //pops up explorer
             sub_explorer.SetActive(true);
             RectTransform r = sub_explorer.GetComponent<RectTransform>();
             r.position = new Vector3(center_of_objects.x, center_of_objects.y, 0);
+            is_idle = false;
 
-            //pops up debugging bounding box.
-            /*
-            Vector2[] corners = new Vector2[4];
-            corners[0].x = target_object_cluster.xMin - Screen.width/2;
-            corners[0].y = target_object_cluster.yMax - Screen.height/2;
-            corners[1].x = target_object_cluster.xMax - Screen.width / 2;
-            corners[1].y = target_object_cluster.yMax - Screen.height / 2;
-            corners[2].x = target_object_cluster.xMax - Screen.width / 2;
-            corners[2].y = target_object_cluster.yMin - Screen.height / 2;
-            corners[3].x = target_object_cluster.xMin - Screen.width / 2;
-            corners[3].y = target_object_cluster.yMin - Screen.height / 2;
-            Color c = Color.cyan;
-            c.a = 0.4f;
-            Debug.Log("[ARMath] cluster : " + target_object_cluster);
-            Drawing2D.create_2DRect("debuggingbox", corners, c);*/
+            
+            bool interaction_touch_enalbed = SystemControl.mSystemControl.get_system_setup_interaction_touch();
+            
+              Dialogs.add_dialog(new DialogItem(DialogueType.left_bottom_plain,
+              "Oh there are some batteries. Each tree needs "+ target_base_num+" batteries to light up.",
+              true,
+              new CallbackFunction(callback_shownumber1),
+             target_base_num.ToString(),
+              6), 0
+              );
+            Dialogs.add_dialog(new DialogItem(DialogueType.left_bottom_plain,
+              "Can you help me turn on the "+target_mult_num +" trees?",
+              true,
+              new CallbackFunction(callback_shownumber2),
+              "x " + target_mult_num.ToString(),
+              3.5f), 0
+              );
+          
+
 
         }
         else
@@ -135,6 +140,17 @@ public class ContentMulti : MonoBehaviour {
             sub_explorer.SetActive(false);
 
         }
+    }
+    public void callback_shownumber1(string t)
+    {
+        Dialogs.set_topboard_animated(true, 0, t);
+
+    }
+    public void callback_shownumber2(string t)
+    {
+
+        Dialogs.set_topboard_animated(true, 1, t);
+        s4_startsolver("");
     }
     public void s2_OnExplorer()
     {
@@ -157,6 +173,7 @@ public class ContentMulti : MonoBehaviour {
     
     public void s4_startsolver(string p)
     {        
+        sub_trees.GetComponent<GroupTree>().start_operation();
         sub_solver.SetActive(true);
     }
     

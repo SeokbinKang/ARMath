@@ -82,21 +82,20 @@ public class GeometryVirtual_Rect : MonoBehaviour {
     {
         string target_object_name = ContentModuleRoot.GetComponent<ContentGeometry>().target_object_name;
         string target_shape_name = ARMathUtils.shape_name(ContentModuleRoot.GetComponent<ContentGeometry>().target_object_shape);
+      //  Debug.Log("[ARMath] rectangl step " + mStep);
         if (mStep == 0)
         {  //DEPRECATED
-                
-            
-            
-            container.SetActive(false);
-            geoprimitives.SetActive(false);
-           
+
+       
+
+
             /*
 
             if(prompt_text.GetComponent<Text>().text!= "Let's find vertics, sides, and angles in the " + target_object_name ){
                 prompt_text.GetComponent<Text>().text = "Let's find vertics, sides, and angles in the " + target_object_name ;
                 TTS.mTTS.GetComponent<TTS>().StartTextToSpeech(prompt_text.GetComponent<Text>().text);
             }*/
-            
+
             return;
         }
         if (mStep == 2)
@@ -104,15 +103,15 @@ public class GeometryVirtual_Rect : MonoBehaviour {
             
             container.SetActive(true);
 
-
             //geoprimitives.SetActive(true);
             container.GetComponent<GeometryVisContainer>().Solve_Properties(GeometryPrimitives.vertex);
-          
-            Dialogs.add_dialog(new DialogItem(DialogueType.left_bottom_plain,
-                "Let's count how many vertices the "+ target_shape_name + " have. You can tap them on the screen.",
+            Dialogs.set_topboard_animated(false, 3, "");
+            
+            Dialogs.add_dialog(new DialogItem(DialogueType.left_bottom_plain,                
+                "Where are vertices of the "+target_shape_name + "? Can you tap them on the screen?",
                 true,
                 new CallbackFunction(ShowProblem),
-                "How many vertices are there in a rectangle?",
+                "Where are the vertices?",
                 5
                 ),
                 3);
@@ -128,12 +127,12 @@ public class GeometryVirtual_Rect : MonoBehaviour {
             //geoprimitives.SetActive(true);
             container.GetComponent<GeometryVisContainer>().Solve_Properties(GeometryPrimitives.side_short);
 
-
+            Dialogs.set_topboard_animated(false, 3, "");
             Dialogs.add_dialog(new DialogItem(DialogueType.left_bottom_plain,
-                "Let's find a pair of short sides in the "+ target_shape_name+". You can tap them on the screen",
+                "Can you point to the two shorter sides of the "+ target_shape_name+"?",
                 true,
                 new CallbackFunction(ShowProblem),
-                "Where are two short sides in a "+target_shape_name+"?",
+                "Where are two shorter sides?",
                 5
                 ),
                 3);
@@ -147,12 +146,12 @@ public class GeometryVirtual_Rect : MonoBehaviour {
             //geoprimitives.SetActive(true);
             container.GetComponent<GeometryVisContainer>().Solve_Properties(GeometryPrimitives.side_long);
 
-
+            Dialogs.set_topboard_animated(false, 3, "");
             Dialogs.add_dialog(new DialogItem(DialogueType.left_bottom_plain,
-                "Let's find a pair of long sides in the " + target_shape_name + ". You can tap them on the screen",
+                "Can you point to the two longer sides of the " + target_shape_name + "?",
                 true,
                 new CallbackFunction(ShowProblem),
-                "Where are two long sides in a " + target_shape_name + "?",
+                "Where are two longer sides ?",
                 5
                 ),
                 3);
@@ -190,32 +189,16 @@ public class GeometryVirtual_Rect : MonoBehaviour {
         {
           
 
-            container.SetActive(true);
-            container.GetComponent<GeometryVisContainer>().Solve_Properties(GeometryPrimitives.angle);
-
-            
-
-
+          
+            Dialogs.set_topboard_animated(false, 3, "");
             Dialogs.add_dialog(new DialogItem(DialogueType.left_bottom_plain,
-                "Let's measure the angles using a protractor and find their names.",
+                "Can you measure the corner angles using a protractor? And please tell me the names of the angles.",
                 true,
-                new CallbackFunction(ShowProblem),
-                "What are the names for the angles in the " + target_shape_name + "?",
-                5
-                ),3
-                );
-            //geoprimitives.GetComponent<GridPrimitives>().Reset(GeometryPrimitives.angle);
-            //geoprimitives.SetActive(true);
-            /*
-            problemboard.SetActive(true);
-            container.GetComponent<GeometryVisContainer>().Solve_Properties(GeometryPrimitives.angle);
-            if (problemboard_text.GetComponent<Text>().text != "What are the angles of the corners in " + target_object_name + "?")
-            {
-                problemboard_text.GetComponent<Text>().text = "What are the angles of the corners in " + target_object_name + "?";
-                TTS.mTTS.GetComponent<TTS>().StartTextToSpeech(problemboard_text.GetComponent<Text>().text);
-                geoprimitives.GetComponent<GridPrimitives>().Reset(GeometryPrimitives.angle);
-               
-            } */
+                new CallbackFunction(start_angle),
+                "What are the names of the angles?",
+                6
+                ),2
+                );           
             mStep = 9;
 
         }
@@ -233,9 +216,22 @@ public class GeometryVirtual_Rect : MonoBehaviour {
             mStep = 11;
         }
     }
+    public void move_to_step(string t)
+    {
+        this.mStep = Convert.ToInt32(t);
+    }
+    public void start_angle(string t)
+    {
+        container.SetActive(true);
+        container.GetComponent<GeometryVisContainer>().Solve_Properties(GeometryPrimitives.angle);
+        Dialogs.set_topboard_animated(true, 3, t);
+
+    }
     public void ShowProblem(string txt)
     {
-        Dialogs.set_topboard(true, txt);
+        Dialogs.set_topboard_animated(true, 3, txt);
+        
+
     }
     private void arrange_movable_objects()
     {
@@ -257,17 +253,6 @@ public class GeometryVirtual_Rect : MonoBehaviour {
         ContentModuleRoot.GetComponent<ContentGeometry>().onSolved();
     }
   
-    public void StartOperation()
-    {
-        
-        UserInteracting = true;
-        
-        
-        container.SetActive(true);
-        geoprimitives.SetActive(true);
-        
-        arrange_movable_objects();
-    }
-
+   
    
 }

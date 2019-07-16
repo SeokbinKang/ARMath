@@ -15,7 +15,7 @@ public class volumedecrease : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-
+        if (this.GetComponent<AudioSource>() == null) return;
         if (Time.time > start_time + delay)
         {
 
@@ -28,6 +28,7 @@ public class volumedecrease : MonoBehaviour {
 	}
     private void OnEnable()
     {
+        if (this.GetComponent<AudioSource>() == null) return;
         this.GetComponent<AudioSource>().volume = init_volume;
         start_time = Time.time;
     }

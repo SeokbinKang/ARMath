@@ -102,6 +102,14 @@ public class SceneObjectManager : MonoBehaviour {
         
         return ret;
     }
+    public List<SceneObject> get_a_cluster_objects(string object_name)
+    {
+        List<SceneObject> named_objs = get_objects_by_name(object_name);
+
+        List<SceneObject> ret = SceneAnalysis.GetCluster(named_objs);
+
+        return ret;
+    }
 
     public List<SceneObject> get_objects_in_rect(Rect rect, string obj_name)
     {
@@ -348,14 +356,15 @@ public class SceneObject
         //}
         return ret;
     }
+
     public bool check_in_box(Rect rect)
     {
-        bool ret = false;
+        
         bool my_ret = false;
         
         Rect box = this.catalogInfo.Box;
         box.center = new Vector2(box.center.x, Screen.height - box.center.y);
-        ret = rect.Contains(box.center);
+        
         //Debug.Log("[ARMath] box container test: " + box.center.x + "  " + (rect.x - rect.width / 2) + "  " + (rect.x + rect.width / 2) + "  " + box.center.y + "  " + (rect.y - rect.height / 2) + "  " + (rect.y + rect.height / 2));
         if (box.center.x >= (rect.x-rect.width/2) && box.center.x <= (rect.x + rect.width / 2) &&
             box.center.y >= (rect.y - rect.height / 2) && box.center.y <= (rect.y + rect.height / 2))

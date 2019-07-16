@@ -198,6 +198,19 @@ public class ARMathUtils
         return "unknown shape";
 
     }
+    public static bool check_in_recttransform(Vector2 point, GameObject go)
+    {
+        if (go == null) return false;
+        Vector3 center = go.GetComponent<RectTransform>().position;
+        Rect rect = new Rect(new Vector2(center.x, center.y), go.GetComponent<RectTransform>().rect.size);
+
+        if (point.x >= (rect.x - rect.width / 2) && point.x <= (rect.x + rect.width / 2) &&
+            point.y >= (rect.y - rect.height / 2) && point.y <= (rect.y + rect.height / 2))
+        {
+            return true;
+        }
+        return false;
+    }
 }
 
 public delegate void CallbackFunction(string param);

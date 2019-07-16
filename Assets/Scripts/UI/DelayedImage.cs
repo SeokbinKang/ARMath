@@ -33,12 +33,19 @@ public class DelayedImage : MonoBehaviour {
                 label.enabled = true;
                 if (TTS_text) TTS.mTTS.GetComponent<TTS>().StartTextToSpeech(label.text.Replace("\n", ""));
             }
+            Animator animc = this.GetComponent<Animator>();
+            if (animc != null)
+            {
+                animc.enabled = true;
+            }
+
             time_after_enable = float.MaxValue;
             if (callback != null)
             {
                 callback(callback_param);
                 callback = null;
             }
+
 
         }
 		
@@ -68,6 +75,12 @@ public class DelayedImage : MonoBehaviour {
         {
             label.enabled = false;
         }
+        Animator animc = this.GetComponent<Animator>();
+        if (animc != null)
+        {
+            animc.enabled = false;
+        }
+
 
         time_after_enable = Time.time;
     }
@@ -80,6 +93,11 @@ public class DelayedImage : MonoBehaviour {
         if (ii != null) ii.enabled = true;
         Text label = this.GetComponent<Text>();
         if (label != null) label.enabled = false;
+        Animator animc = this.GetComponent<Animator>();
+        if (animc != null)
+        {
+            animc.enabled = false;
+        }
     }
 
 }

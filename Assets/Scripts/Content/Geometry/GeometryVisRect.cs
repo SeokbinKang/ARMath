@@ -90,7 +90,6 @@ public class GeometryVisRect : MonoBehaviour {
         }
         if (disabled_index.Count == 0)
         {
-
             if (iscomplete && solver.GetComponent<GeometryVirtual_Rect>().mStep < 10) solver.GetComponent<GeometryVirtual_Rect>().nextStep(10);
         }
         System.Random rnd = new System.Random();

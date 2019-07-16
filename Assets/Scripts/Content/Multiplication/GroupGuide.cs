@@ -54,6 +54,7 @@ public class GroupGuide : MonoBehaviour {
             GameObject cell = ARMathUtils.create_2DPrefab(pre_cell, this.gameObject);
             cells.Add(cell);
             cell.GetComponent<RawImage>().texture = incomplete_box;
+            cell.GetComponent<RawImage>().color = new Color(1, 1, 1, 1);
             float aspect_ratio = ((float)incomplete_box.width) / ((float)incomplete_box.height);
             float w, h;
             if(aspect_ratio<=1)
@@ -77,6 +78,43 @@ public class GroupGuide : MonoBehaviour {
         progress_active_cell_idx = 0;
         if (progressive) enableCell(progress_active_cell_idx);
         
+    }
+    public void Setup(int cell_count,float grid_line_alpha)
+    {
+        if (cell_count <= 0) return;
+        Reset();
+        if (cells == null) cells = new List<GameObject>();
+        // Debug.Log("[ARMath] Setting up cells " + cell_count);
+        for (int i = 0; i < cell_count; i++)
+        {
+            GameObject cell = ARMathUtils.create_2DPrefab(pre_cell, this.gameObject);
+            cells.Add(cell);
+            cell.GetComponent<RawImage>().texture = incomplete_box;
+            cell.GetComponent<RawImage>().color = new Color(1, 1, 1, grid_line_alpha);
+            float aspect_ratio = ((float)incomplete_box.width) / ((float)incomplete_box.height);
+            float w, h;
+            if (aspect_ratio <= 1)
+            {
+                h = this.max_height;
+                w = h * aspect_ratio;
+
+            }
+            else
+            {
+                w = this.max_width;
+                h = w / aspect_ratio;
+            }
+            //this.GetComponent<GridLayoutGroup>().cellSize = new Vector2(w, h);
+
+            if (progressive)
+            {
+                cell.SetActive(false);
+            }
+
+        }
+        progress_active_cell_idx = 0;
+        if (progressive) enableCell(progress_active_cell_idx);
+
     }
     /// <summary>
     /// 

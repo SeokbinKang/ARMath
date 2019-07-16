@@ -55,7 +55,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c07698deba6bc5f4fa9e129b3629f1cc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  adjust_alpha: 0
+  alpha_on_drop: 0
+  alpha_on_move: 0
+  alpha_on_init: 0
   base_graphic: {fileID: 1825547667364744}
+  fixed_size_onmove: 1
+  fixed_size: {x: 300, y: 300}
 --- !u!114 &114890295144449350
 MonoBehaviour:
   m_ObjectHideFlags: 1

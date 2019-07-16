@@ -85,24 +85,25 @@ public class Protractor : MonoBehaviour {
         bool rect_wait_finished = rect_wait.GetComponent<Animator>().GetCurrentAnimatorStateInfo(0).IsName("finish");
         if (rect_wait_finished && !call_out.activeSelf)
         {
-            if (Mathf.Abs(angle) < 85)
+            int angle_i = (int) Mathf.Abs(angle);
+            if (angle_i < 85)
             {
-                call_out.GetComponent<Text>().text = "\"acute\" angle";
+                call_out.GetComponent<Text>().text = angle_i + "° = \"acute\" angle";
                 call_out.GetComponent<Text>().color = text_incorrect;
                 TTS.mTTS.GetComponent<TTS>().StartTextToSpeech("This is an acute angle.");
 
 
             }
-            else if (Mathf.Abs(angle) > 95)
+            else if (angle_i > 95)
             {
-                call_out.GetComponent<Text>().text = "\"obtuse\" angle";
+                call_out.GetComponent<Text>().text = angle_i + "° = \"obtuse\" angle";
                 call_out.GetComponent<Text>().color = text_incorrect;
                 TTS.mTTS.GetComponent<TTS>().StartTextToSpeech("This is an obtuse angle.");
 
             }
             else
             {
-                call_out.GetComponent<Text>().text = "\"right\" angle";
+                call_out.GetComponent<Text>().text = "90° = \"right\" angle";
                 call_out.GetComponent<Text>().color = text_correct;
                 TTS.mTTS.GetComponent<TTS>().StartTextToSpeech("This is a right angle!");
 
@@ -141,11 +142,6 @@ public class Protractor : MonoBehaviour {
         {
 
             Vector2 pos = Input.mousePosition;
-
-
-            // Position the cube.
-            //Debug.Log("[ARMath] drawing at " + pos);
-
             
             //calibration?
              get_angle(pos);
@@ -165,12 +161,10 @@ public class Protractor : MonoBehaviour {
                 call_out.SetActive(false);
                 Vector2 pos = touch.position;
 
-                    
-                // Position the cube.
-                //Debug.Log("[ARMath] drawing at " + pos);
-
                  get_angle(pos);
+                if (Mathf.Abs(angle - 90f) < 5) angle = 90 * Mathf.Sign(angle);
                 Quaternion q = Quaternion.Euler(0, 0, angle);
+
                 needle.GetComponent<RectTransform>().localRotation = q;
                 
 

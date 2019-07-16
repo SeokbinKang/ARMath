@@ -197,7 +197,7 @@ public class ShapeBuilder : MonoBehaviour {
             {
                 int side_no = (i / side_length) % 4;
                 int index_within_side = i % side_length;
-                Debug.Log("[ARMath] D1.5 " + i + "  " + side_length + "   " + side_no);
+                //Debug.Log("[ARMath] D1.5 " + i + "  " + side_length + "   " + side_no);
                 Vector2 adjust_pos = four_corners_pos[side_no];
                 Vector2 diff_vector = four_corners_pos[(side_no + 1) % 4] - adjust_pos;
                 adjust_pos = adjust_pos + diff_vector * step * ((float)index_within_side);
