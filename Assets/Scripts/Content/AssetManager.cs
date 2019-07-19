@@ -10,7 +10,7 @@ public class AssetManager : MonoBehaviour {
     public GameObject[] object_icon;
     public string[] object_singular_name;
     public string[] object_plural_name;
-    
+    public Color[] colors;
     private Dictionary<string,GameObject> object_icon_map;
     // Use this for initialization
     void Start () {
@@ -35,7 +35,10 @@ public class AssetManager : MonoBehaviour {
             }
         }
     }
-
+    public static Color[] getColors()
+    {
+        return mThis.colors;
+    }
     public static GameObject get_icon(string name)
     {
         GameObject ret = null;

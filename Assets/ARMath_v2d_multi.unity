@@ -298,7 +298,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &14002346
 RectTransform:
   m_ObjectHideFlags: 0
@@ -354,7 +354,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &15104488
 RectTransform:
   m_ObjectHideFlags: 0
@@ -871,7 +871,7 @@ RectTransform:
   m_GameObject: {fileID: 32401510}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1.2500086, y: 1.2500086, z: 1}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1923043094}
   m_Father: {fileID: 1070489148}
@@ -879,8 +879,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -482.8, y: 350}
-  m_SizeDelta: {x: 647, y: 393.4}
+  m_AnchoredPosition: {x: -514.3, y: 369.1}
+  m_SizeDelta: {x: 710, y: 431.7}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &32401512
 MonoBehaviour:
@@ -2153,6 +2153,7 @@ MonoBehaviour:
   alpha_on_drop: 0
   alpha_on_move: 0
   alpha_on_init: 0
+  onDragging: 0
   base_graphic: {fileID: 0}
   fixed_size_onmove: 0
   fixed_size: {x: 0, y: 0}
@@ -2357,6 +2358,7 @@ MonoBehaviour:
   alpha_on_drop: 1
   alpha_on_move: 1
   alpha_on_init: 1
+  onDragging: 0
   base_graphic: {fileID: 0}
   fixed_size_onmove: 0
   fixed_size: {x: 0, y: 0}
@@ -6567,6 +6569,7 @@ GameObject:
   - component: {fileID: 287848786}
   - component: {fileID: 287848785}
   - component: {fileID: 287848784}
+  - component: {fileID: 287848787}
   m_Layer: 0
   m_Name: text
   m_TagString: Untagged
@@ -6603,7 +6606,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e4f1cab86397088439f11b293925fb33, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  delay: 5
+  delay: 6.5
   TTS_text: 1
 --- !u!114 &287848785
 MonoBehaviour:
@@ -6645,6 +6648,24 @@ CanvasRenderer:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 287848782}
   m_CullTransparentMesh: 0
+--- !u!95 &287848787
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 287848782}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: f2c20cf2b0672204f987cc82d485ca32, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1 &288853019
 GameObject:
   m_ObjectHideFlags: 0
@@ -7456,6 +7477,7 @@ MonoBehaviour:
   alpha_on_drop: 0
   alpha_on_move: 0
   alpha_on_init: 0
+  onDragging: 0
   base_graphic: {fileID: 0}
   fixed_size_onmove: 0
   fixed_size: {x: 0, y: 0}
@@ -9261,6 +9283,7 @@ MonoBehaviour:
   alpha_on_drop: 0
   alpha_on_move: 0
   alpha_on_init: 0
+  onDragging: 0
   base_graphic: {fileID: 0}
   fixed_size_onmove: 0
   fixed_size: {x: 0, y: 0}
@@ -10247,6 +10270,7 @@ MonoBehaviour:
   alpha_on_drop: 1
   alpha_on_move: 1
   alpha_on_init: 1
+  onDragging: 0
   base_graphic: {fileID: 0}
   fixed_size_onmove: 0
   fixed_size: {x: 0, y: 0}
@@ -10818,6 +10842,7 @@ MonoBehaviour:
   alpha_on_drop: 1
   alpha_on_move: 1
   alpha_on_init: 1
+  onDragging: 0
   base_graphic: {fileID: 0}
   fixed_size_onmove: 0
   fixed_size: {x: 0, y: 0}
@@ -11981,6 +12006,7 @@ MonoBehaviour:
   alpha_on_drop: 0
   alpha_on_move: 0
   alpha_on_init: 0
+  onDragging: 0
   base_graphic: {fileID: 0}
   fixed_size_onmove: 0
   fixed_size: {x: 0, y: 0}
@@ -12479,6 +12505,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   visible_percent: 0
+  height_full: 0
   random_move: 0
   min_percent: 0
   max_percent: 0
@@ -12507,7 +12534,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_RaycastTarget: 1
+  m_RaycastTarget: 0
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
@@ -12655,6 +12682,7 @@ MonoBehaviour:
   alpha_on_drop: 0
   alpha_on_move: 0
   alpha_on_init: 0
+  onDragging: 0
   base_graphic: {fileID: 0}
   fixed_size_onmove: 0
   fixed_size: {x: 0, y: 0}
@@ -13324,6 +13352,7 @@ MonoBehaviour:
   alpha_on_drop: 0
   alpha_on_move: 0
   alpha_on_init: 0
+  onDragging: 0
   base_graphic: {fileID: 0}
   fixed_size_onmove: 0
   fixed_size: {x: 0, y: 0}
@@ -14107,7 +14136,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &650802841
 Transform:
   m_ObjectHideFlags: 0
@@ -14145,7 +14174,7 @@ MonoBehaviour:
   sub_explorer: {fileID: 1758790932}
   sub_solver: {fileID: 356964152}
   sub_review: {fileID: 1919497803}
-  target_object_name: coin
+  target_object_name: battery
   target_object_cluster:
     serializedVersion: 2
     x: 0
@@ -14582,6 +14611,7 @@ MonoBehaviour:
   alpha_on_drop: 0
   alpha_on_move: 0
   alpha_on_init: 0
+  onDragging: 0
   base_graphic: {fileID: 0}
   fixed_size_onmove: 0
   fixed_size: {x: 0, y: 0}
@@ -15203,7 +15233,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &686503276
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -15253,7 +15283,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &690858648
 RectTransform:
   m_ObjectHideFlags: 0
@@ -15728,6 +15758,7 @@ MonoBehaviour:
   alpha_on_drop: 1
   alpha_on_move: 1
   alpha_on_init: 1
+  onDragging: 0
   base_graphic: {fileID: 0}
   fixed_size_onmove: 0
   fixed_size: {x: 0, y: 0}
@@ -17889,6 +17920,7 @@ MonoBehaviour:
   alpha_on_drop: 1
   alpha_on_move: 1
   alpha_on_init: 1
+  onDragging: 0
   base_graphic: {fileID: 0}
   fixed_size_onmove: 0
   fixed_size: {x: 0, y: 0}
@@ -18409,7 +18441,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e4f1cab86397088439f11b293925fb33, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  delay: 4
+  delay: 5.5
   TTS_text: 0
 --- !u!82 &806576763
 AudioSource:
@@ -19602,6 +19634,7 @@ MonoBehaviour:
   alpha_on_drop: 1
   alpha_on_move: 1
   alpha_on_init: 1
+  onDragging: 0
   base_graphic: {fileID: 0}
   fixed_size_onmove: 0
   fixed_size: {x: 0, y: 0}
@@ -19725,6 +19758,7 @@ MonoBehaviour:
   alpha_on_drop: 1
   alpha_on_move: 1
   alpha_on_init: 1
+  onDragging: 0
   base_graphic: {fileID: 0}
   fixed_size_onmove: 0
   fixed_size: {x: 0, y: 0}
@@ -20566,6 +20600,7 @@ MonoBehaviour:
   alpha_on_drop: 0
   alpha_on_move: 0
   alpha_on_init: 0
+  onDragging: 0
   base_graphic: {fileID: 0}
   fixed_size_onmove: 0
   fixed_size: {x: 0, y: 0}
@@ -21347,6 +21382,7 @@ MonoBehaviour:
   alpha_on_drop: 0
   alpha_on_move: 0
   alpha_on_init: 0
+  onDragging: 0
   base_graphic: {fileID: 0}
   fixed_size_onmove: 0
   fixed_size: {x: 0, y: 0}
@@ -21712,6 +21748,7 @@ MonoBehaviour:
   alpha_on_drop: 0
   alpha_on_move: 0
   alpha_on_init: 0
+  onDragging: 0
   base_graphic: {fileID: 0}
   fixed_size_onmove: 0
   fixed_size: {x: 0, y: 0}
@@ -22953,6 +22990,7 @@ MonoBehaviour:
   alpha_on_drop: 0
   alpha_on_move: 0
   alpha_on_init: 0
+  onDragging: 0
   base_graphic: {fileID: 0}
   fixed_size_onmove: 0
   fixed_size: {x: 0, y: 0}
@@ -24428,6 +24466,7 @@ MonoBehaviour:
   alpha_on_drop: 0
   alpha_on_move: 0
   alpha_on_init: 0
+  onDragging: 0
   base_graphic: {fileID: 0}
   fixed_size_onmove: 0
   fixed_size: {x: 0, y: 0}
@@ -25270,6 +25309,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   visible_percent: 0
+  height_full: 0
   random_move: 1
   min_percent: 0.2
   max_percent: 0.8
@@ -28665,6 +28705,7 @@ MonoBehaviour:
   alpha_on_drop: 0
   alpha_on_move: 0
   alpha_on_init: 0
+  onDragging: 0
   base_graphic: {fileID: 0}
   fixed_size_onmove: 0
   fixed_size: {x: 0, y: 0}
@@ -28763,7 +28804,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_RaycastTarget: 1
+  m_RaycastTarget: 0
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
@@ -29299,7 +29340,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cameraImage: {fileID: 681225504}
   labelMap: {fileID: 4900000, guid: 21a70a7bde291b54b8501d495d722292, type: 3}
-  model: {fileID: 4900000, guid: 1e99f78896ba86349a8f7d3e7e357bf5, type: 3}
+  model: {fileID: 4900000, guid: 8cb4098f75dad4c44a3c103268a6d083, type: 3}
   objectColor: {r: 0.39994782, g: 1, b: 0.909, a: 1}
   tex: {fileID: 2800000, guid: df58f449810c548818d4f841d9b683f9, type: 3}
   ContentRoot: {fileID: 1831382834}
@@ -29329,7 +29370,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   interactable_objects:
-  - bottle
+  - battery
   - apple
   - blue chocolate
   - purple chocolate
@@ -29793,6 +29834,7 @@ MonoBehaviour:
   alpha_on_drop: 0
   alpha_on_move: 0
   alpha_on_init: 0
+  onDragging: 0
   base_graphic: {fileID: 0}
   fixed_size_onmove: 0
   fixed_size: {x: 0, y: 0}
@@ -30911,6 +30953,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   visible_percent: 0
+  height_full: 0
   random_move: 1
   min_percent: 0.2
   max_percent: 0.8
@@ -31063,6 +31106,7 @@ MonoBehaviour:
   alpha_on_drop: 0
   alpha_on_move: 0
   alpha_on_init: 0
+  onDragging: 0
   base_graphic: {fileID: 0}
   fixed_size_onmove: 0
   fixed_size: {x: 0, y: 0}
@@ -31657,6 +31701,7 @@ MonoBehaviour:
   alpha_on_drop: 0
   alpha_on_move: 0
   alpha_on_init: 0
+  onDragging: 0
   base_graphic: {fileID: 0}
   fixed_size_onmove: 0
   fixed_size: {x: 0, y: 0}
@@ -32007,6 +32052,7 @@ MonoBehaviour:
   alpha_on_drop: 1
   alpha_on_move: 1
   alpha_on_init: 1
+  onDragging: 0
   base_graphic: {fileID: 0}
   fixed_size_onmove: 0
   fixed_size: {x: 0, y: 0}
@@ -33981,6 +34027,7 @@ MonoBehaviour:
   alpha_on_drop: 0
   alpha_on_move: 0
   alpha_on_init: 0
+  onDragging: 0
   base_graphic: {fileID: 0}
   fixed_size_onmove: 0
   fixed_size: {x: 0, y: 0}
@@ -35274,6 +35321,7 @@ MonoBehaviour:
   term2_num: {fileID: 288853019}
   term3_equal: {fileID: 1841906990}
   term4_center: {fileID: 1271693315}
+  colors: []
 --- !u!1 &1631819126
 GameObject:
   m_ObjectHideFlags: 0
@@ -35492,6 +35540,7 @@ MonoBehaviour:
   alpha_on_drop: 0
   alpha_on_move: 0
   alpha_on_init: 0
+  onDragging: 0
   base_graphic: {fileID: 0}
   fixed_size_onmove: 0
   fixed_size: {x: 0, y: 0}
@@ -37523,6 +37572,7 @@ MonoBehaviour:
   alpha_on_drop: 0
   alpha_on_move: 0
   alpha_on_init: 0
+  onDragging: 0
   base_graphic: {fileID: 0}
   fixed_size_onmove: 0
   fixed_size: {x: 0, y: 0}
@@ -37982,6 +38032,7 @@ MonoBehaviour:
   alpha_on_drop: 1
   alpha_on_move: 1
   alpha_on_init: 1
+  onDragging: 0
   base_graphic: {fileID: 0}
   fixed_size_onmove: 0
   fixed_size: {x: 0, y: 0}
@@ -39381,6 +39432,7 @@ MonoBehaviour:
   alpha_on_drop: 0
   alpha_on_move: 0
   alpha_on_init: 0
+  onDragging: 0
   base_graphic: {fileID: 0}
   fixed_size_onmove: 0
   fixed_size: {x: 0, y: 0}
@@ -39466,7 +39518,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e4f1cab86397088439f11b293925fb33, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  delay: 5
+  delay: 6.5
   TTS_text: 1
 --- !u!114 &1772306740
 MonoBehaviour:
@@ -41056,6 +41108,11 @@ MonoBehaviour:
   - blue chocolates
   - purple chocolates
   - green chocolates
+  colors:
+  - {r: 0.25882354, g: 1, b: 0.99215686, a: 1}
+  - {r: 0.3137255, g: 1, b: 0, a: 1}
+  - {r: 1, g: 0.37254903, b: 0.9254902, a: 1}
+  - {r: 0.1273585, g: 0.49803922, b: 1, a: 1}
 --- !u!1 &1831676703
 GameObject:
   m_ObjectHideFlags: 0
@@ -42285,6 +42342,7 @@ MonoBehaviour:
   alpha_on_drop: 0
   alpha_on_move: 0
   alpha_on_init: 0
+  onDragging: 0
   base_graphic: {fileID: 0}
   fixed_size_onmove: 0
   fixed_size: {x: 0, y: 0}
@@ -43328,6 +43386,7 @@ GameObject:
   - component: {fileID: 1923043097}
   - component: {fileID: 1923043096}
   - component: {fileID: 1923043095}
+  - component: {fileID: 1923043098}
   m_Layer: 0
   m_Name: text
   m_TagString: Untagged
@@ -43387,7 +43446,7 @@ MonoBehaviour:
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
   m_FontData:
     m_Font: {fileID: 12800000, guid: 3a4cb3a0c4b4dfd4b93274391a98e5ba, type: 3}
-    m_FontSize: 74
+    m_FontSize: 81
     m_FontStyle: 0
     m_BestFit: 0
     m_MinSize: 1
@@ -43406,6 +43465,24 @@ CanvasRenderer:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1923043093}
   m_CullTransparentMesh: 0
+--- !u!95 &1923043098
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1923043093}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: f2c20cf2b0672204f987cc82d485ca32, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1 &1923152957
 GameObject:
   m_ObjectHideFlags: 0
@@ -43959,6 +44036,7 @@ MonoBehaviour:
   alpha_on_drop: 0
   alpha_on_move: 0
   alpha_on_init: 0
+  onDragging: 0
   base_graphic: {fileID: 0}
   fixed_size_onmove: 0
   fixed_size: {x: 0, y: 0}
@@ -44959,6 +45037,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   visible_percent: 0
+  height_full: 0
   random_move: 0
   min_percent: 0
   max_percent: 0

@@ -39,9 +39,9 @@ public class AdditionReview1 : MonoBehaviour {
     {
         int init_n = content_root.GetComponent<ContentAddition>().init_object_count;
         int goal_n = content_root.GetComponent<ContentAddition>().goal_object_count;
-        int added = content_root.GetComponent<ContentAddition>().current_object_count - init_n;
+        int added = goal_n - init_n;
 
-        msg1.GetComponent<Text>().text = "Alright! We added the " + added + " coins to the " + init_n + " coins for an ice cream";
+        msg1.GetComponent<Text>().text = "Alright! We had "+init_n +" coins at the beginning, and added " + added + " coins. ";
         msg2.GetComponent<Text>().text = "Then, how many coins do we have in total?";
 
         bool interaction_touch_enalbed = SystemControl.mSystemControl.get_system_setup_interaction_touch();       

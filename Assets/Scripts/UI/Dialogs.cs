@@ -159,7 +159,13 @@ public class Dialogs : MonoBehaviour {
         this_.element_topboard.SetActive(enabled);
         
     }
+    public static void set_topboard_color(int term_idx, int color_index)
+    {
+        this_.element_topboard_animated.GetComponent<DialogProblemAnimated>().set_term_color(term_idx, color_index);
+        
 
+
+    }
     public static void set_topboard_animated(bool enabled, int idx,string txt)
     {
         this_.element_topboard_animated.GetComponent<DialogProblemAnimated>().set_term(idx, txt);

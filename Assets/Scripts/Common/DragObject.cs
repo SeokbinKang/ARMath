@@ -16,6 +16,7 @@ public class DragObject : MonoBehaviour, IDragHandler, IDropHandler
     public float alpha_on_move;
     public float alpha_on_init;
 
+    public bool onDragging;
     public GameObject base_graphic;
 
     public bool fixed_size_onmove;
@@ -33,7 +34,7 @@ public class DragObject : MonoBehaviour, IDragHandler, IDropHandler
     }
     void OnEnable()
     {
-        
+        onDragging = false;
     }
     public void SetAlphaAdjustment(bool enabled, float alpha_init, float alpha_moving, float alpha_drop)
     {
@@ -70,6 +71,7 @@ public class DragObject : MonoBehaviour, IDragHandler, IDropHandler
         {
          
         };
+        onDragging = true;
         Vector2 mouse_pos = eventData.position;
         this.GetComponent<RectTransform>().position = new Vector3(mouse_pos.x, mouse_pos.y, 0);
         dragging = true;
@@ -89,7 +91,8 @@ public class DragObject : MonoBehaviour, IDragHandler, IDropHandler
         }
         change_alpha(alpha_on_drop);
 
-        this.GetComponent<AudioSource>().Play();
+        if(this.GetComponent<AudioSource>()!=null) this.GetComponent<AudioSource>().Play();
+        onDragging = false;
     }
     public void setchildrenvisibility()
     {

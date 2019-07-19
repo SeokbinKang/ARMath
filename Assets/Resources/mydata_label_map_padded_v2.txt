@@ -1,47 +1,47 @@
 item {
   name: "/m/01g317"
   id: 1
-  display_name: "blue chocolate"
+  display_name: "battery"
 }
 item {
   name: "/m/0199g"
   id: 2
-  display_name: "green chocolate"
+  display_name: "blue chocolate"
 }
 item {
   name: "/m/0k4j"
   id: 3
-  display_name: "purple chocolate"
+  display_name: "coin"
 }
 item {
   name: "/m/04_sv"
   id: 4
-  display_name: "yellow chocolate"
+  display_name: "easel pad"
 }
 item {
   name: "/m/05czz6l"
   id: 5
-  display_name: "coin"
+  display_name: "monitor"
 }
 item {
   name: "/m/01bjv"
   id: 6
-  display_name: "easel pad"
+  display_name: "painting"
 }
 item {
   name: "/m/07jdr"
   id: 7
-  display_name: "monitor"
+  display_name: "poster"
 }
 item {
   name: "/m/07r04"
   id: 8
-  display_name: "painting"
+  display_name: "nothing"
 }
 item {
   name: "/m/019jd"
   id: 9
-  display_name: "poster"
+  display_name: "unknown"
 }
 item {
   name: "/m/015qff"

@@ -6,7 +6,7 @@ using UnityEngine.UI;
 public class vertical_mask : MonoBehaviour {
 
     public float visible_percent;
-    private float height_full;
+    public float height_full;
     public bool random_move;
     public float min_percent;
     public float max_percent;
@@ -14,8 +14,6 @@ public class vertical_mask : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
         height_full = this.GetComponent<RectTransform>().sizeDelta.y;
-        
-        
 	}
 
     // Update is called once per frame

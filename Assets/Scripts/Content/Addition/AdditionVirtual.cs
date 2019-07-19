@@ -25,7 +25,7 @@ public class AdditionVirtual : MonoBehaviour
 
     public bool UserInteracting;
     
-    private int total_n;
+    private int prev_n;
     private string target_object_name;
     // Use this for initialization
     
@@ -47,7 +47,7 @@ public class AdditionVirtual : MonoBehaviour
         container.SetActive(false);
         root_movables.SetActive(false);        
         UserInteracting = false;
-        total_n = 0;
+        prev_n = 0;
         tap_list = new List<GameObject>();        
        // arrange_movable_objects();
 
@@ -118,13 +118,16 @@ public class AdditionVirtual : MonoBehaviour
     private void count_object_fix_realones()
     {
         if (!container || !UserInteracting) return;
-        int init_n = ContentModuleRoot.GetComponent<ContentAddition>().init_object_count;
+        
         int virtual_n = 0;
         int cur_n = 0;
-        List<SceneObject> objs = SceneObjectManager.mSOManager.get_objects_by_name(target_object_name);
         int goal_n = ContentModuleRoot.GetComponent<ContentAddition>().goal_object_count;
+        int init_n = ContentModuleRoot.GetComponent<ContentAddition>().init_object_count;
+        List<SceneObject> objs = SceneObjectManager.mSOManager.get_objects_by_name(target_object_name);
+        
         bool[] number_label = new bool[init_n];
         //init_n = objs.Count;
+        /*
         for (int i = 0; i < number_label.Length && i<objs.Count; i++)
         {  //TODO: detach higher number label
             
@@ -152,7 +155,7 @@ public class AdditionVirtual : MonoBehaviour
                 }
             }
 
-        }
+        }*/
         virtual_n = 0;
         //check virtual objects in the bag
         foreach (GameObject o in movable_objects)
@@ -163,18 +166,23 @@ public class AdditionVirtual : MonoBehaviour
 
 
 
-        cur_n = virtual_n + init_n;
-        //ContentModuleRoot.GetComponent<ContentAddition>().init_object_count = init_n;
-        //Debug.Log("[ARMath] additio virtual : " + init_n + "  +  " + virtual_n + "  =  ? :  " + movable_objects.Length);
-        if (ContentModuleRoot.GetComponent<ContentAddition>().current_object_count != cur_n)
+        cur_n = virtual_n;
+
+        if (prev_n != cur_n)            
         {
-            item_mask.GetComponent<vertical_mask>().set_visible_percent(((float)cur_n / (float)goal_n));
-            ContentModuleRoot.GetComponent<ContentAddition>().current_object_count = cur_n;
+            float percent = ((float)(cur_n + init_n)) / (float)goal_n;
+            Debug.Log("[ARMath] Icecream percent = " + percent + "  " + cur_n + "  " + init_n + "  /  " + goal_n);
+            item_mask.GetComponent<vertical_mask>().set_visible_percent(percent);
+            
+            int added = cur_n - prev_n;
+            if (added > 0) TTS.mTTS.GetComponent<TTS>().StartTextToSpeech(cur_n + " " + target_object_name + "s added!");
+                else TTS.mTTS.GetComponent<TTS>().StartTextToSpeech("please add more " + target_object_name + "s!");
+            prev_n = cur_n;
             OnCount();
         }
     }
     private void count_object()
-    {
+    { //DEPRECATED
         if (!container || !UserInteracting) return;
         int init_n = ContentModuleRoot.GetComponent<ContentAddition>().init_object_count;
         int virtual_n = 0;        
@@ -211,24 +219,30 @@ public class AdditionVirtual : MonoBehaviour
             }
 
         }
+
         virtual_n = 0;
         //check virtual objects in the bag
         
         foreach(GameObject o in movable_objects)
         {
+            if (o.GetComponent<DragObject>().onDragging) continue;
             bool contained = container.GetComponent<ObjectContainer>().in_container(o);
             if (contained) virtual_n++;
         }
 
         
 
-        cur_n = virtual_n + init_n;
+        cur_n = virtual_n;
         //ContentModuleRoot.GetComponent<ContentAddition>().init_object_count = init_n;
         
-        if (ContentModuleRoot.GetComponent<ContentAddition>().current_object_count != cur_n)
+        if (prev_n != cur_n)
         {
+            
             item_mask.GetComponent<vertical_mask>().set_visible_percent(((float)cur_n / (float)goal_n));
-            ContentModuleRoot.GetComponent<ContentAddition>().current_object_count = cur_n;
+            prev_n = cur_n;
+            int added = cur_n - prev_n;
+            if (added > 0) TTS.mTTS.GetComponent<TTS>().StartTextToSpeech(added + " " + target_object_name + "s added!");
+                else TTS.mTTS.GetComponent<TTS>().StartTextToSpeech("please add more " + target_object_name + "s!");
             OnCount();
         }
     }
@@ -244,16 +258,15 @@ public class AdditionVirtual : MonoBehaviour
     }
     public void OnCount()
     {
-        int init_n = ContentModuleRoot.GetComponent<ContentAddition>().init_object_count;
-        int added = ContentModuleRoot.GetComponent<ContentAddition>().current_object_count - init_n;
-        int goal_n = ContentModuleRoot.GetComponent<ContentAddition>().goal_object_count;
-        if (added>0) TTS.mTTS.GetComponent<TTS>().StartTextToSpeech(added + " "+ target_object_name+"s added!");
-            else TTS.mTTS.GetComponent<TTS>().StartTextToSpeech("please add more "+ target_object_name + "s!");
 
+        int init_n = ContentModuleRoot.GetComponent<ContentAddition>().init_object_count;
+        
+        int goal_n = ContentModuleRoot.GetComponent<ContentAddition>().goal_object_count;
+        
         
         //sound effect
         //Debug.Log("[ARMath] result " + ContentModuleRoot.GetComponent<ContentAddition>().goal_object_count + "  =? " + ContentModuleRoot.GetComponent<ContentAddition>().current_object_count);
-        if (added == ContentModuleRoot.GetComponent<ContentAddition>().add_object_count)
+        if (prev_n == ContentModuleRoot.GetComponent<ContentAddition>().add_object_count)
         {
             UserInteracting = false;
 
@@ -293,7 +306,7 @@ public class AdditionVirtual : MonoBehaviour
     }
     public void StartOperation(string o)
     {
-        total_n = 0;
+        prev_n = 0;
         UserInteracting = true;
         
         UpdateBoard();        
@@ -312,9 +325,9 @@ public class AdditionVirtual : MonoBehaviour
         string sign = " + ";
         if (cur_n - init_n < 0) sign = " - ";
 
-        item_mask.GetComponent<vertical_mask>().set_visible_percent(((float)cur_n / (float)goal_n));
+       // item_mask.GetComponent<vertical_mask>().set_visible_percent(((float)cur_n / (float)goal_n));
         // board.GetComponent<board>().enable_number_only(init_n + sign + System.Math.Abs(cur_n - init_n) + " = " + cur_n);
-        Dialogs.set_topboard(true, init_n + " (" + target_object_name + "s) + " + add_n + " (" + target_object_name + "s) = ?");
+        //Dialogs.set_topboard(true, init_n + " (" + target_object_name + "s) + " + add_n + " (" + target_object_name + "s) = ?");
 
     }
     private void clearinteractiveobjects()

@@ -59,7 +59,9 @@ public class ContentAddition : MonoBehaviour, IContentModule
         goal_object_count = 0;
         current_object_count = 0;
         SceneObjectManager.mSOManager.Reset();
-//        TTS.mTTS.GetComponent<TTS>().StartTextToSpeech("Help the minion solve addition problems and collect green gems!");
+        Dialogs.set_topboard_color(0, 0);
+        Dialogs.set_topboard_color(1, 1);
+        //        TTS.mTTS.GetComponent<TTS>().StartTextToSpeech("Help the minion solve addition problems and collect green gems!");
     }
     public void onSolved()
     {
@@ -151,28 +153,38 @@ public class ContentAddition : MonoBehaviour, IContentModule
         Debug.Log("clieck");
         SetIdle(false);
         List<SceneObject> init_objs = SceneObjectManager.mSOManager.get_objects_by_name(target_object_name);
-        float target_delay = 3f;
+        float target_delay = 4f;
+        int i = 1;
         foreach(SceneObject so in init_objs)
         {
             Vector3 targetPos = new Vector3(so.catalogInfo.Box.center.x, Screen.height - so.catalogInfo.Box.center.y, 0);
             FeedbackGenerator.create_target(targetPos, target_delay, 6,0);
+            GameObject num_label = FeedbackGenerator.create_number_feedback(targetPos, i++, target_delay, 6);
+            so.attach_object(num_label);
             target_delay += 0.4f;
         }
        
         Dialogs.add_dialog(new DialogItem(DialogueType.left_bottom_plain,
-            "There are "+ init_object_count + " " + target_object_name + "s, but it's not enough to buy an ice cream.",
+            "I've found a few coins on the table. Let's count them first",
             true,
             new CallbackFunction(callback_shownumber1),
             init_object_count.ToString(),
-            4), 0
+            7), 0
             );
 
+        Dialogs.add_dialog(new DialogItem(DialogueType.left_bottom_plain,
+           "There are "+init_object_count+" coins, but it's not enough to buy an ice cream.",
+           true,
+           null,
+           "+ " + add_object_count,
+           4), 0
+           );
         Dialogs.add_dialog(new DialogItem(DialogueType.left_bottom_plain,
            "Can you get me " + add_object_count + " more  " + target_object_name + "s?",
            true,
            new CallbackFunction(callback_shownumber2),
            "+ " + add_object_count,
-           5), 0
+           4), 0
            );
         /*
         Dialogs.add_dialog(new DialogItem(DialogueType.left_bottom_plain,

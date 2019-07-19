@@ -10,6 +10,7 @@ public class DialogProblemAnimated : MonoBehaviour
     public GameObject term2_num;
     public GameObject term3_equal;
     public GameObject term4_center;
+    public Color[] colors;
     List<TimerCallback> cbs;
 
 
@@ -88,6 +89,34 @@ public class DialogProblemAnimated : MonoBehaviour
             term3_equal.GetComponentInChildren<Animator>().SetTrigger("highlight");
         else if (idx == "3")
             term4_center.GetComponentInChildren<Animator>().SetTrigger("highlight");
+    }
+    public void set_term_color(int term_idx, int color_index)
+    {
+        
+        if (term_idx == 0)
+        {
+            term1_num.GetComponentInChildren<Text>().color = AssetManager.mThis.colors[color_index];
+         
+            return;
+        }
+        if (term_idx == 1)
+        {
+            term2_num.GetComponentInChildren<Text>().color = AssetManager.mThis.colors[color_index];
+
+            return;
+        }
+        if (term_idx == 2)
+        {
+            term3_equal.GetComponentInChildren<Text>().color = AssetManager.mThis.colors[color_index];
+
+            return;
+        }
+        if (term_idx == 3)
+        {
+            term4_center.GetComponentInChildren<Text>().color = AssetManager.mThis.colors[color_index];
+
+            return;
+        }
     }
     public void highlight_term(int idx, float delay)
     {

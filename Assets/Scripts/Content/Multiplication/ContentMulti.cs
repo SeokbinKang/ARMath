@@ -59,7 +59,8 @@ public class ContentMulti : MonoBehaviour {
         target_base_num = 0;
         
         target_object_cluster = new Rect();
-        
+        Dialogs.set_topboard_color(0, 1);
+        Dialogs.set_topboard_color(1, 0);
         TTS.mTTS.GetComponent<TTS>().StartTextToSpeech("Help the minion solve multiplication problems and collect purple gems!");
     }
     public void onSolved()
@@ -73,7 +74,7 @@ public class ContentMulti : MonoBehaviour {
     }
     public void s0_onIntro()
     {
-        target_mult_num = (int)Random.Range(2, 4);
+        target_mult_num = (int)Random.Range(2, 5);
         sub_intro2.SetActive(true);
         sub_trees.GetComponent<GroupTree>().Setup(target_mult_num,0);
         sub_trees.SetActive(true);
@@ -103,7 +104,7 @@ public class ContentMulti : MonoBehaviour {
                 return;
             }
             //target_object_name = objects_cluster[0].catalogInfo.DisplayName;
-            target_base_num = objects_cluster.Count;
+            target_base_num = Mathf.Max(objects_cluster.Count,2);
             Rect cluster_box = SceneAnalysis.get_bounding_box(objects_cluster);
             center_of_objects = cluster_box.center;
             target_object_cluster = cluster_box;            
@@ -118,18 +119,18 @@ public class ContentMulti : MonoBehaviour {
             bool interaction_touch_enalbed = SystemControl.mSystemControl.get_system_setup_interaction_touch();
             
               Dialogs.add_dialog(new DialogItem(DialogueType.left_bottom_plain,
-              "Oh there are some batteries. Each tree needs "+ target_base_num+" batteries to light up.",
+              "Oh there are some batteries. We need to light up "+ target_mult_num+" trees using the batteries. ",
               true,
               new CallbackFunction(callback_shownumber1),
-             target_base_num.ToString(),
-              6), 0
+             target_mult_num.ToString(),
+              7), 0
               );
             Dialogs.add_dialog(new DialogItem(DialogueType.left_bottom_plain,
-              "Can you help me turn on the "+target_mult_num +" trees?",
+              "And each tree needs "+ target_base_num+" batteries to turn on. ",
               true,
               new CallbackFunction(callback_shownumber2),
-              "x " + target_mult_num.ToString(),
-              3.5f), 0
+              "x " + target_base_num.ToString(),
+              4.5f), 0
               );
           
 

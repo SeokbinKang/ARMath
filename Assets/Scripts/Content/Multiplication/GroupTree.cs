@@ -142,6 +142,37 @@ public class GroupTree : MonoBehaviour {
         }
 
     }
+
+    public int CheckCellProgressive(List<GameObject> batteries, int num_in_cell)
+    {
+        int res = 0;
+        if (progress_active_cell_idx >= cells.Count) return cells.Count;
+        GameObject cell = cells[progress_active_cell_idx];
+        int item_in_cell = 0;
+        foreach (GameObject battery in batteries)
+        {
+            if (battery.GetComponent<DragObject>().onDragging) continue;
+            bool inContainer = cell.GetComponent<ObjectContainer>().in_container(battery);
+            if (inContainer) item_in_cell++;
+
+        }
+
+        if (item_in_cell>=num_in_cell)
+        {
+            string msg = "";
+            UpdateCell(cell, true, msg);
+            progress_active_cell_idx++;
+            if (progress_active_cell_idx < cells.Count) enableCell(progress_active_cell_idx);
+            // effect
+        }
+        else
+        {
+            string msg = "";
+            UpdateCell(cell, false, msg);
+        }
+        if (progress_active_cell_idx >= cells.Count) return cells.Count;
+        return progress_active_cell_idx;
+    }
     public int CheckCellProgressive(GameObject bag_)
     {
         int res = 0;
@@ -202,7 +233,8 @@ public class GroupTree : MonoBehaviour {
             cell.GetComponent<RawImage>().color = new Color(1, 1, 1, 1);
             //diable dialogue
             cell.GetComponent<tree>().stop_randome_light(1);
-            if(cell.GetComponent<cell_speech>()) cell.GetComponent<cell_speech>().finish();
+            cell.GetComponent<tree>().character_nicejob();
+            //if(cell.GetComponent<cell_speech>()) cell.GetComponent<cell_speech>().finish();
             //show thumb up
         }
         else

@@ -22,8 +22,9 @@ public class MultVirtual : MonoBehaviour {
     private float nextActionTime = 0.0f;
 
     private List<GameObject> bag_movable;
+    private List<GameObject> batter_movable;
     private float bag_scale = 1.3f;
-
+    private TimerCallback mCallback;
     void Start()
     {
 
@@ -39,6 +40,8 @@ public class MultVirtual : MonoBehaviour {
         UserInteracting = false;
         bag_movable = null;
         if (bag_movable==null) bag_movable = new List<GameObject>();
+        if (batter_movable == null) batter_movable = new List<GameObject>();
+        else batter_movable.Clear();
         bag_base.SetActive(true);
         tree_group = ContentModuleRoot.GetComponent<ContentMulti>().sub_trees;
 
@@ -51,7 +54,7 @@ public class MultVirtual : MonoBehaviour {
         if (Time.time > nextActionTime)
         {
             nextActionTime = Time.time + SystemParam.system_update_period;
-
+            if (mCallback!=null && mCallback.tick()) mCallback = null;
             count_object();
         }
     }
@@ -75,10 +78,11 @@ public class MultVirtual : MonoBehaviour {
     {
         if (!UserInteracting) return;
         string obj_name = ContentModuleRoot.GetComponent<ContentMulti>().target_object_name;
-
+        int num_per_cell = ContentModuleRoot.GetComponent<ContentMulti>().target_base_num;
         //check if all bags are unfolded
         bool complete = false;
         int num_cells = ContentModuleRoot.GetComponent<ContentMulti>().target_mult_num;
+        /*
         foreach (GameObject bag in bag_movable)
         {
             if (bag.transform.childCount > 1)
@@ -91,24 +95,30 @@ public class MultVirtual : MonoBehaviour {
                 }
             }
 
+        }*/
+        complete = false;
+        int ret = tree_group.GetComponent<GroupTree>().CheckCellProgressive(batter_movable, num_per_cell);
+        if (ret == num_cells)
+        {
+            complete = true;                   
+            
         }
-
         if (complete)
         {
-            this.transform.parent.GetComponent<ContentSolver>().start_review();
+            mCallback = new TimerCallback(OnCompletion, "",4);
             UserInteracting = false;                        
-
         }
 
     }
+    
     public void OnQuestion(string q)
     {
         Dialogs.set_topboard_animated(true, 2, "= ?");
     }
     private void OnCompletion(string p)
     {
-        
-        ContentModuleRoot.GetComponent<ContentMulti>().onSolved();
+        this.transform.parent.GetComponent<ContentSolver>().start_review();
+        //ContentModuleRoot.GetComponent<ContentMulti>().onSolved();
     }
     public void loadPrompt()
     {
@@ -116,15 +126,9 @@ public class MultVirtual : MonoBehaviour {
         int num_per_cell = ContentModuleRoot.GetComponent<ContentMulti>().target_base_num;
         int num_cells = ContentModuleRoot.GetComponent<ContentMulti>().target_mult_num;
         Rect cluster_rect = ContentModuleRoot.GetComponent<ContentMulti>().target_object_cluster;
-        ARMathUtils.SetRecttrasnform(bag_base, cluster_rect);
+        ARMathUtils.SetRecttrasnform(bag_base, cluster_rect);    
         Dialogs.add_dialog(new DialogItem(DialogueType.left_bottom_plain,
-              "There are " + num_per_cell + " batteries in a bag. ",
-              true,
-              null,
-              "",4
-              ));
-        Dialogs.add_dialog(new DialogItem(DialogueType.left_bottom_plain,
-               "Can you move a bag to the tree? You can move it on the screen.",
+               "Can you move batteries to the tree? You can move them on the screen.",
                true,
                new CallbackFunction(StartOperation),
                "none",4
@@ -137,13 +141,36 @@ public class MultVirtual : MonoBehaviour {
 
         UpdateBoard();
 
-        
 
+        int num_per_cell = ContentModuleRoot.GetComponent<ContentMulti>().target_base_num;
         int num_celss = ContentModuleRoot.GetComponent<ContentMulti>().target_mult_num;
 
+        /*
         for (int i = 0; i < num_celss; i++)
         { //1 is for real objects
             create_bag();
+        }*/
+        create_virtual_batteries(num_celss * num_per_cell + 4);
+
+    }
+    private void create_virtual_batteries(int k)
+    {
+        GameObject icon_obj = AssetManager.get_icon("battery");
+        Vector2 bag_size = this.bag_base.GetComponent<RectTransform>().sizeDelta;
+        float w = icon_obj.GetComponent<RawImage>().texture.width;
+        float h = icon_obj.GetComponent<RawImage>().texture.height;
+        h = h * 70 / w;
+        w = 70;
+        bag_size /= 2;
+        for (int i = 0; i < k; i++)
+        {
+            GameObject new_obj = ARMathUtils.create_2DPrefab(icon_obj, bag_base, new Vector2(500, 500));
+            RectTransform r = new_obj.GetComponent<RectTransform>();
+            r.localPosition = new Vector2(Random.Range(bag_size.x*-1, bag_size.x), Random.Range(bag_size.y*-1, bag_size.y * 0.5f));
+            r.sizeDelta = new Vector2(w, h);
+            r.Rotate(0, 0, Random.Range(0, 360));
+            new_obj.SetActive(true);
+            this.batter_movable.Add(new_obj);
         }
 
     }
