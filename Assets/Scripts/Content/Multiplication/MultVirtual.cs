@@ -23,8 +23,10 @@ public class MultVirtual : MonoBehaviour {
 
     private List<GameObject> bag_movable;
     private List<GameObject> batter_movable;
+    private List<GameObject> battery_in_cells;
     private float bag_scale = 1.3f;
     private TimerCallback mCallback;
+    private int compelte_cells;
     void Start()
     {
 
@@ -39,9 +41,12 @@ public class MultVirtual : MonoBehaviour {
         
         UserInteracting = false;
         bag_movable = null;
+        compelte_cells = 0;
         if (bag_movable==null) bag_movable = new List<GameObject>();
         if (batter_movable == null) batter_movable = new List<GameObject>();
         else batter_movable.Clear();
+        if (battery_in_cells == null) battery_in_cells = new List<GameObject>();
+        else battery_in_cells.Clear();
         bag_base.SetActive(true);
         tree_group = ContentModuleRoot.GetComponent<ContentMulti>().sub_trees;
 
@@ -102,6 +107,15 @@ public class MultVirtual : MonoBehaviour {
         {
             complete = true;                   
             
+        } else if(ret> compelte_cells)
+        {
+            Dialogs.add_dialog(new DialogItem(DialogueType.left_bottom_plain,
+             "Let's turn on the next tree",
+             true,
+             null,
+             "none", 4
+             ),4);
+            compelte_cells = ret;
         }
         if (complete)
         {
@@ -126,12 +140,25 @@ public class MultVirtual : MonoBehaviour {
         int num_per_cell = ContentModuleRoot.GetComponent<ContentMulti>().target_base_num;
         int num_cells = ContentModuleRoot.GetComponent<ContentMulti>().target_mult_num;
         Rect cluster_rect = ContentModuleRoot.GetComponent<ContentMulti>().target_object_cluster;
-        ARMathUtils.SetRecttrasnform(bag_base, cluster_rect);    
+        ARMathUtils.SetRecttrasnform(bag_base, cluster_rect);
+
+        create_virtual_batteries(num_cells * num_per_cell + 4);
+
+        float target_delay = 2;
+        for (int i = 0; i < num_per_cell; i++)
+        {
+
+            GameObject tree = batter_movable[i];
+            Vector3 virtual_battery = tree.GetComponent<RectTransform>().position;            
+            FeedbackGenerator.create_target(virtual_battery, target_delay, 5, 5);
+            target_delay += 0.4f;
+        }
+
         Dialogs.add_dialog(new DialogItem(DialogueType.left_bottom_plain,
-               "Can you move batteries to the tree? You can move them on the screen.",
+               "Can you move "+ num_per_cell+" batteries to each tree? You can move them on the screen.",
                true,
                new CallbackFunction(StartOperation),
-               "none",4
+               "none",5
                ));
 
     }
@@ -142,15 +169,7 @@ public class MultVirtual : MonoBehaviour {
         UpdateBoard();
 
 
-        int num_per_cell = ContentModuleRoot.GetComponent<ContentMulti>().target_base_num;
-        int num_celss = ContentModuleRoot.GetComponent<ContentMulti>().target_mult_num;
-
-        /*
-        for (int i = 0; i < num_celss; i++)
-        { //1 is for real objects
-            create_bag();
-        }*/
-        create_virtual_batteries(num_celss * num_per_cell + 4);
+        
 
     }
     private void create_virtual_batteries(int k)

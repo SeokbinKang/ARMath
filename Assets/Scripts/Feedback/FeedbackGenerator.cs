@@ -82,7 +82,8 @@ public class FeedbackGenerator : MonoBehaviour {
         r.position = targetPos;
         label.transform.SetParent(mThis.gameObject.transform);
         label.GetComponent<RectTransform>().localScale = new Vector3(1f, 1f, 1f);
-        label.GetComponent<Image>().color = mThis.color_terms[color_index];
+        label.GetComponent<Image>().color = AssetManager.getColors()[color_index];
+            //mThis.color_terms[color_index];
         label.SetActive(false);
         mThis.timer_feedback.Add(new GameObject_timer(label, start_delay, lifetime));
 

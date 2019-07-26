@@ -38,6 +38,11 @@ public class DelayedImage : MonoBehaviour {
             {
                 animc.enabled = true;
             }
+            AudioSource asrc = this.GetComponent<AudioSource>();
+            if (asrc != null)
+            {
+                asrc.enabled = true;
+            }
 
             time_after_enable = float.MaxValue;
             if (callback != null)
@@ -80,6 +85,11 @@ public class DelayedImage : MonoBehaviour {
         {
             animc.enabled = false;
         }
+        AudioSource asrc = this.GetComponent<AudioSource>();
+        if (asrc != null)
+        {
+            asrc.enabled = false;
+        }
 
 
         time_after_enable = Time.time;
@@ -87,7 +97,7 @@ public class DelayedImage : MonoBehaviour {
     private void OnDisable()
     {
 
-        RawImage ri = this.GetComponent<RawImage>();      
+        RawImage ri = this.GetComponent<RawImage>();
         if (ri != null) ri.enabled = false;
         Image ii = this.GetComponent<Image>();
         if (ii != null) ii.enabled = true;
@@ -97,6 +107,12 @@ public class DelayedImage : MonoBehaviour {
         if (animc != null)
         {
             animc.enabled = false;
+        }
+
+        AudioSource asrc = this.GetComponent<AudioSource>();
+        if (asrc != null)
+        {
+            asrc.enabled = false;
         }
     }
 

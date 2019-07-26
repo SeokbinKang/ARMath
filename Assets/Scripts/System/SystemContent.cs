@@ -19,7 +19,7 @@ public class SystemContent : MonoBehaviour {
 	}
     void OnEnable()
     {
-        bg_music.GetComponent<AudioSource>().volume = 0.2f;
+        bg_music.GetComponent<AudioSource>().volume = 0f;
     }
     void OnDisable()
     {

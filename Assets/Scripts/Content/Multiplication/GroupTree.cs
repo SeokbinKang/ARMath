@@ -10,6 +10,8 @@ public class GroupTree : MonoBehaviour {
     public Texture complete_box;    
 
     public bool progressive;
+    public List<GameObject> virtual_objs_in_cells;
+    public List<GameObject> tangible_objs_in_cells;
     private int progress_active_cell_idx;
     private List<GameObject> cells;
 
@@ -40,7 +42,10 @@ public class GroupTree : MonoBehaviour {
             cells.Clear();
         }
         progress_active_cell_idx = -1;
-
+        if (virtual_objs_in_cells == null) virtual_objs_in_cells = new List<GameObject>();
+        else virtual_objs_in_cells.Clear();
+        if (tangible_objs_in_cells == null) tangible_objs_in_cells = new List<GameObject>();
+        else tangible_objs_in_cells.Clear();
     }
 
     public void Setup(int cell_count, float grid_line_alpha)
@@ -142,18 +147,35 @@ public class GroupTree : MonoBehaviour {
         }
 
     }
-
+    public List<GameObject> get_virtual_objects_in_cells()
+    {
+        return this.virtual_objs_in_cells;
+    }
+    public List<GameObject> get_virtual_trees_in_cells()
+    {
+        List<GameObject> tmp_objs = new List<GameObject>();
+        foreach(GameObject c in cells)
+        {
+            tmp_objs.Add(c.GetComponent<tree>().mask_obj);
+        }
+        return tmp_objs;
+    }
     public int CheckCellProgressive(List<GameObject> batteries, int num_in_cell)
     {
         int res = 0;
         if (progress_active_cell_idx >= cells.Count) return cells.Count;
         GameObject cell = cells[progress_active_cell_idx];
         int item_in_cell = 0;
+        List<GameObject> tmp_objs = new List<GameObject>();
         foreach (GameObject battery in batteries)
         {
             if (battery.GetComponent<DragObject>().onDragging) continue;
             bool inContainer = cell.GetComponent<ObjectContainer>().in_container(battery);
-            if (inContainer) item_in_cell++;
+            if (inContainer)
+            {
+                item_in_cell++;
+                tmp_objs.Add(battery);
+            }
 
         }
 
@@ -164,6 +186,9 @@ public class GroupTree : MonoBehaviour {
             progress_active_cell_idx++;
             if (progress_active_cell_idx < cells.Count) enableCell(progress_active_cell_idx);
             // effect
+            while (tmp_objs.Count > num_in_cell)
+                tmp_objs.RemoveAt(0);
+            virtual_objs_in_cells.AddRange(tmp_objs);
         }
         else
         {
@@ -173,6 +198,7 @@ public class GroupTree : MonoBehaviour {
         if (progress_active_cell_idx >= cells.Count) return cells.Count;
         return progress_active_cell_idx;
     }
+
     public int CheckCellProgressive(GameObject bag_)
     {
         int res = 0;

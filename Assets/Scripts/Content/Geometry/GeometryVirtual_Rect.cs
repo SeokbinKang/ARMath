@@ -10,13 +10,13 @@ public class GeometryVirtual_Rect : MonoBehaviour {
    
 
 
-    public GameObject board;
+    
 
 
     public GameObject container;
     public GameObject geoprimitives;
 
-
+    public GameObject blacksmith;
     public GameObject ContentModuleRoot;
 
     
@@ -48,6 +48,7 @@ public class GeometryVirtual_Rect : MonoBehaviour {
     }
     void OnEnable()
     {
+        
         Debug.Log("[ARMath] Solver started");
         Reset();
      
@@ -58,6 +59,7 @@ public class GeometryVirtual_Rect : MonoBehaviour {
         container.SetActive(false);
         geoprimitives.SetActive(false);        
         UserInteracting = false;
+        blacksmith.SetActive(true);
         // arrange_movable_objects();
         mStep = 2;
 
@@ -106,15 +108,24 @@ public class GeometryVirtual_Rect : MonoBehaviour {
             //geoprimitives.SetActive(true);
             container.GetComponent<GeometryVisContainer>().Solve_Properties(GeometryPrimitives.vertex);
             Dialogs.set_topboard_animated(false, 3, "");
-            
+
+            Dialogs.add_dialog(new DialogItem(DialogueType.left_bottom_plain,
+                "Hmm... I need to know more about the rectangle. Can you help me?",
+                true,
+                null,
+                "",
+                6
+                ),
+                9);
+
             Dialogs.add_dialog(new DialogItem(DialogueType.left_bottom_plain,                
-                "Where are vertices of the "+target_shape_name + "? Can you tap them on the screen?",
+                "Where are vertices of the "+target_shape_name + "? Can you point to them on the screen?",
                 true,
                 new CallbackFunction(ShowProblem),
                 "Where are the vertices?",
                 5
                 ),
-                3);
+                0);
             mStep = 3;
 
         }
@@ -122,8 +133,8 @@ public class GeometryVirtual_Rect : MonoBehaviour {
         if(mStep == 4)
         {
             container.SetActive(true);
-
-
+            blacksmith.GetComponent<Animator>().SetTrigger("hammer");
+            TTS.mTTS.GetComponent<TTS>().StartTextToSpeech("Thank you! let me make the four vertices");
             //geoprimitives.SetActive(true);
             container.GetComponent<GeometryVisContainer>().Solve_Properties(GeometryPrimitives.side_short);
 
@@ -135,7 +146,7 @@ public class GeometryVirtual_Rect : MonoBehaviour {
                 "Where are two shorter sides?",
                 5
                 ),
-                3);
+                6);
             mStep = 5;
         }
         if (mStep == 6)
@@ -187,9 +198,10 @@ public class GeometryVirtual_Rect : MonoBehaviour {
 
         if (mStep == 8)
         {
-          
+            blacksmith.GetComponent<Animator>().SetTrigger("hammer");
+            TTS.mTTS.GetComponent<TTS>().StartTextToSpeech("Thank you! let me make the four sides");
 
-          
+            
             Dialogs.set_topboard_animated(false, 3, "");
             Dialogs.add_dialog(new DialogItem(DialogueType.left_bottom_plain,
                 "Can you measure the corner angles using a protractor? And please tell me the names of the angles.",
@@ -197,7 +209,7 @@ public class GeometryVirtual_Rect : MonoBehaviour {
                 new CallbackFunction(start_angle),
                 "What are the names of the angles?",
                 6
-                ),2
+                ),5
                 );           
             mStep = 9;
 
@@ -205,14 +217,17 @@ public class GeometryVirtual_Rect : MonoBehaviour {
 
         if (mStep == 10)
         {
-            Dialogs.add_dialog(new DialogItem(DialogueType.right_pop,
-                         "Nice job!",
+            blacksmith.GetComponent<Animator>().SetTrigger("hammer");
+            blacksmith.GetComponent<Animator>().SetTrigger("hammer");
+            TTS.mTTS.GetComponent<TTS>().StartTextToSpeech("Great job! Let me finish the key with the angles");
+            Dialogs.add_dialog(new DialogItem(DialogueType.Dummy,
+                         "",
                           true,
                          new CallbackFunction(OnCompletion),
                          "",
-                         3f
+                         4.5f
                          ));
-            //OnCompletion();
+            //OnCompletion();*/
             mStep = 11;
         }
     }
@@ -249,8 +264,9 @@ public class GeometryVirtual_Rect : MonoBehaviour {
     private void OnCompletion(string t)
     {
         UserInteracting = false;
+
+        this.transform.parent.GetComponent<ContentSolver>().start_review();
         
-        ContentModuleRoot.GetComponent<ContentGeometry>().onSolved();
     }
   
    

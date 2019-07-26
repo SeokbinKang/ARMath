@@ -49,4 +49,20 @@ public class AssetManager : MonoBehaviour {
         }
         return ret;
     }
+    public static string Get_object_text(string obj_name, int count)
+    {
+        string ret = "";
+        int idx = 0;
+        for(idx=0;idx<mThis.object_name.Length;idx++)
+        {
+            if (mThis.object_name[idx] == obj_name) break;
+        }
+        if (idx >= mThis.object_name.Length || count==0) return obj_name;
+        if (count == 1) return mThis.object_singular_name[idx];
+            else
+        {
+            return count + " " + mThis.object_plural_name[idx];
+        }
+        return ret;
+    }
 }

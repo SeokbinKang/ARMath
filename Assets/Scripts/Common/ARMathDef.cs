@@ -211,6 +211,17 @@ public class ARMathUtils
         }
         return false;
     }
+    public static List<SceneObject> get_objects_in_rect(GameObject rect_obj, string obj_name)
+    {
+        Vector3 center = rect_obj.GetComponent<RectTransform>().position;
+        Rect rect = new Rect(new Vector2(center.x, center.y), rect_obj.GetComponent<RectTransform>().rect.size);
+
+        List<SceneObject> ret = SceneObjectManager.mSOManager.get_objects_in_rect(rect, obj_name);
+        Debug.Log("[ARMath] "+ret.Count+" "+obj_name+" objects are found in region rect:" + rect);
+        return ret;
+    }
+
+
 }
 
 public delegate void CallbackFunction(string param);

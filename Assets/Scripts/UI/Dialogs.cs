@@ -8,7 +8,7 @@ public class Dialogs : MonoBehaviour {
     public GameObject element_leftbottom;
     
     public GameObject element_popright;
-    public GameObject element_topboard;
+    
     public GameObject element_topboard_animated;
     public GameObject element_review;
 
@@ -25,8 +25,8 @@ public class Dialogs : MonoBehaviour {
         element_leftbottom.SetActive(false);
         element_topboard_animated.SetActive(false);
         element_popright.SetActive(false);
-        element_review.SetActive(false);
-        element_topboard.SetActive(false);
+        element_review.SetActive(true);
+        
         this_ = this;
 
     }
@@ -121,7 +121,7 @@ public class Dialogs : MonoBehaviour {
     {
         this_.element_leftbottom.SetActive(false);
         this_.element_popright.SetActive(false);
-        this_.element_topboard.SetActive(false);
+       
         this_.element_topboard_animated.SetActive(false);
         this_.mDialogueItems.Clear();
         
@@ -130,9 +130,15 @@ public class Dialogs : MonoBehaviour {
     {
         Debug.Log("[ARMath] start review...");
         this_.element_review.GetComponent<review1>().generate_problem(problem, answers, answer_index,cb);
-        this_.element_review.SetActive(true);
+      //  this_.element_review.SetActive(true);
        // this_.element_topboard.SetActive(false);
-
+    }
+    public static void review_shape(string problem,CallbackFunction cb)
+    {
+        Debug.Log("[ARMath] start review...");
+        this_.element_review.GetComponent<review1>().generate_shape_problem(problem, cb);
+        //this_.element_review.SetActive(true);
+        // this_.element_topboard.SetActive(false);
     }
     public static void add_dialog(DialogItem t)
     {
@@ -155,8 +161,8 @@ public class Dialogs : MonoBehaviour {
     }
     public static void set_topboard(bool enabled, string txt)
     {
-        this_.element_topboard.GetComponent<DialogElement>().setText(txt);
-        this_.element_topboard.SetActive(enabled);
+        /*this_.element_topboard.GetComponent<DialogElement>().setText(txt);
+        this_.element_topboard.SetActive(enabled);*/
         
     }
     public static void set_topboard_color(int term_idx, int color_index)

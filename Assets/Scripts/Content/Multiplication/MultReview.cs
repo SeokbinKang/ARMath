@@ -13,6 +13,8 @@ public class MultReview : MonoBehaviour {
     public GameObject msg3_dummy;
     public GameObject reward;
     public GameObject virtual_solver;
+    public GameObject trees;
+    
 
     // Use this for initialization
     void Start()
@@ -44,7 +46,7 @@ public class MultReview : MonoBehaviour {
         int num_per_cell = content_root.GetComponent<ContentMulti>().target_base_num;
         int num_cells = content_root.GetComponent<ContentMulti>().target_mult_num;
 
-        msg1.GetComponent<Text>().text = "Alright! We put " + num_per_cell + " batteries to each tree and turned on the " + num_cells + " trees";
+        msg1.GetComponent<Text>().text = "Alright! We turned on the"+ num_cells + " trees, and used " + num_per_cell + " batteries for each.";
         msg2.GetComponent<Text>().text = "Then, how many batteries did we use in total?";
 
         bool interaction_touch_enalbed = SystemControl.mSystemControl.get_system_setup_interaction_touch();
@@ -123,13 +125,25 @@ public class MultReview : MonoBehaviour {
         int num_cells = content_root.GetComponent<ContentMulti>().target_mult_num;
         int goal_n = num_per_cell * num_cells;
 
+        List<GameObject> tree_icons = trees.GetComponent<GroupTree>().get_virtual_trees_in_cells();
+        List<GameObject> virtuals = trees.GetComponent<GroupTree>().get_virtual_objects_in_cells();
 
-        List<GameObject> virtuals = virtual_solver.GetComponent<MultVirtual>().get_all_batteries();
+        int k = 0;
+        foreach(GameObject t in tree_icons)
+        {           
+            Vector3 targetPos = t.GetComponent<RectTransform>().position;
+            FeedbackGenerator.create_target(targetPos, delay1, 3, 0);
+        }
 
-        for (int i = 0; i < goal_n && i < virtuals.Count; i++)
-        {  //TODO: detach higher number label
-            Vector3 targetPos = virtuals[i].GetComponent<RectTransform>().position;
-            FeedbackGenerator.create_target(targetPos, delay1, 10 - delay1, 1);
+
+        k = 0;
+        for (int c = 0; c < num_cells; c++)
+        {
+            for (int i = 0; i < num_per_cell && k<virtuals.Count; i++)
+            {  //TODO: detach higher number label
+                Vector3 targetPos = virtuals[k++].GetComponent<RectTransform>().position;
+                FeedbackGenerator.create_target(targetPos, delay2+c*2, 3, 5);
+            }
         }
     }
 }

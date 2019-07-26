@@ -1,0 +1,2338 @@
+fileFormatVersion: 2
+guid: a077e333635f55144a4020db7bed74d0
+TextureImporter:
+  fileIDToRecycleName:
+    21300000: slide_hammer_yellow_0
+    21300002: slide_hammer_yellow_1
+    21300004: slide_hammer_yellow_2
+    21300006: slide_hammer_yellow_3
+    21300008: slide_hammer_yellow_4
+    21300010: slide_hammer_yellow_5
+    21300012: slide_hammer_yellow_6
+    21300014: slide_hammer_yellow_7
+    21300016: slide_hammer_yellow_8
+    21300018: slide_hammer_yellow_9
+    21300020: slide_hammer_yellow_10
+    21300022: slide_hammer_yellow_11
+    21300024: slide_hammer_yellow_12
+    21300026: slide_hammer_yellow_13
+    21300028: slide_hammer_yellow_14
+    21300030: slide_hammer_yellow_15
+    21300032: slide_hammer_yellow_16
+    21300034: slide_hammer_yellow_17
+    21300036: slide_hammer_yellow_18
+    21300038: slide_hammer_yellow_19
+    21300040: slide_hammer_yellow_20
+    21300042: slide_hammer_yellow_21
+    21300044: slide_hammer_yellow_22
+    21300046: slide_hammer_yellow_23
+    21300048: slide_hammer_yellow_24
+    21300050: slide_hammer_yellow_25
+    21300052: slide_hammer_yellow_26
+    21300054: slide_hammer_yellow_27
+    21300056: slide_hammer_yellow_28
+    21300058: slide_hammer_yellow_29
+    21300060: slide_hammer_yellow_30
+    21300062: slide_hammer_yellow_31
+    21300064: slide_hammer_yellow_32
+    21300066: slide_hammer_yellow_33
+    21300068: slide_hammer_yellow_34
+    21300070: slide_hammer_yellow_35
+    21300072: slide_hammer_yellow_36
+    21300074: slide_hammer_yellow_37
+    21300076: slide_hammer_yellow_38
+    21300078: slide_hammer_yellow_39
+    21300080: slide_hammer_yellow_40
+    21300082: slide_hammer_yellow_41
+    21300084: slide_hammer_yellow_42
+    21300086: slide_hammer_yellow_43
+    21300088: slide_hammer_yellow_44
+    21300090: slide_hammer_yellow_45
+    21300092: slide_hammer_yellow_46
+    21300094: slide_hammer_yellow_47
+    21300096: slide_hammer_yellow_48
+    21300098: slide_hammer_yellow_49
+    21300100: slide_hammer_yellow_50
+    21300102: slide_hammer_yellow_51
+    21300104: slide_hammer_yellow_52
+    21300106: slide_hammer_yellow_53
+    21300108: slide_hammer_yellow_54
+    21300110: slide_hammer_yellow_55
+    21300112: slide_hammer_yellow_56
+    21300114: slide_hammer_yellow_57
+    21300116: slide_hammer_yellow_58
+    21300118: slide_hammer_yellow_59
+    21300120: slide_hammer_yellow_60
+    21300122: slide_hammer_yellow_61
+    21300124: slide_hammer_yellow_62
+    21300126: slide_hammer_yellow_63
+    21300128: slide_hammer_yellow_64
+    21300130: slide_hammer_yellow_65
+    21300132: slide_hammer_yellow_66
+    21300134: slide_hammer_yellow_67
+    21300136: slide_hammer_yellow_68
+    21300138: slide_hammer_yellow_69
+    21300140: slide_hammer_yellow_70
+    21300142: slide_hammer_yellow_71
+    21300144: slide_hammer_yellow_72
+    21300146: slide_hammer_yellow_73
+    21300148: slide_hammer_yellow_74
+    21300150: slide_hammer_yellow_75
+    21300152: slide_hammer_yellow_76
+    21300154: slide_hammer_yellow_77
+    21300156: slide_hammer_yellow_78
+    21300158: slide_hammer_yellow_79
+    21300160: slide_hammer_yellow_80
+    21300162: slide_hammer_yellow_81
+    21300164: slide_hammer_yellow_82
+    21300166: slide_hammer_yellow_83
+    21300168: slide_hammer_yellow_84
+    21300170: slide_hammer_yellow_85
+    21300172: slide_hammer_yellow_86
+    21300174: slide_hammer_yellow_87
+    21300176: slide_hammer_yellow_88
+    21300178: slide_hammer_yellow_89
+    21300180: slide_hammer_yellow_90
+    21300182: slide_hammer_yellow_91
+    21300184: slide_hammer_yellow_92
+    21300186: slide_hammer_yellow_93
+    21300188: slide_hammer_yellow_94
+    21300190: slide_hammer_yellow_95
+    21300192: slide_hammer_yellow_96
+    21300194: slide_hammer_yellow_97
+    21300196: slide_hammer_yellow_98
+    21300198: slide_hammer_yellow_99
+    21300200: slide_hammer_yellow_100
+    21300202: slide_hammer_yellow_101
+    21300204: slide_hammer_yellow_102
+    21300206: slide_hammer_yellow_103
+    21300208: slide_hammer_yellow_104
+    21300210: slide_hammer_yellow_105
+    21300212: slide_hammer_yellow_106
+    21300214: slide_hammer_yellow_107
+    21300216: slide_hammer_yellow_108
+    21300218: slide_hammer_yellow_109
+    21300220: slide_hammer_yellow_110
+    21300222: slide_hammer_yellow_111
+    21300224: slide_hammer_yellow_112
+    21300226: slide_hammer_yellow_113
+    21300228: slide_hammer_yellow_114
+    21300230: slide_hammer_yellow_115
+    21300232: slide_hammer_yellow_116
+  externalObjects: {}
+  serializedVersion: 7
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: -1
+    aniso: -1
+    mipBias: -100
+    wrapU: 1
+    wrapV: 1
+    wrapW: -1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 0
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  platformSettings:
+  - serializedVersion: 2
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 4096
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+  - serializedVersion: 2
+    buildTarget: Standalone
+    maxTextureSize: 4096
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+  - serializedVersion: 2
+    buildTarget: iPhone
+    maxTextureSize: 4096
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+  - serializedVersion: 2
+    buildTarget: Android
+    maxTextureSize: 4096
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: slide_hammer_yellow_0
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 6617
+        width: 800
+        height: 509
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 20f9cf2c84ec1d94dbe7fae312839300
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: slide_hammer_yellow_1
+      rect:
+        serializedVersion: 2
+        x: 800
+        y: 6617
+        width: 800
+        height: 509
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 91a136fce388e0643942b8962d1f782d
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: slide_hammer_yellow_2
+      rect:
+        serializedVersion: 2
+        x: 1600
+        y: 6617
+        width: 800
+        height: 509
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4eb784fd9f459d241986ded6c7843a08
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: slide_hammer_yellow_3
+      rect:
+        serializedVersion: 2
+        x: 2400
+        y: 6617
+        width: 800
+        height: 509
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1848598a91fcd0e429c799cda145c4b7
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: slide_hammer_yellow_4
+      rect:
+        serializedVersion: 2
+        x: 3200
+        y: 6617
+        width: 800
+        height: 509
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 509053e9a148d7a42a5d7df9b4d9bf27
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: slide_hammer_yellow_5
+      rect:
+        serializedVersion: 2
+        x: 4000
+        y: 6617
+        width: 800
+        height: 509
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 77a122fe61d2ce24fb2de2e2e3f93016
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: slide_hammer_yellow_6
+      rect:
+        serializedVersion: 2
+        x: 4800
+        y: 6617
+        width: 800
+        height: 509
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 79ea421a46a797d4b8973109bf15c108
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: slide_hammer_yellow_7
+      rect:
+        serializedVersion: 2
+        x: 5600
+        y: 6617
+        width: 800
+        height: 509
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 400a8637b58b7474c8cd3040b0ef6ffd
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: slide_hammer_yellow_8
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 6108
+        width: 800
+        height: 509
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c8260b720e408b94eb871c9a382e109f
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: slide_hammer_yellow_9
+      rect:
+        serializedVersion: 2
+        x: 800
+        y: 6108
+        width: 800
+        height: 509
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 19ddf86f370b76949977040b64654623
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: slide_hammer_yellow_10
+      rect:
+        serializedVersion: 2
+        x: 1600
+        y: 6108
+        width: 800
+        height: 509
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6c55ddc7b920ac24f9cac07ea4e9fd8e
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: slide_hammer_yellow_11
+      rect:
+        serializedVersion: 2
+        x: 2400
+        y: 6108
+        width: 800
+        height: 509
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b78f7f4d3e969fe4abc2b6767d2e0348
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: slide_hammer_yellow_12
+      rect:
+        serializedVersion: 2
+        x: 3200
+        y: 6108
+        width: 800
+        height: 509
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1b8a311cfd7c92c44bbf3112f56c697a
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: slide_hammer_yellow_13
+      rect:
+        serializedVersion: 2
+        x: 4000
+        y: 6108
+        width: 800
+        height: 509
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 856bc8c8e77cf49499526721f83641c2
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: slide_hammer_yellow_14
+      rect:
+        serializedVersion: 2
+        x: 4800
+        y: 6108
+        width: 800
+        height: 509
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 384f4698e41b983498f9683e67bcce35
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: slide_hammer_yellow_15
+      rect:
+        serializedVersion: 2
+        x: 5600
+        y: 6108
+        width: 800
+        height: 509
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: abf06c421940c8e47b4c97a02748d8e4
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: slide_hammer_yellow_16
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 5599
+        width: 800
+        height: 509
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d6d2c9a0d6f201b4d86f973b0e4d162e
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: slide_hammer_yellow_17
+      rect:
+        serializedVersion: 2
+        x: 800
+        y: 5599
+        width: 800
+        height: 509
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b284b424a28b43d43a4e783343567b21
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: slide_hammer_yellow_18
+      rect:
+        serializedVersion: 2
+        x: 1600
+        y: 5599
+        width: 800
+        height: 509
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9041de8b1180798449b7829a662a2ea0
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: slide_hammer_yellow_19
+      rect:
+        serializedVersion: 2
+        x: 2400
+        y: 5599
+        width: 800
+        height: 509
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b803597ed177ad5489c5e967c23d7e0d
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: slide_hammer_yellow_20
+      rect:
+        serializedVersion: 2
+        x: 3200
+        y: 5599
+        width: 800
+        height: 509
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 734fbb8a570d0e0409d479d8a692cac9
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: slide_hammer_yellow_21
+      rect:
+        serializedVersion: 2
+        x: 4000
+        y: 5599
+        width: 800
+        height: 509
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 996685f76e44cdd47996d114e878f837
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: slide_hammer_yellow_22
+      rect:
+        serializedVersion: 2
+        x: 4800
+        y: 5599
+        width: 800
+        height: 509
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 07adb2e3d6b98fc4dbd8cc1c367d8eb1
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: slide_hammer_yellow_23
+      rect:
+        serializedVersion: 2
+        x: 5600
+        y: 5599
+        width: 800
+        height: 509
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 940fe9eca80671d4f9e2db3ba749a559
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: slide_hammer_yellow_24
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 5090
+        width: 800
+        height: 509
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3fbd0a490f104c440933b168edb5a7ac
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: slide_hammer_yellow_25
+      rect:
+        serializedVersion: 2
+        x: 800
+        y: 5090
+        width: 800
+        height: 509
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: cd4129927169cbb4a89f943e2450d332
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: slide_hammer_yellow_26
+      rect:
+        serializedVersion: 2
+        x: 1600
+        y: 5090
+        width: 800
+        height: 509
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c09d3dd419e77e64ba99077d39a2ea87
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: slide_hammer_yellow_27
+      rect:
+        serializedVersion: 2
+        x: 2400
+        y: 5090
+        width: 800
+        height: 509
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9c7f611ceda08c3408b585f04b2ee0e5
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: slide_hammer_yellow_28
+      rect:
+        serializedVersion: 2
+        x: 3200
+        y: 5090
+        width: 800
+        height: 509
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9afd1b35f99847047af562e66f0a1b2c
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: slide_hammer_yellow_29
+      rect:
+        serializedVersion: 2
+        x: 4000
+        y: 5090
+        width: 800
+        height: 509
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b7ae4042d12b3dd4e9b43e18015bbecf
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: slide_hammer_yellow_30
+      rect:
+        serializedVersion: 2
+        x: 4800
+        y: 5090
+        width: 800
+        height: 509
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 636c3a2fad067ed44af4ea288e7c8f13
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: slide_hammer_yellow_31
+      rect:
+        serializedVersion: 2
+        x: 5600
+        y: 5090
+        width: 800
+        height: 509
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6ef67a494a5a89d47901b866bac2cdab
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: slide_hammer_yellow_32
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 4581
+        width: 800
+        height: 509
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9919073c3dc30d749a2d41b5d625a7f5
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: slide_hammer_yellow_33
+      rect:
+        serializedVersion: 2
+        x: 800
+        y: 4581
+        width: 800
+        height: 509
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 97dcee1d307f8e348bcbdad722d96bec
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: slide_hammer_yellow_34
+      rect:
+        serializedVersion: 2
+        x: 1600
+        y: 4581
+        width: 800
+        height: 509
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b63ec43ed7f333049a82bd4643122cd6
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: slide_hammer_yellow_35
+      rect:
+        serializedVersion: 2
+        x: 2400
+        y: 4581
+        width: 800
+        height: 509
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 52296f7883e32824ba89954578ed882f
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: slide_hammer_yellow_36
+      rect:
+        serializedVersion: 2
+        x: 3200
+        y: 4581
+        width: 800
+        height: 509
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 03f334f27b614b14ba20f0b713ccb18f
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: slide_hammer_yellow_37
+      rect:
+        serializedVersion: 2
+        x: 4000
+        y: 4581
+        width: 800
+        height: 509
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 54fef9a164b67ed4d9e814ec87e98f96
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: slide_hammer_yellow_38
+      rect:
+        serializedVersion: 2
+        x: 4800
+        y: 4581
+        width: 800
+        height: 509
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 48f418b4264726d4594e7224546d4c71
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: slide_hammer_yellow_39
+      rect:
+        serializedVersion: 2
+        x: 5600
+        y: 4581
+        width: 800
+        height: 509
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 90b0d8be2979c2347a2b07f89f7f42ad
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: slide_hammer_yellow_40
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 4072
+        width: 800
+        height: 509
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4c9bc2a8cb4affa49821e833333d1e10
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: slide_hammer_yellow_41
+      rect:
+        serializedVersion: 2
+        x: 800
+        y: 4072
+        width: 800
+        height: 509
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e238d87794ef719449a0e5171a1cdc39
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: slide_hammer_yellow_42
+      rect:
+        serializedVersion: 2
+        x: 1600
+        y: 4072
+        width: 800
+        height: 509
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 564584b5ce973c94587e5de29c860c81
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: slide_hammer_yellow_43
+      rect:
+        serializedVersion: 2
+        x: 2400
+        y: 4072
+        width: 800
+        height: 509
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3edccc44552bbdd4a8a65ca3f78ff2fd
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: slide_hammer_yellow_44
+      rect:
+        serializedVersion: 2
+        x: 3200
+        y: 4072
+        width: 800
+        height: 509
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a79a0b9fd05ddda4e86b52fce8fd44a7
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: slide_hammer_yellow_45
+      rect:
+        serializedVersion: 2
+        x: 4000
+        y: 4072
+        width: 800
+        height: 509
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8c7d0da2f2379154fa2c0e6952bc04b4
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: slide_hammer_yellow_46
+      rect:
+        serializedVersion: 2
+        x: 4800
+        y: 4072
+        width: 800
+        height: 509
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b4e6651ecef11694bb1af5f039281dc8
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: slide_hammer_yellow_47
+      rect:
+        serializedVersion: 2
+        x: 5600
+        y: 4072
+        width: 800
+        height: 509
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7c6bbd8d4807d1446a4596b04e5e7240
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: slide_hammer_yellow_48
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 3563
+        width: 800
+        height: 509
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b0300ee6528c91041a21550812ef0654
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: slide_hammer_yellow_49
+      rect:
+        serializedVersion: 2
+        x: 800
+        y: 3563
+        width: 800
+        height: 509
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5e5c4396374e5b94293a7bad7a5d09be
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: slide_hammer_yellow_50
+      rect:
+        serializedVersion: 2
+        x: 1600
+        y: 3563
+        width: 800
+        height: 509
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 90caac85896b59a4483bd0e95a8f5822
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: slide_hammer_yellow_51
+      rect:
+        serializedVersion: 2
+        x: 2400
+        y: 3563
+        width: 800
+        height: 509
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1c5476d9b2352eb43b51d76297938d43
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: slide_hammer_yellow_52
+      rect:
+        serializedVersion: 2
+        x: 3200
+        y: 3563
+        width: 800
+        height: 509
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 99ba53835e4903e469d8541c6481d650
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: slide_hammer_yellow_53
+      rect:
+        serializedVersion: 2
+        x: 4000
+        y: 3563
+        width: 800
+        height: 509
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7f47d29c430a8304fbb9cc2ba84e3793
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: slide_hammer_yellow_54
+      rect:
+        serializedVersion: 2
+        x: 4800
+        y: 3563
+        width: 800
+        height: 509
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d4576bf51a42f2b45a5e7761a755af40
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: slide_hammer_yellow_55
+      rect:
+        serializedVersion: 2
+        x: 5600
+        y: 3563
+        width: 800
+        height: 509
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0771c616ee8d0dc44aebf667cfa9e479
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: slide_hammer_yellow_56
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 3054
+        width: 800
+        height: 509
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 639f74363e56d3241b2b9ea7ee987bb0
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: slide_hammer_yellow_57
+      rect:
+        serializedVersion: 2
+        x: 800
+        y: 3054
+        width: 800
+        height: 509
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8e6be51b9edf7494fa984a748f7c8aa2
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: slide_hammer_yellow_58
+      rect:
+        serializedVersion: 2
+        x: 1600
+        y: 3054
+        width: 800
+        height: 509
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a2cf407f91414804ea8604dfd7a234ed
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: slide_hammer_yellow_59
+      rect:
+        serializedVersion: 2
+        x: 2400
+        y: 3054
+        width: 800
+        height: 509
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0dc51c3f35123534d9dc6f6e37cd741a
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: slide_hammer_yellow_60
+      rect:
+        serializedVersion: 2
+        x: 3200
+        y: 3054
+        width: 800
+        height: 509
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 61aa00aa130de7048b302ba0eaaf7009
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: slide_hammer_yellow_61
+      rect:
+        serializedVersion: 2
+        x: 4000
+        y: 3054
+        width: 800
+        height: 509
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 184b4e9f051c26a4a83502a2fd511a1a
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: slide_hammer_yellow_62
+      rect:
+        serializedVersion: 2
+        x: 4800
+        y: 3054
+        width: 800
+        height: 509
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f172ae86613ed79489d1da591d1e3e25
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: slide_hammer_yellow_63
+      rect:
+        serializedVersion: 2
+        x: 5600
+        y: 3054
+        width: 800
+        height: 509
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 29dae3a494991084c930d384d93fee4f
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: slide_hammer_yellow_64
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 2545
+        width: 800
+        height: 509
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f837cb46b2eaccc4b87a0418f8c7fafc
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: slide_hammer_yellow_65
+      rect:
+        serializedVersion: 2
+        x: 800
+        y: 2545
+        width: 800
+        height: 509
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 65f9a06af8ffa254d9f406fc423c76ec
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: slide_hammer_yellow_66
+      rect:
+        serializedVersion: 2
+        x: 1600
+        y: 2545
+        width: 800
+        height: 509
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c46781d0223fcd64f8e07eefce1d81bf
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: slide_hammer_yellow_67
+      rect:
+        serializedVersion: 2
+        x: 2400
+        y: 2545
+        width: 800
+        height: 509
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: bef8165ed8972954f8a25b5d3db6da2b
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: slide_hammer_yellow_68
+      rect:
+        serializedVersion: 2
+        x: 3200
+        y: 2545
+        width: 800
+        height: 509
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 45cffe8a367d66f49871eb6037fd7dcd
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: slide_hammer_yellow_69
+      rect:
+        serializedVersion: 2
+        x: 4000
+        y: 2545
+        width: 800
+        height: 509
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1f6df7e513dafb84ea6d848704cc1ceb
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: slide_hammer_yellow_70
+      rect:
+        serializedVersion: 2
+        x: 4800
+        y: 2545
+        width: 800
+        height: 509
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5b9352a440a2a144cb6815653532d4a7
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: slide_hammer_yellow_71
+      rect:
+        serializedVersion: 2
+        x: 5600
+        y: 2545
+        width: 800
+        height: 509
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b04d211ce3b03444d9170a150a3a870b
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: slide_hammer_yellow_72
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 2036
+        width: 800
+        height: 509
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 564bb7ed08b44554e9c6c8791428c89c
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: slide_hammer_yellow_73
+      rect:
+        serializedVersion: 2
+        x: 800
+        y: 2036
+        width: 800
+        height: 509
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f73678517585e56459de9e0834bed88e
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: slide_hammer_yellow_74
+      rect:
+        serializedVersion: 2
+        x: 1600
+        y: 2036
+        width: 800
+        height: 509
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6bf8f1df0763e2a408850ef88c77047f
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: slide_hammer_yellow_75
+      rect:
+        serializedVersion: 2
+        x: 2400
+        y: 2036
+        width: 800
+        height: 509
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 153c37d603053934497174cc474d0e39
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: slide_hammer_yellow_76
+      rect:
+        serializedVersion: 2
+        x: 3200
+        y: 2036
+        width: 800
+        height: 509
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 622b32f8c71b4c84c97d889353a3023a
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: slide_hammer_yellow_77
+      rect:
+        serializedVersion: 2
+        x: 4000
+        y: 2036
+        width: 800
+        height: 509
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: da86dc054ffb79046b72ad2aaa422006
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: slide_hammer_yellow_78
+      rect:
+        serializedVersion: 2
+        x: 4800
+        y: 2036
+        width: 800
+        height: 509
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c4dbb1cba5e12a24a938fd2a7f0e62cf
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: slide_hammer_yellow_79
+      rect:
+        serializedVersion: 2
+        x: 5600
+        y: 2036
+        width: 800
+        height: 509
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 33b183d10a1d3254ca8a349a9b8b12f4
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: slide_hammer_yellow_80
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 1527
+        width: 800
+        height: 509
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c279a396ee941574f82e960441635815
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: slide_hammer_yellow_81
+      rect:
+        serializedVersion: 2
+        x: 800
+        y: 1527
+        width: 800
+        height: 509
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b1e422199c4c1764dafd973fd92dfc5c
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: slide_hammer_yellow_82
+      rect:
+        serializedVersion: 2
+        x: 1600
+        y: 1527
+        width: 800
+        height: 509
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4e060f7c92a68d44ca2e1a753d2dba94
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: slide_hammer_yellow_83
+      rect:
+        serializedVersion: 2
+        x: 2400
+        y: 1527
+        width: 800
+        height: 509
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a55f9df5d07364446b0325bac7541d61
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: slide_hammer_yellow_84
+      rect:
+        serializedVersion: 2
+        x: 3200
+        y: 1527
+        width: 800
+        height: 509
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: eff8017bb3f09774193656f80d6b21ad
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: slide_hammer_yellow_85
+      rect:
+        serializedVersion: 2
+        x: 4000
+        y: 1527
+        width: 800
+        height: 509
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 90c4f4d7293cb0046b18c000b8fb4d52
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: slide_hammer_yellow_86
+      rect:
+        serializedVersion: 2
+        x: 4800
+        y: 1527
+        width: 800
+        height: 509
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d8ed62b8b7aa94549b4d6ead1c8636ed
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: slide_hammer_yellow_87
+      rect:
+        serializedVersion: 2
+        x: 5600
+        y: 1527
+        width: 800
+        height: 509
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c8b9b7a59ae2c35419ae4336988b4d84
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: slide_hammer_yellow_88
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 1018
+        width: 800
+        height: 509
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8458c16233f17a049ac87cc6ffa50bfc
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: slide_hammer_yellow_89
+      rect:
+        serializedVersion: 2
+        x: 800
+        y: 1018
+        width: 800
+        height: 509
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2bc6a7349f1ae594f955d4e93353c93e
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: slide_hammer_yellow_90
+      rect:
+        serializedVersion: 2
+        x: 1600
+        y: 1018
+        width: 800
+        height: 509
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 211e52f0fb4e38d458e61fd67868b083
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: slide_hammer_yellow_91
+      rect:
+        serializedVersion: 2
+        x: 2400
+        y: 1018
+        width: 800
+        height: 509
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 280f19fe64e94d9459e0dbf80c6e1b05
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: slide_hammer_yellow_92
+      rect:
+        serializedVersion: 2
+        x: 3200
+        y: 1018
+        width: 800
+        height: 509
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 24e953c61c6232245a605eb8dad30d6e
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: slide_hammer_yellow_93
+      rect:
+        serializedVersion: 2
+        x: 4000
+        y: 1018
+        width: 800
+        height: 509
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: fce73993d6369cb4bb526939d64dc771
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: slide_hammer_yellow_94
+      rect:
+        serializedVersion: 2
+        x: 4800
+        y: 1018
+        width: 800
+        height: 509
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 117c1f659e935da40a260679a628fe15
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: slide_hammer_yellow_95
+      rect:
+        serializedVersion: 2
+        x: 5600
+        y: 1018
+        width: 800
+        height: 509
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0f847f8ba287bb846a5cf217c15e0397
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: slide_hammer_yellow_96
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 509
+        width: 800
+        height: 509
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7412275d95fbf0f49acab2e1dd33c7f1
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: slide_hammer_yellow_97
+      rect:
+        serializedVersion: 2
+        x: 800
+        y: 509
+        width: 800
+        height: 509
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 97f7842af9dc9a64fabc984fe9061a6d
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: slide_hammer_yellow_98
+      rect:
+        serializedVersion: 2
+        x: 1600
+        y: 509
+        width: 800
+        height: 509
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 43553940abf427d49b345c3223029221
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: slide_hammer_yellow_99
+      rect:
+        serializedVersion: 2
+        x: 2400
+        y: 509
+        width: 800
+        height: 509
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 16da19330536afb4081bedf09e8991eb
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: slide_hammer_yellow_100
+      rect:
+        serializedVersion: 2
+        x: 3200
+        y: 509
+        width: 800
+        height: 509
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b4837bcce0cdd2f43935e95e26ef49ce
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: slide_hammer_yellow_101
+      rect:
+        serializedVersion: 2
+        x: 4000
+        y: 509
+        width: 800
+        height: 509
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7c2daa8298bc1904f868cdc554c4d11e
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: slide_hammer_yellow_102
+      rect:
+        serializedVersion: 2
+        x: 4800
+        y: 509
+        width: 800
+        height: 509
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: abfe1bf6bbb27144f9ea5cf5fe374d3b
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: slide_hammer_yellow_103
+      rect:
+        serializedVersion: 2
+        x: 5600
+        y: 509
+        width: 800
+        height: 509
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 88668e9a828c13e4e80125e7d9718682
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: slide_hammer_yellow_104
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 0
+        width: 800
+        height: 509
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b3c6175661e0d724b854b6f8c2c02751
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    physicsShape: []
+    bones: []
+    spriteID: f38c635576a10464787ef6625bccb1fc
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+  spritePackingTag: 
+  pSDRemoveMatte: 0
+  pSDShowRemoveMatteOption: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

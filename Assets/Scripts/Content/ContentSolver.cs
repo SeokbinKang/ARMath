@@ -32,6 +32,7 @@ public class ContentSolver : MonoBehaviour {
         {
             if (solver_virtual != null) solver_virtual.SetActive(true);
             if (solver_tangible != null) solver_tangible.SetActive(false);
+            review.SetActive(false);
             return;
         }
         bool interaction_touch_enalbed = SystemControl.mSystemControl.get_system_setup_interaction_touch();

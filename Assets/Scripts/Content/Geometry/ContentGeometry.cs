@@ -14,6 +14,7 @@ public class ContentGeometry : MonoBehaviour
     public GameObject sub_builder;
     public GameObject sub_helper;
     public GameObject sub_solver;
+    public GameObject sub_context;
 
 
 
@@ -57,7 +58,7 @@ public class ContentGeometry : MonoBehaviour
         sub_explorer.SetActive(false);
         sub_intro2.SetActive(false);
         sub_solver.SetActive(false);
-
+        sub_context.SetActive(false);
         sub_helper.SetActive(false);
         sub_builder.SetActive(false);
         is_idle = true;
@@ -84,7 +85,7 @@ public class ContentGeometry : MonoBehaviour
           7
           ));
         Dialogs.add_dialog(new DialogItem(DialogueType.left_bottom_plain,
-        "Can you find a rectangle for me? You can tap it on the screen.",
+        "Can you find an object that looks like a rectangle for me? You can tap it on the screen.",
         true,
         null,
         "",
@@ -137,23 +138,27 @@ public class ContentGeometry : MonoBehaviour
     }
     private void process_explorer_touch()
     {
+
         if (Input.touchCount > 0)
         {
             Touch touch = Input.GetTouch(0);
-            Vector2 user_pos = touch.position;
-
-            bool hit = ARMathUtils.check_in_recttransform(user_pos, sub_explorer);
-            if (!hit)
+            if (touch.phase == TouchPhase.Began)
             {
+                Vector2 user_pos = touch.position;
 
-                //FeedbackGenerator.create_sticker_ox_dispose(us, false);
-                FeedbackGenerator.create_target(user_pos, 0, 1.5f, 3,0);
-                TTS.mTTS.GetComponent<TTS>().StartTextToSpeech("It doesn't look like a rectangle. Try again");
-            }         
-            else
-            {
-                FeedbackGenerator.create_target(user_pos, 0, 1.5f, 0);
-                s2_OnExplorer();
+                bool hit = ARMathUtils.check_in_recttransform(user_pos, sub_explorer);
+                if (!hit)
+                {
+
+                    //FeedbackGenerator.create_sticker_ox_dispose(us, false);
+                    FeedbackGenerator.create_target(user_pos, 0, 1.5f, 3, 0);
+                    TTS.mTTS.GetComponent<TTS>().StartTextToSpeech("It doesn't look like a rectangle. Try again");
+                }
+                else
+                {
+                    FeedbackGenerator.create_target(user_pos, 0, 1.5f, 0);
+                    s2_OnExplorer();
+                }
             }
 
         }
