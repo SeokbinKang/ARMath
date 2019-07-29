@@ -4,7 +4,7 @@ using UnityEngine;
 
 interface IContentModule
 {
-    void UpdateCVResult(CVResult cv);
+    //void UpdateCVResult(CVResult cv);
     void onSolved();
     void UpdateExplorer();
 }

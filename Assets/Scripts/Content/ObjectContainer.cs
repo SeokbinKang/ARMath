@@ -22,7 +22,7 @@ public class ObjectContainer : MonoBehaviour {
         Rect rect = new Rect(new Vector2(center.x, center.y), region_rectangle.GetComponent<RectTransform>().rect.size);
         
         List<SceneObject> ret = SceneObjectManager.mSOManager.get_objects_in_rect(rect, obj_name);
-      //  Debug.Log("[ARMath] "+ret.Count+" objects are found in region rect:" + rect);
+        Debug.Log("[ARMath] "+ret.Count+" "+obj_name+" objects are found in region rect:" + rect);
         return ret;
     }
     public List<SceneObject> get_objects_in_rect(string obj_name, ref List<SceneObject> out_of_rect)

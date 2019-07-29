@@ -134,7 +134,7 @@ public class GeometryVirtual_Rect : MonoBehaviour {
         {
             container.SetActive(true);
             blacksmith.GetComponent<Animator>().SetTrigger("hammer");
-            TTS.mTTS.GetComponent<TTS>().StartTextToSpeech("Thank you! let me make the four vertices");
+            TTS.mTTS.GetComponent<TTS>().StartTextToSpeech("Thank you! let me start making the vertices of the key");
             //geoprimitives.SetActive(true);
             container.GetComponent<GeometryVisContainer>().Solve_Properties(GeometryPrimitives.side_short);
 
@@ -199,7 +199,7 @@ public class GeometryVirtual_Rect : MonoBehaviour {
         if (mStep == 8)
         {
             blacksmith.GetComponent<Animator>().SetTrigger("hammer");
-            TTS.mTTS.GetComponent<TTS>().StartTextToSpeech("Thank you! let me make the four sides");
+            TTS.mTTS.GetComponent<TTS>().StartTextToSpeech("Thank you! let me make the four sides of the key");
 
             
             Dialogs.set_topboard_animated(false, 3, "");
@@ -217,6 +217,7 @@ public class GeometryVirtual_Rect : MonoBehaviour {
 
         if (mStep == 10)
         {
+            Dialogs.set_topboard_animated(false, 3, "");
             blacksmith.GetComponent<Animator>().SetTrigger("hammer");
             blacksmith.GetComponent<Animator>().SetTrigger("hammer");
             TTS.mTTS.GetComponent<TTS>().StartTextToSpeech("Great job! Let me finish the key with the angles");

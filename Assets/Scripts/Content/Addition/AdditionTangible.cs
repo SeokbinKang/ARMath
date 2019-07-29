@@ -9,7 +9,7 @@ public class AdditionTangible : MonoBehaviour
   
 
     public GameObject board;
-    
+    public GameObject region;
     public GameObject ContentModuleRoot;
     public GameObject item_mask;
     
@@ -58,39 +58,50 @@ public class AdditionTangible : MonoBehaviour
     private void count_object()
     {
         if ( !UserInteracting) return;
+
         int init_n = ContentModuleRoot.GetComponent<ContentAddition>().init_object_count;
         int goal_n = ContentModuleRoot.GetComponent<ContentAddition>().goal_object_count;
         int cur_n = ContentModuleRoot.GetComponent<ContentAddition>().current_object_count;
-        List<SceneObject> objs = SceneObjectManager.mSOManager.get_objects_by_name(target_object_name);
+        //     List<SceneObject> objs = SceneObjectManager.mSOManager.get_objects_by_name(target_object_name);
+        List<SceneObject> objs = ARMathUtils.get_objects_in_rect(region.GetComponent<RegionControl>().getRegion(0), target_object_name);
+        List<SceneObject> objs_added = ARMathUtils.get_objects_in_rect(region.GetComponent<RegionControl>().getRegion(1), target_object_name);
+
         bool[] number_label = new bool[objs.Count];
-        for (int i = 0; i < number_label.Length; i++)
-        {
-            int number_label_value = objs[i].get_number_feedback();
-            if (number_label_value > 0 && number_label_value <= number_label.Length)
-            {
-                
-                number_label[number_label_value - 1] = true;
-            }
-        }
-        for (int i = 0; i < init_n && i< number_label.Length; i++)
-        {
-            //attach invisible marker to the initial set of objects
-            if (!number_label[i])
-            {
-                foreach (SceneObject so in objs)
-                {
-                    if (so.get_number_feedback() <= 0)
-                    {
-                        Vector3 targetPos = new Vector3(so.catalogInfo.Box.center.x, Screen.height - so.catalogInfo.Box.center.y, 0);
-                        GameObject label = FeedbackGenerator.mThis.create_number_feedback(targetPos, i + 1,true);
-                        so.attach_object(label);
-                        break;
-                    }
-                }
-            }
-            
-        }
-        for (int i = init_n + 1; i <= goal_n &&  i <= number_label.Length; i++)
+        /* for (int i = 0; i < number_label.Length; i++)
+         {
+             int number_label_value = objs[i].get_number_feedback();
+             if (number_label_value <= 0) continue;
+             if (number_label_value <= number_label.Length)
+             {
+
+                 number_label[number_label_value - 1] = true;
+             } else             
+             {
+                 objs[i].clear_number_feedback();
+                 //get rid of the feedback.
+             }
+         }*/
+
+        //for (int i = 0; i < init_n && i< number_label.Length; i++)
+        //{
+        //    //attach invisible marker to the initial set of objects
+        //    if (!number_label[i])
+        //    {
+        //        foreach (SceneObject so in objs)
+        //        {
+        //            if (so.get_number_feedback() <= 0)
+        //            {
+        //                Vector3 targetPos = new Vector3(so.catalogInfo.Box.center.x, Screen.height - so.catalogInfo.Box.center.y, 0);
+        //                GameObject label = FeedbackGenerator.mThis.create_number_feedback(targetPos, i + 1,true);
+        //                so.attach_object(label);
+        //                break;
+        //            }
+        //        }
+        //    }
+
+        //}
+        /*
+        for (int i = 1; i <= number_label.Length; i++)
         {
             if (!number_label[i - 1])
             {
@@ -99,44 +110,32 @@ public class AdditionTangible : MonoBehaviour
                     if (so.get_number_feedback() <= 0)
                     {
                         Vector3 targetPos = new Vector3(so.catalogInfo.Box.center.x, Screen.height - so.catalogInfo.Box.center.y, 0);
-                        GameObject label = FeedbackGenerator.mThis.create_number_feedback(targetPos, i, true);
+                        GameObject label = FeedbackGenerator.create_number_feedback(targetPos, i, true);
                         so.attach_object(label);
                         //Debug.Log("[ARMath] generating O sticker");
-                        label = FeedbackGenerator.mThis.create_sticker_ox(targetPos, true, true);
-                        so.attach_object(label);
-
-
+                        //label = FeedbackGenerator.mThis.create_sticker_ox(targetPos, true, true);
+                        //so.attach_object(label);
                         break;
                     }
                 }
             }
-        }
-        for (int i = goal_n+1; i <= number_label.Length; i++)
-        { //attach X maker to added (extra) objects
-            if (!number_label[i - 1])
-            {
-                foreach (SceneObject so in objs)
+        }*/
+        
+              foreach (SceneObject so in objs_added)
                 {
-                    if (so.get_number_feedback() <= 0)
-                    {
-                        Vector3 targetPos = new Vector3(so.catalogInfo.Box.center.x, Screen.height - so.catalogInfo.Box.center.y, 0);
-                        GameObject label = FeedbackGenerator.mThis.create_number_feedback(targetPos, i, false);
-                        so.attach_object(label);
-                        
-                        label = FeedbackGenerator.mThis.create_sticker_ox(targetPos, false, true);
-                        so.attach_object(label);
+                    if (so.get_all_feedback_count() <= 0)
+                    {   
+                        GameObject label = FeedbackGenerator.create_target(so, 0, 600,1);
+                        so.attach_object(label);                        
                         break;
                     }
                 }
-            }
-
-        }
-
-
-        if (objs.Count !=cur_n)
+        
+       int total_obj_count = init_n + objs_added.Count;
+        if (total_obj_count != cur_n)
         {
             item_mask.GetComponent<vertical_mask>().set_visible_percent(((float)cur_n / (float)goal_n));
-            cur_n = objs.Count;
+            cur_n = total_obj_count;
             ContentModuleRoot.GetComponent<ContentAddition>().current_object_count = cur_n;
             OnCount();
 
@@ -146,20 +145,23 @@ public class AdditionTangible : MonoBehaviour
     {
         int init_n = ContentModuleRoot.GetComponent<ContentAddition>().init_object_count;
         int goal_n = ContentModuleRoot.GetComponent<ContentAddition>().goal_object_count;
-        int added = ContentModuleRoot.GetComponent<ContentAddition>().current_object_count - init_n;
-        if (added > 0) TTS.mTTS.GetComponent<TTS>().StartTextToSpeech(added + " " + target_object_name + "s added!");
-        else TTS.mTTS.GetComponent<TTS>().StartTextToSpeech("please add more " + target_object_name + "s!");
+        int gap = ContentModuleRoot.GetComponent<ContentAddition>().current_object_count - goal_n;
 
-        UpdateBoard();
-        //sound effect
 
-        if (ContentModuleRoot.GetComponent<ContentAddition>().goal_object_count == ContentModuleRoot.GetComponent<ContentAddition>().current_object_count)
+        if(gap ==0)
         {
             UserInteracting = false;
 
             this.transform.parent.GetComponent<ContentSolver>().start_review();
-
+            return ;
         }
+        if (gap > 0) TTS.mTTS.GetComponent<TTS>().StartTextToSpeech("Hmm... they are too many. Can you take out "+Mathf.Abs(gap)+" coins?");
+        else TTS.mTTS.GetComponent<TTS>().StartTextToSpeech("Hmm.. I need more. Can you get "+Mathf.Abs(gap)+" more coins?");
+
+        //UpdateBoard();
+        //sound effect
+
+      
     }
     public void OnCompletion(string t)
     {
@@ -178,7 +180,7 @@ public class AdditionTangible : MonoBehaviour
         int add_n = goal_n - init_n;
         UserInteracting = false;
         Dialogs.add_dialog(new DialogItem(DialogueType.left_bottom_plain,
-            "Let's add "+ add_n+" more " + target_object_name + "s by placing them on the table",
+            "You can put more coins on the table.",
             true,
             new CallbackFunction(StartOperation),
             "",
@@ -191,7 +193,7 @@ public class AdditionTangible : MonoBehaviour
     {
         total_n = 0;
         UserInteracting = true;
-        board.SetActive(false);
+      
         //problemboard.SetActive(true);
         UpdateBoard();
 

@@ -53,6 +53,11 @@ public class SystemControl : MonoBehaviour {
         SceneObjectManager.mSOManager.Reset();
         
     }
+    public void onCorrection()
+    {
+        current_status = SystemStatus.Correction;
+        
+    }
     private void keyInput()
     {
         if (Application.platform == RuntimePlatform.Android)
@@ -117,6 +122,14 @@ public class SystemControl : MonoBehaviour {
             system_setup.SetActive(false);
             system_selectionquestion.SetActive(false);
             
+            system_user.SetActive(false);
+        }  else if (current_status == SystemStatus.Correction)
+        {
+            system_content.SetActive(false);
+            system_opening.SetActive(false);
+            system_setup.SetActive(false);
+            system_selectionquestion.SetActive(false);
+
             system_user.SetActive(false);
         }
     }

@@ -73,6 +73,17 @@ TensorFlowSharp.Android.NativeBinding.Init();
         Debug.Log("Graph Loaded!!!");
 
         //set style of labels and boxes
+        //style.normal.background = tex;
+        style.alignment = TextAnchor.UpperCenter;
+        style.fontSize = 20;
+        style.fontStyle = FontStyle.Bold;
+        style.contentOffset = new Vector2(0, 0);
+        style.normal.textColor = objectColor;
+        style.border.left = 0;
+        style.border.right = 0;
+        style.border.top = 0;
+        style.border.bottom = 0;
+
         if (Screen.currentResolution.width == 2560 && Screen.currentResolution.height == 1600)
         { // for screen 16:10 while the camera stream is 16:9
             x_stretch = 0.9f;
@@ -87,12 +98,22 @@ TensorFlowSharp.Android.NativeBinding.Init();
         yield return new WaitForEndOfFrame();
         processingImage = false;
     }
-    
+    private bool is_device_stable()
+    {
+        Vector3 dir = Vector3.zero;
+        Vector3 g = Input.gyro.userAcceleration;
+
+        dir= Input.acceleration;
+
+//        Debug.Log("[ARMath] acceloration " + dir.x+" "+dir.y+" "+dir.z+" "+dir.magnitude);
+  //      Debug.Log("[ARMath] acceloration2 " + g.x + " " + g.y + " " + g.z+" "+g.magnitude);
+        return true;
+    }
     void ThreadedWork_twinFrame()
     {
         while (true)
         {
-            if (pixelsUpdated)
+            if (pixelsUpdated )
             {
 
                 //left frame
@@ -227,7 +248,7 @@ TensorFlowSharp.Android.NativeBinding.Init();
 
     IEnumerator ProcessImage_twinFrame()
     {
-        
+        if (!is_device_stable()) yield return null; 
         Texture2D texture2d_l = cameraImage.ProcessImage_twinFrame_texture2d(0);
         Texture2D texture2d_r = cameraImage.ProcessImage_twinFrame_texture2d(1);
         Color32[] colorPixels_LL = texture2d_l.GetPixels32();
@@ -296,33 +317,28 @@ TensorFlowSharp.Android.NativeBinding.Init();
             {
                 nextActionTime = Time.time + 1.5f;
                 SceneObjectManager.mSOManager.add_new_object(items);
-            }
-            /*
-            List<CatalogItem> ret = new List<CatalogItem>();
-            foreach (CatalogItem item in items) {
-                GUI.backgroundColor = objectColor;
-                //display score and label
-                //GUI.Box(item.Box, item.DisplayName + '\n' + Mathf.RoundToInt(item.Score*100) + "%", style);
-                //display only score
-                // GUI.Box(item.Box, item.DisplayName + " "+items.Count, style);
 
-                if (item.DisplayName.Equals("apple")
-                    || item.DisplayName.Equals("bottle")
-                    || item.DisplayName.Equals("cup"))
-                {
-                    //onApple(item.Box, item.DisplayName);
-                    //GUI.Label(item.Box, item.DisplayName);
-                    ret.Add(item);
-                }
-                }
-            CVResult cv = new CVResult();
-            if (ret.Count > 0) {
-                cv.mObjects = ret;
+                Debug.Log("[ARMath] on gui...");
+               
                 
             }
-            ContentRoot.GetComponent<ContentRoot>().updateScenedata(cv);
-            */
+         //   GUI.Box(new Rect(Screen.width / 2, Screen.height / 2, Screen.width + 600, Screen.height + 400), "This is a box");
+            //GUI.Box(new Rect(Screen.width / 2, Screen.height / 2, Screen.width + 600, Screen.height + 400), "This is a box",style);
+            if (SystemControl.mSystemControl.current_status == SystemStatus.Correction)
+            {
 
+                foreach (CatalogItem item in items)
+                {
+                    //  Debug.Log("[ARMath] " + item.DisplayName);
+
+                    GUI.backgroundColor = objectColor;
+
+                    //display score and label
+                    GUI.Box(item.Box, item.DisplayName + '\n' + Mathf.RoundToInt(item.Score * 100) + "%",style);
+                    //display only score
+                   // GUI.Box(item.Box, item.DisplayName + " " + items.Count,style);
+                }
+            }
 
 
         } catch (InvalidOperationException e) {

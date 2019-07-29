@@ -12,7 +12,8 @@ public enum SystemStatus
     UserAccount,
     // The flag for TintedWindows is 1000.
     SelectionQuestion,
-    Content
+    Content,
+    Correction
 }
 public enum ProblemType
 {
@@ -225,3 +226,4 @@ public class ARMathUtils
 }
 
 public delegate void CallbackFunction(string param);
+public delegate void CallbackFunction2(string param,List<SceneObject> obj_list, Rect rt);

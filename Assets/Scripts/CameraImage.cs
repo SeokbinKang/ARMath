@@ -53,6 +53,11 @@ public class CameraImage : MonoBehaviour {
         Debug.Log("[ARMath] CAM Paused");
         mThis.webcamTexture.Pause();
     }
+    public static void resume_image()
+    {
+        Debug.Log("[ARMath] CAM Paused");
+        mThis.webcamTexture.Play();
+    }
 
     public Texture2D ProcessImage_twinFrame_texture2d(int l_or_r)
     {

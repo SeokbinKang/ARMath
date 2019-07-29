@@ -6,6 +6,7 @@ using UnityEngine.UI;
 public class GroupGuide : MonoBehaviour {
     public GameObject pre_cell;
     public GameObject pre_bag;
+    public GameObject pre_box;
     public Texture incomplete_box;
     public Texture complete_box;
     public float max_height;
@@ -16,15 +17,20 @@ public class GroupGuide : MonoBehaviour {
     private List<GameObject> cells;
 
     public Color[] charColor;
-	// Use this for initialization
-	void Start () {
+    public List<GameObject> virtual_objs_in_cells;
+    public List<SceneObject> tangible_objs_in_cells;
+    private int[] cell_correction;
+    private string obj_name;
+    // Use this for initialization
+    void Start () {
 		
 	}
 	
 	// Update is called once per frame
 	void Update () {
-		
-	}
+        process_correction_touch();
+
+    }
     void OnEnable()
     {
         //Reset();
@@ -41,8 +47,112 @@ public class GroupGuide : MonoBehaviour {
         }
         progress_active_cell_idx = -1;
 
+        if (virtual_objs_in_cells == null) virtual_objs_in_cells = new List<GameObject>();
+        else virtual_objs_in_cells.Clear();
+        if (tangible_objs_in_cells == null) tangible_objs_in_cells = new List<SceneObject>();
+        else tangible_objs_in_cells.Clear();
+
     }
-   
+    public List<GameObject> get_children()
+    {
+        return cells;
+    }
+    public void Setup_giftbox(int cell_count)
+    {
+        if (cell_count <= 0) return;
+        Reset();
+        if (cells == null) cells = new List<GameObject>();
+        else cells.Clear();
+        Debug.Log("[ARMath] Setting up cells " + cell_count);
+        for (int i = 0; i < cell_count; i++)
+        {
+            GameObject cell = ARMathUtils.create_2DPrefab(pre_box, this.gameObject);
+            cells.Add(cell);                        
+            if (progressive)
+            {
+                cell.SetActive(false);
+            }
+        }
+        cell_correction = new int[cell_count];
+    }
+    public int CheckBoxes(string obj_name_, int num_per_cell)
+    {
+        int res = 0;
+        virtual_objs_in_cells.Clear();
+        //tangible_objs_in_cells.Clear();
+        Debug.Log("[ARMath] Check cells " + cells.Count);
+        obj_name = obj_name_;
+        for(int i=0;i<cells.Count;i++)
+        {
+            GameObject cell = cells[i];
+            if (cell_correction[i]>0) {
+                res++;
+                continue;
+            }
+
+            List<SceneObject> objs_in_cell = cell.GetComponent<ObjectContainer>().get_objects_in_rect(obj_name_);
+            if (objs_in_cell != null && (objs_in_cell.Count == num_per_cell))
+            {
+                res++;
+                UpdateBoxAnim(cell, true, num_per_cell);
+                //cell.GetComponent<Animator>().SetTrigger("close");
+                //may want to put a message here.
+                tangible_objs_in_cells.AddRange(objs_in_cell);
+                cell_correction[i]++;
+            } else  {
+                int k;
+                if (objs_in_cell == null) k = 0;
+                else k = objs_in_cell.Count;
+                //UpdateBoxAnim(cell, false, k);
+            }
+        }
+        
+
+        return res;
+    }
+    private void process_correction_touch()
+    {
+
+        if (Input.touchCount > 0)
+        {
+            Touch touch = Input.GetTouch(0);
+            if (touch.phase == TouchPhase.Began)
+            {
+                Vector2 user_pos = touch.position;
+                
+                for (int i = 0; i < cells.Count; i++)
+                {
+                    bool hit = ARMathUtils.check_in_recttransform(user_pos, cells[i]);
+                    if (hit)
+                    {
+                        user_pos.y = Screen.height - user_pos.y;
+                        CatalogItem ci = new CatalogItem();
+                        ci.Box = new Rect(user_pos, new Vector2(80, 80));
+                        ci.DisplayName = obj_name;
+                        SceneObjectManager.add_new_object(ci, 180);
+
+//                        cell_correction[i]++;
+                    }
+                }
+                
+              
+             
+            }
+
+        }
+    }
+    public List<GameObject> get_virtual_objects_in_cells()
+    {
+        return this.virtual_objs_in_cells;
+    }
+    public List<SceneObject> get_tangible_objects_in_cells()
+    {
+        return this.tangible_objs_in_cells;
+    }
+    private void scaffold_box()
+    {
+        //check incomplete boxes and indicate an interaction.
+    }
     public void Setup(int cell_count)
     {
         if (cell_count <= 0) return;
@@ -200,6 +310,21 @@ public class GroupGuide : MonoBehaviour {
             }
             cells[cell_index].SetActive(true);
         }
+    }
+    private void UpdateBoxAnim(GameObject cell, bool complete, int num)
+    {
+        if (complete)
+        {
+            cell.GetComponent<Animator>().SetTrigger("close");
+        }
+        else
+        {
+            cell.GetComponent<Animator>().SetTrigger("open");
+        }
+        Text t_label = cell.GetComponentInChildren<Text>();
+        if(t_label!=null) t_label.text = num.ToString();
+
+
     }
     private void UpdateCell(GameObject cell, bool complete, int num)
     {

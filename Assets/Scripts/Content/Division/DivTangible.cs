@@ -7,10 +7,8 @@ public class DivTangible : MonoBehaviour {
 
 
 
-    public GameObject board;
+    
     public GameObject groups;
-    public GameObject problemboard;
-    public GameObject problemboard_text;
     public GameObject ContentModuleRoot;
 
 
@@ -31,15 +29,13 @@ public class DivTangible : MonoBehaviour {
     }
     private void Reset()
     {
-        board.SetActive(false);
-        groups.SetActive(true);
-        problemboard.SetActive(false);
+      
         UserInteracting = false;
     }
     // Update is called once per frame
     void Update()
     {
-        if (UserInteracting) UpdateBoard();
+        
 
         if (Time.time > nextActionTime)
         {
@@ -58,7 +54,7 @@ public class DivTangible : MonoBehaviour {
         int divisor = ContentModuleRoot.GetComponent<ContentDiv>().divisor;
         int quotient = ContentModuleRoot.GetComponent<ContentDiv>().quotient;
 
-        int full_cells = groups.GetComponent<GroupGuide>().CheckCells(quotient, obj_name);
+        int full_cells = groups.GetComponent<GroupGuide>().CheckBoxes(obj_name,quotient);
 
         if (full_cells == divisor) OnCompletion();
 
@@ -67,21 +63,10 @@ public class DivTangible : MonoBehaviour {
     private void OnCompletion()
     {
         UserInteracting = false;
-        string obj_name = ContentModuleRoot.GetComponent<ContentDiv>().target_object_name;
-        Dialogs.add_dialog(new DialogItem(DialogueType.left_bottom_plain,
-               "Good job! How many " + obj_name + "s are there in each bag? [TODO:input UI]",
-              true,
-              new CallbackFunction(OnCompletion2),
-              "none"
-              ));
+        this.transform.parent.GetComponent<ContentSolver>().start_review();
 
         //Answer UI needs to be added
 
-    }
-    private void OnCompletion2(string p)
-    {
-
-        ContentModuleRoot.GetComponent<ContentDiv>().onSolved();
     }
     public void loadPrompt()
     {
@@ -89,42 +74,27 @@ public class DivTangible : MonoBehaviour {
         int dividend = ContentModuleRoot.GetComponent<ContentDiv>().dividend;
         int divisor = ContentModuleRoot.GetComponent<ContentDiv>().divisor;
 
-        groups.SetActive(true);
-        groups.GetComponent<GroupGuide>().Setup(divisor);
-        Debug.Log("[ARMath] -----------------------");
+        
+        
+      
         Dialogs.add_dialog(new DialogItem(DialogueType.left_bottom_plain,
-              "I want you to put the same number of "+obj_name+"s in each bag. How many "+obj_name+"s go in each bag?",
-              true,
-              null,
-              ""
-              ));
-        Dialogs.add_dialog(new DialogItem(DialogueType.left_bottom_plain,
-               "Let's move " + obj_name + "s to the bags",
+               "Let's place an equal number of chocolates in each box. You can move the chocolates on the table",
                true,
                new CallbackFunction(StartOperation),
                "none"
                ));
 
     }
+    private void OnCompletion2(string p)
+    {
+
+        ContentModuleRoot.GetComponent<ContentDiv>().onSolved();
+    }
+   
     public void StartOperation(string p)
     {
-        UserInteracting = true;
-
-        UpdateBoard();
-
-        problemboard.SetActive(true);
-        board.SetActive(false);
-
+        UserInteracting = true;        
     }
 
-    private void UpdateBoard()
-    {
-        string obj_name = ContentModuleRoot.GetComponent<ContentDiv>().target_object_name;
-        int dividend = ContentModuleRoot.GetComponent<ContentDiv>().dividend;
-        int divisor = ContentModuleRoot.GetComponent<ContentDiv>().divisor;
-
-        //if (board.activeSelf != false) board.GetComponent<board>().enable_number_only(init_n + sign + System.Math.Abs(cur_n - init_n) + " = " + cur_n);
-        problemboard_text.GetComponent<Text>().text = dividend + "(" + obj_name + "s) ÷ " + divisor + " (bags) = ? ";
-
-    }
+    
 }

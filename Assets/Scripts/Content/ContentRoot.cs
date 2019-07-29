@@ -117,7 +117,7 @@ public class ContentRoot : MonoBehaviour {
             mContentAddition.SetActive(false);
             mContentMult.SetActive(false);
             resetresources();
-            mContentDiv.GetComponent<ContentMulti>().Reset();
+            mContentDiv.GetComponent<ContentDiv>().Reset();
 
         }
 

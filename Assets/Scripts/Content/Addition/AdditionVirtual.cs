@@ -12,8 +12,8 @@ public class AdditionVirtual : MonoBehaviour
 
 
     public GameObject container;
-    public GameObject root_movables;   
-
+    public GameObject root_movables;
+    public GameObject region;
     public GameObject ContentModuleRoot;
 
     public GameObject[] movable_objects;
@@ -117,54 +117,24 @@ public class AdditionVirtual : MonoBehaviour
 
     private void count_object_fix_realones()
     {
-        if (!container || !UserInteracting) return;
+        if (!UserInteracting) return;
         
         int virtual_n = 0;
         int cur_n = 0;
         int goal_n = ContentModuleRoot.GetComponent<ContentAddition>().goal_object_count;
         int init_n = ContentModuleRoot.GetComponent<ContentAddition>().init_object_count;
-        List<SceneObject> objs = SceneObjectManager.mSOManager.get_objects_by_name(target_object_name);
+        //List<SceneObject> objs = SceneObjectManager.mSOManager.get_objects_by_name(target_object_name);
         
         bool[] number_label = new bool[init_n];
-        //init_n = objs.Count;
-        /*
-        for (int i = 0; i < number_label.Length && i<objs.Count; i++)
-        {  //TODO: detach higher number label
-            
-            int number_label_value = objs[i].get_number_feedback();
-            if (number_label_value > 0 && number_label_value <= number_label.Length)
-            {
-                number_label[number_label_value - 1] = true;
-
-            }
-        }
-        //check tangible objects in the bag
-        for (int i = 0; i < number_label.Length; i++)
-        {
-            if (!number_label[i])
-            {
-                foreach (SceneObject so in objs)
-                {
-                    if (so.get_number_feedback() <= 0)
-                    {
-                        Vector3 targetPos = new Vector3(so.catalogInfo.Box.center.x, Screen.height - so.catalogInfo.Box.center.y, 0);
-                        GameObject label = FeedbackGenerator.mThis.create_number_feedback(targetPos, i + 1, true);
-                        so.attach_object(label);
-                        break;
-                    }
-                }
-            }
-
-        }*/
+        
         virtual_n = 0;
         //check virtual objects in the bag
+        GameObject container = region.GetComponent<RegionControl>().getRegion(1);
         foreach (GameObject o in movable_objects)
         {
             bool contained = container.GetComponent<ObjectContainer>().in_container(o);
             if (contained) virtual_n++;
         }
-
-
 
         cur_n = virtual_n;
 
@@ -181,7 +151,7 @@ public class AdditionVirtual : MonoBehaviour
             OnCount();
         }
     }
-    private void count_object()
+    private void count_object_DEPRECATED()
     { //DEPRECATED
         if (!container || !UserInteracting) return;
         int init_n = ContentModuleRoot.GetComponent<ContentAddition>().init_object_count;
@@ -211,7 +181,7 @@ public class AdditionVirtual : MonoBehaviour
                     if (so.get_number_feedback() <= 0)
                     {
                         Vector3 targetPos = new Vector3(so.catalogInfo.Box.center.x, Screen.height - so.catalogInfo.Box.center.y, 0);
-                        GameObject label = FeedbackGenerator.mThis.create_number_feedback(targetPos, i + 1, true);
+                        GameObject label = FeedbackGenerator.create_number_feedback(targetPos, i + 1, true);
                         so.attach_object(label);
                         break;
                     }
@@ -237,7 +207,6 @@ public class AdditionVirtual : MonoBehaviour
         
         if (prev_n != cur_n)
         {
-            
             item_mask.GetComponent<vertical_mask>().set_visible_percent(((float)cur_n / (float)goal_n));
             prev_n = cur_n;
             int added = cur_n - prev_n;
@@ -295,7 +264,7 @@ public class AdditionVirtual : MonoBehaviour
         int add_n = goal_n - init_n;
        
         Dialogs.add_dialog(new DialogItem(DialogueType.left_bottom_plain,
-            "You can get coins out of the piggy bank by moving them on the screen.",
+            "You can get coins out of the piggy bank by moving them on the screen. ",
             true,
             new CallbackFunction(StartOperation),
             "",

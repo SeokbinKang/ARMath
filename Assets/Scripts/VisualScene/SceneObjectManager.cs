@@ -32,7 +32,7 @@ public class SceneObjectManager : MonoBehaviour {
     {
         foreach (SceneObject so in mObjectPool)
         {
-            so.clear_feedback();
+            so.clear_all_feedback();
         }
         mObjectPool.Clear();
 
@@ -41,7 +41,7 @@ public class SceneObjectManager : MonoBehaviour {
     {
         foreach (SceneObject so in mObjectPool)
         {
-            so.clear_feedback();
+            so.clear_all_feedback();
         }
     }
     public void add_new_object(List<CatalogItem> catalog_items)
@@ -55,7 +55,19 @@ public class SceneObjectManager : MonoBehaviour {
             }
         }
     }
-
+    public static void add_new_object(CatalogItem i, float life_sec)
+    {
+        
+            if (mSOManager.interactable_objects.Contains(i.DisplayName))
+            {
+                SceneObject new_object = new SceneObject(i);
+                new_object.id = mSOManager.object_id_counter++;
+            new_object.extend_life(life_sec);
+                mSOManager.add_new_object(new_object);
+                
+            }
+        
+    }
     public SceneObject get_object(int id_)
     {
         foreach (SceneObject so in mObjectPool)
@@ -114,6 +126,7 @@ public class SceneObjectManager : MonoBehaviour {
     public List<SceneObject> get_objects_in_rect(Rect rect, string obj_name)
     {
         List<SceneObject> ret = new List<SceneObject>();
+        Debug.Log("[ARMath] get_objects_in_rect " + rect.position + "  " + obj_name + "  ");
         foreach (SceneObject so in mObjectPool)
         {
             if (so.catalogInfo.DisplayName==obj_name && so.check_in_box(rect))
@@ -235,7 +248,7 @@ public class SceneObject
     }
     ~SceneObject()
     {
-        clear_feedback();
+        clear_all_feedback();
 
     }
     public SceneObject(CatalogItem ci)
@@ -249,7 +262,7 @@ public class SceneObject
     {
         if (Time.time > time_expire)
         {
-            clear_feedback();
+            clear_all_feedback();
             return true;
         }
         return false;
@@ -264,7 +277,7 @@ public class SceneObject
     {
         return !been_interacted;
     }
-    public void clear_feedback()
+    public void clear_all_feedback()
     {
         if (attached_feedback_gameobject != null)
         {
@@ -277,7 +290,22 @@ public class SceneObject
         }
 
     }
-    public bool is_feedback_attached()
+    public void clear_number_feedback()
+    {
+        if (attached_feedback_gameobject != null)
+        {
+            foreach (var i in attached_feedback_gameobject)
+            {
+                number_cartoon n_c = i.GetComponent<number_cartoon>();
+                if (n_c != null)
+                {
+                    GameObject.Destroy(i);
+                }
+            }
+
+        }
+    }
+        public bool is_feedback_attached()
     {
         if (attached_feedback_gameobject.Count > 0) return true;
         return false;
@@ -300,6 +328,7 @@ public class SceneObject
         }
         return null;
     }
+  
     public int get_number_feedback()
     {
         int ret = -1;
@@ -307,6 +336,7 @@ public class SceneObject
         {
             foreach(GameObject o in attached_feedback_gameobject)
             {
+                if (o == null) continue;
                 number_cartoon n_c = o.GetComponent<number_cartoon>();
                 if (n_c != null) return n_c.num;
             }
@@ -325,6 +355,10 @@ public class SceneObject
     public void extend_life()
     {
         time_expire = Time.time + SystemParam.param_object_lifetime;
+    }
+    public void extend_life(float t)
+    {
+        time_expire = Time.time + t;
     }
 
     public bool check_overlap(SceneObject o)
@@ -356,7 +390,12 @@ public class SceneObject
         //}
         return ret;
     }
+    public Vector2 get_screen_pos()
+    {
+        Rect box = this.catalogInfo.Box;
+        return new Vector2(box.center.x, Screen.height - box.center.y);
 
+    }
     public bool check_in_box(Rect rect)
     {
         

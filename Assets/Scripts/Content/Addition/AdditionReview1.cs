@@ -12,7 +12,7 @@ public class AdditionReview1 : MonoBehaviour {
     public GameObject msg3_dummy;
     public GameObject reward;
     public GameObject virtual_solver;
-    
+    public GameObject region;
 	// Use this for initialization
 	void Start () {
 		
@@ -91,9 +91,11 @@ public class AdditionReview1 : MonoBehaviour {
     private void highlight_objects_tangible(float delay1,float delay2)
     {
         string target_object_name = content_root.GetComponent<ContentAddition>().target_object_name;
-        List<SceneObject> objs = SceneObjectManager.mSOManager.get_objects_by_name(target_object_name);
+        List<SceneObject> objs = ARMathUtils.get_objects_in_rect(region.GetComponent<RegionControl>().getRegion(0), target_object_name);
+        List<SceneObject> objs_added = ARMathUtils.get_objects_in_rect(region.GetComponent<RegionControl>().getRegion(1), target_object_name);
         int goal_n = content_root.GetComponent<ContentAddition>().goal_object_count;
         int init_n = content_root.GetComponent<ContentAddition>().init_object_count;
+        int added_n = goal_n - init_n;
 
         //init_n = objs.Count;
         int i = 0;
@@ -103,9 +105,9 @@ public class AdditionReview1 : MonoBehaviour {
             FeedbackGenerator.create_target(targetPos, delay1, 10-delay1, 0);
         }
 
-        for (; i < goal_n && i < objs.Count; i++)
+        for (i=0; i < added_n && i < objs_added.Count; i++)
         {  //TODO: detach higher number label
-            Vector3 targetPos = new Vector3(objs[i].catalogInfo.Box.center.x, Screen.height - objs[i].catalogInfo.Box.center.y, 0);
+            Vector3 targetPos = new Vector3(objs_added[i].catalogInfo.Box.center.x, Screen.height - objs_added[i].catalogInfo.Box.center.y, 0);
             FeedbackGenerator.create_target(targetPos, delay2, 10-delay2, 1);
         }
 
@@ -114,7 +116,8 @@ public class AdditionReview1 : MonoBehaviour {
     private void highlight_objects_virtual(float delay1, float delay2)
     {
         string target_object_name = content_root.GetComponent<ContentAddition>().target_object_name;
-        List<SceneObject> objs = SceneObjectManager.mSOManager.get_objects_by_name(target_object_name);
+        List<SceneObject> objs = ARMathUtils.get_objects_in_rect(region.GetComponent<RegionControl>().getRegion(0), target_object_name);
+        //List<SceneObject> objs = SceneObjectManager.mSOManager.get_objects_by_name(target_object_name);
         int init_n = content_root.GetComponent<ContentAddition>().init_object_count;
         int added = content_root.GetComponent<ContentAddition>().goal_object_count - init_n;
 

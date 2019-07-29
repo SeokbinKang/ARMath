@@ -60,6 +60,20 @@ public class FeedbackGenerator : MonoBehaviour {
             }
         }
 	}
+    public static void create_target(GameObject go, float start_delay, float lifetime, int color_index)
+    {
+        RectTransform rt = go.GetComponent<RectTransform>();
+        if (rt == null) return;
+        create_target(rt.position, start_delay, lifetime, color_index);
+    }
+    public static GameObject create_target(SceneObject so, float start_delay, float lifetime, int color_index)
+    {
+        
+        if (so == null) return null;
+        GameObject t = create_target(so.get_screen_pos(), start_delay, lifetime, color_index);
+        return t;
+    }
+
     public static void create_target(Vector3 pos, float start_delay, float lifetime)
     {
         Vector3 targetPos = pos;
@@ -73,7 +87,7 @@ public class FeedbackGenerator : MonoBehaviour {
         mThis.timer_feedback.Add(new GameObject_timer(label,start_delay,lifetime));        
         
     }
-    public static void create_target(Vector3 pos, float start_delay, float lifetime, int color_index)
+    public static GameObject create_target(Vector3 pos, float start_delay, float lifetime, int color_index)
     {
         Vector3 targetPos = pos;
 
@@ -86,6 +100,7 @@ public class FeedbackGenerator : MonoBehaviour {
             //mThis.color_terms[color_index];
         label.SetActive(false);
         mThis.timer_feedback.Add(new GameObject_timer(label, start_delay, lifetime));
+        return label;
 
     }
     public static GameObject create_number_feedback(Vector3 position, int value, float start_delay, float lifetime)
@@ -151,15 +166,15 @@ public class FeedbackGenerator : MonoBehaviour {
 
         return label;
     }
-    public GameObject create_number_feedback(Vector3 position, int value, bool active_)
+    public static GameObject create_number_feedback(Vector3 position, int value, bool active_)
     {
         Vector3 targetPos = position;
-        UnityEngine.GameObject label = Instantiate(prefabe_number_cartoon_digit, targetPos ,Quaternion.identity) as GameObject;                
+        UnityEngine.GameObject label = Instantiate(mThis.prefabe_number_cartoon_digit, targetPos ,Quaternion.identity) as GameObject;                
         RectTransform r = label.GetComponent<RectTransform>();
         r.position = targetPos;        
        // label.GetComponent<RectTransform>().position = r.position;
         label.GetComponent<RectTransform>().localScale = new Vector3(1f,1f,1f);
-        label.transform.SetParent(this.gameObject.transform);
+        label.transform.SetParent(mThis.gameObject.transform);
         label.GetComponent<number_cartoon>().set_number(value);
 
         label.SetActive(active_);

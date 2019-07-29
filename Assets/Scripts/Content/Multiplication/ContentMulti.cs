@@ -10,7 +10,7 @@ public class ContentMulti : MonoBehaviour {
     public GameObject sub_explorer;
     
     public GameObject sub_solver;    
-    public GameObject sub_review;
+    
 
 
     public string target_object_name;    
@@ -53,7 +53,7 @@ public class ContentMulti : MonoBehaviour {
         if (sub_trees) sub_trees.SetActive(false);
         if (sub_explorer) sub_explorer.SetActive(false);
         if(sub_solver) sub_solver.SetActive(false);
-        if(sub_review) sub_review.SetActive(false);        
+        
         is_idle = true;
         is_solved = false;
         target_base_num = 0;

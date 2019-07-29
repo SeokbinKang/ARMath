@@ -43,9 +43,9 @@ public class ContentGeometry : MonoBehaviour
         {
             nextActionTime = Time.time + SystemParam.system_update_period;
             // execute block of code here
-            s1_UpdateExplorer();
+            //s1_UpdateExplorer();
         }
-        if(sub_explorer.activeSelf) process_explorer_touch();
+        //if(sub_explorer.activeSelf) process_explorer_touch();
     }
     void OnEnable()
     {
@@ -85,13 +85,42 @@ public class ContentGeometry : MonoBehaviour
           7
           ));
         Dialogs.add_dialog(new DialogItem(DialogueType.left_bottom_plain,
-        "Can you find an object that looks like a rectangle for me? You can tap it on the screen.",
+        "Can you find an object that looks like a rectangle for me? ",
         true,
-        null,
+         new CallbackFunction(s1_search_objects),
         "",
         5
         ));
 
+    }
+    public void s1_search_objects(string t)
+    {
+        if (is_solved)
+        {
+            return;
+        }
+        List<string> objs = new List<string>(rectangle_objects);
+        Tools.finder_geometry_init(objs, new CallbackFunction(s2_objectfound), "");
+
+    }
+    public void s2_objectfound(string p)
+    {
+        //SetIdle(false);
+        CameraImage.pause_image();
+        Dialogs.add_dialog(new DialogItem(DialogueType.left_bottom_plain,
+                "Oh! That " + p + " realy looks like a " + ARMathUtils.shape_name(target_object_shape),
+                true,
+                null,
+                "",
+                4.5f
+                ));
+        Dialogs.add_dialog(new DialogItem(DialogueType.left_bottom_plain,
+                "Can you draw the " + ARMathUtils.shape_name(target_object_shape) + " on the screen?",
+                true,
+                new CallbackFunction(s3_findtheshape),
+                ARMathUtils.shape_name(target_object_shape),
+                4.5f
+                ));
     }
     public void s1_UpdateExplorer()
     {
@@ -157,33 +186,13 @@ public class ContentGeometry : MonoBehaviour
                 else
                 {
                     FeedbackGenerator.create_target(user_pos, 0, 1.5f, 0);
-                    s2_OnExplorer();
+                    //s2_OnExplorer();
                 }
             }
 
         }
     }
-    public void s2_OnExplorer()
-    {
-        SetIdle(false);        
-        CameraImage.pause_image();
-        Dialogs.add_dialog(new DialogItem(DialogueType.left_bottom_plain,
-                "Oh! That " + target_object_name + " looks like a " + ARMathUtils.shape_name(target_object_shape),
-                true,
-                null,
-                "",
-                4.5f
-                ));
-        Dialogs.add_dialog(new DialogItem(DialogueType.left_bottom_plain,
-                "Can you draw the " + ARMathUtils.shape_name(target_object_shape) + " on the screen?",
-                true,
-                new CallbackFunction(s3_findtheshape),
-                ARMathUtils.shape_name(target_object_shape),
-                4.5f
-                ));
-
-
-    }
+  
     public void s3_findtheshape(string param)
     {
         sub_builder.SetActive(true);

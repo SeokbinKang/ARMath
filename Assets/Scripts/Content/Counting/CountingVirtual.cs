@@ -71,7 +71,7 @@ public class CountingVirtual : MonoBehaviour {
             if (so.is_interactive())
             {
                 so.interact();
-                so.clear_feedback();
+                so.clear_all_feedback();
                 
             }
             else return;
