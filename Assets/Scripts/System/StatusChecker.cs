@@ -45,8 +45,9 @@ public class StatusChecker : MonoBehaviour {
         bool question_selected = false;
         if(SystemUser.current_user==null)
         {
-            promptUser.SetActive(true);
-            TTS.mTTS.GetComponent<TTS>().StartTextToSpeech("Please tell me who you are");
+            SystemControl.mSystemControl.onUser();
+            /*promptUser.SetActive(true);
+            TTS.mTTS.GetComponent<TTS>().StartTextToSpeech("Please tell me who you are");*/
             return;
         }
 

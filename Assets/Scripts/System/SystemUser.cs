@@ -1,21 +1,34 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
+using System.IO;
+
+using System.Text;
+using System.Xml;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class SystemUser : MonoBehaviour
 {
+    public static SystemUser mThis;
     public static UserInfo current_user=null;
     public GameObject user_panels_control;
     public GameObject prefab_user_panel;
+    public GameObject new_user_prompt;
+    public GameObject new_user_prompt_lastusers;
+    public GameObject user_status;
+    public GameObject input_name;
 
     private int pPanelWidth = 2200;
+    private string xmlLoc;
 
     public static List<UserInfo> user_list;
     // Use this for initialization
     void Start()
     {
-        
-        loadAllUserProfiles();
+        mThis = this;
+
+
 
     }
 
@@ -24,13 +37,207 @@ public class SystemUser : MonoBehaviour
     {
 
     }
+    private void OnEnable()
+    {
+        if (current_user == null)
+        {
+            initUserProfile();
+            new_user_prompt.SetActive(true);
+            user_status.SetActive(false);
+        }
+         else
+        {
+            new_user_prompt.SetActive(false);
+         //   this.prefab_user_panel.GetComponent<user_panel>().LoadUser(current_user);
+            user_status.SetActive(true);
+        }
+        //start the user name input / selection menu
+
+    }
+    private void initUserProfile()
+    {
+        if (Application.platform == RuntimePlatform.Android)
+        {
+            xmlLoc = Application.persistentDataPath + @"/ARMath_user_profile.xml";
+        } else
+        {
+            xmlLoc = "ARMath_user_profile.xml";
+        }
+        if (!File.Exists(xmlLoc))
+        {
+            createUserXML();
+        }
+        loadUserProfiles(0);
+
+        
+        //loadAllUserProfiles();
+    }
+    void createUserXML()
+    {
+        try
+        {
+            //File.Create(xmlLoc).Dispose(); // Break the stream with file immediately after file creation
+            XmlDocument xmlDoc = new XmlDocument();
+            XmlDeclaration xmlDeclaration = xmlDoc.CreateXmlDeclaration("1.0", "UTF-8", null);
+            XmlElement root = xmlDoc.DocumentElement;
+            xmlDoc.InsertBefore(xmlDeclaration, root);
+            XmlNode rootu = xmlDoc.CreateNode("element", "users", "");
+            xmlDoc.AppendChild(rootu);
+            xmlDoc.Save(xmlLoc);
+            /*try
+            {
+                using (StreamWriter sW = new StreamWriter(xmlLoc))
+                { // This will dispose he resources used by StreamWriter
+                    sW.WriteLine("<?xml version=\"1.0\" encoding=\"UTF-8\"?>");
+                    sW.WriteLine("<users>");                    
+                    sW.WriteLine("</users>");
+                }
+            }
+            catch (IOException ex)
+            {
+                Debug.Log("Error setting up root element for XML : " + ex.TargetSite);
+            }*/
+        }
+        catch (IOException ex)
+        {
+            Debug.Log("Error creating xml file : " + ex.TargetSite);
+        }
+    }
+    private void loadUserProfiles(int u_id) {
+        XmlDocument xmlDoc = new XmlDocument(); // xmlDoc is the new xml document.
+        xmlDoc.Load(xmlLoc); // load the file.
+        XmlNodeList userList = xmlDoc.GetElementsByTagName("user");
+        XmlNodeList userRoot = xmlDoc.GetElementsByTagName("users");
+        user_list = new List<UserInfo>();
+        if(userRoot==null || userRoot.Count==0)
+        {
+            Debug.Log("Error <users> doesn't exist in user profile xml file : ");
+            return;
+        }
+        foreach(XmlNode userXML in userList)
+        {
+            UserInfo u = new UserInfo();
+            XmlNodeList userproperties = userXML.ChildNodes;
+            foreach(XmlNode prop in userproperties)
+            {
+                if(prop.Name=="lastused")
+                {
+                    u.lastused = System.Convert.ToInt32(prop.InnerXml);
+                } else if(prop.Name =="name")
+                {
+                    u.user_name = prop.InnerXml;
+                } else if (prop.Name == "id")
+                {
+                    u.user_id = System.Convert.ToInt32(prop.InnerXml);
+                }
+            }
+            user_list.Add(u);
+            
+        }
+        SetCurrentUser(u_id);
+        new_user_prompt_lastusers.GetComponent<usericons>().load_users(user_list);
+        //load
+
+
+    }
+    private void update_user(UserInfo u)
+    {
+        XmlDocument xmlDoc = new XmlDocument(); // xmlDoc is the new xml document.
+        xmlDoc.Load(xmlLoc); // load the file.
+        XmlNodeList userList = xmlDoc.GetElementsByTagName("user");
+        XmlNodeList userRoot = xmlDoc.GetElementsByTagName("users");
+        user_list = new List<UserInfo>();
+        if (userRoot == null || userRoot.Count == 0)
+        {
+            Debug.Log("Error <users> doesn't exist in user profile xml file : ");
+            return;
+        }
+        XmlNode user_profile_xml = null;
+        foreach (XmlNode userXML in userList)
+        {            
+            XmlNodeList userproperties = userXML.ChildNodes;
+            foreach (XmlNode prop in userproperties)
+            {
+                
+                if (prop.Name == "id" && prop.InnerXml == u.user_id.ToString())
+                {
+                    user_profile_xml = userXML;
+
+                }
+            }
+            
+        }
+        if(user_profile_xml==null)
+        {
+            user_profile_xml = xmlDoc.CreateNode("element", "user", "");
+            userRoot[0].AppendChild(user_profile_xml);
+            XmlNode xml_id = xmlDoc.CreateNode("element", "id", "");
+            xml_id.InnerXml = u.user_id.ToString();
+            XmlNode xml_name = xmlDoc.CreateNode("element", "name", "");
+            xml_name.InnerXml = u.user_name;
+            XmlNode xml_lastused = xmlDoc.CreateNode("element", "lastused", "");
+            xml_lastused.InnerXml = DateTime.Now.ToString("MMddHHmm");
+            user_profile_xml.AppendChild(xml_id);
+            user_profile_xml.AppendChild(xml_name);
+            user_profile_xml.AppendChild(xml_lastused);
+
+        } else
+        {
+            foreach (XmlNode prop in user_profile_xml)
+            {
+                if (prop.Name == "lastused")
+                {
+                    prop.InnerXml = DateTime.Now.ToString("MMddHHmm"); 
+                    
+                }
+                else if (prop.Name == "name")
+                {
+                    prop.InnerXml = u.user_name;
+                }
+                else if (prop.Name == "id")
+                {
+                    prop.InnerXml = u.user_id.ToString();
+                }
+            }
+        }
+        xmlDoc.Save(xmlLoc);
+    }
+    public void new_user()
+    {
+        string name= input_name.GetComponent<Text>().text;
+        if (name == "")
+        {
+            TTS.mTTS.GetComponent<TTS>().StartTextToSpeech("Please enter your name");
+            return;
+        }
+        UserInfo u = new UserInfo();
+        u.user_name = name;
+        Debug.Log("1" + DateTime.Now.ToString("HHmmss"));
+        u.user_id = System.Convert.ToInt32("1"+DateTime.Now.ToString("HHmmss"));
+        update_user(u);
+        loadUserProfiles(u.user_id);
+
+        user_status.SetActive(true);
+        new_user_prompt.SetActive(false);
+        user_status.GetComponentInChildren<user_panel>().LoadUser(current_user);
+
+    }
+    public static void OnSelectUser(int user_id)
+    {
+        SetCurrentUser(user_id);
+        mThis.user_status.SetActive(true);
+        mThis.new_user_prompt.SetActive(false);
+        mThis.user_status.GetComponentInChildren<user_panel>().LoadUser(current_user);
+    }
+
     public static void AddGem(ProblemType p)
     {
         Gem g = new Gem();
         g.problem_type = p;
         current_user.AddGem(g);
+        mThis.GetComponent<AudioSource>().Play();
     }
-    public static void SetCurrentUser(float uid)
+    public static void SetCurrentUser(int uid)
     {
         foreach (UserInfo u in user_list)
         {
@@ -38,6 +245,7 @@ public class SystemUser : MonoBehaviour
             {
                 current_user = u;
                 Debug.Log("[ARMath] Set the current user for UID:" + uid);
+                mThis.update_user(current_user);
                 return;
             }
         }
@@ -82,10 +290,10 @@ public class SystemUser : MonoBehaviour
         u2.user_name = "group2";
         u3.user_name = "group3";
         u4.user_name = "group4";
-        u1.user_id = 343f;
-        u2.user_id = 23232f;
-        u3.user_id = 343454f;
-        u4.user_id = 34f;
+        u1.user_id = 343;
+        u2.user_id = 23232;
+        u3.user_id = 343454;
+        u4.user_id = 34;
         Gem g = new Gem();
         g.problem_type = ProblemType.p1_counting;
         u1.AddGem(g);

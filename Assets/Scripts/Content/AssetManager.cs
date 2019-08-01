@@ -11,6 +11,7 @@ public class AssetManager : MonoBehaviour {
     public string[] object_singular_name;
     public string[] object_plural_name;
     public Color[] colors;
+    public GameObject[] reward_icons;
     private Dictionary<string,GameObject> object_icon_map;
     // Use this for initialization
     void Start () {
@@ -64,5 +65,9 @@ public class AssetManager : MonoBehaviour {
             return count + " " + mThis.object_plural_name[idx];
         }
         return ret;
+    }
+    public static GameObject reward_icon(ProblemType t)
+    {
+        return mThis.reward_icons[(int)t];
     }
 }

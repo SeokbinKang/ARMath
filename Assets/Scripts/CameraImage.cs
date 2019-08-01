@@ -65,8 +65,8 @@ public class CameraImage : MonoBehaviour {
         TextureTools.RectOptions option = TextureTools.RectOptions.TopLeft;
         if (l_or_r == 1) option = TextureTools.RectOptions.TopRight;
         var cropped = TextureTools.CropTexture(webcamTexture, option);
-        //  Debug.Log("Original Image size = " + webcamTexture.width + " " + webcamTexture.height);
-        //   Debug.Log("Cropped  Image size = " + cropped.width + " " + cropped.height);
+        //Debug.Log("Original Image size = " + webcamTexture.width + " " + webcamTexture.height);
+        //Debug.Log("Cropped  Image size = " + cropped.width + " " + cropped.height);
         //scale
         var scaled = TextureTools.scaled(cropped, SystemParam.image_size, SystemParam.image_size, FilterMode.Bilinear);
         UnityEngine.Object.Destroy(cropped);

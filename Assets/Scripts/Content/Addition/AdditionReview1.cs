@@ -8,6 +8,7 @@ public class AdditionReview1 : MonoBehaviour {
     public GameObject content_root;
     public GameObject agent;
     public GameObject msg1;
+    public GameObject msg2_box;
     public GameObject msg2;
     public GameObject msg3_dummy;
     public GameObject reward;
@@ -28,11 +29,14 @@ public class AdditionReview1 : MonoBehaviour {
         init_review();
         agent.SetActive(true);
         reward.SetActive(false);
+        msg2_box.SetActive(true);
     }
     private void OnDisable()
     {
         agent.SetActive(false);
         reward.SetActive(false);
+        msg2_box.SetActive(false);
+
     }
 
     private void init_review()
@@ -84,6 +88,7 @@ public class AdditionReview1 : MonoBehaviour {
     }
     public void OnCompletion(string t)
     {
+        msg2_box.SetActive(false);
 
         reward.SetActive(true);
         //content_root.GetComponent<ContentAddition>().onSolved();

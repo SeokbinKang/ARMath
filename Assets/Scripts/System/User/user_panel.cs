@@ -11,7 +11,7 @@ public class user_panel : MonoBehaviour {
     public GameObject select;
     public GameObject name_label;
 
-    private float uid;
+    private int uid;
 	// Use this for initialization
 	void Start () {
 
@@ -31,6 +31,10 @@ public class user_panel : MonoBehaviour {
 	void Update () {
 		
 	}
+    private void OnEnable()
+    {
+        LoadUser(SystemUser.current_user);
+    }
     public void LoadUser(UserInfo u)
     {
         //update character

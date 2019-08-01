@@ -6,12 +6,15 @@ using UnityEngine.UI;
 public class Finder : MonoBehaviour
 {
 
+    public GameObject finder_obj;
     public GameObject view;
-    public GameObject txt;
-    public GameObject confirm_txt;
+    public GameObject text1_instruction;
+    public GameObject text2_confirmation;
+    public GameObject text3_correction;
     private CallbackFunction call_back;
     private CallbackFunction2 call_back2;
     public string obj_name;
+    public string obj_name_plural;
     public int min_number_of_objects;
     private string param;
     private float nextActionTime = 0.0f;
@@ -27,16 +30,16 @@ public class Finder : MonoBehaviour
     {
         if (Time.time > nextActionTime)
         {
-            nextActionTime = Time.time + SystemParam.system_update_period;
+            nextActionTime = Time.time + SystemParam.system_object_checking_period;
             // execute block of code here
             //   Debug.Log("[ARMath] update finder ");
             if (call_back != null || call_back2 != null)
             {
-                if (txt.activeSelf) check_object();
+               check_object(false);
             }
 
         }
-        if(confirm_txt.activeSelf) handle_touch();
+        if(text3_correction.activeSelf) handle_touch();
 
     }
     private void OnEnable()
@@ -45,11 +48,12 @@ public class Finder : MonoBehaviour
     }
     private void Reset()
     {
-        txt.SetActive(true);
-        confirm_txt.SetActive(false);
+        text1_instruction.SetActive(true);
+        text2_confirmation.SetActive(false);
+        text3_correction.SetActive(false);
         
     }
-    private void check_object()
+    public void check_object(bool confirm)
     {
         
         List<SceneObject> objs = ARMathUtils.get_objects_in_rect(view, obj_name);
@@ -62,20 +66,29 @@ public class Finder : MonoBehaviour
             foreach (SceneObject so in objs)
             {
                 Vector3 targetPos = new Vector3(so.catalogInfo.Box.center.x, Screen.height - so.catalogInfo.Box.center.y, 0);
-                FeedbackGenerator.create_target(targetPos, target_delay, 2, 4);
-                target_delay += 0.2f;
+                FeedbackGenerator.create_target(targetPos, target_delay, 1, 4);
+                target_delay += 0.1f;
             }
 
-            confirm_objects(objs.Count);
+            if(text1_instruction.activeSelf || confirm) confirm_objects(objs.Count);
 
         }
 
     }
     private void confirm_objects(int found_n)
     {
-        confirm_txt.GetComponent<Text>().text = "I think there are " + AssetManager.Get_object_text(obj_name, found_n) + ". \n Please tap it if I missed any! ";
-        txt.SetActive(false);
-        confirm_txt.SetActive(true);
+
+        text2_confirmation.GetComponentInChildren<Text>().text = "Hmm...I think there are " + AssetManager.Get_object_text(obj_name, found_n) + ". Is that right?";
+        text1_instruction.SetActive(false);
+        text2_confirmation.SetActive(true);
+        text3_correction.SetActive(false);
+    }
+    public void confirm_failed()
+    {
+        text1_instruction.SetActive(false);
+        text2_confirmation.SetActive(false);
+        text3_correction.GetComponentInChildren<Text>().text = "Can you tap "+obj_name_plural+" without circles on the screen?";
+        text3_correction.SetActive(true);
     }
     public void complete_finder()
     {
@@ -110,9 +123,11 @@ public class Finder : MonoBehaviour
         obj_name = obj;
         min_number_of_objects = min_count;
         param = p;
-        txt.GetComponent<Text>().text = "Let's find some batteries!";
+        obj_name_plural = AssetManager.Get_object_text(obj_name, 2);
+        obj_name_plural = obj_name_plural.Substring(obj_name_plural.IndexOf(' ')+1);
+        text1_instruction.GetComponent<Text>().text = "Let's find some "+ obj_name_plural;
         nextActionTime = Time.time + 8; // animation delay
-        this.GetComponent<RectTransform>().localScale = Vector3.one;
+        finder_obj.GetComponent<RectTransform>().localScale = Vector3.one;
        
     }
     public void set_finder(string obj, int min_count, CallbackFunction2 cb, string p, string prompt, float scale)
@@ -122,16 +137,18 @@ public class Finder : MonoBehaviour
         obj_name = obj;
         min_number_of_objects = min_count;
         param = p;
-        txt.GetComponent<Text>().text = prompt;
+        obj_name_plural = AssetManager.Get_object_text(obj_name, 2);
+        obj_name_plural = obj_name_plural.Substring(obj_name_plural.IndexOf(' ') + 1);        
+        text1_instruction.GetComponent<Text>().text = prompt;
         nextActionTime = Time.time + 8; // animation delay
-        this.GetComponent<RectTransform>().localScale = new Vector3(scale, scale, 1);
+        finder_obj.GetComponent<RectTransform>().localScale = new Vector3(scale, scale, 1);
      
     }
     
     private void handle_touch()
     {
 
-        if (Input.touchCount > 0)
+        if (Input.touchCount > 0 && text3_correction.activeSelf)
         {
             Touch touch = Input.GetTouch(0);
 
@@ -139,35 +156,41 @@ public class Finder : MonoBehaviour
             if (touch.phase == TouchPhase.Began)
             {
                 Vector2 pos = touch.position;
+                Vector2 screenpos = touch.position;
                 bool hit = ARMathUtils.check_in_recttransform(pos, view);
                 if (!hit)
                 {
                     return;
                 }
-
+                if (!SceneObjectManager.kill_sceneObject_close_to(screenpos, 100f)) {
                     pos.y = Screen.height - pos.y;
-                CatalogItem ci = new CatalogItem();
-                ci.Box = new Rect(pos, new Vector2(80, 80));
-                ci.DisplayName = obj_name;
-                SceneObjectManager.add_new_object(ci, 180);
-
-
-                List<SceneObject> objs = ARMathUtils.get_objects_in_rect(view, obj_name);
-                //Debug.Log("[ARMath] checking objs in the finder "+objs.Count);
-
-
-                if (objs.Count >= min_number_of_objects)
+                    CatalogItem ci = new CatalogItem();
+                    ci.Box = new Rect(pos, new Vector2(80, 80));
+                    ci.DisplayName = obj_name;
+                    SceneObjectManager.add_new_object(ci, 180);
+                    nextActionTime = Time.time + SystemParam.system_object_checking_period;
+                } else
                 {
-                    float target_delay = 0;
-                    foreach (SceneObject so in objs)
-                    {
-                        Vector3 targetPos = new Vector3(so.catalogInfo.Box.center.x, Screen.height - so.catalogInfo.Box.center.y, 0);
-                        FeedbackGenerator.create_target(targetPos, target_delay, 2, 4);
-                        target_delay += 0.2f;
-                    }
+                    SceneObjectManager.retire_old_objects();
+                }
+                
+                check_object(false);
+                //List<SceneObject> objs = ARMathUtils.get_objects_in_rect(view, obj_name);
+                ////Debug.Log("[ARMath] checking objs in the finder "+objs.Count);
+
+
+                //if (objs.Count >= min_number_of_objects)
+                //{
+                //    float target_delay = 0;
+                //    foreach (SceneObject so in objs)
+                //    {
+                //        Vector3 targetPos = new Vector3(so.catalogInfo.Box.center.x, Screen.height - so.catalogInfo.Box.center.y, 0);
+                //        FeedbackGenerator.create_target(targetPos, target_delay, 2, 4);
+                //        target_delay += 0.2f;
+                //    }
                     
 
-                }
+                //}
             }
 
         }

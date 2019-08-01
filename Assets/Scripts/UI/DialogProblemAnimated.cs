@@ -67,6 +67,12 @@ public class DialogProblemAnimated : MonoBehaviour
         }
 
     }
+    public void update_and_highlight(int index, string txt)
+    {
+        set_term(index, txt);
+        highlight_term(index);
+
+    }
     public void highlight_term(int idx)
     {
         if (idx == 0)

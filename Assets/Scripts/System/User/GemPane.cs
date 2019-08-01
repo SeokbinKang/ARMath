@@ -39,6 +39,7 @@ public class GemPane : MonoBehaviour {
         for(int i = 0; i < length; i++)
         {
             GameObject prefab = GetGemIcon(g_list[i]);
+            
             if (prefab == null) Debug.Log("cannot find a prefab for gem");
             GameObject newGemIcon = Instantiate(prefab, Vector3.zero, Quaternion.identity) as GameObject;
             newGemIcon.transform.parent = this.gameObject.transform;
@@ -56,6 +57,7 @@ public class GemPane : MonoBehaviour {
     public GameObject GetGemIcon(Gem g)
     {
         int index = (int) g.problem_type;
+        return AssetManager.reward_icon(g.problem_type);
         if (gem_prefabs.Length <= 0) return null;
         if (index >= gem_prefabs.Length) index = gem_prefabs.Length - 1;
         return gem_prefabs[index];

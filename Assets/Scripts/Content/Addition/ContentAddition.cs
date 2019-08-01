@@ -137,7 +137,7 @@ public class ContentAddition : MonoBehaviour, IContentModule
            4), 0
            );
         Dialogs.add_dialog(new DialogItem(DialogueType.left_bottom_plain,
-           "Can you get me " + add_object_count + " more  " + target_object_name + "s? You can place them in the orange box",
+           "Can you get me " + add_object_count + " more " + target_object_name + "s? You can place them in the green box",
            true,
            new CallbackFunction(callback_shownumber2),
            "+ " + add_object_count,

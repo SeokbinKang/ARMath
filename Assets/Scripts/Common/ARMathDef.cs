@@ -59,6 +59,7 @@ public class SystemParam
     public static float param_object_lifetime = 3.2f;  //second
     public static float param_object_rect_overlap_portion = 0.1f;
     public static float system_update_period = 0.5f;  //second
+    public static float system_object_checking_period = 2f;  //second
 
     public static int image_size = 300;
 
@@ -99,7 +100,8 @@ public class Gem
 public class UserInfo
 {
     public string user_name;
-    public float user_id;
+    public int user_id;
+    public int lastused;
     public Dictionary<ProblemType,List<Gem>> gem_collection;
         
     public UserInfo()

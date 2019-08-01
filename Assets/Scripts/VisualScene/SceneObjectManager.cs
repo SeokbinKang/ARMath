@@ -81,6 +81,10 @@ public class SceneObjectManager : MonoBehaviour {
         
         Debug.Log("[ARMath]" + mObjectPool);
     }
+    public static void retire_old_objects()
+    {
+        mSOManager.mObjectPool.RemoveAll(s => s.check_if_dead());
+    }
     public void add_new_object(SceneObject o)
     {
         if(mObjectPool==null) mObjectPool = new List<SceneObject>();
@@ -228,6 +232,28 @@ public class SceneObjectManager : MonoBehaviour {
 
     }
 
+    public static bool kill_sceneObject_close_to(Vector2 screen_pos, float dist_threshold)
+    {
+        float min_dist = float.MaxValue;
+        SceneObject closest_obj = null;
+        foreach (SceneObject so in mSOManager.mObjectPool)
+        {
+            float dist = so.distance_to_screen_pos(screen_pos);
+            if (dist<dist_threshold && dist < min_dist)
+            {
+                min_dist = dist;
+                closest_obj = so;
+            }
+            
+        }
+        if (closest_obj != null)
+        {
+            closest_obj.retire_yield();
+            return true;
+        }
+        return false;
+
+    }
 }
 
 public class SceneObject
@@ -266,6 +292,10 @@ public class SceneObject
             return true;
         }
         return false;
+    }
+    public void retire_yield()
+    {
+        this.time_expire = 0;
     }
     public bool interact()
     {
@@ -395,6 +425,13 @@ public class SceneObject
         Rect box = this.catalogInfo.Box;
         return new Vector2(box.center.x, Screen.height - box.center.y);
 
+    }
+    public float distance_to_screen_pos(Vector2 screen_pos)
+    {
+        Rect box = this.catalogInfo.Box;
+        Vector2 dist = new Vector2(box.center.x, Screen.height - box.center.y);
+        dist = dist - screen_pos;
+        return dist.magnitude;
     }
     public bool check_in_box(Rect rect)
     {

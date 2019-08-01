@@ -127,7 +127,7 @@ public class AdditionTangible : MonoBehaviour
                     {   
                         GameObject label = FeedbackGenerator.create_target(so, 0, 600,1);
                         so.attach_object(label);                        
-                        break;
+                        //break;
                     }
                 }
         
@@ -180,7 +180,7 @@ public class AdditionTangible : MonoBehaviour
         int add_n = goal_n - init_n;
         UserInteracting = false;
         Dialogs.add_dialog(new DialogItem(DialogueType.left_bottom_plain,
-            "You can put more coins on the table.",
+            "You can put coins on the table.",
             true,
             new CallbackFunction(StartOperation),
             "",

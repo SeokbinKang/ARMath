@@ -8,9 +8,10 @@ public class review1 : MonoBehaviour {
     public GameObject dialog_bg;
     public GameObject problem_text;
     public GameObject[] selections;
+    public GameObject[] selections_shapes;
     public GameObject answers_number;
     public GameObject answers_shape;
-
+    public GameObject[] active_selections;
     CallbackFunction mCallback;
     private int answer_index;
     float close_at;
@@ -37,6 +38,7 @@ public class review1 : MonoBehaviour {
             answers_number.SetActive(false);
             answers_shape.SetActive(false);
             dialog_bg.SetActive(false);
+            
             if (mCallback!=null) mCallback("good");
 
         }
@@ -47,10 +49,17 @@ public class review1 : MonoBehaviour {
         {
             TTS.mTTS.GetComponent<TTS>().StartTextToSpeech("Nice job!");
             close_at = Time.time + 1.5f;
+            active_selections[index].GetComponent<Animator>().SetTrigger("o");
+            if(selections==active_selections)
+            {
+                Dialogs.set_topboard_update_highlight(2, "= "+selections[index].GetComponentInChildren<Text>().text);
+            }
             
         } else
         {
             TTS.mTTS.GetComponent<TTS>().StartTextToSpeech("Try again!");
+            active_selections[index].GetComponent<Animator>().SetTrigger("x");
+
         }
     }
     public void generate_problem(string problem_statement, int[] answers, int answer_idx, CallbackFunction cb)
@@ -61,11 +70,12 @@ public class review1 : MonoBehaviour {
         problem_text.GetComponent<Text>().text = problem_statement;
         for(int i = 0; i < answers.Length;i++)
         {
-            if (i < selections.Length) selections[i].GetComponent<Text>().text =  answers[i].ToString();
+            if (i < selections.Length) selections[i].GetComponentInChildren<Text>().text =  answers[i].ToString();
         }
         answer_index = answer_idx;
         mCallback = cb;
         close_at = float.MaxValue;
+        active_selections = selections;
     }
 
     public void generate_shape_problem(string problem_statement, CallbackFunction cb)
@@ -73,7 +83,7 @@ public class review1 : MonoBehaviour {
         dialog_bg.SetActive(true);
         answers_shape.SetActive(true);
         problem_text.GetComponent<Text>().text = problem_statement;
-        
+        active_selections = selections_shapes;
         answer_index = 1;
         mCallback = cb;
         close_at = float.MaxValue;
