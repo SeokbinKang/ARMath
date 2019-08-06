@@ -13,12 +13,16 @@ public class FeedbackGenerator : MonoBehaviour {
     public GameObject prefab_stricker_x;
     public GameObject prefab_check;
     public GameObject prefab_target;
+    public GameObject prefab_targetCountable;
 
     public Color[] color_terms;
     public GameObject[] sounds;
     private List<GameObject_timer> timer_feedback;
     private List<GameObject> temporary_feedback;
     private float last_temporary_feedback_time;
+    private CallbackFunction counter_callback;
+    public static int global_counter=0;
+    public static int global_counter_goal = 0;
     // Use this for initialization
     void Start () {
         mThis = this;
@@ -60,18 +64,62 @@ public class FeedbackGenerator : MonoBehaviour {
             }
         }
 	}
-    public static void create_target(GameObject go, float start_delay, float lifetime, int color_index)
+    public static void clear_all_feedback()
+    {
+        foreach (GameObject o in mThis.temporary_feedback)
+        {
+            if(o!=null) Object.Destroy(o);
+        }
+        for (int i = 0; i < mThis.timer_feedback.Count; i++)
+        {
+            mThis.timer_feedback[i].force_destroy();
+            
+        
+        }
+        mThis.timer_feedback.Clear();
+        mThis.temporary_feedback.Clear();
+
+    }
+    public static void init_counter(CallbackFunction cb, int target_count)
+    {
+        global_counter = 0;
+        global_counter_goal = target_count;
+        mThis.counter_callback = cb;
+            
+    }
+    public static GameObject create_target(Vector2 pos, float start_delay, float lifetime, int color_index, bool countable)
+    {
+        
+        
+        if (!countable)
+        {
+            return create_target(pos, start_delay, lifetime, color_index);
+        }
+        return create_target_countable(pos, start_delay, lifetime, color_index);
+
+    }
+    public static GameObject create_target(GameObject go, float start_delay, float lifetime, int color_index, bool countable)
     {
         RectTransform rt = go.GetComponent<RectTransform>();
-        if (rt == null) return;
-        create_target(rt.position, start_delay, lifetime, color_index);
+        if (rt == null) return null;
+        if (!countable)
+        {
+            return create_target(rt.position, start_delay, lifetime, color_index);
+        }
+        return create_target_countable(rt.position, start_delay, lifetime, color_index);
+
     }
-    public static GameObject create_target(SceneObject so, float start_delay, float lifetime, int color_index)
+    public static GameObject create_target(SceneObject so, float start_delay, float lifetime, int color_index, bool countable)
     {
         
         if (so == null) return null;
-        GameObject t = create_target(so.get_screen_pos(), start_delay, lifetime, color_index);
-        return t;
+        if (!countable)
+        {
+            GameObject t = create_target(so.get_screen_pos(), start_delay, lifetime, color_index);
+            return t;
+        }
+        GameObject t2 = create_target_countable(so.get_screen_pos(), start_delay, lifetime, color_index);
+        return t2;
     }
 
     public static void create_target(Vector3 pos, float start_delay, float lifetime)
@@ -86,6 +134,23 @@ public class FeedbackGenerator : MonoBehaviour {
         label.SetActive(false);
         mThis.timer_feedback.Add(new GameObject_timer(label,start_delay,lifetime));        
         
+    }
+    public static GameObject create_target_countable(Vector3 pos, float start_delay, float lifetime, int color_index)
+    {
+        Vector3 targetPos = pos;
+
+        UnityEngine.GameObject label = Instantiate(mThis.prefab_targetCountable, targetPos, Quaternion.identity) as GameObject;
+        RectTransform r = label.GetComponent<RectTransform>();
+        r.position = targetPos;
+        label.transform.SetParent(mThis.gameObject.transform);
+        label.GetComponent<RectTransform>().localScale = new Vector3(1f, 1f, 1f);
+        label.GetComponent<Image>().color = AssetManager.getColors()[color_index];
+        //mThis.color_terms[color_index];
+        label.SetActive(false);
+        mThis.timer_feedback.Add(new GameObject_timer(label, start_delay, lifetime));
+      
+        return label;
+
     }
     public static GameObject create_target(Vector3 pos, float start_delay, float lifetime, int color_index)
     {
@@ -102,6 +167,16 @@ public class FeedbackGenerator : MonoBehaviour {
         mThis.timer_feedback.Add(new GameObject_timer(label, start_delay, lifetime));
         return label;
 
+    }
+    public static void target_counting(GameObject pivot_obj, float start_delay, float lifetime)
+    {
+        RectTransform r = pivot_obj.GetComponent<RectTransform>();
+        create_number_feedback(r.position, ++global_counter, start_delay, lifetime);
+        if (global_counter >= global_counter_goal && mThis.counter_callback != null)
+        {
+            mThis.counter_callback("");
+            mThis.counter_callback = null;
+        }
     }
     public static GameObject create_number_feedback(Vector3 position, int value, float start_delay, float lifetime)
     {
@@ -213,6 +288,13 @@ public class GameObject_timer{
             return true;
         }
         return false;
+    }
+    public bool force_destroy()
+    {
+        if (go == null) return true;
+        GameObject.Destroy(go);
+        return true;
+
     }
 
 

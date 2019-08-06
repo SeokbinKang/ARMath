@@ -108,7 +108,7 @@ public class ShapeBuilder : MonoBehaviour {
                             c += p;
                         }
                         c /= (float)drawing_points.Count;
-                        virtual_solver.GetComponent<DivVirtual>().onNewGroup(c);
+                        //virtual_solver.GetComponent<DivVirtual>().onNewGroup(c);
                     }
                 }
             }

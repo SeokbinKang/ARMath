@@ -30,6 +30,7 @@ public class AdditionReview1 : MonoBehaviour {
         agent.SetActive(true);
         reward.SetActive(false);
         msg2_box.SetActive(true);
+        msg3_dummy.SetActive(false);
     }
     private void OnDisable()
     {
@@ -46,11 +47,11 @@ public class AdditionReview1 : MonoBehaviour {
         int added = goal_n - init_n;
 
         msg1.GetComponent<Text>().text = "Alright! We had "+init_n +" coins at the beginning, and added " + added + " coins. ";
-        msg2.GetComponent<Text>().text = "Then, how many coins do we have in total?";
-
+        msg2.GetComponent<Text>().text = "Let's count how many coins we have in total.";
+        /*
         bool interaction_touch_enalbed = SystemControl.mSystemControl.get_system_setup_interaction_touch();       
 
-
+        
         if (interaction_touch_enalbed)
         { //turn on either of two solvers.
             highlight_objects_virtual(3, 5);
@@ -58,18 +59,37 @@ public class AdditionReview1 : MonoBehaviour {
         else 
         {
             highlight_objects_tangible(3, 5);
-        }
+        }*/
 
-        Dialogs.set_topboard_highlight(true, 0, 4);
-        Dialogs.set_topboard_highlight(true, 1, 6);
+        Dialogs.set_topboard_highlight(true, 0, 3);
+        Dialogs.set_topboard_animated(1,"+ "+added.ToString(),6);
+        //Dialogs.set_topboard_highlight(true, 1, 6);
         msg2.GetComponent<DelayedImage>().setCallback(show_top_answer, "= ?");
-        msg3_dummy.GetComponent<DelayedImage>().setCallback(show_selection, "");
+       
     }
     public void show_top_answer(string t)
     {
-        Dialogs.set_topboard_animated(true, 2, t);      
-       
-
+        Dialogs.set_topboard_animated(true, 2, t);
+        FeedbackGenerator.clear_all_feedback();
+        region.GetComponent<RegionControl>().enaleRegion(0, false);
+        region.GetComponent<RegionControl>().enaleRegion(1, false);
+        List<Vector2> all_targets = content_root.GetComponent<ContentAddition>().obj_pos_list;
+        int i = 0;
+        float delay = 4;
+        FeedbackGenerator.init_counter(new CallbackFunction(after_counting_all),all_targets.Count);
+        for (i = 0; i < all_targets.Count; i++)
+        {  //TODO: detach higher number label            
+            FeedbackGenerator.create_target_countable(all_targets[i], delay, 600, 2);            
+            delay += 0.5f;
+        }
+        //global counter callback
+    }
+    public void after_counting_all(string t)
+    {
+        msg2_box.SetActive(false);
+        msg3_dummy.GetComponentInChildren<Text>().text = "Alright! Can you select the answer at the top? ";
+        msg3_dummy.SetActive(true);
+        show_selection("");
     }
     public void show_selection(string t)
     {
@@ -89,7 +109,8 @@ public class AdditionReview1 : MonoBehaviour {
     public void OnCompletion(string t)
     {
         msg2_box.SetActive(false);
-
+        msg3_dummy.SetActive(false);
+        FeedbackGenerator.clear_all_feedback();
         reward.SetActive(true);
         //content_root.GetComponent<ContentAddition>().onSolved();
     }

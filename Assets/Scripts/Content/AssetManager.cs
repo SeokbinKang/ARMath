@@ -43,11 +43,12 @@ public class AssetManager : MonoBehaviour {
     public static GameObject get_icon(string name)
     {
         GameObject ret = null;
-
+        
         if (mThis.object_icon_map.ContainsKey(name))
         {
             return mThis.object_icon_map[name];
         }
+        Debug.Log("[ARMath] fail to return AssetManager.get_icon()");
         return ret;
     }
     public static string Get_object_text(string obj_name, int count)

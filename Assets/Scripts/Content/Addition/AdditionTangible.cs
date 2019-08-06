@@ -36,7 +36,7 @@ public class AdditionTangible : MonoBehaviour
     }
     private void Reset()
     {
-        
+        region.GetComponent<RegionControl>().getRegion(1).GetComponent<ObjectContainer>().enable_hourGlass(false);
         board.SetActive(false);        
         UserInteracting = false;
         total_n = 0;
@@ -62,12 +62,13 @@ public class AdditionTangible : MonoBehaviour
         int init_n = ContentModuleRoot.GetComponent<ContentAddition>().init_object_count;
         int goal_n = ContentModuleRoot.GetComponent<ContentAddition>().goal_object_count;
         int cur_n = ContentModuleRoot.GetComponent<ContentAddition>().current_object_count;
-        //     List<SceneObject> objs = SceneObjectManager.mSOManager.get_objects_by_name(target_object_name);
-        List<SceneObject> objs = ARMathUtils.get_objects_in_rect(region.GetComponent<RegionControl>().getRegion(0), target_object_name);
+
+       
         List<SceneObject> objs_added = ARMathUtils.get_objects_in_rect(region.GetComponent<RegionControl>().getRegion(1), target_object_name);
 
+        /*List<SceneObject> objs = ARMathUtils.get_objects_in_rect(region.GetComponent<RegionControl>().getRegion(0), target_object_name);
         bool[] number_label = new bool[objs.Count];
-        /* for (int i = 0; i < number_label.Length; i++)
+        for (int i = 0; i < number_label.Length; i++)
          {
              int number_label_value = objs[i].get_number_feedback();
              if (number_label_value <= 0) continue;
@@ -121,15 +122,16 @@ public class AdditionTangible : MonoBehaviour
             }
         }*/
         
-              foreach (SceneObject so in objs_added)
-                {
-                    if (so.get_all_feedback_count() <= 0)
-                    {   
-                        GameObject label = FeedbackGenerator.create_target(so, 0, 600,1);
-                        so.attach_object(label);                        
-                        //break;
-                    }
-                }
+        foreach (SceneObject so in objs_added)
+        {
+            if (so.get_all_feedback_count() <= 0)
+            {   
+                GameObject label = FeedbackGenerator.create_target(so, 0, 600,1,false);
+                so.attach_object(label);
+                so.extend_life(3f);
+                //break;
+            }
+        }
         
        int total_obj_count = init_n + objs_added.Count;
         if (total_obj_count != cur_n)
@@ -137,25 +139,32 @@ public class AdditionTangible : MonoBehaviour
             item_mask.GetComponent<vertical_mask>().set_visible_percent(((float)cur_n / (float)goal_n));
             cur_n = total_obj_count;
             ContentModuleRoot.GetComponent<ContentAddition>().current_object_count = cur_n;
-            OnCount();
+            OnCount(objs_added);
 
         }
     }
-    public void OnCount()
+    public void OnCount(List<SceneObject> l_so)
     {
         int init_n = ContentModuleRoot.GetComponent<ContentAddition>().init_object_count;
         int goal_n = ContentModuleRoot.GetComponent<ContentAddition>().goal_object_count;
+        int add_n = goal_n - init_n;
         int gap = ContentModuleRoot.GetComponent<ContentAddition>().current_object_count - goal_n;
 
 
         if(gap ==0)
         {
             UserInteracting = false;
-
+            List<Vector2> obj_pos_list = ContentModuleRoot.GetComponent<ContentAddition>().obj_pos_list;
+            foreach (SceneObject so in l_so)
+            {
+                obj_pos_list.Add(so.get_screen_pos());
+                so.extend_life(10);
+            }
             this.transform.parent.GetComponent<ContentSolver>().start_review();
+
             return ;
         }
-        if (gap > 0) TTS.mTTS.GetComponent<TTS>().StartTextToSpeech("Hmm... they are too many. Can you take out "+Mathf.Abs(gap)+" coins?");
+        if (gap > 0) TTS.mTTS.GetComponent<TTS>().StartTextToSpeech("Hmm... that's too many. Can you give me exactly "+ add_n+" coins?");
         else TTS.mTTS.GetComponent<TTS>().StartTextToSpeech("Hmm.. I need more. Can you get "+Mathf.Abs(gap)+" more coins?");
 
         //UpdateBoard();

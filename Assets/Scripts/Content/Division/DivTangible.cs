@@ -10,7 +10,7 @@ public class DivTangible : MonoBehaviour {
     
     public GameObject groups;
     public GameObject ContentModuleRoot;
-
+    public GameObject dummy_timer3;
 
     public bool UserInteracting;
     // Use this for initialization
@@ -29,14 +29,12 @@ public class DivTangible : MonoBehaviour {
     }
     private void Reset()
     {
-      
+        dummy_timer3.SetActive(false);
         UserInteracting = false;
     }
     // Update is called once per frame
     void Update()
     {
-        
-
         if (Time.time > nextActionTime)
         {
             nextActionTime = Time.time + SystemParam.system_update_period;
@@ -63,6 +61,7 @@ public class DivTangible : MonoBehaviour {
     private void OnCompletion()
     {
         UserInteracting = false;
+
         this.transform.parent.GetComponent<ContentSolver>().start_review();
 
         //Answer UI needs to be added
@@ -72,10 +71,7 @@ public class DivTangible : MonoBehaviour {
     {
         string obj_name = ContentModuleRoot.GetComponent<ContentDiv>().target_object_name;
         int dividend = ContentModuleRoot.GetComponent<ContentDiv>().dividend;
-        int divisor = ContentModuleRoot.GetComponent<ContentDiv>().divisor;
-
-        
-        
+        int divisor = ContentModuleRoot.GetComponent<ContentDiv>().divisor;      
       
         Dialogs.add_dialog(new DialogItem(DialogueType.left_bottom_plain,
                "Let's place an equal number of chocolates in each box. You can move the chocolates on the table",
@@ -86,11 +82,16 @@ public class DivTangible : MonoBehaviour {
 
     }
     private void OnCompletion2(string p)
-    {
+    { // put an extra delay
+        dummy_timer3.GetComponent<DelayedImage>().setCallback(new CallbackFunction(OnCompletion3),"");
+        dummy_timer3.SetActive(true);
 
+       
+    }
+    public void OnCompletion3(string p)
+    {
         ContentModuleRoot.GetComponent<ContentDiv>().onSolved();
     }
-   
     public void StartOperation(string p)
     {
         UserInteracting = true;        

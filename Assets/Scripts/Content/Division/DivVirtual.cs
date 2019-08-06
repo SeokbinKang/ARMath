@@ -6,23 +6,21 @@ using UnityEngine.UI;
 public class DivVirtual : MonoBehaviour {
 
 
-    public GameObject board;
     
-    public GameObject problemboard;
-    public GameObject problemboard_text;
     public GameObject ContentModuleRoot;
-//    public GameObject bag_base;
-    public GameObject pre_bag_static;
-    public GameObject grouping;
+//    public GameObject bag_base;    
     public bool UserInteracting;
     // Use this for initialization
     private float nextActionTime = 0.0f;
-    private List<GameObject> bag_list;
+    public GameObject groups;
+    public GameObject tray;
+    private List<GameObject> obj_movable;
 
-
+    public GameObject pre_bag_static; //DEPRECATED. used in hand grouping interface
+    public GameObject grouping;  //DEPRECATED. used in hand grouping interface
     void Start()
     {
-
+      //  obj_movable = new List<GameObject>();
     }
     void OnEnable()
     {
@@ -30,11 +28,11 @@ public class DivVirtual : MonoBehaviour {
         loadPrompt();
     }
     private void Reset()
-    {
-        board.SetActive(false);
+    {       
         grouping.SetActive(false);
-        problemboard.SetActive(false);
+       
         UserInteracting = false;
+        /*
         if (bag_list == null) bag_list = new List<GameObject>();
         else
         {
@@ -43,13 +41,12 @@ public class DivVirtual : MonoBehaviour {
                 GameObject.Destroy(o);
             }
             bag_list.Clear();
-        }
+        }*/
         
     }
     // Update is called once per frame
     void Update()
-    {
-        if (UserInteracting) UpdateBoard();
+    {       
 
         if (Time.time > nextActionTime)
         {
@@ -58,25 +55,73 @@ public class DivVirtual : MonoBehaviour {
             count_object();
         }
     }
+    public void loadPrompt()
+    {
+        string obj_name = ContentModuleRoot.GetComponent<ContentDiv>().target_object_name;
+        int dividend = ContentModuleRoot.GetComponent<ContentDiv>().dividend;
+        int divisor = ContentModuleRoot.GetComponent<ContentDiv>().divisor;
+        //initialize virtual chocolates
+        setup_virtual_objects();
+        Dialogs.add_dialog(new DialogItem(DialogueType.left_bottom_plain,
+               "Let's place an equal number of chocolates in each box. You can move the chocolates on the screen",
+               true,
+               new CallbackFunction(StartOperation),
+               "none"
+               ));
 
+    }
+    private void setup_virtual_objects()
+    {
+        Rect rt = ContentModuleRoot.GetComponent<ContentDiv>().obj_rect;
+        RectTransform rt_V = tray.GetComponent<RectTransform>();
+        rt_V.position = rt.position;
+        rt_V.sizeDelta = rt.size;
+        rt_V.localScale = Vector3.one;
+        tray.SetActive(true);
+        if (obj_movable == null) obj_movable = new List<GameObject>();
+        obj_movable.Clear();
+        GameObject icon_obj = AssetManager.get_icon("blue chocolate");
+        if(icon_obj==null)
+        {           
+            return;
+        }
+        List<Vector2> pos_list = ContentModuleRoot.GetComponent<ContentDiv>().obj_pos_list;
+        foreach (Vector2 pos in pos_list)        
+        {
+            GameObject new_obj = ARMathUtils.create_2DPrefab(icon_obj, tray, pos);
+            RectTransform r = new_obj.GetComponent<RectTransform>();
+
+            r.position = pos;
+            r.sizeDelta = new Vector2(120  , 120);
+            r.Rotate(0, 0, Random.Range(0, 360));
+            new_obj.SetActive(true);
+            this.obj_movable.Add(new_obj);
+        }
+
+    }
+    public void StartOperation(string p)
+    {
+        UserInteracting = true;
+    }
     private void count_object()
     {
-        if (bag_list==null || !UserInteracting) return;
+        if (!groups || !UserInteracting || obj_movable==null) return;
 
         string obj_name = ContentModuleRoot.GetComponent<ContentDiv>().target_object_name;
         int dividend = ContentModuleRoot.GetComponent<ContentDiv>().dividend;
         int divisor = ContentModuleRoot.GetComponent<ContentDiv>().divisor;
         int quotient = ContentModuleRoot.GetComponent<ContentDiv>().quotient;
 
-        int full_cells = bag_list.Count;
+        int full_cells = groups.GetComponent<GroupGuide>().CheckBoxes(obj_movable, quotient);
 
-        if (full_cells == quotient) OnCompletion();
+        if (full_cells == divisor) OnCompletion();
 
     }
-
     private void OnCompletion()
     {
         UserInteracting = false;
+        this.transform.parent.GetComponent<ContentSolver>().start_review();
+        /*
         string obj_name = ContentModuleRoot.GetComponent<ContentDiv>().target_object_name;
         Dialogs.add_dialog(new DialogItem(DialogueType.left_bottom_plain,
                "Good Job! How many bags do we need? [TODO:input UI]",
@@ -84,7 +129,7 @@ public class DivVirtual : MonoBehaviour {
               new CallbackFunction(OnCompletion2),
               "none"
               ));
-
+              */
         //Answer UI needs to be added
 
     }
@@ -93,56 +138,61 @@ public class DivVirtual : MonoBehaviour {
 
         ContentModuleRoot.GetComponent<ContentDiv>().onSolved();
     }
-    public void loadPrompt()
-    {
-        string obj_name = ContentModuleRoot.GetComponent<ContentDiv>().target_object_name;
-        int dividend = ContentModuleRoot.GetComponent<ContentDiv>().dividend;
-        int divisor = ContentModuleRoot.GetComponent<ContentDiv>().divisor;
+   
 
-        
-        Debug.Log("[ARMath] -----------------------");
-        Dialogs.add_dialog(new DialogItem(DialogueType.left_bottom_plain,
-              "We want to place "+ obj_name + "s in bags. Every bag can contain " + divisor+" "+ obj_name + "s. How many bags do we need?",
-              true,
-              null,
-              ""
-              ));
-        Dialogs.add_dialog(new DialogItem(DialogueType.left_bottom_plain,
-               "Let's select a group of "+ divisor+" "+obj_name+"s by drawing boundaries on the touchscreen. [TODO: demo interaction]",
-               true,
-               new CallbackFunction(StartOperation),
-               "none"
-               ));
 
-    }
-    public void onNewGroup(Vector2 group_center)
-    {
-        //create a new virtual bag
-        UnityEngine.GameObject label = ARMathUtils.create_2DPrefab(this.pre_bag_static, this.gameObject, group_center);
+    //private void UpdateBoard()
+    //{
+    //    string obj_name = ContentModuleRoot.GetComponent<ContentDiv>().target_object_name;
+    //    int dividend = ContentModuleRoot.GetComponent<ContentDiv>().dividend;
+    //    int divisor = ContentModuleRoot.GetComponent<ContentDiv>().divisor;
 
-        this.bag_list.Add(label);
+    //    //if (board.activeSelf != false) board.GetComponent<board>().enable_number_only(init_n + sign + System.Math.Abs(cur_n - init_n) + " = " + cur_n);
+    //    problemboard_text.GetComponent<Text>().text = dividend + "(" + obj_name + "s) ÷ " + divisor + " ("+obj_name+"s) = ? (bags)";
 
-    }
-    public void StartOperation(string p)
-    {
-        UserInteracting = true;
+    //}
+    //public void onNewGroup(Vector2 group_center)
+    //{
+    //    //create a new virtual bag
+    //    UnityEngine.GameObject label = ARMathUtils.create_2DPrefab(this.pre_bag_static, this.gameObject, group_center);
 
-        UpdateBoard();
+    //    this.bag_list.Add(label);
 
-        problemboard.SetActive(true);
-        board.SetActive(false);
-        grouping.SetActive(true);
+    //}
+    //public void loadPrompt()
+    //{
+    //    string obj_name = ContentModuleRoot.GetComponent<ContentDiv>().target_object_name;
+    //    int dividend = ContentModuleRoot.GetComponent<ContentDiv>().dividend;
+    //    int divisor = ContentModuleRoot.GetComponent<ContentDiv>().divisor;
 
-    }
 
-    private void UpdateBoard()
-    {
-        string obj_name = ContentModuleRoot.GetComponent<ContentDiv>().target_object_name;
-        int dividend = ContentModuleRoot.GetComponent<ContentDiv>().dividend;
-        int divisor = ContentModuleRoot.GetComponent<ContentDiv>().divisor;
+    //    Debug.Log("[ARMath] -----------------------");
+    //    Dialogs.add_dialog(new DialogItem(DialogueType.left_bottom_plain,
+    //          "We want to place " + obj_name + "s in bags. Every bag can contain " + divisor + " " + obj_name + "s. How many bags do we need?",
+    //          true,
+    //          null,
+    //          ""
+    //          ));
+    //    Dialogs.add_dialog(new DialogItem(DialogueType.left_bottom_plain,
+    //           "Let's select a group of " + divisor + " " + obj_name + "s by drawing boundaries on the touchscreen. [TODO: demo interaction]",
+    //           true,
+    //           new CallbackFunction(StartOperation),
+    //           "none"
+    //           ));
 
-        //if (board.activeSelf != false) board.GetComponent<board>().enable_number_only(init_n + sign + System.Math.Abs(cur_n - init_n) + " = " + cur_n);
-        problemboard_text.GetComponent<Text>().text = dividend + "(" + obj_name + "s) ÷ " + divisor + " ("+obj_name+"s) = ? (bags)";
+    //}
+    //private void count_object()
+    //{
+    //    if (bag_list == null || !UserInteracting) return;
 
-    }
+    //    string obj_name = ContentModuleRoot.GetComponent<ContentDiv>().target_object_name;
+    //    int dividend = ContentModuleRoot.GetComponent<ContentDiv>().dividend;
+    //    int divisor = ContentModuleRoot.GetComponent<ContentDiv>().divisor;
+    //    int quotient = ContentModuleRoot.GetComponent<ContentDiv>().quotient;
+
+    //    int full_cells = bag_list.Count;
+
+    //    if (full_cells == quotient) OnCompletion();
+
+    //}
 }

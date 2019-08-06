@@ -61,9 +61,10 @@ public class GroupTree : MonoBehaviour {
             cell.GetComponent<RawImage>().texture = incomplete_box;
             cell.GetComponent<RawImage>().color = new Color(1, 1, 1, grid_line_alpha);
             float aspect_ratio = ((float)incomplete_box.width) / ((float)incomplete_box.height);
-                       
-            //this.GetComponent<GridLayoutGroup>().cellSize = new Vector2(w, h);
 
+            //this.GetComponent<GridLayoutGroup>().cellSize = new Vector2(w, h);
+            //bool interaction_virtual = SystemControl.mSystemControl.get_system_setup_interaction_touch();
+            
             if (progressive)
             {
                 cell.SetActive(true);
@@ -167,6 +168,12 @@ public class GroupTree : MonoBehaviour {
         GameObject cell = cells[progress_active_cell_idx];
         int item_in_cell = 0;
         List<GameObject> tmp_objs = new List<GameObject>();
+        cell.GetComponent<ObjectContainer>().enable_hourGlass(true);
+        if (cell.GetComponent<ObjectContainer>().hourglass_wait())
+        {
+            UpdateCell(cell, false, "");
+            return progress_active_cell_idx;
+        }
         foreach (GameObject battery in batteries)
         {
             if (battery.GetComponent<DragObject>().onDragging) continue;
@@ -178,8 +185,9 @@ public class GroupTree : MonoBehaviour {
             }
 
         }
-
-        if (item_in_cell>=num_in_cell)
+        if (item_in_cell == cell.GetComponent<ObjectContainer>().last_count) return progress_active_cell_idx;
+        cell.GetComponent<ObjectContainer>().last_count = item_in_cell;
+        if (item_in_cell==num_in_cell)
         {
             string msg = "";
             UpdateCell(cell, true, msg);
@@ -192,6 +200,12 @@ public class GroupTree : MonoBehaviour {
         }
         else
         {
+            if(item_in_cell < num_in_cell)
+            {
+                TTS.mTTS.GetComponent<TTS>().StartTextToSpeech("Hmm.. that's not enough. Can you get " + (num_in_cell - item_in_cell) + " more batteries?");
+                
+                
+            } else TTS.mTTS.GetComponent<TTS>().StartTextToSpeech("Hmm... that's too many. Can you give me exactly " + num_in_cell + " batteries?");
             string msg = "";
             UpdateCell(cell, false, msg);
         }
@@ -199,32 +213,7 @@ public class GroupTree : MonoBehaviour {
         return progress_active_cell_idx;
     }
 
-    public int CheckCellProgressive(GameObject bag_)
-    {
-        int res = 0;
-        if (progress_active_cell_idx >= cells.Count) return cells.Count;
-        GameObject cell = cells[progress_active_cell_idx];
-        {
-            bool inContainer = cell.GetComponent<ObjectContainer>().in_container(bag_);
-            if (inContainer)
-            {
-                string msg = "";
-                UpdateCell(cell, true, msg);
-                progress_active_cell_idx++;
-                if (progress_active_cell_idx < cells.Count) enableCell(progress_active_cell_idx);
-
-                // effect
-            }
-            else
-            {
-                string msg = "";
-                UpdateCell(cell, false, msg);
-            }
-
-        }
-        if (progress_active_cell_idx >= cells.Count) return cells.Count;
-        return progress_active_cell_idx;
-    }
+    
     private void enableCell(int cell_index)
     {
         if (cell_index < cells.Count)
@@ -233,7 +222,9 @@ public class GroupTree : MonoBehaviour {
             //may want to do some animations here.
             
             cells[cell_index].SetActive(true);
-            
+            //cells[cell_index].GetComponent<ObjectContainer>().enable_hourGlass(true);
+
+
         }
     }
     private void UpdateCell(GameObject cell, bool complete, int num)
@@ -260,6 +251,7 @@ public class GroupTree : MonoBehaviour {
             //diable dialogue
             cell.GetComponent<tree>().stop_randome_light(1);
             cell.GetComponent<tree>().character_nicejob();
+            cell.GetComponent<ObjectContainer>().enable_hourGlass(false);
             //if(cell.GetComponent<cell_speech>()) cell.GetComponent<cell_speech>().finish();
             //show thumb up
         }

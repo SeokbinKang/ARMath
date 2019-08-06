@@ -18,7 +18,8 @@ public class TTS : MonoBehaviour {
     public Text pitchText;
     public float speakPicthStep = 0.25f;    //Text reading pitch step
     public float speakSpeedStep = 0.25f;    //Text reading speed step
-
+    public float defaultpitch=1f;
+    public float defaultspeed=0.8f;
 
 
     // Use this for initialization
@@ -27,12 +28,18 @@ public class TTS : MonoBehaviour {
         mTTS = this;
         if (receiveObject == null)
             receiveObject = this.gameObject;
-
+        defaultpitch = 1f;
+        defaultspeed = 0.8f;
 #if UNITY_EDITOR
-        Debug.Log("InitSpeechRecognizer");
-        
+    Debug.Log("InitSpeechRecognizer");
+
 #elif UNITY_ANDROID
         AndroidPlugin.InitTextToSpeech(receiveObject.name, "OnStatus"); //Check the initialize status
+        //defaultpitch = AndroidPlugin.GetTextToSpeechPitch();
+        //defaultspeed = AndroidPlugin.GetTextToSpeechSpeed();
+        AndroidPlugin.SetTextToSpeechSpeed(defaultspeed);
+        Debug.Log("[ARMath] TTS pitch="+defaultpitch+"   speed="+defaultspeed);
+
 #endif
     }
 
@@ -160,7 +167,7 @@ public class TTS : MonoBehaviour {
 #endif
     }
 
-
+    
     //Decrease utterance speed of Text To Speech
     public void SpeakSpeedDown()
     {
@@ -177,8 +184,10 @@ public class TTS : MonoBehaviour {
     {
 #if UNITY_EDITOR
         Debug.Log("SpeakSpeedReset called");
+
 #elif UNITY_ANDROID
-        SetSpeedText(AndroidPlugin.ResetTextToSpeechSpeed());
+        //SetSpeedText(AndroidPlugin.ResetTextToSpeechSpeed());
+        AndroidPlugin.SetTextToSpeechSpeed(defaultspeed);
 #endif
     }
 
@@ -186,6 +195,7 @@ public class TTS : MonoBehaviour {
     //Increase utterance pitch of Text To Speech
     public void SpeakPitchUp()
     {
+        SetPitchText(AndroidPlugin.AddTextToSpeechPitch(speakPicthStep));
 #if UNITY_EDITOR
         Debug.Log("SpeakPitchUp called");
 #elif UNITY_ANDROID
@@ -210,8 +220,11 @@ public class TTS : MonoBehaviour {
     {
 #if UNITY_EDITOR
         Debug.Log("SpeakPitchReset called");
+
 #elif UNITY_ANDROID
-        SetPitchText(AndroidPlugin.ResetTextToSpeechPitch());
+        //SetPitchText(AndroidPlugin.ResetTextToSpeechPitch());
+        AndroidPlugin.SetTextToSpeechPitch(defaultpitch);
+
 #endif
     }
 

@@ -38,6 +38,7 @@ public class user_panel : MonoBehaviour {
     public void LoadUser(UserInfo u)
     {
         //update character
+        if (u == null) return;
         int total_gem = 0;
         foreach (ProblemType t in Enum.GetValues(typeof(ProblemType)))
         {
@@ -49,8 +50,8 @@ public class user_panel : MonoBehaviour {
 
 
         //udpate name
-        name_label.GetComponent<Text>().text = u.user_name;
-
+        name_label.GetComponent<Text>().text = "Hi, "+u.user_name;
+        TTS.mTTS.GetComponent<TTS>().StartTextToSpeech("Hi, " + u.user_name);
         //udpate stats
         stats.GetComponent<StatControl>().loadStats(u);
 

@@ -263,6 +263,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   delay: 0
   TTS_text: 1
+  TTS_pitch_down: 0
 --- !u!114 &114120713413333802
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -354,6 +355,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   delay: 2.5
   TTS_text: 1
+  TTS_pitch_down: 0
 --- !u!114 &114562830917347616
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -452,6 +454,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: efc0e5c50ec9b7f43aaf15b27ebf19fe, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  hourglass: {fileID: 0}
   region_rectangle: {fileID: 1650362251326888}
 --- !u!222 &222145144828582658
 CanvasRenderer:

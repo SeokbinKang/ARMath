@@ -318,7 +318,7 @@ TensorFlowSharp.Android.NativeBinding.Init();
                 nextActionTime = Time.time + 1.5f;
                 SceneObjectManager.mSOManager.add_new_object(items);
 
-                Debug.Log("[ARMath] on gui...");
+                //Debug.Log("[ARMath] on gui...");
                
                 
             }

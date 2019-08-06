@@ -7,6 +7,8 @@ public class DelayedImage : MonoBehaviour {
 
     public float delay;
     public bool TTS_text;
+    public bool TTS_pitch_down;
+    
     private float time_after_enable;
 
     private CallbackFunction callback;
@@ -31,7 +33,27 @@ public class DelayedImage : MonoBehaviour {
             if (label != null)
             {
                 label.enabled = true;
-                if (TTS_text) TTS.mTTS.GetComponent<TTS>().StartTextToSpeech(label.text.Replace("\n", ""));
+
+                if (TTS_text)
+                {
+                    
+                    if (TTS_pitch_down)
+                    {
+                        
+                        TTS.mTTS.SpeakPitchDown();
+                        TTS.mTTS.SpeakSpeedDown();
+
+                    }
+                    TTS.mTTS.GetComponent<TTS>().StartTextToSpeech(label.text.Replace("\n", ""));
+                    if (TTS_pitch_down)
+                    {
+                        TTS.mTTS.SpeakPitchReset();
+                        TTS.mTTS.SpeakSpeedReset();
+                        /*TTS.mTTS.SpeakPitchUp();
+                        TTS.mTTS.SpeakSpeedUp();*/
+
+                    }
+                }
             }
             Animator animc = this.GetComponent<Animator>();
             if (animc != null)
@@ -55,6 +77,10 @@ public class DelayedImage : MonoBehaviour {
         }
 		
 	}
+    public void setDelay(float t)
+    {
+        this.delay = t;
+    }
     public void setCallback(CallbackFunction c,string p)
     {
         callback = c;

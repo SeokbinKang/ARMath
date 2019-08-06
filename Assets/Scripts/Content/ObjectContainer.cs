@@ -4,8 +4,11 @@ using UnityEngine;
 
 public class ObjectContainer : MonoBehaviour {
 
-    
+    public GameObject hourglass;
     public GameObject region_rectangle;
+    private bool hourglass_enalbed;
+    private float last_interact;
+    public int last_count;
 	// Use this for initialization
 	void Start () {
 		
@@ -13,16 +16,43 @@ public class ObjectContainer : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		
+        if (hourglass_enalbed) handle_touch();
 	}
+    private void OnEnable()
+    {
+        if(hourglass!=null) hourglass.SetActive(false);
+        last_count = 0;
+    }
+    public void enable_hourGlass(bool t)
+    {
+        hourglass_enalbed = t;
+        //hourglass.SetActive(t);
+    }
+    public bool hourglass_wait()
+    {
+        if (!hourglass_enalbed ) return false;
+        if (!hourglass.activeSelf) return true;
+        return !hourglass.GetComponent<Animator>().GetCurrentAnimatorStateInfo(0).IsName("end");
+    }
+    private void handle_touch()
+    {
 
+        if (Input.touchCount > 0)
+        {
+            hourglass.SetActive(false);
+        } else
+        {
+            if(!hourglass.activeSelf)
+                hourglass.SetActive(true);
+        }
+    }
     public List<SceneObject> get_objects_in_rect(string obj_name)
     {
         Vector3 center = region_rectangle.GetComponent<RectTransform>().position;
         Rect rect = new Rect(new Vector2(center.x, center.y), region_rectangle.GetComponent<RectTransform>().rect.size);
         
         List<SceneObject> ret = SceneObjectManager.mSOManager.get_objects_in_rect(rect, obj_name);
-        Debug.Log("[ARMath] "+ret.Count+" "+obj_name+" objects are found in region rect:" + rect);
+        //Debug.Log("[ARMath] "+ret.Count+" "+obj_name+" objects are found in region rect:" + rect);
         return ret;
     }
     public List<SceneObject> get_objects_in_rect(string obj_name, ref List<SceneObject> out_of_rect)

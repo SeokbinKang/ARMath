@@ -21,10 +21,13 @@ public class DragObject : MonoBehaviour, IDragHandler, IDropHandler
 
     public bool fixed_size_onmove;
     public Vector2 fixed_size;
+     private List<GameObject> attached_feedback_gameobject;
+
 
 	// Use this for initialization
 	void Start () {
         adjust_alpha = false;
+        attached_feedback_gameobject = new List<GameObject>();
     }
 	
 	// Update is called once per frame
@@ -34,7 +37,17 @@ public class DragObject : MonoBehaviour, IDragHandler, IDropHandler
     }
     void OnEnable()
     {
+        
+        Reset();
+    }
+    private void Reset()
+    {
         onDragging = false;
+        clear_all_feedback();
+    }
+    private void OnDisable()
+    {
+        clear_all_feedback();
     }
     public void SetAlphaAdjustment(bool enabled, float alpha_init, float alpha_moving, float alpha_drop)
     {
@@ -71,6 +84,7 @@ public class DragObject : MonoBehaviour, IDragHandler, IDropHandler
         {
          
         };
+        clear_all_feedback();
         onDragging = true;
         Vector2 mouse_pos = eventData.position;
         this.GetComponent<RectTransform>().position = new Vector3(mouse_pos.x, mouse_pos.y, 0);
@@ -125,5 +139,87 @@ public class DragObject : MonoBehaviour, IDragHandler, IDropHandler
             }
         }
         
+    }
+
+    public void clear_all_feedback()
+    {
+        if (attached_feedback_gameobject != null)
+        {
+            foreach (var i in attached_feedback_gameobject)
+            {
+
+                if(i!=null) GameObject.Destroy(i);
+            }
+            attached_feedback_gameobject.Clear();
+        }
+
+    }
+    public void clear_number_feedback()
+    {
+        if (attached_feedback_gameobject != null)
+        {
+            foreach (var i in attached_feedback_gameobject)
+            {
+                number_cartoon n_c = i.GetComponent<number_cartoon>();
+                if (n_c != null)
+                {
+                    GameObject.Destroy(i);
+                }
+            }
+
+        }
+    }
+    public bool is_feedback_attached()
+    {
+        attached_feedback_gameobject.RemoveAll(s => s == null);
+        if (attached_feedback_gameobject.Count > 0) return true;
+        return false;
+    }
+
+    public int get_number_feedback()
+    {
+        int ret = -1;
+        if (attached_feedback_gameobject != null)
+        {
+            foreach (GameObject o in attached_feedback_gameobject)
+            {
+                if (o == null) continue;
+                number_cartoon n_c = o.GetComponent<number_cartoon>();
+                if (n_c != null) return n_c.num;
+            }
+        }
+        return ret;
+    }
+    public int get_all_feedback_count()
+    {
+        int ret = -1;
+        if (attached_feedback_gameobject != null)
+        {
+            ret = 0;
+            foreach(var o in attached_feedback_gameobject)
+            {
+                if (o != null) ret++;
+            }
+            return ret;
+        }
+        return 0;
+    }
+    public bool attach_object(GameObject feedback_go)
+    {
+        if (attached_feedback_gameobject == null) attached_feedback_gameobject = new List<GameObject>();
+        if (feedback_go != null) this.attached_feedback_gameobject.Add(feedback_go);
+        return true;
+    }
+    public GameObject attached_button_visibility(float alpha)
+    {
+        foreach (GameObject o in attached_feedback_gameobject)
+        {
+            if (o.GetComponent<Button>() == null || o.GetComponent<Image>() == null) continue;
+            Color c = o.GetComponent<Image>().color;
+            c.a = alpha;
+            o.GetComponent<Image>().color = c;
+            return o;
+        }
+        return null;
     }
 }

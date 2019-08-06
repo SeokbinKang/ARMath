@@ -180,6 +180,13 @@ public class Dialogs : MonoBehaviour {
 
         
     }
+    public static void set_topboard_animated(int idx, string txt,float delay)
+    {
+        Debug.Log("[ARMath]" + this_ + "  " + this_.element_topboard_animated);
+        this_.element_topboard_animated.SetActive(true);
+        this_.element_topboard_animated.GetComponent<DialogProblemAnimated>().set_term(idx, txt,delay);
+
+    }
     public static void set_topboard_update_highlight(int idx, string txt )
     {
         this_.element_topboard_animated.GetComponent<DialogProblemAnimated>().update_and_highlight(idx, txt);

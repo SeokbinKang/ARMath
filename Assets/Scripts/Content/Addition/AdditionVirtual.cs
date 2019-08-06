@@ -44,6 +44,7 @@ public class AdditionVirtual : MonoBehaviour
     }
     private void Reset()
     {
+        region.GetComponent<RegionControl>().getRegion(1).GetComponent<ObjectContainer>().enable_hourGlass(true);
         container.SetActive(false);
         root_movables.SetActive(false);        
         UserInteracting = false;
@@ -118,103 +119,57 @@ public class AdditionVirtual : MonoBehaviour
     private void count_object_fix_realones()
     {
         if (!UserInteracting) return;
-        
+
+        GameObject region_box = region.GetComponent<RegionControl>().getRegion(1);
+        if (region_box.GetComponent<ObjectContainer>().hourglass_wait()) return;
+
+
         int virtual_n = 0;
         int cur_n = 0;
         int goal_n = ContentModuleRoot.GetComponent<ContentAddition>().goal_object_count;
         int init_n = ContentModuleRoot.GetComponent<ContentAddition>().init_object_count;
         //List<SceneObject> objs = SceneObjectManager.mSOManager.get_objects_by_name(target_object_name);
         
+
+
         bool[] number_label = new bool[init_n];
         
         virtual_n = 0;
         //check virtual objects in the bag
         GameObject container = region.GetComponent<RegionControl>().getRegion(1);
+        List<GameObject> objs_in_container = new List<GameObject>();
         foreach (GameObject o in movable_objects)
         {
             bool contained = container.GetComponent<ObjectContainer>().in_container(o);
-            if (contained) virtual_n++;
+            if (contained)
+            {
+                virtual_n++;
+                objs_in_container.Add(o);
+                if (!o.GetComponent<DragObject>().is_feedback_attached())
+                {
+                    //attach feedback
+                                      
+                      GameObject label = FeedbackGenerator.create_target(o, 0, 600, 1,false);
+                      o.GetComponent<DragObject>().attach_object(label);
+                     
+                      
+                    
+                }
+            }
         }
 
         cur_n = virtual_n;
-
+        ContentModuleRoot.GetComponent<ContentAddition>().current_object_count = init_n + cur_n;
         if (prev_n != cur_n)            
         {
             float percent = ((float)(cur_n + init_n)) / (float)goal_n;
-            Debug.Log("[ARMath] Icecream percent = " + percent + "  " + cur_n + "  " + init_n + "  /  " + goal_n);
+           // Debug.Log("[ARMath] Icecream percent = " + percent + "  " + cur_n + "  " + init_n + "  /  " + goal_n);
             item_mask.GetComponent<vertical_mask>().set_visible_percent(percent);
-            
-            int added = cur_n - prev_n;
-            if (added > 0) TTS.mTTS.GetComponent<TTS>().StartTextToSpeech(cur_n + " " + target_object_name + "s added!");
-                else TTS.mTTS.GetComponent<TTS>().StartTextToSpeech("please add more " + target_object_name + "s!");
             prev_n = cur_n;
-            OnCount();
+            OnCount(objs_in_container);
         }
     }
-    private void count_object_DEPRECATED()
-    { //DEPRECATED
-        if (!container || !UserInteracting) return;
-        int init_n = ContentModuleRoot.GetComponent<ContentAddition>().init_object_count;
-        int virtual_n = 0;        
-        int cur_n =0;
-        List<SceneObject> objs = SceneObjectManager.mSOManager.get_objects_by_name(target_object_name);
-        int goal_n = ContentModuleRoot.GetComponent<ContentAddition>().goal_object_count;
-        bool[] number_label = new bool[objs.Count];
-        init_n = objs.Count;
-        for (int i = 0; i < number_label.Length; i++)
-        {  //TODO: detach higher number label
-            int number_label_value = objs[i].get_number_feedback();
-            if (number_label_value > 0 && number_label_value <= number_label.Length)
-            {
-                number_label[number_label_value - 1] = true;
-                
-            }
-        }
-
-        //check tangible objects in the bag
-        for (int i = 0; i < number_label.Length; i++)
-        {
-            if (!number_label[i])
-            {
-                foreach (SceneObject so in objs)
-                {
-                    if (so.get_number_feedback() <= 0)
-                    {
-                        Vector3 targetPos = new Vector3(so.catalogInfo.Box.center.x, Screen.height - so.catalogInfo.Box.center.y, 0);
-                        GameObject label = FeedbackGenerator.create_number_feedback(targetPos, i + 1, true);
-                        so.attach_object(label);
-                        break;
-                    }
-                }
-            }
-
-        }
-
-        virtual_n = 0;
-        //check virtual objects in the bag
-        
-        foreach(GameObject o in movable_objects)
-        {
-            if (o.GetComponent<DragObject>().onDragging) continue;
-            bool contained = container.GetComponent<ObjectContainer>().in_container(o);
-            if (contained) virtual_n++;
-        }
-
-        
-
-        cur_n = virtual_n;
-        //ContentModuleRoot.GetComponent<ContentAddition>().init_object_count = init_n;
-        
-        if (prev_n != cur_n)
-        {
-            item_mask.GetComponent<vertical_mask>().set_visible_percent(((float)cur_n / (float)goal_n));
-            prev_n = cur_n;
-            int added = cur_n - prev_n;
-            if (added > 0) TTS.mTTS.GetComponent<TTS>().StartTextToSpeech(added + " " + target_object_name + "s added!");
-                else TTS.mTTS.GetComponent<TTS>().StartTextToSpeech("please add more " + target_object_name + "s!");
-            OnCount();
-        }
-    }
+    
     public List<GameObject> get_movables_in_container()
     {
         List<GameObject> ret = new List<GameObject>();
@@ -225,6 +180,40 @@ public class AdditionVirtual : MonoBehaviour
         }
         return ret;
     }
+    public void OnCount(List<GameObject> l_so)
+    {
+        int init_n = ContentModuleRoot.GetComponent<ContentAddition>().init_object_count;
+        int goal_n = ContentModuleRoot.GetComponent<ContentAddition>().goal_object_count;
+        int add_n = goal_n - init_n;
+        int gap = ContentModuleRoot.GetComponent<ContentAddition>().current_object_count - goal_n;
+
+
+        if (gap == 0)
+        {
+            UserInteracting = false;
+            List<Vector2> obj_pos_list = ContentModuleRoot.GetComponent<ContentAddition>().obj_pos_list;
+            foreach (GameObject so in l_so)
+            {
+                obj_pos_list.Add(so.GetComponent<RectTransform>().position);
+                //so.extend_life(10);
+            }
+            this.transform.parent.GetComponent<ContentSolver>().start_review();
+
+            return;
+        }
+        if (gap > 0) TTS.mTTS.GetComponent<TTS>().StartTextToSpeech("Hmm... that's too many. Can you give me exactly " + add_n + " coins?");
+        else TTS.mTTS.GetComponent<TTS>().StartTextToSpeech("Hmm.. I need more. Can you get " + Mathf.Abs(gap) + " more coins?");
+        /*
+        foreach (GameObject so in l_so)
+        {
+            so.GetComponent<DragObject>().clear_all_feedback();
+        }*/
+
+            //UpdateBoard();
+            //sound effect
+
+
+        }
     public void OnCount()
     {
 

@@ -8,11 +8,11 @@ public class ContentDiv : MonoBehaviour {
 
     public GameObject sub_intro;
     public GameObject sub_intro2;
-    public GameObject sub_explorer;
+    //public GameObject sub_explorer;
     public GameObject sub_solver;
-    public GameObject sub_review;
+    //public GameObject sub_review;
     public GameObject sub_context;
-
+    
     public string target_object_name ;
     public Rect target_object_cluster;    
     
@@ -20,7 +20,8 @@ public class ContentDiv : MonoBehaviour {
     public int divisor;
     public int quotient;
     public Vector2 center_of_objects;
-
+    public List<Vector2> obj_pos_list;
+    public Rect obj_rect;
 
 
 
@@ -31,6 +32,7 @@ public class ContentDiv : MonoBehaviour {
 
     void Start()
     {
+        obj_pos_list = new List<Vector2>();
     }
 
     // Update is called once per frame
@@ -52,11 +54,9 @@ public class ContentDiv : MonoBehaviour {
 
         if (sub_intro) sub_intro.SetActive(true);
         if (sub_intro2) sub_intro2.SetActive(false);
-        if (sub_intro2) sub_context.SetActive(false);
-        if (sub_explorer) sub_explorer.SetActive(false);
+        if (sub_context) sub_context.SetActive(false);        
         if (sub_solver) sub_solver.SetActive(false);
-        if (sub_review) sub_review.SetActive(false);
-
+        obj_pos_list.Clear();
         is_idle = true;
         is_solved = false;
         
@@ -85,26 +85,26 @@ public class ContentDiv : MonoBehaviour {
             return;
         }
         Tools.finder_init(target_object_name, 4, new CallbackFunction2(s2_objectfound), "","Let's find some chocolates!",1f);
-
+        
     }
     public void s2_objectfound(string p,  List<SceneObject> obj_list, Rect rt)
     {
         System.Random random = new System.Random();
         this.dividend = System.Convert.ToInt32(p);
-        
-       
+        obj_pos_list.Clear();
+
+
 
         if (is_idle)
         {            
-            List<int> divisor_list = new List<int>();
-            for (int i = 3; i <= dividend / 2; i++)
+            
+            
+            if (dividend % divisor != 0)
             {
-                if (dividend % i == 0) divisor_list.Add(i);
-            }
-            if (divisor_list.Count == 0)
-            {
+                int gap = (dividend / divisor + 1) * (divisor) - dividend;
+                Debug.Log("[ARMath] Div : " + dividend + " / " + divisor + "   lacking : " + gap);
                 Dialogs.add_dialog(new DialogItem(DialogueType.left_bottom_plain,
-                  "Hmm... I think we need more chocolates. Can you find more?",
+                  "Hmm... I think we need "+gap+" more chocolates to equally distribute them. Can you find more?",
                 true,
                  new CallbackFunction(s1_search_objects),
                 "",
@@ -112,38 +112,41 @@ public class ContentDiv : MonoBehaviour {
                  );
                 return;
             }
-            divisor = divisor_list[(int)Random.Range(0, divisor_list.Count)];
+
+            obj_rect = rt;
             quotient = dividend / divisor;
             is_idle = false;
-           
 
             //indicate objects
-
 
             float target_delay = 2;
             foreach (SceneObject so_ in obj_list) {    
                 FeedbackGenerator.create_target(so_.get_screen_pos(), target_delay, 5, 0);
                 target_delay += 0.2f;
+                obj_pos_list.Add(so_.get_screen_pos());
             }
         
             Dialogs.add_dialog(new DialogItem(DialogueType.left_bottom_plain,
-            "Oh thanks. We found " + dividend + " chocolates!.  ",
+            "Oh thanks. We've got " + dividend + " chocolates!.  ",
             true,
             new CallbackFunction(callback_shownumber1),
            dividend.ToString(),
             6), 0
             );
             Dialogs.add_dialog(new DialogItem(DialogueType.left_bottom_plain,
-             "Can you distribute the chocolates to "+divisor+" gift boxes?",
+             "Can you distribute them to "+divisor+" gift boxes?",
              //"Can you help distribute the chocolates to gift boxes?",
               true,
-              new CallbackFunction(callback_shownumber2),
-              "÷ " + divisor.ToString(),
+              new CallbackFunction(s4_startsolver),
+              "",
               7f), 0
             );
+            
+            //setting up virtual tray 
         }
     }
-    public void callback_shownumber1(string t)
+  
+public void callback_shownumber1(string t)
     {
         Dialogs.set_topboard_animated(true, 0, t);
 
@@ -159,12 +162,13 @@ public class ContentDiv : MonoBehaviour {
         }*/
 
     }
-    public void callback_shownumber2(string t)
+    public void callback_shownumber2(string t) //"÷ "+divisor
     {
 
         Dialogs.set_topboard_animated(true, 1, t);
         s4_startsolver("");
-    }    
+    }
+    
 
     public void s4_startsolver(string p)
     {

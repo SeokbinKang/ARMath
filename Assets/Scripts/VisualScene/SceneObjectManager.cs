@@ -130,7 +130,7 @@ public class SceneObjectManager : MonoBehaviour {
     public List<SceneObject> get_objects_in_rect(Rect rect, string obj_name)
     {
         List<SceneObject> ret = new List<SceneObject>();
-        Debug.Log("[ARMath] get_objects_in_rect " + rect.position + "  " + obj_name + "  ");
+        //Debug.Log("[ARMath] get_objects_in_rect " + rect.position + "  " + obj_name + "  ");
         foreach (SceneObject so in mObjectPool)
         {
             if (so.catalogInfo.DisplayName==obj_name && so.check_in_box(rect))
@@ -256,8 +256,7 @@ public class SceneObjectManager : MonoBehaviour {
     }
 }
 
-public class SceneObject
-{
+public class SceneObject { 
     public static int global_id_counter=0;
     public CatalogItem catalogInfo;
     public float time_instantiated;
@@ -307,81 +306,11 @@ public class SceneObject
     {
         return !been_interacted;
     }
-    public void clear_all_feedback()
-    {
-        if (attached_feedback_gameobject != null)
-        {
-            foreach (var i in attached_feedback_gameobject)
-            {
-                
-                GameObject.Destroy(i);
-            }
-            attached_feedback_gameobject.Clear();
-        }
+    
+    
 
-    }
-    public void clear_number_feedback()
-    {
-        if (attached_feedback_gameobject != null)
-        {
-            foreach (var i in attached_feedback_gameobject)
-            {
-                number_cartoon n_c = i.GetComponent<number_cartoon>();
-                if (n_c != null)
-                {
-                    GameObject.Destroy(i);
-                }
-            }
-
-        }
-    }
-        public bool is_feedback_attached()
-    {
-        if (attached_feedback_gameobject.Count > 0) return true;
-        return false;
-    }
-    public bool attach_object(GameObject feedback_go)
-    {
-        if(attached_feedback_gameobject==null) attached_feedback_gameobject = new List<GameObject>();
-        if (feedback_go != null) this.attached_feedback_gameobject.Add(feedback_go);        
-        return true;
-    }
-    public GameObject attached_button_visibility(float alpha)
-    {
-        foreach (GameObject o in attached_feedback_gameobject)
-        {
-            if (o.GetComponent<Button>() == null || o.GetComponent<Image>() == null) continue;
-            Color c = o.GetComponent<Image>().color;
-            c.a = alpha;
-            o.GetComponent<Image>().color = c;
-            return o;
-        }
-        return null;
-    }
   
-    public int get_number_feedback()
-    {
-        int ret = -1;
-        if (attached_feedback_gameobject != null)
-        {
-            foreach(GameObject o in attached_feedback_gameobject)
-            {
-                if (o == null) continue;
-                number_cartoon n_c = o.GetComponent<number_cartoon>();
-                if (n_c != null) return n_c.num;
-            }
-        }
-        return ret;
-    }
-    public int get_all_feedback_count()
-    {
-        int ret = -1;
-        if (attached_feedback_gameobject != null)
-        {
-            return attached_feedback_gameobject.Count;
-        }
-        return 0;
-    }
+    
     public void extend_life()
     {
         time_expire = Time.time + SystemParam.param_object_lifetime;
@@ -482,6 +411,87 @@ public class SceneObject
         //Debug.Log("[ARMath] intersecting portion = "+overlap_portion);
         return overlap_portion;
     }
+  
+    public void clear_all_feedback()
+    {
+        if (attached_feedback_gameobject != null)
+        {
+            foreach (var i in attached_feedback_gameobject)
+            {
 
+                GameObject.Destroy(i);
+            }
+            attached_feedback_gameobject.Clear();
+        }
+
+    }
+    public void clear_number_feedback()
+    {
+        if (attached_feedback_gameobject != null)
+        {
+            foreach (var i in attached_feedback_gameobject)
+            {
+                number_cartoon n_c = i.GetComponent<number_cartoon>();
+                if (n_c != null)
+                {
+                    GameObject.Destroy(i);
+                }
+            }
+
+        }
+    }
+    public bool is_feedback_attached()
+    {
+        attached_feedback_gameobject.RemoveAll(s => s==null);
+        if (attached_feedback_gameobject.Count > 0) return true;
+        return false;
+    }
+
+    public int get_number_feedback()
+    {
+        int ret = -1;
+        if (attached_feedback_gameobject != null)
+        {
+            foreach (GameObject o in attached_feedback_gameobject)
+            {
+                if (o == null) continue;
+                number_cartoon n_c = o.GetComponent<number_cartoon>();
+                if (n_c != null) return n_c.num;
+            }
+        }
+        return ret;
+    }
+    public int get_all_feedback_count()
+    {
+        int ret = -1;
+        if (attached_feedback_gameobject != null)
+        {
+            ret = 0;
+            foreach (var o in attached_feedback_gameobject)
+            {
+                if (o != null) ret++;
+            }
+            return ret;
+        }
+        return 0;
+    }
+    public bool attach_object(GameObject feedback_go)
+    {
+        if (attached_feedback_gameobject == null) attached_feedback_gameobject = new List<GameObject>();
+        if (feedback_go != null) this.attached_feedback_gameobject.Add(feedback_go);
+        return true;
+    }
+    public GameObject attached_button_visibility(float alpha)
+    {
+        foreach (GameObject o in attached_feedback_gameobject)
+        {
+            if (o.GetComponent<Button>() == null || o.GetComponent<Image>() == null) continue;
+            Color c = o.GetComponent<Image>().color;
+            c.a = alpha;
+            o.GetComponent<Image>().color = c;
+            return o;
+        }
+        return null;
+    }
 
 }

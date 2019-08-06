@@ -17,13 +17,14 @@ public class DialogProblemAnimated : MonoBehaviour
     // Use this for initialization
     void Start()
     {
-        cbs = new List<TimerCallback>();
+        if(cbs==null) cbs = new List<TimerCallback>();
     }
 
     // Update is called once per frame
     void Update()
     {
-        for(int i=0;i<cbs.Count;i++)        
+        if (cbs == null) cbs = new List<TimerCallback>();
+        for (int i=0;i<cbs.Count;i++)        
         {
             if (cbs[i].tick()) cbs.RemoveAt(i);
         }
@@ -41,6 +42,7 @@ public class DialogProblemAnimated : MonoBehaviour
     }
     public void set_term(int idx, string txt)
     {
+
         if (idx == 0)
         {
             term1_num.GetComponentInChildren<Text>().text = txt;
@@ -126,6 +128,13 @@ public class DialogProblemAnimated : MonoBehaviour
     }
     public void highlight_term(int idx, float delay)
     {
+        if (cbs == null) cbs = new List<TimerCallback>();
         cbs.Add(new TimerCallback(highlight_term, idx.ToString(), delay));
     }
+    public void set_term(int idx, string txt, float delay)
+    {
+        if (cbs == null) cbs = new List<TimerCallback>();
+        cbs.Add(new TimerCallback(set_term, idx,txt,delay));
+    }
+
 }

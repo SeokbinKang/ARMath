@@ -49,7 +49,8 @@ public class review1 : MonoBehaviour {
         {
             TTS.mTTS.GetComponent<TTS>().StartTextToSpeech("Nice job!");
             close_at = Time.time + 1.5f;
-            active_selections[index].GetComponent<Animator>().SetTrigger("o");
+            active_selections[index].GetComponent<AnswerButton>().active_feedback(true);
+            
             if(selections==active_selections)
             {
                 Dialogs.set_topboard_update_highlight(2, "= "+selections[index].GetComponentInChildren<Text>().text);
@@ -58,7 +59,8 @@ public class review1 : MonoBehaviour {
         } else
         {
             TTS.mTTS.GetComponent<TTS>().StartTextToSpeech("Try again!");
-            active_selections[index].GetComponent<Animator>().SetTrigger("x");
+            active_selections[index].GetComponent<AnswerButton>().active_feedback(false);
+            
 
         }
     }
@@ -70,7 +72,7 @@ public class review1 : MonoBehaviour {
         problem_text.GetComponent<Text>().text = problem_statement;
         for(int i = 0; i < answers.Length;i++)
         {
-            if (i < selections.Length) selections[i].GetComponentInChildren<Text>().text =  answers[i].ToString();
+            if (i < selections.Length) selections[i].GetComponent<AnswerButton>().set_answer(answers[i].ToString());
         }
         answer_index = answer_idx;
         mCallback = cb;

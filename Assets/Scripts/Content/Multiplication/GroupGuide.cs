@@ -18,7 +18,7 @@ public class GroupGuide : MonoBehaviour {
 
     public Color[] charColor;
     public List<GameObject> virtual_objs_in_cells;
-    public List<SceneObject> tangible_objs_in_cells;
+    public List<Vector2> tangible_objs_in_cells;
     private int[] cell_correction;
     private string obj_name;
     // Use this for initialization
@@ -28,7 +28,7 @@ public class GroupGuide : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-        process_correction_touch();
+        //process_correction_touch();
 
     }
     void OnEnable()
@@ -49,7 +49,7 @@ public class GroupGuide : MonoBehaviour {
 
         if (virtual_objs_in_cells == null) virtual_objs_in_cells = new List<GameObject>();
         else virtual_objs_in_cells.Clear();
-        if (tangible_objs_in_cells == null) tangible_objs_in_cells = new List<SceneObject>();
+        if (tangible_objs_in_cells == null) tangible_objs_in_cells = new List<Vector2>();
         else tangible_objs_in_cells.Clear();
 
     }
@@ -78,12 +78,13 @@ public class GroupGuide : MonoBehaviour {
     public int CheckBoxes(string obj_name_, int num_per_cell)
     {
         int res = 0;
-        virtual_objs_in_cells.Clear();
+        
         //tangible_objs_in_cells.Clear();
         Debug.Log("[ARMath] Check cells " + cells.Count);
         obj_name = obj_name_;
         for(int i=0;i<cells.Count;i++)
         {
+
             GameObject cell = cells[i];
             if (cell_correction[i]>0) {
                 res++;
@@ -94,22 +95,84 @@ public class GroupGuide : MonoBehaviour {
             if (objs_in_cell != null && (objs_in_cell.Count == num_per_cell))
             {
                 res++;
+                
                 UpdateBoxAnim(cell, true, num_per_cell);
-                //cell.GetComponent<Animator>().SetTrigger("close");
+
                 //may want to put a message here.
-                tangible_objs_in_cells.AddRange(objs_in_cell);
+                foreach (var o in objs_in_cell)
+                    tangible_objs_in_cells.Add(o.get_screen_pos());
                 cell_correction[i]++;
             } else  {
                 int k;
                 if (objs_in_cell == null) k = 0;
-                else k = objs_in_cell.Count;
+                    else k = objs_in_cell.Count;
                 //UpdateBoxAnim(cell, false, k);
+            }
+            foreach(SceneObject o in objs_in_cell)
+            {
+                if (o.is_feedback_attached()) continue;
+                GameObject f = FeedbackGenerator.create_target(o,0,3, 0,false);
+                o.attach_object(f);                
             }
         }
         
 
         return res;
     }
+    public int CheckBoxes(List<GameObject> virtual_objs, int num_per_cell)
+    {
+        int res = 0;
+        virtual_objs_in_cells.Clear();
+        //tangible_objs_in_cells.Clear();
+        List<GameObject> objs = new List<GameObject>();
+       
+        for (int i = 0; i < cells.Count; i++)
+        {
+            GameObject cell = cells[i];
+            int item_in_cell = 0;
+            objs.Clear();
+            foreach (GameObject obj in virtual_objs)
+            {
+                if (obj.GetComponent<DragObject>().onDragging) continue;
+                bool inContainer = cell.GetComponent<ObjectContainer>().in_container(obj);
+                if (inContainer)
+                {
+                    item_in_cell++;
+                    objs.Add(obj);
+                    virtual_objs_in_cells.Add(obj);
+                }
+
+            }            
+            if (item_in_cell == num_per_cell)
+            {
+                res++;
+                
+                
+                UpdateBoxAnim(cell, true, num_per_cell);                
+                //may want to put a message here.  
+                foreach(GameObject o in objs)
+                {
+                    o.GetComponent<Image>().color = new Color(1, 1, 1, 0.3f);
+                }
+                
+            }
+            else
+            {
+         
+                UpdateBoxAnim(cell, false, item_in_cell);
+                foreach (GameObject o in objs)
+                {
+                    o.GetComponent<Image>().color = new Color(1, 1, 1, 1);
+                }
+
+            }
+        }
+
+
+        return res;
+    }
+    
+
     private void process_correction_touch()
     {
 
@@ -145,7 +208,7 @@ public class GroupGuide : MonoBehaviour {
     {
         return this.virtual_objs_in_cells;
     }
-    public List<SceneObject> get_tangible_objects_in_cells()
+    public List<Vector2> get_tangible_objects_in_cells()
     {
         return this.tangible_objs_in_cells;
     }
@@ -315,11 +378,15 @@ public class GroupGuide : MonoBehaviour {
     {
         if (complete)
         {
-            cell.GetComponent<Animator>().SetTrigger("close");
-        }
-        else
-        {
-            cell.GetComponent<Animator>().SetTrigger("open");
+            cell.GetComponent<Animator>().ResetTrigger("open");
+            if (cell.GetComponent<Animator>().GetCurrentAnimatorStateInfo(0).IsName("Giftbox_open"))
+                cell.GetComponent<Animator>().SetTrigger("close");
+            
+        } else{
+            cell.GetComponent<Animator>().ResetTrigger("close");
+            if (cell.GetComponent<Animator>().GetCurrentAnimatorStateInfo(0).IsName("Giftbox_close"))
+                cell.GetComponent<Animator>().SetTrigger("open");
+            
         }
         Text t_label = cell.GetComponentInChildren<Text>();
         if(t_label!=null) t_label.text = num.ToString();

@@ -18,7 +18,8 @@ public class Finder : MonoBehaviour
     public int min_number_of_objects;
     private string param;
     private float nextActionTime = 0.0f;
-    
+
+    List<SceneObject> objs;
     // Use this for initialization
     void Start()
     {
@@ -51,12 +52,12 @@ public class Finder : MonoBehaviour
         text1_instruction.SetActive(true);
         text2_confirmation.SetActive(false);
         text3_correction.SetActive(false);
-        
+        objs = null;
     }
     public void check_object(bool confirm)
     {
         
-        List<SceneObject> objs = ARMathUtils.get_objects_in_rect(view, obj_name);
+         objs= ARMathUtils.get_objects_in_rect(view, obj_name);
         //Debug.Log("[ARMath] checking objs in the finder "+objs.Count);
 
 
@@ -65,20 +66,31 @@ public class Finder : MonoBehaviour
             float target_delay = 0;
             foreach (SceneObject so in objs)
             {
+                
+                if (so.is_feedback_attached()) continue;
+                
                 Vector3 targetPos = new Vector3(so.catalogInfo.Box.center.x, Screen.height - so.catalogInfo.Box.center.y, 0);
-                FeedbackGenerator.create_target(targetPos, target_delay, 1, 4);
+                GameObject f = FeedbackGenerator.create_target(targetPos, target_delay, 200, 4);
+                so.attach_object(f);
                 target_delay += 0.1f;
             }
 
-            if(text1_instruction.activeSelf || confirm) confirm_objects(objs.Count);
+            if (text1_instruction.activeSelf || confirm)
+            {
+               
+                confirm_objects(objs.Count);
+            }
 
         }
 
     }
     private void confirm_objects(int found_n)
     {
-
-        text2_confirmation.GetComponentInChildren<Text>().text = "Hmm...I think there are " + AssetManager.Get_object_text(obj_name, found_n) + ". Is that right?";
+        foreach (SceneObject so in objs)
+        {
+            so.extend_life(30f);
+        }
+        text2_confirmation.GetComponentInChildren<Text>().text = "I see " + AssetManager.Get_object_text(obj_name, found_n) + ", am I right?";
         text1_instruction.SetActive(false);
         text2_confirmation.SetActive(true);
         text3_correction.SetActive(false);
@@ -87,19 +99,22 @@ public class Finder : MonoBehaviour
     {
         text1_instruction.SetActive(false);
         text2_confirmation.SetActive(false);
-        text3_correction.GetComponentInChildren<Text>().text = "Can you tap "+obj_name_plural+" without circles on the screen?";
+        text3_correction.GetComponentInChildren<Text>().text = "Can you tap uncircled "+obj_name_plural+" on the screen?";
         text3_correction.SetActive(true);
     }
     public void complete_finder()
     {
-        List<SceneObject> objs = ARMathUtils.get_objects_in_rect(view, obj_name);
+        //List<SceneObject> objs = ARMathUtils.get_objects_in_rect(view, obj_name);
         //Debug.Log("[ARMath] checking objs in the finder "+objs.Count);
 
-
+        foreach (SceneObject so in objs)
+        {
+            so.extend_life(30f);
+        }
         if (objs.Count >= min_number_of_objects)
         {
             float target_delay = 0;
-
+            FeedbackGenerator.clear_all_feedback();
             if (call_back != null)
             {
                 call_back(objs.Count.ToString());
@@ -114,7 +129,13 @@ public class Finder : MonoBehaviour
                 call_back2 = null;
             }
             this.gameObject.SetActive(false);
+        }  else
+        {
+            //need more objects
+            TTS.mTTS.GetComponent<TTS>().StartTextToSpeech("Oops, I actually need more "+ obj_name_plural);
+
         }
+
     }
     public void set_finder(string obj, int min_count, CallbackFunction cb, string p)
     {
