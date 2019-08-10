@@ -20,6 +20,10 @@ public class StatControl : MonoBehaviour {
     {
         Dictionary<ProblemType, List<Gem>> gems = u.gem_collection;
         int i = 0;
+        foreach(var s in stat_panels)
+        {
+            s.GetComponent<GemPane>().Reset();
+        }
         foreach(ProblemType t in Enum.GetValues(typeof(ProblemType)))
         {
             
@@ -27,6 +31,7 @@ public class StatControl : MonoBehaviour {
             {
                 if(i<stat_panels.Length)
                 {
+                    
                     stat_panels[i].GetComponent<GemPane>().UpdateGem(gems[t]);
                     i++;
                 }

@@ -18,13 +18,8 @@ public class Tools : MonoBehaviour {
 	void Update () {
 		
 	}
-    public static void finder_init(string obj, int min_count, CallbackFunction cb, string p)
-    {
-        //call the callback when there is a set of objects inthe view. 
-        mThis.finder_.GetComponent<Finder>().set_finder(obj, min_count, cb, p);
-        mThis.finder_.SetActive(true);
 
-    }
+
     public static void finder_init(string obj, int min_count, CallbackFunction2 cb, string cb_param, string prompt, float scale)
     {
         //call the callback when there is a set of objects inthe view. 

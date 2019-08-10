@@ -87,16 +87,25 @@ public class FeedbackGenerator : MonoBehaviour {
         mThis.counter_callback = cb;
             
     }
-    public static GameObject create_target(Vector2 pos, float start_delay, float lifetime, int color_index, bool countable)
+    public static int get_global_counter()
     {
-        
-        
+        return global_counter;
+    }
+    public static GameObject create_target(Vector2 pos, float start_delay, float lifetime, int color_index, bool countable, bool sound)
+    {
         if (!countable)
         {
             return create_target(pos, start_delay, lifetime, color_index);
         }
-        return create_target_countable(pos, start_delay, lifetime, color_index);
-
+        return create_target_countable(pos, start_delay, lifetime, color_index,sound);
+    }
+    public static GameObject create_target(Vector2 pos, float start_delay, float lifetime, int color_index, bool countable)
+    {   
+        if (!countable)
+        {
+            return create_target(pos, start_delay, lifetime, color_index);
+        }
+        return create_target_countable(pos, start_delay, lifetime, color_index,false);
     }
     public static GameObject create_target(GameObject go, float start_delay, float lifetime, int color_index, bool countable)
     {
@@ -106,7 +115,7 @@ public class FeedbackGenerator : MonoBehaviour {
         {
             return create_target(rt.position, start_delay, lifetime, color_index);
         }
-        return create_target_countable(rt.position, start_delay, lifetime, color_index);
+        return create_target_countable(rt.position, start_delay, lifetime, color_index,false);
 
     }
     public static GameObject create_target(SceneObject so, float start_delay, float lifetime, int color_index, bool countable)
@@ -118,7 +127,7 @@ public class FeedbackGenerator : MonoBehaviour {
             GameObject t = create_target(so.get_screen_pos(), start_delay, lifetime, color_index);
             return t;
         }
-        GameObject t2 = create_target_countable(so.get_screen_pos(), start_delay, lifetime, color_index);
+        GameObject t2 = create_target_countable(so.get_screen_pos(), start_delay, lifetime, color_index,false);
         return t2;
     }
 
@@ -135,7 +144,7 @@ public class FeedbackGenerator : MonoBehaviour {
         mThis.timer_feedback.Add(new GameObject_timer(label,start_delay,lifetime));        
         
     }
-    public static GameObject create_target_countable(Vector3 pos, float start_delay, float lifetime, int color_index)
+    public static GameObject create_target_countable(Vector3 pos, float start_delay, float lifetime, int color_index,bool sound)
     {
         Vector3 targetPos = pos;
 
@@ -145,6 +154,7 @@ public class FeedbackGenerator : MonoBehaviour {
         label.transform.SetParent(mThis.gameObject.transform);
         label.GetComponent<RectTransform>().localScale = new Vector3(1f, 1f, 1f);
         label.GetComponent<Image>().color = AssetManager.getColors()[color_index];
+        label.GetComponent<TargetCountable>().enable_sound(sound);
         //mThis.color_terms[color_index];
         label.SetActive(false);
         mThis.timer_feedback.Add(new GameObject_timer(label, start_delay, lifetime));
@@ -168,7 +178,7 @@ public class FeedbackGenerator : MonoBehaviour {
         return label;
 
     }
-    public static void target_counting(GameObject pivot_obj, float start_delay, float lifetime)
+    public static int target_counting(GameObject pivot_obj, float start_delay, float lifetime)
     {
         RectTransform r = pivot_obj.GetComponent<RectTransform>();
         create_number_feedback(r.position, ++global_counter, start_delay, lifetime);
@@ -177,6 +187,7 @@ public class FeedbackGenerator : MonoBehaviour {
             mThis.counter_callback("");
             mThis.counter_callback = null;
         }
+        return global_counter;
     }
     public static GameObject create_number_feedback(Vector3 position, int value, float start_delay, float lifetime)
     {

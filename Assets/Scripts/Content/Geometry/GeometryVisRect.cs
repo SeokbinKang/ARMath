@@ -19,6 +19,8 @@ public class GeometryVisRect : MonoBehaviour {
     public GeometryPrimitives interactive_primitive;
 
     public List<int> selected_index;
+
+    private bool suspend_anglecheck;
     void Start () {
 		
 	}
@@ -54,6 +56,8 @@ public class GeometryVisRect : MonoBehaviour {
         interactive_primitive = GeometryPrimitives.none;
         if (selected_index != null) selected_index.Clear();
         else selected_index = new List<int>();
+
+        suspend_anglecheck = false;
     }
     private void update_visual()
     {
@@ -75,32 +79,57 @@ public class GeometryVisRect : MonoBehaviour {
 
     private void check_angles()
     {
+        if (suspend_anglecheck) return;
         bool iscomplete = true;
         List<int> disabled_index = new List<int>();
         //check if there is enabled but incomplete angle, then return
-        Debug.Log("[ARMath] checking angles " + onAngles);
+        //Debug.Log("[ARMath] checking angles " + onAngles);
         for (int i = 0; i < onAngles.Length; i++)
         {
             if (onAngles[i] && !angles[i].GetComponent<AngleTool>().isFinished())
             {
-                Debug.Log("[ARMath] working on angle " + i);
+             //   Debug.Log("[ARMath] working on angle " + i);
                 return;
             }
             if (!onAngles[i]) disabled_index.Add(i);
+        }        
+        if (disabled_index.Count == 2)
+        {
+            
+            Dialogs.add_dialog(new DialogItem(DialogueType.left_bottom_plain,
+                "Do you know the the names of the angles? I have a protractor that reads the name.",
+                true,
+                new CallbackFunction(onAngle_func),
+                disabled_index[0].ToString(),
+                7
+                ), 3
+                );
+            
+            suspend_anglecheck = true;
+            return;
         }
         if (disabled_index.Count == 0)
         {
+
             if (iscomplete && solver.GetComponent<GeometryVirtual_Rect>().mStep < 10) solver.GetComponent<GeometryVirtual_Rect>().nextStep(10);
             interactive_primitive = GeometryPrimitives.none;
-        }
-        System.Random rnd = new System.Random();
+            return;
+        } else onAngles[disabled_index[0]] = true;
+
+        /*System.Random rnd = new System.Random();
         int r = rnd.Next(disabled_index.Count);
-        if (disabled_index.Count == 1) r = 0;
-        onAngles[disabled_index[r]] = true;
+        if (disabled_index.Count == 1) r = 0;*/
+
         //check if there is disable angle, then enable it and return
-
-
         //check if all the angles are complete, then FINALE
+    }
+    public void onAngle_func(string t)
+    {
+        int idx = System.Convert.ToInt32(t);
+        onAngles[idx] = true;
+        angles[idx].SetActive(true);
+        suspend_anglecheck = false;
+        Dialogs.set_topboard_animated(true, 3, "What are the names of the corner angles?");
     }
 
     private void check_vertices2()

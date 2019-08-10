@@ -79,7 +79,7 @@ public class AdditionReview1 : MonoBehaviour {
         FeedbackGenerator.init_counter(new CallbackFunction(after_counting_all),all_targets.Count);
         for (i = 0; i < all_targets.Count; i++)
         {  //TODO: detach higher number label            
-            FeedbackGenerator.create_target_countable(all_targets[i], delay, 600, 2);            
+            FeedbackGenerator.create_target_countable(all_targets[i], delay, 600, 2,false);            
             delay += 0.5f;
         }
         //global counter callback

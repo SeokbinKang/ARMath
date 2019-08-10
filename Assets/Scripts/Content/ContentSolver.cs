@@ -22,6 +22,12 @@ public class ContentSolver : MonoBehaviour {
     {
         init_solver();
     }
+    private void OnDisable()
+    {
+        review.SetActive(false);
+        if(solver_tangible!=null) solver_tangible.SetActive(false);
+        if (solver_virtual != null) solver_virtual.SetActive(false);
+    }
     public void start_review()
     {
         review.SetActive(true);
@@ -45,6 +51,7 @@ public class ContentSolver : MonoBehaviour {
             if (solver_tangible != null) solver_tangible.SetActive(false);
         } else if (interaction_object_enabled)
         {
+            SceneObjectManager.mSOManager.Reset();
             solver_virtual.SetActive(false);
             solver_tangible.SetActive(true);
         } else

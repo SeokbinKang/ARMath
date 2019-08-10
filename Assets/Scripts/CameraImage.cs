@@ -55,8 +55,9 @@ public class CameraImage : MonoBehaviour {
     }
     public static void resume_image()
     {
-        Debug.Log("[ARMath] CAM Paused");
-        mThis.webcamTexture.Play();
+        Debug.Log("[ARMath] CAM Resumed");
+        if(mThis.webcamTexture!=null && !mThis.webcamTexture.isPlaying)
+            mThis.webcamTexture.Play();
     }
 
     public Texture2D ProcessImage_twinFrame_texture2d(int l_or_r)

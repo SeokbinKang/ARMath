@@ -32,6 +32,15 @@ public class DivVirtual : MonoBehaviour {
         grouping.SetActive(false);
        
         UserInteracting = false;
+       
+        if (obj_movable == null) obj_movable = new List<GameObject>();
+        foreach (GameObject o in obj_movable)
+        {
+            if(o!=null) GameObject.Destroy(o);
+        }
+        obj_movable.Clear();
+        
+
         /*
         if (bag_list == null) bag_list = new List<GameObject>();
         else
@@ -42,7 +51,7 @@ public class DivVirtual : MonoBehaviour {
             }
             bag_list.Clear();
         }*/
-        
+
     }
     // Update is called once per frame
     void Update()
@@ -63,7 +72,7 @@ public class DivVirtual : MonoBehaviour {
         //initialize virtual chocolates
         setup_virtual_objects();
         Dialogs.add_dialog(new DialogItem(DialogueType.left_bottom_plain,
-               "Let's place an equal number of chocolates in each box. You can move the chocolates on the screen",
+               "Let's move the chocolates on the screen",
                true,
                new CallbackFunction(StartOperation),
                "none"
@@ -78,8 +87,7 @@ public class DivVirtual : MonoBehaviour {
         rt_V.sizeDelta = rt.size;
         rt_V.localScale = Vector3.one;
         tray.SetActive(true);
-        if (obj_movable == null) obj_movable = new List<GameObject>();
-        obj_movable.Clear();
+        
         GameObject icon_obj = AssetManager.get_icon("blue chocolate");
         if(icon_obj==null)
         {           

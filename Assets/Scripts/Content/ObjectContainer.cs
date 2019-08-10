@@ -20,13 +20,14 @@ public class ObjectContainer : MonoBehaviour {
 	}
     private void OnEnable()
     {
+
         if(hourglass!=null) hourglass.SetActive(false);
         last_count = 0;
     }
     public void enable_hourGlass(bool t)
     {
         hourglass_enalbed = t;
-        //hourglass.SetActive(t);
+        if(hourglass.activeSelf!=t) hourglass.SetActive(t);
     }
     public bool hourglass_wait()
     {
@@ -34,16 +35,32 @@ public class ObjectContainer : MonoBehaviour {
         if (!hourglass.activeSelf) return true;
         return !hourglass.GetComponent<Animator>().GetCurrentAnimatorStateInfo(0).IsName("end");
     }
+    public void hourglass_compelte()
+    {
+        hourglass.GetComponent<Animator>().SetFloat("speed",10);
+    }
     private void handle_touch()
     {
-
+        
         if (Input.touchCount > 0)
         {
+            Touch touch = Input.GetTouch(0);
+            // Move the cube if the screen has the finger moving.
+            Vector2 pos = touch.position;
+            Vector2 screenpos = touch.position;
+            bool hit = ARMathUtils.check_in_recttransform(pos, region_rectangle);
+            if (hit)
+            {
+                return;
+            }
             hourglass.SetActive(false);
-        } else
-        {
-            if(!hourglass.activeSelf)
+        } else {
+            if (!hourglass.activeSelf)
+            {
+                hourglass.GetComponent<Animator>().SetFloat("speed", 1);
                 hourglass.SetActive(true);
+            }
+
         }
     }
     public List<SceneObject> get_objects_in_rect(string obj_name)
@@ -80,7 +97,7 @@ public class ObjectContainer : MonoBehaviour {
 
             ret = true;
         }
-      // Debug.Log("[ARMath] gameobject in container " + rect  + "    "+center2+"  =  "+ret);
+       Debug.Log("[ARMath] gameobject in container " + rect  + "    "+center2+"  =  "+ret);
         return ret;
     }
 

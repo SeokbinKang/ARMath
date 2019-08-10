@@ -116,7 +116,7 @@ public class GeometryVirtual_Rect : MonoBehaviour {
                 "",
                 6
                 ),
-                9);
+                2);
 
             Dialogs.add_dialog(new DialogItem(DialogueType.left_bottom_plain,                
                 "Where are vertices of the "+target_shape_name + "? Can you point to them on the screen?",
@@ -146,7 +146,7 @@ public class GeometryVirtual_Rect : MonoBehaviour {
                 "Where are two shorter sides?",
                 5
                 ),
-                6);
+                7.5f);
             mStep = 5;
         }
         if (mStep == 6)
@@ -204,12 +204,12 @@ public class GeometryVirtual_Rect : MonoBehaviour {
             
             Dialogs.set_topboard_animated(false, 3, "");
             Dialogs.add_dialog(new DialogItem(DialogueType.left_bottom_plain,
-                "Can you measure the corner angles using a protractor? And please tell me the names of the angles.",
+                "Can you measure the corner angles? I have a protractor.",
                 true,
                 new CallbackFunction(start_angle),
-                "What are the names of the angles?",
+                "What are the corner angles?",
                 6
-                ),5
+                ), 7.5f
                 );           
             mStep = 9;
 
@@ -218,15 +218,14 @@ public class GeometryVirtual_Rect : MonoBehaviour {
         if (mStep == 10)
         {
             Dialogs.set_topboard_animated(false, 3, "");
-            blacksmith.GetComponent<Animator>().SetTrigger("hammer");
-            blacksmith.GetComponent<Animator>().SetTrigger("hammer");
+            blacksmith.GetComponent<Animator>().SetTrigger("hammer");            
             TTS.mTTS.GetComponent<TTS>().StartTextToSpeech("Great job! Let me finish the key with the angles");
             Dialogs.add_dialog(new DialogItem(DialogueType.Dummy,
                          "",
                           true,
                          new CallbackFunction(OnCompletion),
                          "",
-                         4.5f
+                         6f
                          ));
             //OnCompletion();*/
             mStep = 11;

@@ -84,7 +84,7 @@ public class ContentDiv : MonoBehaviour {
         {           
             return;
         }
-        Tools.finder_init(target_object_name, 4, new CallbackFunction2(s2_objectfound), "","Let's find some chocolates!",1f);
+        Tools.finder_init(target_object_name, divisor, new CallbackFunction2(s2_objectfound), "","Let's find some chocolates!",1f);
         
     }
     public void s2_objectfound(string p,  List<SceneObject> obj_list, Rect rt)
@@ -97,7 +97,7 @@ public class ContentDiv : MonoBehaviour {
 
         if (is_idle)
         {            
-            
+            /*
             
             if (dividend % divisor != 0)
             {
@@ -111,7 +111,7 @@ public class ContentDiv : MonoBehaviour {
                   5), 0
                  );
                 return;
-            }
+            }*/
 
             obj_rect = rt;
             quotient = dividend / divisor;
@@ -134,7 +134,7 @@ public class ContentDiv : MonoBehaviour {
             6), 0
             );
             Dialogs.add_dialog(new DialogItem(DialogueType.left_bottom_plain,
-             "Can you distribute them to "+divisor+" gift boxes?",
+             "Can you place the same number of chocolates to "+divisor+" gift boxes?",
              //"Can you help distribute the chocolates to gift boxes?",
               true,
               new CallbackFunction(s4_startsolver),

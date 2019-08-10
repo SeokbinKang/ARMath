@@ -23,12 +23,13 @@ public class SystemContent : MonoBehaviour {
     }
     void OnDisable()
     {
+        
         contentRoot.GetComponent<ContentRoot>().closeAllContent();
         bg_music.GetComponent<AudioSource>().volume = 1f;
 
     }
     public static void EnableLeftUserUI(bool t)
     {
-        mInstance.mUser.SetActive(t);
+        //mInstance.mUser.SetActive(t);
     }
 }

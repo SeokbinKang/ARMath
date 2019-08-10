@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class TargetCountable : MonoBehaviour {
 
+    public bool sound_enabled;
 	// Use this for initialization
 	void Start () {
 		
@@ -14,9 +15,17 @@ public class TargetCountable : MonoBehaviour {
 		
 	}
 
+    public void enable_sound(bool t)
+    {
+        sound_enabled = t;
+    }
     public void onClick()
     {
-        FeedbackGenerator.target_counting(this.gameObject, 0, 120);
+        int num = FeedbackGenerator.target_counting(this.gameObject, 0, 120);
+        if(sound_enabled)
+        {
+            TTS.mTTS.GetComponent<TTS>().StartTextToSpeech(num.ToString()+"!");
+        }
         Destroy(this.gameObject);
     }
 }

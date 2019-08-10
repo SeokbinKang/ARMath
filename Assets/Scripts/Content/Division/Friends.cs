@@ -9,7 +9,7 @@ public class Friends : MonoBehaviour {
     public GameObject[] friends;
     // Use this for initialization
 
-    private float nextActionTime = 0.5f;
+    private float nextActionTime = 0.75f;
 
     void Start () {
 		
@@ -19,7 +19,7 @@ public class Friends : MonoBehaviour {
 	void Update () {
         if (Time.time > nextActionTime)
         {
-            nextActionTime = Time.time + 1;
+            nextActionTime = Time.time+0.7f;
             introduce_friend();
         }
     }
@@ -30,6 +30,8 @@ public class Friends : MonoBehaviour {
     }
     private void initFriends()
     {
+        foreach (var f in friends)
+            f.SetActive(false);
         num_friends = (int)Random.Range(2, 5);
         contentModule.GetComponent<ContentDiv>().divisor = num_friends;
         //introduce_friend();

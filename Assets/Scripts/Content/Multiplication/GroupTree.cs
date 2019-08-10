@@ -11,10 +11,10 @@ public class GroupTree : MonoBehaviour {
 
     public bool progressive;
     public List<GameObject> virtual_objs_in_cells;
-    public List<GameObject> tangible_objs_in_cells;
+    public List<Vector2> tangible_objs_in_cells;
     private int progress_active_cell_idx;
     private List<GameObject> cells;
-
+    private TimerCallback mCallback;
     public Color[] charColor;
     // Use this for initialization
     void Start()
@@ -25,7 +25,7 @@ public class GroupTree : MonoBehaviour {
     // Update is called once per frame
     void Update()
     {
-
+        if (mCallback != null && mCallback.tick()) mCallback = null;
     }
     void OnEnable()
     {
@@ -44,7 +44,7 @@ public class GroupTree : MonoBehaviour {
         progress_active_cell_idx = -1;
         if (virtual_objs_in_cells == null) virtual_objs_in_cells = new List<GameObject>();
         else virtual_objs_in_cells.Clear();
-        if (tangible_objs_in_cells == null) tangible_objs_in_cells = new List<GameObject>();
+        if (tangible_objs_in_cells == null) tangible_objs_in_cells = new List<Vector2>();
         else tangible_objs_in_cells.Clear();
     }
 
@@ -81,58 +81,60 @@ public class GroupTree : MonoBehaviour {
     /// <param name="num_per_cell"></param>
     /// <param name="obj_name"></param>
     /// <returns>num of complete cells</returns>
-    public int CheckCells(int num_per_cell, string obj_name)
-    {
-        int res = 0;
-        foreach (GameObject cell in cells)
-        {
-            List<SceneObject> objs_in_cell = cell.GetComponent<ObjectContainer>().get_objects_in_rect(obj_name);
-            if (objs_in_cell != null && objs_in_cell.Count == num_per_cell)
-            {
-                res++;
-                UpdateCell(cell, true, num_per_cell);
-            }
-            else
-            {
-                int k;
-                if (objs_in_cell == null) k = 0;
-                else k = objs_in_cell.Count;
-                UpdateCell(cell, false, k);
-            }
-
-        }
-
-        return res;
-    }
+   
     public int CheckCellsProgressive(int num_per_cell, string obj_name, ProblemType type)
     {
         int res = 0;
         if (progress_active_cell_idx >= cells.Count) return cells.Count;
         GameObject cell = cells[progress_active_cell_idx];
         {
-            List<SceneObject> objs_in_cell = cell.GetComponent<ObjectContainer>().get_objects_in_rect(obj_name);
-            if (objs_in_cell != null && objs_in_cell.Count >= num_per_cell)
+            ObjectContainer cell_container = cell.GetComponent<ObjectContainer>();
+            List<SceneObject> objs_in_cell = cell_container.get_objects_in_rect(obj_name);
+            int item_in_cell = objs_in_cell.Count;
+            foreach (SceneObject o in objs_in_cell)
+            {
+                if (o.is_feedback_attached()) continue;
+                GameObject f = FeedbackGenerator.create_target(o, 0, 3, 5, false);
+                o.attach_object(f);
+            }
+            if (objs_in_cell != null && item_in_cell == num_per_cell)
             {
                 string msg = "";
 
                 UpdateCell(cell, true, msg);
                 progress_active_cell_idx++;
-                if (progress_active_cell_idx < cells.Count) enableCell(progress_active_cell_idx);
-
+                if (progress_active_cell_idx < cells.Count) enableCell(progress_active_cell_idx,6);
+                foreach (SceneObject so in objs_in_cell)
+                {
+                    tangible_objs_in_cells.Add(so.get_screen_pos());                    
+                }
                 // effect
             }
             else
             {
-                string msg = "";
-                int k;
-                if (type == ProblemType.p3_multiplication)
+
+                if (item_in_cell != num_per_cell)
                 {
-                    msg = "Give me \n" + num_per_cell + " " + obj_name + "s";
+                    if (cell_container.last_count != item_in_cell)
+                    {
+                        TTS.mTTS.GetComponent<TTS>().StartTextToSpeech("Hmm.. that's not enough. Can you get " + (num_per_cell - item_in_cell) + " more batteries?");
+                        cell_container.last_count = item_in_cell;
+                    }
+
                 }
-                if (objs_in_cell == null) k = 0;
-                else k = objs_in_cell.Count;
+                else
+                {
+                    if (cell_container.last_count != item_in_cell)
+                    {
+                        TTS.mTTS.GetComponent<TTS>().StartTextToSpeech("Hmm... that's too many. Can you give me exactly " + num_per_cell + " batteries?");
+                        cell_container.last_count = item_in_cell;
+                    }
+                    
+                }
+                string msg = "";
                 UpdateCell(cell, false, msg);
             }
+           
 
         }
         if (progress_active_cell_idx >= cells.Count) return cells.Count;
@@ -151,6 +153,10 @@ public class GroupTree : MonoBehaviour {
     public List<GameObject> get_virtual_objects_in_cells()
     {
         return this.virtual_objs_in_cells;
+    }
+    public List<Vector2> get_tangible_objects_in_cells()
+    {
+        return this.tangible_objs_in_cells;
     }
     public List<GameObject> get_virtual_trees_in_cells()
     {
@@ -182,6 +188,13 @@ public class GroupTree : MonoBehaviour {
             {
                 item_in_cell++;
                 tmp_objs.Add(battery);
+                if (!battery.GetComponent<DragObject>().is_feedback_attached())
+                {
+                    //attach feedback                                      
+                    GameObject label = FeedbackGenerator.create_target(battery, 0, 600, 1, false);
+                    battery.GetComponent<DragObject>().attach_object(label);
+
+                }
             }
 
         }
@@ -191,8 +204,9 @@ public class GroupTree : MonoBehaviour {
         {
             string msg = "";
             UpdateCell(cell, true, msg);
+            cell.GetComponent<ObjectContainer>().enable_hourGlass(false);
             progress_active_cell_idx++;
-            if (progress_active_cell_idx < cells.Count) enableCell(progress_active_cell_idx);
+            if (progress_active_cell_idx < cells.Count) enableCell(progress_active_cell_idx,6);
             // effect
             while (tmp_objs.Count > num_in_cell)
                 tmp_objs.RemoveAt(0);
@@ -209,23 +223,30 @@ public class GroupTree : MonoBehaviour {
             string msg = "";
             UpdateCell(cell, false, msg);
         }
+
+
         if (progress_active_cell_idx >= cells.Count) return cells.Count;
         return progress_active_cell_idx;
     }
 
     
-    private void enableCell(int cell_index)
+    private void enableCell(int cell_index,float delay)
     {
         if (cell_index < cells.Count)
         {
 
             //may want to do some animations here.
+            mCallback = new TimerCallback(enableCell, cell_index.ToString(), delay);
             
-            cells[cell_index].SetActive(true);
             //cells[cell_index].GetComponent<ObjectContainer>().enable_hourGlass(true);
 
 
         }
+    }
+    public void enableCell(string param)
+    {
+        int idx = System.Convert.ToInt32(param);
+        cells[idx].SetActive(true);
     }
     private void UpdateCell(GameObject cell, bool complete, int num)
     {

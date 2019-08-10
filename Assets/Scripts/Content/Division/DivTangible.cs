@@ -74,7 +74,7 @@ public class DivTangible : MonoBehaviour {
         int divisor = ContentModuleRoot.GetComponent<ContentDiv>().divisor;      
       
         Dialogs.add_dialog(new DialogItem(DialogueType.left_bottom_plain,
-               "Let's place an equal number of chocolates in each box. You can move the chocolates on the table",
+               "Let's move the chocolates on the table",
                true,
                new CallbackFunction(StartOperation),
                "none"

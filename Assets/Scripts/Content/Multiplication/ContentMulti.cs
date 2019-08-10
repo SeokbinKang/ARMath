@@ -64,7 +64,7 @@ public class ContentMulti : MonoBehaviour {
         target_object_cluster = new Rect();
         Dialogs.set_topboard_color(0, 0);
         Dialogs.set_topboard_color(1, 5);
-        TTS.mTTS.GetComponent<TTS>().StartTextToSpeech("Help the minion solve multiplication problems and collect purple gems!");
+        
     }
     private void OnDisable()
     {
@@ -92,7 +92,7 @@ public class ContentMulti : MonoBehaviour {
     }
     public void s1_initFinder()
     {
-        Tools.finder_init("battery", 2, new CallbackFunction2(s1_objectfound), "", "Let's find some batteries!", 0.8f);
+        Tools.finder_init("battery", 1, new CallbackFunction2(s1_objectfound), "", "Let's find some batteries!", 0.8f);
      //   Tools.finder_init("battery", 3, new CallbackFunction(s1_objectfound), "");
     }
 

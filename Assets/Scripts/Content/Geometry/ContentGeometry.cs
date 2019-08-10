@@ -77,15 +77,16 @@ public class ContentGeometry : MonoBehaviour
     }
     public void s0_intro3()
     {
+        sub_context.SetActive(true);
         Dialogs.add_dialog(new DialogItem(DialogueType.left_bottom_plain,
-          "I heard the key should look like a rectangle. But I don't know about rectangles.",
+          "I can make a rectangle key if I have an example.",
           true,
           null,
           "",
           7
-          ));
+          ),6);
         Dialogs.add_dialog(new DialogItem(DialogueType.left_bottom_plain,
-        "Can you find an object that looks like a rectangle for me? ",
+        "Can you find an object that looks like a rectangle? ",
         true,
          new CallbackFunction(s1_search_objects),
         "",
@@ -108,7 +109,7 @@ public class ContentGeometry : MonoBehaviour
         //SetIdle(false);
         CameraImage.pause_image();
         Dialogs.add_dialog(new DialogItem(DialogueType.left_bottom_plain,
-                "Oh! That " + p + " realy looks like a " + ARMathUtils.shape_name(target_object_shape),
+                "Oh! That looks like a " + ARMathUtils.shape_name(target_object_shape),
                 true,
                 null,
                 "",

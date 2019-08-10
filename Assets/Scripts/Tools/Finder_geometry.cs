@@ -33,7 +33,7 @@ public class Finder_geometry : MonoBehaviour {
             //   Debug.Log("[ARMath] update finder ");
             if (call_back != null)
             {
-                if (prompt_txt.activeSelf) check_object();
+                if (prompt_txt.activeSelf || confirm_txt.activeSelf) check_object();
             }
 
         }
@@ -51,8 +51,13 @@ public class Finder_geometry : MonoBehaviour {
         prompt2_txt.SetActive(false);
         confirm_txt.SetActive(false);
         confirm2_txt.SetActive(false);
+        CameraImage.resume_image();
         //obj_names = null;
 
+    }
+    private void OnDisable()
+    {
+       
     }
     private void check_object()
     {
@@ -81,7 +86,11 @@ public class Finder_geometry : MonoBehaviour {
     public void confirm_objects(string obj_name)
     {
         found_obj_name = obj_name;
-        confirm_txt.GetComponent<Text>().text = "Does the "+obj_name+" look like a rectangle?";
+        if (confirm_txt.GetComponent<Text>().text != "Does the " + obj_name + " look like a rectangle?")
+        {
+            TTS.mTTS.GetComponent<TTS>().StartTextToSpeech("Does the " + obj_name + " look like a rectangle?");
+            confirm_txt.GetComponent<Text>().text = "Does the " + obj_name + " look like a rectangle?";
+        }
         prompt_txt.SetActive(false);
         confirm_txt.SetActive(true);        
         prompt2_txt.SetActive(false);
@@ -116,15 +125,15 @@ public class Finder_geometry : MonoBehaviour {
 
     public void confirm_no2()
     {
-        call_back(found_obj_name);
-        call_back = null;
-        this.gameObject.SetActive(false);
+        confirm_yes();
+        CameraImage.resume_image();
+
     }
     public void confirm_yes2()
     {
-        confirm_yes();
-        CameraImage.resume_image();
-        
+        call_back(found_obj_name);
+        call_back = null;
+        this.gameObject.SetActive(false);
 
     }
     

@@ -10,6 +10,7 @@ public class CountingReview : MonoBehaviour {
     public GameObject icons;
 
     public GameObject answer;
+    public GameObject reward;
     // Use this for initialization
     void Start () {
         //updateQuizzes();
@@ -17,6 +18,8 @@ public class CountingReview : MonoBehaviour {
     }
 	void OnEnable()
     {
+        Reset();        
+        load_prompt();
        // updateQuizzes();
     }
 	// Update is called once per frame
@@ -25,12 +28,29 @@ public class CountingReview : MonoBehaviour {
 	}
     private void Reset()
     {
-        
+        reward.SetActive(false);
+    }
+    public void load_prompt()
+    {
+        string obj_name = ContentModuleRoot.GetComponent<ContentCounting>().target_object_name;
+        int num = ContentModuleRoot.GetComponent<ContentCounting>().obj_pos_list.Count;
+        Dialogs.add_dialog(new DialogItem(DialogueType.left_bottom_plain,
+          "Good job! There are "+AssetManager.Get_object_text(obj_name,num),
+          true,
+          new CallbackFunction(showReward),
+          "",
+          4), 0
+          );
+    }
+    public void showReward(string t)
+    {
+        FeedbackGenerator.clear_all_feedback();
+        reward.SetActive(true);
     }
     public void updateQuiz()
     {
         string target_object_name = ContentModuleRoot.GetComponent<ContentCounting>().target_object_name;
-        int target_object_count = ContentModuleRoot.GetComponent<ContentCounting>().found_object_count;
+        int target_object_count = ContentModuleRoot.GetComponent<ContentCounting>().object_count;
 
         System.Random random = new System.Random();
         int randomNumber = random.Next(3, 15);

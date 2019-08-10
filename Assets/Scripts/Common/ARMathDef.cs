@@ -96,6 +96,7 @@ public class Gem
 {
     public ProblemType problem_type;
     public List<string> snapshots;
+    public bool is_virtual_interaction;
 }
 public class UserInfo
 {
@@ -204,8 +205,13 @@ public class ARMathUtils
     public static bool check_in_recttransform(Vector2 point, GameObject go)
     {
         if (go == null) return false;
-        Vector3 center = go.GetComponent<RectTransform>().position;
-        Rect rect = new Rect(new Vector2(center.x, center.y), go.GetComponent<RectTransform>().rect.size);
+        RectTransform rt = go.GetComponent<RectTransform>();
+        Vector2 center = rt.position;
+        Vector2 pivot =rt.pivot;
+        Vector2 size = rt.rect.size;
+        center.x += (0.5f - pivot.x) * size.x;
+        center.y += (0.5f - pivot.y) * size.y;
+        Rect rect = new Rect(center, size);
 
         if (point.x >= (rect.x - rect.width / 2) && point.x <= (rect.x + rect.width / 2) &&
             point.y >= (rect.y - rect.height / 2) && point.y <= (rect.y + rect.height / 2))

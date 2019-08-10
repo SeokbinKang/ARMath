@@ -6,17 +6,12 @@ using UnityEngine.UI;
 public class CountingTangible : MonoBehaviour
 {
 
-    public GameObject prompt;
+ 
 
-    public GameObject prompt_text;
-
-
-    public GameObject board;
 
 
     public GameObject container;
-    public GameObject problemboard;
-    public GameObject problemboard_text;
+
 
 
     public GameObject ContentModuleRoot;
@@ -36,8 +31,7 @@ public class CountingTangible : MonoBehaviour
 
     void Start()
     {
-        prompt.SetActive(true);
-        board.SetActive(false);
+      
         IsCounting = false;
         counting_n = 0;
         tap_list = new List<GameObject>();
@@ -48,19 +42,17 @@ public class CountingTangible : MonoBehaviour
         loadPrompt();
     }
     private void Reset()
-    {
-        prompt.SetActive(true);
-        board.SetActive(false);
+    {    
         IsCounting = false;
         counting_n = 0;
         tap_list = new List<GameObject>();
-        problemboard.SetActive(false);
+   
         container.SetActive(false);
     }
     // Update is called once per frame
     void Update()
     {
-        if (IsCounting) UpdateBoard();
+        //if (IsCounting) UpdateBoard();
 
         if (Time.time > nextActionTime)
         {
@@ -68,7 +60,7 @@ public class CountingTangible : MonoBehaviour
             // execute block of code here
             //  UpdateInteractiveObjects();
             count_object();
-            if(interaction_prompt!=null) interaction_prompt.tick();
+            //if(interaction_prompt!=null) interaction_prompt.tick();
         }
     }
     private void count_object()
@@ -83,8 +75,8 @@ public class CountingTangible : MonoBehaviour
         {
             if (so.get_all_feedback_count() <= 0)
             {
-                Vector3 targetPos = new Vector3(so.catalogInfo.Box.center.x, Screen.height - so.catalogInfo.Box.center.y, 0);
-                GameObject label = FeedbackGenerator.mThis.create_check_feedback(targetPos, 1, true);
+                Vector3 targetPos = so.get_screen_pos();
+                GameObject label = FeedbackGenerator.create_target(so, 0, 300, 3, false);                
                 so.attach_object(label);
                 break;
             }
@@ -106,13 +98,17 @@ public class CountingTangible : MonoBehaviour
     }
     public void OnCount()
     {
-
+        string obj_name= ContentModuleRoot.GetComponent<ContentCounting>().target_object_name;
         TTS.mTTS.GetComponent<TTS>().StartTextToSpeech(counting_n + "!");
+        Dialogs.set_topboard_animated(true, 3, AssetManager.Get_object_text(obj_name, counting_n));
+        if (counting_n > 1)
+        {
+            Dialogs.set_topboard_highlight(true, 3, 0);
+        }
 
-        UpdateBoard();
         //sound effect
-        interaction_prompt.checkin();
-        if (ContentModuleRoot.GetComponent<ContentCounting>().found_object_count == counting_n)
+        //interaction_prompt.checkin();
+        if (ContentModuleRoot.GetComponent<ContentCounting>().object_count == counting_n)
         {
             OnCompletion();
         }
@@ -120,56 +116,59 @@ public class CountingTangible : MonoBehaviour
     private void OnCompletion()
     {
         IsCounting = false;
-        clearinteractiveobjects();
-        ContentModuleRoot.GetComponent<ContentCounting>().onSolved();
-        interaction_prompt = null;
+        //clearinteractiveobjects();
+        this.transform.parent.GetComponent<ContentSolver>().start_review();       
+        
     }
     public void loadPrompt()
     {
-        prompt.SetActive(true);
-        //prompt_text.SetActive(true);
-        target_object_name = ContentModuleRoot.GetComponent<ContentCounting>().target_object_name;
-        prompt_text.GetComponent<Text>().text = "Let's give the minion " + target_object_name + "by moving them to the red tray";
-        TTS.mTTS.GetComponent<TTS>().StartTextToSpeech(prompt_text.GetComponent<Text>().text);
-        IsCounting = false;
+        string obj_name_plural = ContentModuleRoot.GetComponent<ContentCounting>().obj_name_plural;
+
+        Dialogs.add_dialog(new DialogItem(DialogueType.left_bottom_plain,
+         "Let's move " + obj_name_plural + " to the red tray and count the number!",
+         true,
+         new CallbackFunction(StartCounting),
+         "",
+         6), 0
+         );
+        target_object_name = ContentModuleRoot.GetComponent<ContentCounting>().target_object_name;        
+        
     }
-    public void StartCounting()
+    public void StartCounting(string t)
     {
         counting_n = 0;
-        IsCounting = true;
-        board.SetActive(true);
-        UpdateBoard();
-        problemboard.SetActive(true);
+        IsCounting = true;                
+        
         container.SetActive(true);
-        interaction_prompt = new TimerCallback(Interaction_Prompt, "",SystemParam.timeout_for_interaction_prompt + 3);
+        //interaction_prompt = new TimerCallback(Interaction_Prompt, "",SystemParam.timeout_for_interaction_prompt + 3);
     }
     public void Interaction_Prompt(string param)
     {
         //Dialogs.Prompt_RightBot("Move " + target_object_name + "s to the table");      
-        if (object2interact != null) show_interaction_prompt(object2interact);
+      //  if (object2interact != null) show_interaction_prompt(object2interact);
 
     }
-    private void UpdateBoard()
-    {
-        int goal_n = ContentModuleRoot.GetComponent<ContentCounting>().found_object_count;
-        board.GetComponent<board>().enable_both(target_object_name, counting_n, "= " + counting_n.ToString());
-        //board.GetComponent<board>().setMathText("= " + counting_n.ToString());
-        //board.GetComponent<board>().setIcon(target_object_name, counting_n);
-        problemboard_text.GetComponent<Text>().text = "Can you get me " + goal_n + " " + target_object_name + "s ?";
-    }
-    private void clearinteractiveobjects()
-    {
-        for (int k = 0; k < tap_list.Count; k++)
-        {
-            GameObject.Destroy(tap_list[k]);
-        }
-        tap_list.RemoveAll(s => s == null);
-    }
-    public void show_interaction_prompt(SceneObject so)
-    {
-        Vector3 targetPos = new Vector3(so.catalogInfo.Box.center.x, Screen.height - so.catalogInfo.Box.center.y, 0);
-        EffectControl.prompt_move_left(targetPos);
-    }
+    //private void UpdateBoard()
+    //{
+    //    int goal_n = ContentModuleRoot.GetComponent<ContentCounting>().object_count;
+    //    board.GetComponent<board>().enable_both(target_object_name, counting_n, "= " + counting_n.ToString());
+    //    //board.GetComponent<board>().setMathText("= " + counting_n.ToString());
+    //    //board.GetComponent<board>().setIcon(target_object_name, counting_n);
+    //    problemboard_text.GetComponent<Text>().text = "Can you get me " + goal_n + " " + target_object_name + "s ?";
+    //}
+    //private void clearinteractiveobjects()
+    //{
+    //    for (int k = 0; k < tap_list.Count; k++)
+    //    {
+    //        GameObject.Destroy(tap_list[k]);
+    //    }
+    //    tap_list.RemoveAll(s => s == null);
+    //}
+    //public void show_interaction_prompt(SceneObject so)
+    //{
+    //    Vector3 targetPos = new Vector3(so.catalogInfo.Box.center.x, Screen.height - so.catalogInfo.Box.center.y, 0);
+    //    EffectControl.prompt_move_left(targetPos);
+    //}
 
 
 

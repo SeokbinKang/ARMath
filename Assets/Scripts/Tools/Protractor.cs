@@ -16,6 +16,7 @@ public class Protractor : MonoBehaviour {
     public angle_name target_angle;
     public Color text_incorrect;
     public Color text_correct;
+    public bool read_name;
     private float margin = 10;
     private float demo_time = 0;
     private bool answer_found;
@@ -88,24 +89,52 @@ public class Protractor : MonoBehaviour {
             int angle_i = (int) Mathf.Abs(angle);
             if (angle_i < 85)
             {
-                call_out.GetComponent<Text>().text = angle_i + "° = \"acute\" angle";
+                if (!read_name)
+                {
+                    call_out.GetComponent<Text>().text = angle_i + "°";
+                    TTS.mTTS.GetComponent<TTS>().StartTextToSpeech("This is "+angle_i+" degree!");
+                }
+                else
+                {
+                    call_out.GetComponent<Text>().text = "\"acute\" angle";
+                    TTS.mTTS.GetComponent<TTS>().StartTextToSpeech("This is an acute angle.");
+                }
                 call_out.GetComponent<Text>().color = text_incorrect;
-                TTS.mTTS.GetComponent<TTS>().StartTextToSpeech("This is an acute angle.");
+                
 
 
             }
             else if (angle_i > 95)
             {
-                call_out.GetComponent<Text>().text = angle_i + "° = \"obtuse\" angle";
+                if (!read_name)
+                {
+                    call_out.GetComponent<Text>().text = angle_i + "°";
+                    TTS.mTTS.GetComponent<TTS>().StartTextToSpeech("This is " + angle_i + " degree!");
+                }
+                else
+                {
+                    call_out.GetComponent<Text>().text = "\"obtuse\" angle";
+                    TTS.mTTS.GetComponent<TTS>().StartTextToSpeech("This is an obtuse angle!");
+                }
                 call_out.GetComponent<Text>().color = text_incorrect;
-                TTS.mTTS.GetComponent<TTS>().StartTextToSpeech("This is an obtuse angle.");
+               
 
             }
             else
             {
-                call_out.GetComponent<Text>().text = "90° = \"right\" angle";
+                angle_i = 90;
+                if (!read_name)
+                {
+                    call_out.GetComponent<Text>().text = angle_i + "°";
+                    TTS.mTTS.GetComponent<TTS>().StartTextToSpeech("This is " + angle_i + " degree!");
+                }
+                else
+                {
+                    call_out.GetComponent<Text>().text = "\"right\" angle";
+                    TTS.mTTS.GetComponent<TTS>().StartTextToSpeech("This is a right angle!");
+                }
                 call_out.GetComponent<Text>().color = text_correct;
-                TTS.mTTS.GetComponent<TTS>().StartTextToSpeech("This is a right angle!");
+                
 
             }
 
@@ -120,7 +149,7 @@ public class Protractor : MonoBehaviour {
             {
                 string correct_answer = Enum.GetName(typeof(angle_name),(int)target_angle);
                 Debug.Log("[ARMath] correct_answer: " + correct_answer);    
-                if(call_out.GetComponent<Text>().text.Contains(correct_answer))
+                if(call_out.GetComponent<Text>().text.Contains(correct_answer) || call_out.GetComponent<Text>().text.Contains("90"))
                 {
                     TTS.mTTS.GetComponent<TTS>().StartTextToSpeech("Nice job");
                     answer_found = true;

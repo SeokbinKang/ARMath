@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class reward : MonoBehaviour {
     public ProblemType problem_type;
+    private TimerCallback mCallback;
     // Use this for initialization
     void Start () {
 		
@@ -11,16 +12,21 @@ public class reward : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		
-	}
+        if (mCallback != null && mCallback.tick()) mCallback = null;
+    }
     public void onClick()
     {
-        SystemUser.AddGem(problem_type);
-        this.GetComponent<Animator>().SetTrigger("credit");
+        mCallback = new TimerCallback(addgem, "", 2);
+        if (this.GetComponent<Animator>()!=null) this.GetComponent<Animator>().SetTrigger("credit");
         //playmusic
 
 
         //how to disable?
+    }
+    public void addgem(string dummy)
+    {
+        SystemUser.AddGem(problem_type);
+        SystemControl.Reset();
     }
 
 }

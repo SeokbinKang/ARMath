@@ -43,13 +43,13 @@ public class GemPane : MonoBehaviour {
             if (prefab == null) Debug.Log("cannot find a prefab for gem");
             GameObject newGemIcon = Instantiate(prefab, Vector3.zero, Quaternion.identity) as GameObject;
             newGemIcon.transform.parent = this.gameObject.transform;
-            Vector2 anchor_pos = newGemIcon.GetComponent<RectTransform>().anchoredPosition;
+            /*Vector2 anchor_pos = newGemIcon.GetComponent<RectTransform>().anchoredPosition;
             newGemIcon.GetComponent<RectTransform>().localScale = new Vector3(0.3f, 0.3f, 1);
             anchor_pos.x = x_leftborder + offset * i ;
-            anchor_pos.y = 10;
+            anchor_pos.y = 10;*/
             
-            newGemIcon.GetComponent<RectTransform>().anchoredPosition = anchor_pos;
-            newGemIcon.GetComponent<RectTransform>().localPosition = new Vector3(anchor_pos.x, anchor_pos.y, 0);
+            /*newGemIcon.GetComponent<RectTransform>().anchoredPosition = anchor_pos;
+            newGemIcon.GetComponent<RectTransform>().localPosition = new Vector3(anchor_pos.x, anchor_pos.y, 0);*/
 
         }
 

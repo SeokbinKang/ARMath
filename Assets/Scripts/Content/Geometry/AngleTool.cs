@@ -21,6 +21,7 @@ public class AngleTool : MonoBehaviour {
             check_status();
         }
     }
+
     private void check_status()
     {
         if (!protractor.activeSelf || angle.activeSelf) return;

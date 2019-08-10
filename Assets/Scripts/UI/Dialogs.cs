@@ -121,7 +121,11 @@ public class Dialogs : MonoBehaviour {
     {
         this_.element_leftbottom.SetActive(false);
         this_.element_popright.SetActive(false);
-       
+
+        if (this_.element_topboard_animated.activeSelf)
+        {
+            this_.element_topboard_animated.GetComponent<DialogProblemAnimated>().Reset();
+        }
         this_.element_topboard_animated.SetActive(false);
         this_.mDialogueItems.Clear();
         
@@ -167,6 +171,7 @@ public class Dialogs : MonoBehaviour {
     }
     public static void set_topboard_color(int term_idx, int color_index)
     {
+        if (this_ == null || this_.element_topboard_animated == null || this_.element_topboard_animated.GetComponent<DialogProblemAnimated>() == null) return;
         this_.element_topboard_animated.GetComponent<DialogProblemAnimated>().set_term_color(term_idx, color_index);
         
 

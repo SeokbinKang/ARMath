@@ -229,13 +229,19 @@ public class SystemUser : MonoBehaviour
         mThis.new_user_prompt.SetActive(false);
         mThis.user_status.GetComponentInChildren<user_panel>().LoadUser(current_user);
     }
-
+    
+   
     public static void AddGem(ProblemType p)
     {
         Gem g = new Gem();
+        bool interaction_virtual_enabled = SystemControl.mSystemControl.get_system_setup_interaction_touch();
+        g.is_virtual_interaction = interaction_virtual_enabled;
         g.problem_type = p;
         current_user.AddGem(g);
         mThis.GetComponent<AudioSource>().Play();
+        mThis.update_user(current_user);
+        SystemControl.mSystemControl.onUser();
+
     }
     public static void SetCurrentUser(int uid)
     {

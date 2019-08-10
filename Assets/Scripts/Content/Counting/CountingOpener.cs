@@ -30,7 +30,7 @@ public class CountingOpener : MonoBehaviour {
         
         string target_object_name = "";
         target_object_name = ContentModuleRoot.GetComponent<ContentCounting>().target_object_name;
-        int target_n_of_objects = ContentModuleRoot.GetComponent<ContentCounting>().found_object_count;
+        int target_n_of_objects = ContentModuleRoot.GetComponent<ContentCounting>().object_count;
 
         if (target_object_name != "") 
         {

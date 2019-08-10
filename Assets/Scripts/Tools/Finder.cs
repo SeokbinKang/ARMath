@@ -11,6 +11,7 @@ public class Finder : MonoBehaviour
     public GameObject text1_instruction;
     public GameObject text2_confirmation;
     public GameObject text3_correction;
+    public GameObject text4_addmore;
     private CallbackFunction call_back;
     private CallbackFunction2 call_back2;
     public string obj_name;
@@ -52,6 +53,7 @@ public class Finder : MonoBehaviour
         text1_instruction.SetActive(true);
         text2_confirmation.SetActive(false);
         text3_correction.SetActive(false);
+        text4_addmore.SetActive(false);
         objs = null;
     }
     public void check_object(bool confirm)
@@ -60,8 +62,8 @@ public class Finder : MonoBehaviour
          objs= ARMathUtils.get_objects_in_rect(view, obj_name);
         //Debug.Log("[ARMath] checking objs in the finder "+objs.Count);
 
-
-        if (objs.Count >= min_number_of_objects)
+        
+        if (objs.Count >= 1)
         {
             float target_delay = 0;
             foreach (SceneObject so in objs)
@@ -94,13 +96,16 @@ public class Finder : MonoBehaviour
         text1_instruction.SetActive(false);
         text2_confirmation.SetActive(true);
         text3_correction.SetActive(false);
+        text4_addmore.SetActive(false);
     }
     public void confirm_failed()
     {
         text1_instruction.SetActive(false);
         text2_confirmation.SetActive(false);
-        text3_correction.GetComponentInChildren<Text>().text = "Can you tap uncircled "+obj_name_plural+" on the screen?";
+
+        text3_correction.GetComponentInChildren<Text>().text = "Can you tap the uncircled "+obj_name_plural+" on the screen?";
         text3_correction.SetActive(true);
+        text4_addmore.SetActive(false);
     }
     public void complete_finder()
     {
@@ -111,8 +116,10 @@ public class Finder : MonoBehaviour
         {
             so.extend_life(30f);
         }
-        if (objs.Count >= min_number_of_objects)
-        {
+
+        if ((min_number_of_objects == 1 && objs.Count>=min_number_of_objects)
+            || (min_number_of_objects>1 && objs.Count % min_number_of_objects ==0))  // dividable by the # of friends. only applicable to div content.
+        {                 
             float target_delay = 0;
             FeedbackGenerator.clear_all_feedback();
             if (call_back != null)
@@ -129,10 +136,16 @@ public class Finder : MonoBehaviour
                 call_back2 = null;
             }
             this.gameObject.SetActive(false);
-        }  else
+        }  else if(min_number_of_objects>1)
         {
+            text1_instruction.SetActive(false);
+            text2_confirmation.SetActive(false);
+            int gap = (objs.Count / min_number_of_objects + 1) * (min_number_of_objects);
+            text4_addmore.GetComponentInChildren<Text>().text = "Oops, I actually need  " + gap+" "+obj_name_plural + " for the friends. Can you find more?";
+            text4_addmore.SetActive(true);
             //need more objects
-            TTS.mTTS.GetComponent<TTS>().StartTextToSpeech("Oops, I actually need more "+ obj_name_plural);
+            //prompt to add more objects
+            
 
         }
 

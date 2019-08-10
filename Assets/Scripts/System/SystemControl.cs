@@ -23,6 +23,14 @@ public class SystemControl : MonoBehaviour {
         updateSystemObject();
         keyInput();
     }
+    public static void Reset()
+    {
+        FeedbackGenerator.clear_all_feedback();
+        Dialogs.Reset();
+        SceneObjectManager.mSOManager.Reset();
+        Drawing2D.Reset();
+        CameraImage.resume_image();
+    }
     public static void onMainMenuGlobal()
     {
         mSystemControl.onMainMenu();
@@ -30,6 +38,10 @@ public class SystemControl : MonoBehaviour {
     public static void onContentGlobal()
     {
         mSystemControl.onContent();
+    }
+    public static void onQuestionGlobal()
+    {
+        mSystemControl.onSelectionQuestion();
     }
     public void onMainMenu()
     {

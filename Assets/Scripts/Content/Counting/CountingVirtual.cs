@@ -89,7 +89,7 @@ public class CountingVirtual : MonoBehaviour {
         //sound effect
       
         
-        if(ContentModuleRoot.GetComponent<ContentCounting>().found_object_count<=counting_n)
+        if(ContentModuleRoot.GetComponent<ContentCounting>().object_count<=counting_n)
         {
             OnCompletion();
         }
@@ -122,7 +122,7 @@ public class CountingVirtual : MonoBehaviour {
 
     private void UpdateBoard()
     {
-        int goal_n = ContentModuleRoot.GetComponent<ContentCounting>().found_object_count;
+        int goal_n = ContentModuleRoot.GetComponent<ContentCounting>().object_count;
         board.GetComponent<board>().enable_both(target_object_name, counting_n, "= " + counting_n.ToString());
         /*board.GetComponent<board>().setMathText("= " + counting_n.ToString());
         board.GetComponent<board>().setIcon(target_object_name, counting_n);*/

@@ -29,10 +29,12 @@ public class DivReview : MonoBehaviour {
 
     }
     private void OnEnable()
-    {        
+    {
+        FeedbackGenerator.clear_all_feedback();
         init_review();
         agent.SetActive(true);
         reward.SetActive(false);
+        
     }
     private void OnDisable()
     {

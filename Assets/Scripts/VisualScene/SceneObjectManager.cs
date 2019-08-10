@@ -9,6 +9,7 @@ public class SceneObjectManager : MonoBehaviour {
     public static SceneObjectManager mSOManager;
     // Use this for initialization
     public List<SceneObject> mObjectPool;
+    public GameObject[] virtualSolvers;
 
     public string[] interactable_objects;
     private int object_id_counter;
@@ -20,8 +21,9 @@ public class SceneObjectManager : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		
-	}
+        handle_touch();
+
+    }
     
     public void Reset()
     {
@@ -254,6 +256,66 @@ public class SceneObjectManager : MonoBehaviour {
         return false;
 
     }
+    private void handle_touch()
+    {
+        bool require_correction = false;
+        foreach(GameObject v_solvers in virtualSolvers)
+        {
+            if (v_solvers.activeSelf) require_correction = true;
+        }
+        if (!require_correction) return;
+        if (Input.touchCount > 0)
+        {
+            Touch touch = Input.GetTouch(0);
+
+            // Move the cube if the screen has the finger moving.
+            if (touch.phase == TouchPhase.Ended)
+            {
+                Vector2 pos = touch.position;
+                Vector2 screenpos = touch.position;
+                /*bool hit = ARMathUtils.check_in_recttransform(pos, view);
+                if (!hit)
+                {
+                    return;
+                }*/
+                string obj_name = "";
+                Vector2 c=new Vector2(0,0);
+                int dum=4;
+                get_dominant_object(ref obj_name, ref c, ref dum);
+                if (!SceneObjectManager.kill_sceneObject_close_to(screenpos, 80f))
+                {
+                    pos.y = Screen.height - pos.y;
+                    CatalogItem ci = new CatalogItem();
+                    ci.Box = new Rect(pos, new Vector2(80, 80));
+                    ci.DisplayName = obj_name;
+                    SceneObjectManager.add_new_object(ci, 180);                    
+                }
+                else
+                {
+                    Debug.Log("[ARMath] object killed");
+                    SceneObjectManager.retire_old_objects();
+                }
+                
+                //List<SceneObject> objs = ARMathUtils.get_objects_in_rect(view, obj_name);
+                ////Debug.Log("[ARMath] checking objs in the finder "+objs.Count);
+
+
+                //if (objs.Count >= min_number_of_objects)
+                //{
+                //    float target_delay = 0;
+                //    foreach (SceneObject so in objs)
+                //    {
+                //        Vector3 targetPos = new Vector3(so.catalogInfo.Box.center.x, Screen.height - so.catalogInfo.Box.center.y, 0);
+                //        FeedbackGenerator.create_target(targetPos, target_delay, 2, 4);
+                //        target_delay += 0.2f;
+                //    }
+
+
+                //}
+            }
+
+        }
+    }
 }
 
 public class SceneObject { 
@@ -450,6 +512,7 @@ public class SceneObject {
     public int get_number_feedback()
     {
         int ret = -1;
+        attached_feedback_gameobject.RemoveAll(s => s == null);
         if (attached_feedback_gameobject != null)
         {
             foreach (GameObject o in attached_feedback_gameobject)
@@ -464,6 +527,7 @@ public class SceneObject {
     public int get_all_feedback_count()
     {
         int ret = -1;
+        attached_feedback_gameobject.RemoveAll(s => s == null);
         if (attached_feedback_gameobject != null)
         {
             ret = 0;

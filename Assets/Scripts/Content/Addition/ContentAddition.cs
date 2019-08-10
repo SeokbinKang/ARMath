@@ -58,8 +58,7 @@ public class ContentAddition : MonoBehaviour, IContentModule
     }
     public void Reset()
     {
-        sub_intro.SetActive(true);
-      
+        sub_intro.SetActive(true);      
         sub_truck.SetActive(false);
         sub_solver.SetActive(false);
         context_victor_icecream.SetActive(false);
@@ -111,7 +110,7 @@ public class ContentAddition : MonoBehaviour, IContentModule
         context_victor_icecream.SetActive(false);
         context_victor_dialogtxt.SetActive(false);
         target_object_name = "coin";
-        Tools.finder_init(target_object_name, 3, new CallbackFunction2(s2_objectfound), "", "Let's find some coins!", 0.8f);
+        Tools.finder_init(target_object_name, 1, new CallbackFunction2(s2_objectfound), "", "Let's find some coins!", 0.8f);
 
     }
     public void s2_objectfound(string p, List<SceneObject> obj_list, Rect rt)
@@ -131,7 +130,7 @@ public class ContentAddition : MonoBehaviour, IContentModule
         foreach (SceneObject so in obj_list)
         {
             Vector3 targetPos = new Vector3(so.catalogInfo.Box.center.x, Screen.height - so.catalogInfo.Box.center.y, 0);
-            FeedbackGenerator.create_target(targetPos, target_delay, 600, 0);
+            FeedbackGenerator.create_target(targetPos, target_delay, 10, 0);
             GameObject num_label = FeedbackGenerator.create_number_feedback(targetPos, i++,target_delay,6);
             so.attach_object(num_label);
             target_delay += 0.4f;
@@ -166,7 +165,7 @@ public class ContentAddition : MonoBehaviour, IContentModule
         Vector2 r2_pos = rt.position;        
         Vector2 r2_size = rt.size;
         sub_region.GetComponent<RegionControl>().setRegion(0, rt,true);        
-        r2_pos.x += rt.size.x + 50;
+        r2_pos.x += rt.size.x+55;
         r2_size.x *= 0.6f;
         r2_size.y *= 1f;
         rt.position = r2_pos;

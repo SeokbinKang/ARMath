@@ -29,7 +29,8 @@ public class MultReview : MonoBehaviour {
     }
     private void OnEnable()
     {
-        Debug.Log("[ARMath] Mult review starts");
+        FeedbackGenerator.clear_all_feedback();
+        
         init_review();
         agent.SetActive(true);
         reward.SetActive(false);
@@ -106,25 +107,27 @@ public class MultReview : MonoBehaviour {
     }
     private void highlight_objects_tangible(float delay1, float delay2)
     {
-        string target_object_name = content_root.GetComponent<ContentAddition>().target_object_name;
-        List<SceneObject> objs = SceneObjectManager.mSOManager.get_objects_by_name(target_object_name);
-        int goal_n = content_root.GetComponent<ContentAddition>().goal_object_count;
-        int init_n = content_root.GetComponent<ContentAddition>().init_object_count;
+        int num_per_cell = content_root.GetComponent<ContentMulti>().target_base_num;
+        int num_cells = content_root.GetComponent<ContentMulti>().target_mult_num;
+        int goal_n = num_per_cell * num_cells;
 
-        //init_n = objs.Count;
-        int i = 0;
-        for (i = 0; i < init_n && i < objs.Count; i++)
-        {  //TODO: detach higher number label
-            Vector3 targetPos = new Vector3(objs[i].catalogInfo.Box.center.x, Screen.height - objs[i].catalogInfo.Box.center.y, 0);
-            FeedbackGenerator.create_target(targetPos, delay1, 10 - delay1, 0);
+        List<GameObject> tree_icons = trees.GetComponent<GroupTree>().get_virtual_trees_in_cells();
+        List<Vector2> tangibles = trees.GetComponent<GroupTree>().get_tangible_objects_in_cells();
+
+        int k = 0;
+        
+
+        FeedbackGenerator.init_counter(new CallbackFunction(after_counting_all), tangibles.Count);
+        k = 0;
+        for (int c = 0; c < num_cells; c++)
+        {
+            for (int i = 0; i < num_per_cell && k < tangibles.Count; i++)
+            {  //TODO: detach higher number label
+                //Vector3 targetPos = virtuals[k++].GetComponent<RectTransform>().position;
+                FeedbackGenerator.create_target(tangibles[k++], delay2 + c * 2, 180, 2, true);
+
+            }
         }
-
-        for (; i < goal_n && i < objs.Count; i++)
-        {  //TODO: detach higher number label
-            Vector3 targetPos = new Vector3(objs[i].catalogInfo.Box.center.x, Screen.height - objs[i].catalogInfo.Box.center.y, 0);
-            FeedbackGenerator.create_target(targetPos, delay2, 10 - delay2, 1);
-        }
-
 
     }
     private void highlight_objects_virtual(float delay1, float delay2)

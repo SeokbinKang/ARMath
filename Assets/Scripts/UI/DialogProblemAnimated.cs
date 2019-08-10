@@ -33,6 +33,17 @@ public class DialogProblemAnimated : MonoBehaviour
     {
         
     }
+    public void Reset()
+    {
+        term1_num.GetComponentInChildren<Text>().text ="";
+        term1_num.SetActive(false);
+        term2_num.GetComponentInChildren<Text>().text = "";
+        term2_num.SetActive(false);
+            term3_equal.GetComponentInChildren<Text>().text = "";
+            term3_equal.SetActive(false);
+           term4_center.GetComponentInChildren<Text>().text = "";
+            term4_center.SetActive(false);
+    }
     private void OnDisable()
     {
         term1_num.SetActive(false);
