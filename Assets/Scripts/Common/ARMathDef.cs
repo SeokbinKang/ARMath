@@ -56,7 +56,8 @@ public enum angle_name
 }
 public class SystemParam
 {
-    public static float param_object_lifetime = 3.2f;  //second
+    public static float param_object_initialLife = 3.2f;  //second
+    public static float param_object_extendlife = 5f;  //second
     public static float param_object_rect_overlap_portion = 0.1f;
     public static float system_update_period = 0.5f;  //second
     public static float system_object_checking_period = 2f;  //second

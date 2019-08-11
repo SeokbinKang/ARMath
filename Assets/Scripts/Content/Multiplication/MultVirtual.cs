@@ -142,7 +142,7 @@ public class MultVirtual : MonoBehaviour {
       
 
         Dialogs.add_dialog(new DialogItem(DialogueType.left_bottom_plain,
-               "Please move the batteries on the screen. Here are some extra batteries. ",
+               "Can you put the " + num_per_cell + " batteries next to each tree? You can use extra batteries on the screen.",
                true,
                new CallbackFunction(StartOperation),
                "none",10
@@ -200,7 +200,7 @@ public class MultVirtual : MonoBehaviour {
     public void StartOperation(string p)
     {
         UserInteracting = true;
-
+        FeedbackGenerator.init_create_dialog_term();
         UpdateBoard();        
 
     }

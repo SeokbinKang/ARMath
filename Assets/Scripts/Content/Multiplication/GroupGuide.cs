@@ -97,21 +97,27 @@ public class GroupGuide : MonoBehaviour {
                 res++;
                 
                 UpdateBoxAnim(cell, true, num_per_cell);
-
+                FeedbackGenerator.create_dialog(cell, 0, 4, "Nice job! This is good", true,true);
                 //may want to put a message here.
                 foreach (var o in objs_in_cell)
                     tangible_objs_in_cells.Add(o.get_screen_pos());
                 cell_correction[i]++;
             } else  {
                 int k;
+
                 if (objs_in_cell == null) k = 0;
                     else k = objs_in_cell.Count;
                 //UpdateBoxAnim(cell, false, k);
+
+                string msg = "";
+                if (k > num_per_cell) msg = "This is too many";
+                else msg = "We need more here";
+                FeedbackGenerator.create_dialog(cell, 0, 4, msg, true,false);
             }
             foreach(SceneObject o in objs_in_cell)
             {
                 if (o.is_feedback_attached()) continue;
-                GameObject f = FeedbackGenerator.create_target(o,0,3, 0,false);
+                GameObject f = FeedbackGenerator.create_target(o,0,90, 0,false);
                 o.attach_object(f);                
             }
         }
@@ -130,6 +136,7 @@ public class GroupGuide : MonoBehaviour {
         {
             GameObject cell = cells[i];
             int item_in_cell = 0;
+            
             objs.Clear();
             foreach (GameObject obj in virtual_objs)
             {
@@ -147,23 +154,28 @@ public class GroupGuide : MonoBehaviour {
             {
                 res++;
                 
-                
+                if(cell_correction[i]==0) FeedbackGenerator.create_dialog(cell, 0, 4, "Nice job! This is good", true,true);
                 UpdateBoxAnim(cell, true, num_per_cell);                
                 //may want to put a message here.  
                 foreach(GameObject o in objs)
                 {
                     o.GetComponent<Image>().color = new Color(1, 1, 1, 0.3f);
                 }
-                
+                cell_correction[i]++;
+
             }
             else
             {
-         
+                string msg = "";
+                if (item_in_cell > num_per_cell) msg = "This is too many";
+                else msg = "We need more here";
+                FeedbackGenerator.create_dialog(cell, 0, 4, msg, true,false);
                 UpdateBoxAnim(cell, false, item_in_cell);
                 foreach (GameObject o in objs)
                 {
                     o.GetComponent<Image>().color = new Color(1, 1, 1, 1);
                 }
+                cell_correction[i] = 0;
 
             }
         }

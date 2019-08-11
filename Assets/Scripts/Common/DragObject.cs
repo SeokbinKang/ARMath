@@ -104,7 +104,8 @@ public class DragObject : MonoBehaviour, IDragHandler, IDropHandler
             dragging = true;
         }
         change_alpha(alpha_on_drop);
-
+        string t = "[Virtual Object Drag-n-Drop] "+this.gameObject.name;
+        SystemLog.WriteLog(t);
         if(this.GetComponent<AudioSource>()!=null) this.GetComponent<AudioSource>().Play();
         onDragging = false;
     }

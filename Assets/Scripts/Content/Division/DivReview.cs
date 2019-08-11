@@ -102,6 +102,8 @@ public class DivReview : MonoBehaviour {
     }
     public void OnCompletion(string t)
     {
+        this.transform.parent.GetComponent<ContentSolver>().close_solvers();
+        FeedbackGenerator.clear_all_feedback();
         reward.SetActive(true);
         
     }

@@ -83,12 +83,13 @@ public class DivVirtual : MonoBehaviour {
     {
         Rect rt = ContentModuleRoot.GetComponent<ContentDiv>().obj_rect;
         RectTransform rt_V = tray.GetComponent<RectTransform>();
+        
         rt_V.position = rt.position;
         rt_V.sizeDelta = rt.size;
         rt_V.localScale = Vector3.one;
         tray.SetActive(true);
         
-        GameObject icon_obj = AssetManager.get_icon("blue chocolate");
+        GameObject icon_obj = AssetManager.get_icon("gold chocolate");
         if(icon_obj==null)
         {           
             return;
@@ -98,9 +99,9 @@ public class DivVirtual : MonoBehaviour {
         {
             GameObject new_obj = ARMathUtils.create_2DPrefab(icon_obj, tray, pos);
             RectTransform r = new_obj.GetComponent<RectTransform>();
-
             r.position = pos;
-            r.sizeDelta = new Vector2(120  , 120);
+            r.sizeDelta = new Vector2(140  , 140);
+            r.localScale = Vector3.one;
             r.Rotate(0, 0, Random.Range(0, 360));
             new_obj.SetActive(true);
             this.obj_movable.Add(new_obj);
@@ -110,6 +111,7 @@ public class DivVirtual : MonoBehaviour {
     public void StartOperation(string p)
     {
         UserInteracting = true;
+        FeedbackGenerator.init_create_dialog_term();
     }
     private void count_object()
     {

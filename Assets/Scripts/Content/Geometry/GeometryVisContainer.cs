@@ -29,9 +29,14 @@ public class GeometryVisContainer : MonoBehaviour {
 
             Rect target_box = contentroot.GetComponent<ContentGeometry>().final_object_shape_rect;
             Debug.Log("[ARMath] target box: " + target_box+"  center: "+target_box.center);
-            
+            float scaler = 1.0f;
+            if(Screen.currentResolution.width<2100)
+            {//tab s3
+                scaler = 2560f / 2048f;
+            }
             VisRectangle.GetComponent<RectTransform>().position = new Vector3(target_box.center.x,target_box.center.y,0);
-            VisRectangle.GetComponent<RectTransform>().sizeDelta = target_box.size;
+            VisRectangle.GetComponent<RectTransform>().sizeDelta = target_box.size*scaler;
+            VisRectangle.GetComponent<RectTransform>().localScale = Vector3.one;
 
             Debug.Log("[ARMath] target box real: " + VisRectangle.GetComponent<RectTransform>().position + "  size: " + VisRectangle.GetComponent<RectTransform>().sizeDelta);
 
@@ -58,3 +63,4 @@ public class GeometryVisContainer : MonoBehaviour {
         }
     }
 }
+

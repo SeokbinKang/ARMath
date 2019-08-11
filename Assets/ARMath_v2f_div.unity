@@ -13946,6 +13946,9 @@ MonoBehaviour:
     type: 2}
   prefab_targetCountable: {fileID: 1759566777373298, guid: f4c4151fcfcbe3c4b935dcdfd7506761,
     type: 2}
+  prefab_smalldialog1: {fileID: 1340278369865540, guid: 3253c2c37ab0c1f4bbf0aedb3fe30efd,
+    type: 2}
+  dialogfeedback_term: 20
   color_terms:
   - {r: 0.2627451, g: 1, b: 0.99607843, a: 0}
   - {r: 0.31764707, g: 1, b: 0, a: 0}

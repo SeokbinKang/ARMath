@@ -22,6 +22,11 @@ public class ContentSolver : MonoBehaviour {
     {
         init_solver();
     }
+    public void close_solvers()
+    {
+        if (solver_tangible != null) solver_tangible.SetActive(false);
+        if (solver_virtual != null) solver_virtual.SetActive(false);
+    }
     private void OnDisable()
     {
         review.SetActive(false);

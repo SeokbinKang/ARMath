@@ -45,7 +45,7 @@ public class MultTangible : MonoBehaviour {
 
         if (Time.time > nextActionTime)
         {
-            nextActionTime = Time.time + SystemParam.system_update_period;
+            nextActionTime = Time.time + SystemParam.system_update_period*4;
             if (mCallback != null && mCallback.tick()) mCallback = null;
             count_object();
         }
@@ -107,7 +107,7 @@ public class MultTangible : MonoBehaviour {
 
 
         Dialogs.add_dialog(new DialogItem(DialogueType.left_bottom_plain,
-             "Please place real batteries on the table. ",
+             "Can you put the "+ num_per_cell + " batteries next to each tree? You can use batteries on the table.",
              true,
              new CallbackFunction(StartOperation),
              "none", 10
@@ -117,6 +117,7 @@ public class MultTangible : MonoBehaviour {
     }
     public void StartOperation(string p)
     {
+        FeedbackGenerator.init_create_dialog_term();
         int num_cells = ContentModuleRoot.GetComponent<ContentMulti>().target_mult_num;
         UserInteracting = true;       
         /*groups.SetActive(true);

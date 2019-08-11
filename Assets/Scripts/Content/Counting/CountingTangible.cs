@@ -129,7 +129,7 @@ public class CountingTangible : MonoBehaviour
          true,
          new CallbackFunction(StartCounting),
          "",
-         6), 0
+         7), 0
          );
         target_object_name = ContentModuleRoot.GetComponent<ContentCounting>().target_object_name;        
         

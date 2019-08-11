@@ -32,7 +32,9 @@ public class Friends : MonoBehaviour {
     {
         foreach (var f in friends)
             f.SetActive(false);
-        num_friends = (int)Random.Range(2, 5);
+        int lvl = SystemUser.get_problem_level(ProblemType.p3_division);
+        if (lvl > 0) num_friends = (int)UnityEngine.Random.Range(3, 5);
+        else num_friends = 2;        
         contentModule.GetComponent<ContentDiv>().divisor = num_friends;
         //introduce_friend();
         

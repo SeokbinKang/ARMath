@@ -92,7 +92,10 @@ public class Finder : MonoBehaviour
         {
             so.extend_life(30f);
         }
-        text2_confirmation.GetComponentInChildren<Text>().text = "I see " + AssetManager.Get_object_text(obj_name, found_n) + ", am I right?";
+        string obj_name_plural = AssetManager.Get_object_text(obj_name, 2);
+        obj_name_plural = obj_name_plural.Substring(obj_name_plural.IndexOf(' ') + 1);
+        //text2_confirmation.GetComponentInChildren<Text>().text = "I see " + AssetManager.Get_object_text(obj_name, found_n) + ", am I right?";
+        text2_confirmation.GetComponentInChildren<Text>().text = "I circled all the " + obj_name_plural + ", am I right?";
         text1_instruction.SetActive(false);
         text2_confirmation.SetActive(true);
         text3_correction.SetActive(false);
@@ -196,6 +199,7 @@ public class Finder : MonoBehaviour
                 {
                     return;
                 }
+                Debug.Log("[ARMath] hithit in in finder");
                 if (!SceneObjectManager.kill_sceneObject_close_to(screenpos, 100f)) {
                     pos.y = Screen.height - pos.y;
                     CatalogItem ci = new CatalogItem();

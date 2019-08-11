@@ -121,9 +121,11 @@ public class ContentAddition : MonoBehaviour, IContentModule
             return;
         }
         SetIdle(false);
-        
+        int lvl = SystemUser.get_problem_level(ProblemType.p2_addition);
+        if (lvl > 0) lvl = 6;
+        else lvl = 0;
         init_object_count = obj_list.Count;
-        goal_object_count = init_object_count + random.Next(2, 6);
+        goal_object_count = init_object_count + random.Next(2+lvl, 6+lvl);
         add_object_count = goal_object_count - init_object_count;
         float target_delay = 4f;
         int i = 1;

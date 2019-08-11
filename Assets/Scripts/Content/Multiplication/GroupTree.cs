@@ -94,7 +94,7 @@ public class GroupTree : MonoBehaviour {
             foreach (SceneObject o in objs_in_cell)
             {
                 if (o.is_feedback_attached()) continue;
-                GameObject f = FeedbackGenerator.create_target(o, 0, 3, 5, false);
+                GameObject f = FeedbackGenerator.create_target(o, 0, 90, 5, false);
                 o.attach_object(f);
             }
             if (objs_in_cell != null && item_in_cell == num_per_cell)
@@ -117,7 +117,8 @@ public class GroupTree : MonoBehaviour {
                 {
                     if (cell_container.last_count != item_in_cell)
                     {
-                        TTS.mTTS.GetComponent<TTS>().StartTextToSpeech("Hmm.. that's not enough. Can you get " + (num_per_cell - item_in_cell) + " more batteries?");
+                        FeedbackGenerator.create_dialog(cell, 0, 4, "Hmm... we need more here", true,false);
+                        //TTS.mTTS.GetComponent<TTS>().StartTextToSpeech("Hmm.. that's not enough. Can you get " + (num_per_cell - item_in_cell) + " more batteries?");
                         cell_container.last_count = item_in_cell;
                     }
 
@@ -126,7 +127,8 @@ public class GroupTree : MonoBehaviour {
                 {
                     if (cell_container.last_count != item_in_cell)
                     {
-                        TTS.mTTS.GetComponent<TTS>().StartTextToSpeech("Hmm... that's too many. Can you give me exactly " + num_per_cell + " batteries?");
+                        FeedbackGenerator.create_dialog(cell, 0,4, "Hmm... this is too many", true,false);
+                        //TTS.mTTS.GetComponent<TTS>().StartTextToSpeech("Hmm... that's too many. Can you give me exactly " + num_per_cell + " batteries?");
                         cell_container.last_count = item_in_cell;
                     }
                     
@@ -214,12 +216,18 @@ public class GroupTree : MonoBehaviour {
         }
         else
         {
-            if(item_in_cell < num_in_cell)
+            if (item_in_cell < num_in_cell)
             {
-                TTS.mTTS.GetComponent<TTS>().StartTextToSpeech("Hmm.. that's not enough. Can you get " + (num_in_cell - item_in_cell) + " more batteries?");
-                
-                
-            } else TTS.mTTS.GetComponent<TTS>().StartTextToSpeech("Hmm... that's too many. Can you give me exactly " + num_in_cell + " batteries?");
+                FeedbackGenerator.create_dialog(cell, 0, 4, "Hmm... we need more here", true,false);
+                //TTS.mTTS.GetComponent<TTS>().StartTextToSpeech("Hmm.. that's not enough. Can you get " + (num_in_cell - item_in_cell) + " more batteries?");
+
+
+            }
+            else
+            {
+                FeedbackGenerator.create_dialog(cell, 0, 4, "Hmm... this is too many", true,false);
+                //TTS.mTTS.GetComponent<TTS>().StartTextToSpeech("Hmm... that's too many. Can you give me exactly " + num_in_cell + " batteries?");
+            }
             string msg = "";
             UpdateCell(cell, false, msg);
         }

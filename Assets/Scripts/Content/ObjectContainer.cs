@@ -97,7 +97,7 @@ public class ObjectContainer : MonoBehaviour {
 
             ret = true;
         }
-       Debug.Log("[ARMath] gameobject in container " + rect  + "    "+center2+"  =  "+ret);
+       //Debug.Log("[ARMath] gameobject in container " + rect  + "    "+center2+"  =  "+ret);
         return ret;
     }
 

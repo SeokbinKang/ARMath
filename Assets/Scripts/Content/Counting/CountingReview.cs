@@ -39,11 +39,12 @@ public class CountingReview : MonoBehaviour {
           true,
           new CallbackFunction(showReward),
           "",
-          4), 0
+          6), 0
           );
     }
     public void showReward(string t)
     {
+        this.transform.parent.GetComponent<ContentSolver>().close_solvers();
         FeedbackGenerator.clear_all_feedback();
         reward.SetActive(true);
     }

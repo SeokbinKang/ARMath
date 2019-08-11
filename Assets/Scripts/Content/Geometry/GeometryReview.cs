@@ -5,6 +5,7 @@ using UnityEngine.UI;
 
 public class GeometryReview : MonoBehaviour {
 
+    public GameObject ContentModuleRoot;
     public GameObject chest_default;
     public GameObject chest_open;
     public GameObject key;
@@ -87,6 +88,8 @@ public class GeometryReview : MonoBehaviour {
     }
     public void OnCompletion(string t)
     {
+        this.transform.parent.GetComponent<ContentSolver>().close_solvers();
+        FeedbackGenerator.clear_all_feedback();
         this.GetComponent<Animator>().SetTrigger("open");        
         
     }

@@ -84,7 +84,9 @@ public class ContentMulti : MonoBehaviour {
     }
     public void s0_onIntro()
     {
-        target_mult_num = (int)UnityEngine.Random.Range(2, 5);
+        int lvl = SystemUser.get_problem_level(ProblemType.p3_multiplication);
+        if (lvl > 0) target_mult_num = (int)UnityEngine.Random.Range(3, 5);
+        else target_mult_num = 2;
         sub_intro2.SetActive(true);
         sub_trees.GetComponent<GroupTree>().Setup(target_mult_num,0);
         sub_trees.SetActive(true);

@@ -43,6 +43,7 @@ public class SystemControl : MonoBehaviour {
     {
         mSystemControl.onSelectionQuestion();
     }
+    
     public void onMainMenu()
     {
         current_status = SystemStatus.Setup;

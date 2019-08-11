@@ -69,7 +69,11 @@ public class ContentRoot : MonoBehaviour {
             mGeometry.SetActive(false);
             mContentMult.SetActive(false);
             mContentDiv.SetActive(false);
-           
+            bool interaction_touch_enalbed = SystemControl.mSystemControl.get_system_setup_interaction_touch();
+            string mode = "tangible";
+            if (interaction_touch_enalbed) mode = "virtual";
+            string tt = "[Start Content] Counting " + mode;
+            SystemLog.WriteLog(tt);
             //mContentCounting.GetComponent<ContentCounting>().Reset();
         }
     }
@@ -85,7 +89,11 @@ public class ContentRoot : MonoBehaviour {
             mGeometry.SetActive(false);
             mContentMult.SetActive(false);
             mContentDiv.SetActive(false);
-            
+            bool interaction_touch_enalbed = SystemControl.mSystemControl.get_system_setup_interaction_touch();
+            string mode = "tangible";
+            if (interaction_touch_enalbed) mode = "virtual";
+            string tt = "[Start Content] Addition " + mode;
+            SystemLog.WriteLog(tt);
             mContentAddition.GetComponent<ContentAddition>().Reset();
 
         }
@@ -104,7 +112,12 @@ public class ContentRoot : MonoBehaviour {
             mContentCounting.SetActive(false);
             mGeometry.SetActive(false);
             mContentAddition.SetActive(false);
-            mContentDiv.SetActive(false);            
+            mContentDiv.SetActive(false);
+            bool interaction_touch_enalbed = SystemControl.mSystemControl.get_system_setup_interaction_touch();
+            string mode = "tangible";
+            if (interaction_touch_enalbed) mode = "virtual";
+            string tt = "[Start Content] Multiplication " + mode;
+            SystemLog.WriteLog(tt);
             mContentMult.GetComponent<ContentMulti>().Reset();
             
         }
@@ -121,7 +134,12 @@ public class ContentRoot : MonoBehaviour {
             mContentCounting.SetActive(false);
             mGeometry.SetActive(false);
             mContentAddition.SetActive(false);
-            mContentMult.SetActive(false);            
+            mContentMult.SetActive(false);
+            bool interaction_touch_enalbed = SystemControl.mSystemControl.get_system_setup_interaction_touch();
+            string mode = "tangible";
+            if (interaction_touch_enalbed) mode = "virtual";
+            string tt = "[Start Content] Division " + mode;
+            SystemLog.WriteLog(tt);
             mContentDiv.GetComponent<ContentDiv>().Reset();
 
         }
@@ -138,7 +156,12 @@ public class ContentRoot : MonoBehaviour {
             mContentMult.SetActive(false);
             mContentAddition.SetActive(false);
             mContentCounting.SetActive(false);
-            
+            mContentDiv.SetActive(false);
+            bool interaction_touch_enalbed = SystemControl.mSystemControl.get_system_setup_interaction_touch();
+            string mode = "tangible";
+            if (interaction_touch_enalbed) mode = "virtual";
+            string tt = "[Start Content] Geometry " + mode;
+            SystemLog.WriteLog(tt);
             mGeometry.GetComponent<ContentGeometry>().Reset();
         }
     }

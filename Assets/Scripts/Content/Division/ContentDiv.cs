@@ -130,12 +130,18 @@ public class ContentDiv : MonoBehaviour {
             "Oh thanks. We've got " + dividend + " chocolates!.  ",
             true,
             new CallbackFunction(callback_shownumber1),
-           dividend.ToString(),
+            dividend.ToString(),
             6), 0
             );
+            /*Dialogs.add_dialog(new DialogItem(DialogueType.left_bottom_plain,
+             "Can you place the same number of chocolates in each of " + divisor + " gift boxes?",
+              true,
+              null,
+              "",
+              1f), 0
+            );*/
             Dialogs.add_dialog(new DialogItem(DialogueType.left_bottom_plain,
-             "Can you place the same number of chocolates to "+divisor+" gift boxes?",
-             //"Can you help distribute the chocolates to gift boxes?",
+             "Can you place the same number of chocolates in each of "+divisor+" gift boxes?",             
               true,
               new CallbackFunction(s4_startsolver),
               "",
@@ -149,7 +155,6 @@ public class ContentDiv : MonoBehaviour {
 public void callback_shownumber1(string t)
     {
         Dialogs.set_topboard_animated(true, 0, t);
-
         sub_context.SetActive(true);
         sub_context.GetComponent<GroupGuide>().Setup_giftbox(divisor);
         //indicate gif boxes

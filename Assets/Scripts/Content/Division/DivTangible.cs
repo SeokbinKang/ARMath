@@ -37,7 +37,7 @@ public class DivTangible : MonoBehaviour {
     {
         if (Time.time > nextActionTime)
         {
-            nextActionTime = Time.time + SystemParam.system_update_period;
+            nextActionTime = Time.time + SystemParam.system_update_period*4;
 
             count_object();
         }
@@ -94,7 +94,8 @@ public class DivTangible : MonoBehaviour {
     }
     public void StartOperation(string p)
     {
-        UserInteracting = true;        
+        UserInteracting = true;
+        FeedbackGenerator.init_create_dialog_term();
     }
 
     

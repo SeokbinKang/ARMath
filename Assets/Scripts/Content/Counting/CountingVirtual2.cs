@@ -19,6 +19,7 @@ public class CountingVirtual2 : MonoBehaviour {
 	}
     private void OnEnable()
     {
+        check_count();
         loadprompt();
     }
     public void loadprompt()
@@ -31,7 +32,7 @@ public class CountingVirtual2 : MonoBehaviour {
          true,
          new CallbackFunction(s1_initCount),
          "",
-         4), 0
+         7), 0
          );
     }
     public void s1_initCount(string t)

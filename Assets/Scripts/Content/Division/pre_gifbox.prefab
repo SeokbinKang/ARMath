@@ -262,7 +262,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   delay: 0
-  TTS_text: 1
+  TTS_text: 0
   TTS_pitch_down: 0
 --- !u!114 &114120713413333802
 MonoBehaviour:
@@ -322,7 +322,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
   m_Color: {r: 0.19607843, g: 0.19607843, b: 0.19607843, a: 0}
-  m_RaycastTarget: 1
+  m_RaycastTarget: 0
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
@@ -354,7 +354,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   delay: 2.5
-  TTS_text: 1
+  TTS_text: 0
   TTS_pitch_down: 0
 --- !u!114 &114562830917347616
 MonoBehaviour:
@@ -423,7 +423,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 0}
-  m_RaycastTarget: 1
+  m_RaycastTarget: 0
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
@@ -456,6 +456,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   hourglass: {fileID: 0}
   region_rectangle: {fileID: 1650362251326888}
+  last_count: 0
 --- !u!222 &222145144828582658
 CanvasRenderer:
   m_ObjectHideFlags: 1

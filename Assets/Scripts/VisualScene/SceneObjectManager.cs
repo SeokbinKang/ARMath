@@ -105,7 +105,7 @@ public class SceneObjectManager : MonoBehaviour {
             if (o.check_overlap(so))
             {
                 is_exist = true;
-                so.extend_life();
+                so.extend_life();                
                 break;
             }
         }
@@ -375,7 +375,7 @@ public class SceneObject {
     
     public void extend_life()
     {
-        time_expire = Time.time + SystemParam.param_object_lifetime;
+        time_expire = Time.time + SystemParam.param_object_extendlife;
     }
     public void extend_life(float t)
     {
@@ -445,7 +445,7 @@ public class SceneObject {
     private void init()
     {
         time_instantiated = Time.time;
-        time_expire = Time.time + SystemParam.param_object_lifetime;
+        time_expire = Time.time + SystemParam.param_object_initialLife;
         catalogInfo = null;
         been_interacted = false;
         attached_feedback_gameobject = new List<GameObject>();

@@ -110,6 +110,7 @@ public class AdditionReview1 : MonoBehaviour {
     {
         msg2_box.SetActive(false);
         msg3_dummy.SetActive(false);
+        this.transform.parent.GetComponent<ContentSolver>().close_solvers();
         FeedbackGenerator.clear_all_feedback();
         reward.SetActive(true);
         //content_root.GetComponent<ContentAddition>().onSolved();

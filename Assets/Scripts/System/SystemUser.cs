@@ -5,6 +5,7 @@ using System.IO;
 
 using System.Text;
 using System.Xml;
+using System.Xml.Linq;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -114,9 +115,11 @@ public class SystemUser : MonoBehaviour
             Debug.Log("Error <users> doesn't exist in user profile xml file : ");
             return;
         }
+        
         foreach(XmlNode userXML in userList)
         {
             UserInfo u = new UserInfo();
+            //Debug.Log("[ARMath] loading user "+userXML.InnerXml);
             XmlNodeList userproperties = userXML.ChildNodes;
             foreach(XmlNode prop in userproperties)
             {
@@ -129,6 +132,30 @@ public class SystemUser : MonoBehaviour
                 } else if (prop.Name == "id")
                 {
                     u.user_id = System.Convert.ToInt32(prop.InnerXml);
+                } else if (prop.Name == "gems")
+                {
+                    //Debug.Log("[ARMath] loading user gems" + prop.InnerXml);
+                    foreach (XmlNode gem in prop.ChildNodes)
+                    {
+                        if (gem.Name == "gem")
+                        {
+                            //Debug.Log("[ARMath] loading user gem" + gem.InnerXml);
+                            Gem g = new Gem();
+                            foreach (XmlNode gemprop in gem.ChildNodes)
+                            {
+                               // Debug.Log("[ARMath] loading user prop" + gemprop.InnerXml);
+                                if (gemprop.Name == "type")
+                                {
+                                    g.problem_type = (ProblemType) System.Convert.ToInt32(gemprop.InnerXml);
+                                } else if(gemprop.Name == "interaction")
+                                {
+                                    if (gemprop.InnerXml == "virtual") g.is_virtual_interaction = true;
+                                    else g.is_virtual_interaction = false;
+                                }
+                            }
+                            u.AddGem(g);
+                        }
+                    }
                 }
             }
             user_list.Add(u);
@@ -177,9 +204,29 @@ public class SystemUser : MonoBehaviour
             xml_name.InnerXml = u.user_name;
             XmlNode xml_lastused = xmlDoc.CreateNode("element", "lastused", "");
             xml_lastused.InnerXml = DateTime.Now.ToString("MMddHHmm");
+            XmlNode xml_gem = xmlDoc.CreateNode("element", "gems", "");
+            xml_gem.InnerXml ="";
+            foreach(KeyValuePair<ProblemType,List<Gem>> gpair in u.gem_collection)
+            {
+                foreach(var g in gpair.Value)
+                {
+                    XmlNode xml_gem_node = xmlDoc.CreateNode("element", "gem","");
+                    xml_gem_node.InnerXml = "";
+                    XmlNode xml_gem_type = xmlDoc.CreateNode("element", "type", "");
+                    xml_gem_type.InnerXml = ((int) g.problem_type).ToString();
+                    XmlNode xml_gem_interaction = xmlDoc.CreateNode("element", "interaction", "");
+                    if (g.is_virtual_interaction) xml_gem_interaction.InnerXml = "virtual";
+                    else xml_gem_interaction.InnerXml = "tangible";
+                    xml_gem_node.AppendChild(xml_gem_type);
+                    xml_gem_node.AppendChild(xml_gem_interaction);
+                    xml_gem.AppendChild(xml_gem_node);
+
+                }
+            }
             user_profile_xml.AppendChild(xml_id);
             user_profile_xml.AppendChild(xml_name);
             user_profile_xml.AppendChild(xml_lastused);
+            user_profile_xml.AppendChild(xml_gem);
 
         } else
         {
@@ -189,17 +236,42 @@ public class SystemUser : MonoBehaviour
                 {
                     prop.InnerXml = DateTime.Now.ToString("MMddHHmm"); 
                     
-                }
-                else if (prop.Name == "name")
+                } else if (prop.Name == "name")
                 {
                     prop.InnerXml = u.user_name;
-                }
-                else if (prop.Name == "id")
+                } else if (prop.Name == "id")
                 {
                     prop.InnerXml = u.user_id.ToString();
+                } else if(prop.Name == "gems")
+                {
+                    while (prop.HasChildNodes)
+                    {
+                        prop.RemoveChild(prop.FirstChild);
+                    }                    
+                    foreach (KeyValuePair<ProblemType, List<Gem>> gpair in u.gem_collection)
+                    {
+                        foreach (var g in gpair.Value)
+                        {
+                            XmlNode xml_gem_node = xmlDoc.CreateNode("element", "gem", "");
+                            xml_gem_node.InnerXml = "";
+                            XmlNode xml_gem_type = xmlDoc.CreateNode("element", "type", "");
+                            xml_gem_type.InnerXml = ((int)g.problem_type).ToString();
+                            XmlNode xml_gem_interaction = xmlDoc.CreateNode("element", "interaction", "");
+                            if (g.is_virtual_interaction) xml_gem_interaction.InnerXml = "virtual";
+                            else xml_gem_interaction.InnerXml = "tangible";
+                            xml_gem_node.AppendChild(xml_gem_type);
+                            xml_gem_node.AppendChild(xml_gem_interaction);
+                            prop.AppendChild(xml_gem_node);
+                            Debug.Log("[ARMath] adding a gem");
+
+                        }
+                    }
                 }
+                
             }
         }
+     //   Debug.Log("[ARMath] user root: " + userRoot[0].InnerXml);
+     //   Debug.Log("[ARMath] user: " + user_profile_xml.InnerXml);
         xmlDoc.Save(xmlLoc);
     }
     public void new_user()
@@ -230,7 +302,20 @@ public class SystemUser : MonoBehaviour
         mThis.user_status.GetComponentInChildren<user_panel>().LoadUser(current_user);
     }
     
-   
+    public static int get_problem_level(ProblemType p)
+    {
+        int lvl = 0;
+        if (current_user == null) return 0;
+        bool virtual_mode = SystemControl.mSystemControl.get_system_setup_interaction_touch();
+        if (current_user.gem_collection.ContainsKey(p))
+        {
+            foreach(var o in current_user.gem_collection[p])
+            {
+                if (o.is_virtual_interaction == virtual_mode) lvl++;
+            }
+        }
+        return lvl;
+    }
     public static void AddGem(ProblemType p)
     {
         Gem g = new Gem();

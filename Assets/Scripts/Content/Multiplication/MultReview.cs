@@ -102,6 +102,8 @@ public class MultReview : MonoBehaviour {
         FeedbackGenerator.clear_all_feedback();
         msg3_box.SetActive(false);
         msg2_box.SetActive(false);
+        this.transform.parent.GetComponent<ContentSolver>().close_solvers();
+        FeedbackGenerator.clear_all_feedback();
         reward.SetActive(true);
         //content_root.GetComponent<ContentAddition>().onSolved();
     }

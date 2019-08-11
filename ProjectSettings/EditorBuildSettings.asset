@@ -6,6 +6,6 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/ARMath_v2f_div.unity
-    guid: 8fdbadab593fa7040ad3f4c65a79755b
+    path: Assets/ARMath_v3a.unity
+    guid: cd500e82799b8f54fb716f495a6daf1d
   m_configObjects: {}

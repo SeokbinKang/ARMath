@@ -14,7 +14,9 @@ public class FeedbackGenerator : MonoBehaviour {
     public GameObject prefab_check;
     public GameObject prefab_target;
     public GameObject prefab_targetCountable;
+    public GameObject prefab_smalldialog1;
 
+    public float dialogfeedback_term;
     public Color[] color_terms;
     public GameObject[] sounds;
     private List<GameObject_timer> timer_feedback;
@@ -23,6 +25,8 @@ public class FeedbackGenerator : MonoBehaviour {
     private CallbackFunction counter_callback;
     public static int global_counter=0;
     public static int global_counter_goal = 0;
+
+    private float last_dialogtime;
     // Use this for initialization
     void Start () {
         mThis = this;
@@ -90,6 +94,40 @@ public class FeedbackGenerator : MonoBehaviour {
     public static int get_global_counter()
     {
         return global_counter;
+    }
+    public static void init_create_dialog_term()
+    {
+        mThis.last_dialogtime = Time.time;
+    }
+    public static GameObject create_dialog(GameObject go, float start_delay, float lifetime, string msg, bool tts_call, bool ignore_term)
+    {
+        RectTransform rt = go.GetComponent<RectTransform>();
+        if (rt == null || mThis.prefab_smalldialog1 == null)
+        {
+            Debug.Log("[ARMath] creating a dialog feedback failed");
+            return null;
+        }
+        GameObject label = create_dialog(rt.position, start_delay, lifetime, msg, tts_call, ignore_term);
+
+        return label;
+    }
+    public static GameObject create_dialog(Vector2 pos, float start_delay, float lifetime, string msg, bool tts_call, bool ignore_term)
+    {
+        if (!ignore_term && Time.time < mThis.last_dialogtime + mThis.dialogfeedback_term) return  null;
+        
+
+        UnityEngine.GameObject label = Instantiate(mThis.prefab_smalldialog1, pos, Quaternion.identity) as GameObject;
+        RectTransform r = label.GetComponent<RectTransform>();
+        r.position = pos;
+        label.transform.SetParent(mThis.gameObject.transform);
+        label.GetComponent<RectTransform>().localScale = new Vector3(1f, 1f, 1f);
+        label.GetComponentInChildren<Text>().text = msg;
+        label.GetComponentInChildren<DelayedImage>().TTS_text = tts_call;
+        //mThis.color_terms[color_index];
+        label.SetActive(false);
+        mThis.timer_feedback.Add(new GameObject_timer(label, start_delay, lifetime));
+        mThis.last_dialogtime = Time.time;
+        return label;
     }
     public static GameObject create_target(Vector2 pos, float start_delay, float lifetime, int color_index, bool countable, bool sound)
     {
