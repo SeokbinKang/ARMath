@@ -133,7 +133,7 @@ public class ShapeBuilder : MonoBehaviour {
     }
     private bool EvaluteShape(string drawing_name)
     {
-        if(drawing_points==null || drawing_points.Count<8)
+        if(drawing_points==null || drawing_points.Count<20)
         {
             feedback_badShape();
             return false;
@@ -143,6 +143,7 @@ public class ShapeBuilder : MonoBehaviour {
         if(dist.magnitude>100)
         {
             //feedback "draw again"
+            TTS.mTTS.GetComponent<TTS>().StartTextToSpeech("Please draw a rectangle with one stroke. The stroke needs to end at its start.");
             feedback_badShape();
             return false;
         }
@@ -162,7 +163,12 @@ public class ShapeBuilder : MonoBehaviour {
                 if (drawing_points[i].x > RB.x) RB.x = drawing_points[i].x;
                 if (drawing_points[i].y < RB.y) RB.y = drawing_points[i].y;
             }
-
+            if(RB.x-LT.x < 150 || LT.y-RB.y<150)
+            {
+                TTS.mTTS.GetComponent<TTS>().StartTextToSpeech("It's too small. Please draw it again.");
+                feedback_badShape();
+                return false;
+            }
             //rectify the drawn shape
             int[] four_corners_indices = new int[4];
             float[] four_corners_distnace = new float[4];

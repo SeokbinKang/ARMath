@@ -8,7 +8,7 @@ public class DragObject : MonoBehaviour, IDragHandler, IDropHandler
 {
 
 
-    private bool dragging=false;
+    
     private bool hide_children_onDragging = true;
 
     public bool adjust_alpha;
@@ -23,7 +23,8 @@ public class DragObject : MonoBehaviour, IDragHandler, IDropHandler
     public Vector2 fixed_size;
      private List<GameObject> attached_feedback_gameobject;
 
-
+    private float last_interact_time;
+    private float auto_drop_time = 2f;
 	// Use this for initialization
 	void Start () {
         adjust_alpha = false;
@@ -33,7 +34,7 @@ public class DragObject : MonoBehaviour, IDragHandler, IDropHandler
 	// Update is called once per frame
 	void Update () {
         if(hide_children_onDragging) setchildrenvisibility();
-
+        if (onDragging && Time.time > auto_drop_time) OnDrop(null);
     }
     void OnEnable()
     {
@@ -85,10 +86,11 @@ public class DragObject : MonoBehaviour, IDragHandler, IDropHandler
          
         };
         clear_all_feedback();
+        last_interact_time = Time.time;
         onDragging = true;
         Vector2 mouse_pos = eventData.position;
         this.GetComponent<RectTransform>().position = new Vector3(mouse_pos.x, mouse_pos.y, 0);
-        dragging = true;
+        
         change_alpha(alpha_on_move);
         if(fixed_size_onmove)
         {
@@ -99,15 +101,13 @@ public class DragObject : MonoBehaviour, IDragHandler, IDropHandler
     }
     public void OnDrop(PointerEventData data)
     {
-        if (data.pointerDrag != null)
-        {
-            dragging = true;
-        }
+       
+        onDragging = false;
         change_alpha(alpha_on_drop);
         string t = "[Virtual Object Drag-n-Drop] "+this.gameObject.name;
         SystemLog.WriteLog(t);
         if(this.GetComponent<AudioSource>()!=null) this.GetComponent<AudioSource>().Play();
-        onDragging = false;
+        
     }
     public void setchildrenvisibility()
     {
@@ -116,7 +116,7 @@ public class DragObject : MonoBehaviour, IDragHandler, IDropHandler
         int child_n = this.transform.childCount;
         if (child_n <= i) return;
         //Debug.Log("[ARMath] dragging status " + dragging + "   "+child_n);
-        if(!dragging)
+        if(!onDragging)
         {
           
             if (this.transform.GetChild(i).gameObject.activeSelf) {

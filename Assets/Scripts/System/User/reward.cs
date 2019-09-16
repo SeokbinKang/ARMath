@@ -16,7 +16,7 @@ public class reward : MonoBehaviour {
     }
     public void onClick()
     {
-        mCallback = new TimerCallback(addgem, "", 2);
+        mCallback = new TimerCallback(addgem, "", 6f);
 
         if (this.GetComponent<Animator>()!=null) this.GetComponent<Animator>().SetTrigger("credit");
         //playmusic
@@ -26,11 +26,14 @@ public class reward : MonoBehaviour {
         string content = Enum.GetName(typeof(ProblemType), problem_type);
         string tt = "[End Content] " +content+" "+mode;
         SystemLog.WriteLog(tt);
-
+        TTS.mTTS.GetComponent<TTS>().StartTextToSpeech("Try again if you want more. But, it will be more difficult next time!");
         //how to disable?
     }
     public void addgem(string dummy)
     {
+        
+        
+        
         SystemUser.AddGem(problem_type);
         SystemControl.Reset();
     }

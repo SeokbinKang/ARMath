@@ -93,16 +93,30 @@ public class AdditionReview1 : MonoBehaviour {
     }
     public void show_selection(string t)
     {
+        ;
         int goal_n = content_root.GetComponent<ContentAddition>().goal_object_count;
+        List<int> ans_val = new List<int>();
+        ans_val.Add(goal_n);
+        ans_val.Add(goal_n - Random.Range(1, 3));
+        ans_val.Add(goal_n + Random.Range(1, 3));
+        ans_val.Add(goal_n + Random.Range(3, 6));
+        for(int i = 0; i < Random.Range(1, 12);i++)
+        {
+            ans_val.Add(ans_val[0]);
+            ans_val.RemoveAt(0);
+        }
+
         int[] ans = new int[4];
-        ans[0] = goal_n - 2;
-        ans[1] = goal_n;
-        ans[2] = goal_n + 2;
-        ans[3] = goal_n + 5;
+        int ans_idx = 0;
+        for (int i = 0; i < ans.Length; i++) {
+            ans[i] = ans_val[i];
+            if (ans[i] == goal_n) ans_idx = i;
+        }
+        
         Dialogs.review(
             "",
             ans,
-            1,
+            ans_idx,
             new CallbackFunction(OnCompletion)
             );
     }

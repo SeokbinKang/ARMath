@@ -87,16 +87,30 @@ public class DivReview : MonoBehaviour {
         
         int quotient = ContentModuleRoot.GetComponent<ContentDiv>().quotient;
 
-        
+        List<int> ans_val = new List<int>();
+        ans_val.Add(quotient);
+        ans_val.Add(quotient - Random.Range(1, 3));
+        ans_val.Add(quotient + Random.Range(1, 3));
+        ans_val.Add(quotient + Random.Range(3, 6));
+        for (int i = 0; i < Random.Range(1, 12); i++)
+        {
+            ans_val.Add(ans_val[0]);
+            ans_val.RemoveAt(0);
+        }
+
         int[] ans = new int[4];
-        ans[0] = quotient - 2;
-        ans[1] = quotient;
-        ans[2] = quotient + 2;
-        ans[3] = quotient + 5;
+        int ans_idx = 0;
+        for (int i = 0; i < ans.Length; i++)
+        {
+            ans[i] = ans_val[i];
+            if (ans[i] == quotient) ans_idx = i;
+        }
+
+        
         Dialogs.review(
             "",
             ans,
-            1,
+            ans_idx,
             new CallbackFunction(OnCompletion)
             );
     }
